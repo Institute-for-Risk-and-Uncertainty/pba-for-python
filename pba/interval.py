@@ -7,46 +7,66 @@ Created on Thu Oct 17 12:57:55 2019
 
 #testcommit
 
-
+import numpy as np
 import random as r
 
 
-global iDict
-global inf
-inf = float('inf')
-iDict = {}
+global DEPENDANCY_DICTIONARY
+DEPENDANCY_DICTIONARY = {}
+global INFTY_OBJECT
+INFTY_OBJECT = np.inf
 
 class Interval():
-    global inf
+    global INFTY_OBJECT
+
     def __repr__(self): # return
         return "[%g, %g]"%(self.__LowerBound,self.__UpperBound)
 
     def __str__(self): # print
         return "[%g, %g]"%(self.__LowerBound,self.__UpperBound)
 
-    def __init__(self,*args):
+    def __init__(self,LowerBound = None, UpperBound = None):
+
         self.name = ""
         self.id = r.randint(1,1e12)
-        iDict[self.id] = self
-        if len(args) == 0:
-            LowerBound = -inf
-            UpperBound = inf
-            MidPoint = 0
-        if len(args) == 1:
-            LowerBound = args[0]
-            UpperBound = args[0]
-            MidPoint = args[0]
-        if len(args) == 2:
-            LowerBound = min(args)
-            UpperBound = max(args)
-            MidPoint = (LowerBound + UpperBound)/2
-        if len(args) > 2:
-            raise "ERROR: Too Many Arguments!"
+        DEPENDANCY_DICTIONARY[self.id] = self
+
+        # kill complex nums
+        assert not isinstance(LowerBound, np.complex) or not isinstance(UpperBound, np.complex), "Inputs must be real numbers"
+
+        # assume vaccous if no inputs
+        if LowerBound is None and UpperBound is None:
+            UpperBound = INFTY_OBJECT
+            LowerBound = INFTY_OBJECT
+
+        # If only one input assume zero width
+        elif LowerBound is None and UpperBound is not None:
+            LowerBound = UpperBound
+        elif LowerBound is not None and UpperBound is None:
+            UpperBound = LowerBound
+
+        # if iterable, find endpoints
+        if hasattr(LowerBound, '__iter__') and hasattr(UpperBound, '__iter__'):
+            LowerBound = min([min(LowerBound),min(UpperBound)])
+            UpperBound = max([max(LowerBound),max(UpperBound)])
+
+        elif hasattr(LowerBound, '__iter__'):
+            LowerBound = min(LowerBound)
+
+        elif hasattr(UpperBound, '__iter__'):
+            UpperBound = max(UpperBound)
+
+        if LowerBound > UpperBound:
+            LowerUpper = [LowerBound, UpperBound]
+            LowerBound = min(LowerUpper)
+            UpperBound = max(LowerUpper)
 
         self.__LowerBound = LowerBound
         self.__UpperBound = UpperBound
-        self.__MidPoint = MidPoint
 
+    def __iter__(self):
+        for bound in [self.LowerBound, self.UpperBound]:
+            yield bound
 
     def __add__(self,other):
         IDcheck = self.id + other.id
@@ -54,14 +74,14 @@ class Interval():
             addLow = self.__LowerBound + other
             addUp = self.__UpperBound + other
         elif other.__class__.__name__ == "Interval":
-            if IDcheck in iDict:
-                return iDict[IDcheck]
+            if IDcheck in DEPENDANCY_DICTIONARY:
+                return DEPENDANCY_DICTIONARY[IDcheck]
             else:
                 addLow = self.__LowerBound + other.__LowerBound
                 addUp = self.__UpperBound + other.__UpperBound
         result = Interval(addLow,addUp)
         result.id = self.id + other.id
-        iDict[self.id + other.id] = result
+        DEPENDANCY_DICTIONARY[self.id + other.id] = result
         return result
 
     def __radd__(self,left):
@@ -73,7 +93,7 @@ class Interval():
             addUp = self.__UpperBound + left.__UpperBound
         result = Interval(addLow,addUp)
         result.id = self.id + left.id
-        iDict[self.id + left.id] = result
+        DEPENDANCY_DICTIONARY[self.id + left.id] = result
         return result
 
     def __sub__(self, other):
@@ -85,16 +105,15 @@ class Interval():
             if self.id == other.id:
                 subLow = 0
                 subUp = 0
-            elif IDcheck in iDict:
-                return iDict[IDcheck]
+            elif IDcheck in DEPENDANCY_DICTIONARY:
+                return DEPENDANCY_DICTIONARY[IDcheck]
             else:
                 subLow = self.__LowerBound - other.__UpperBound
                 subUp = self.__UpperBound - other.__LowerBound
         result = Interval(subLow,subUp)
         result.id = self.id - other.id
-        iDict[self.id - other.id] = result
+        DEPENDANCY_DICTIONARY[self.id - other.id] = result
         return result
-
 
     def __rsub__(self, left):
         if left.__class__.__name__ in ("int", "float"):
@@ -126,7 +145,7 @@ class Interval():
             mulUp = max(mul1,mul2,mul3,mul4)
         result = Interval(mulLow,mulUp)
         result.id = self.id * other.id
-        iDict[self.id * other.id] = result
+        DEPENDANCY_DICTIONARY[self.id * other.id] = result
         return result
 
     def __rmul__(self,left):
@@ -147,7 +166,10 @@ class Interval():
         return Interval(mulLow,mulUp)
 
     def __truediv__(self,other):
-        IDcheck = self.id / other.id
+        try:
+            IDcheck = self.id / other.id
+        except:
+            pass
         if other.__class__.__name__ in ("int", "float"):
             if other>0:
                 divLow = self.__LowerBound / other
@@ -164,11 +186,11 @@ class Interval():
                     return "Undefined"
                 else:
                     return Interval(1)
-            elif IDcheck in iDict:
-                return iDict[IDcheck]
+            elif IDcheck in DEPENDANCY_DICTIONARY:
+                return DEPENDANCY_DICTIONARY[IDcheck]
             elif (other.__UpperBound >= 0) and (other.__LowerBound <= 0):
-                divintLowLow = -inf
-                divintUpUp = inf
+                divintLowLow = -INFTY_OBJECT
+                divintUpUp = INFTY_OBJECT
                 divLow1 = self.__LowerBound * divintLowLow
                 divLow2 = self.__LowerBound * (1/other.__LowerBound)
                 divLow3 = self.__UpperBound * divintLowLow
@@ -187,7 +209,7 @@ class Interval():
                 resultup = Interval(divUpLow,divUpUp)
                 resultlow.id = self.id / other.id
                 resultup.id = self.id / other.id
-                iDict[self.id/other.id] = resultlow, resultup
+                DEPENDANCY_DICTIONARY[self.id/other.id] = resultlow, resultup
                 return resultlow, resultup
 
             else:
@@ -199,11 +221,8 @@ class Interval():
                 divUp = max(div1,div2,div3,div4)
                 result = Interval(divLow,divUp)
                 result.id = self.id / other.id
-                iDict[self.id/other.id] = result
+                DEPENDANCY_DICTIONARY[self.id/other.id] = result
                 return result
-
-
-
 
     def __rtruediv__(self,left):
         if left.__class__.__name__ in ("int", "float"):
@@ -222,8 +241,8 @@ class Interval():
                 else:
                     return Interval(1)
             elif (self.__UpperBound >= 0) and (self.__LowerBound <= 0):
-                divintLowLow = -inf
-                divintUpUp = inf
+                divintLowLow = -INFTY_OBJECT
+                divintUpUp = INFTY_OBJECT
                 divLow1 = left.__LowerBound * divintLowLow
                 divLow2 = left.__LowerBound * (1/self.__LowerBound)
                 divLow3 = left.__UpperBound * divintLowLow
@@ -248,8 +267,6 @@ class Interval():
                 divLow = min(div1,div2,div3,div4)
                 divUp = max(div1,div2,div3,div4)
                 return Interval(divLow,divUp)
-
-
 
     def __pow__(self,other):
         if other.__class__.__name__ == "Interval":
@@ -284,6 +301,16 @@ class Interval():
             powLow = min(pow1,pow2)
 
         return Interval(powLow,powUp)
+
+    def left(self):
+        return self.__LowerBound
+
+    def right(self):
+        return self.__UpperBound
+
+    lo = left
+    hi = right
+
     def mean(*args):
         LSum = 0
         USum = 0
@@ -304,9 +331,6 @@ class Interval():
             LMean = LSum / DataLen
             UMean = USum / DataLen
         return Interval(LMean, UMean)
-
-
-
 
     def median(*args):
         LBounds = []
@@ -388,3 +412,6 @@ class Interval():
 
 ##.sort() function to sort numbers for median
 ##list1.count(x) function to help with mode
+
+
+I = Interval
