@@ -13,11 +13,8 @@ import random as r
 
 global DEPENDANCY_DICTIONARY
 DEPENDANCY_DICTIONARY = {}
-global INFTY_OBJECT
-INFTY_OBJECT = np.inf
 
 class Interval():
-    global INFTY_OBJECT
 
     def __repr__(self): # return
         return "[%g, %g]"%(self.__LowerBound,self.__UpperBound)
@@ -36,8 +33,8 @@ class Interval():
 
         # assume vaccous if no inputs
         if LowerBound is None and UpperBound is None:
-            UpperBound = INFTY_OBJECT
-            LowerBound = INFTY_OBJECT
+            UpperBound = np.inf
+            LowerBound = np.inf
 
         # If only one input assume zero width
         elif LowerBound is None and UpperBound is not None:
@@ -47,14 +44,30 @@ class Interval():
 
         # if iterable, find endpoints
         if hasattr(LowerBound, '__iter__') and hasattr(UpperBound, '__iter__'):
-            LowerBound = min([min(LowerBound),min(UpperBound)])
-            UpperBound = max([max(LowerBound),max(UpperBound)])
+
+            LL = min(LowerBound)
+            UL = min(UpperBound)
+            LU = max(LowerBound)
+            UU = max(UpperBound)
+
+            LowerBound = min(LL,LU)
+            UpperBound = max(LU,UU)
 
         elif hasattr(LowerBound, '__iter__'):
-            LowerBound = min(LowerBound)
+
+            LL = min(LowerBound)
+            LU = max(LowerBound)
+
+            LowerBound = min(LL,LU)
+
 
         elif hasattr(UpperBound, '__iter__'):
-            UpperBound = max(UpperBound)
+
+            UL = min(UpperBound)
+            UU = max(UpperBound)
+
+            UpperBound = max(LU,UU)
+
 
         if LowerBound > UpperBound:
             LowerUpper = [LowerBound, UpperBound]
@@ -67,6 +80,8 @@ class Interval():
     def __iter__(self):
         for bound in [self.LowerBound, self.UpperBound]:
             yield bound
+
+    def __len__(self): return 2
 
     def __add__(self,other):
         IDcheck = self.id + other.id
@@ -189,8 +204,8 @@ class Interval():
             elif IDcheck in DEPENDANCY_DICTIONARY:
                 return DEPENDANCY_DICTIONARY[IDcheck]
             elif (other.__UpperBound >= 0) and (other.__LowerBound <= 0):
-                divintLowLow = -INFTY_OBJECT
-                divintUpUp = INFTY_OBJECT
+                divintLowLow = -np.inf
+                divintUpUp = np.inf
                 divLow1 = self.__LowerBound * divintLowLow
                 divLow2 = self.__LowerBound * (1/other.__LowerBound)
                 divLow3 = self.__UpperBound * divintLowLow
@@ -241,8 +256,8 @@ class Interval():
                 else:
                     return Interval(1)
             elif (self.__UpperBound >= 0) and (self.__LowerBound <= 0):
-                divintLowLow = -INFTY_OBJECT
-                divintUpUp = INFTY_OBJECT
+                divintLowLow = -np.inf
+                divintUpUp = np.inf
                 divLow1 = left.__LowerBound * divintLowLow
                 divLow2 = left.__LowerBound * (1/self.__LowerBound)
                 divLow3 = left.__UpperBound * divintLowLow

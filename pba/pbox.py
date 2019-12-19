@@ -67,6 +67,10 @@ class Pbox(object):
 
         return f'Pbox: ~{shape_text}(range={range_text}, mean={mean_text}, var={var_text})'
 
+    def __iter__(self):
+        for val in np.array([a.left,a.right]).flatten():
+            yield val
+
     def __neg__(self):
         if self.shape in ['uniform','normal','cauchy','triangular','skew-normal']:
             s = self.shape
@@ -119,7 +123,8 @@ class Pbox(object):
     def _computemoments(self):    # should we compute mean if it is a Cauchy, var if it's a t distribution?
         self.mean_left = np.max([self.mean_left, np.mean(self.left)])
         self.mean_right = np.min([self.mean_right, np.mean(self.right)])
-
+        print(self.left)
+        print(self.right)
         if not (np.any(self.left <= -np.inf) or np.any(np.inf <= self.right)):
             V, JJ = 0, 0
             j = np.array(range(self.n))
@@ -157,7 +162,6 @@ class Pbox(object):
             # use the observed variance
             self.var_left = left(b)
             self.var_right = right(b)
-
 
     ### Public funtions ###
     def add(self, other, method = 'i'):
