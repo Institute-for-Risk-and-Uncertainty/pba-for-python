@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='pba',
-    version='0dev',
+    version='v001dev',
     packages=['pba',],
     license='Creative Commons Attribution-Noncommercial-Share Alike license',
     long_description=open('README').read(),
