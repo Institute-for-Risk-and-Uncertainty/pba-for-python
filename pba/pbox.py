@@ -17,16 +17,16 @@ class Pbox(object):
             right = np.inf
 
         if isinstance(left, Interval):
-            left = np.array([left(left)])
+            left = np.array([left.left()])
 
         if isinstance(right, Interval):
-            right = np.array([right(right)])
+            right = np.array([right.right()])
 
         if len(left) != steps:
-            left = interpolate(left, interpolation=interpolation, left=False, pbox_steps=steps)
+            left = interpolate(left, interpolation=interpolation, left=False, steps=steps)
 
         if len(right) != steps:
-            right = interpolate(right, interpolation=interpolation, left=True, pbox_steps=steps)
+            right = interpolate(right, interpolation=interpolation, left=True, steps=steps)
 
         self.left = left
         self.right = right
@@ -170,7 +170,7 @@ class Pbox(object):
             raise ArithmeticError("Calculation method unkown")
 
         if other.__class__.__name__ == 'Interval':
-            other = Pbox(other, pbox_steps = self.steps)
+            other = Pbox(other, steps = self.steps)
 
         if other.__class__.__name__ == 'Pbox':
 
@@ -258,7 +258,7 @@ class Pbox(object):
             raise ArithmeticError("Calculation method unkown")
 
         if other.__class__.__name__ == 'Interval':
-            other = Pbox(other, pbox_steps = self.steps)
+            other = Pbox(other, steps = self.steps)
 
         if other.__class__.__name__ == 'Pbox':
 
@@ -401,53 +401,53 @@ def qleftquantiles(pp, x, p): # if first p is not zero, the left tail will be -I
 def qrightquantiles(pp, x, p):  # if last p is not one, the right tail will be Inf
     return [min(right_list(x)[P <= left_list(p)]) for P in pp]
 
-def quantiles(x, p, pbox_steps=200):
-    left = qleftquantiles(ii(pbox_steps=pbox_steps), x, p)
-    right = qrightquantiles(jj(pbox_steps=pbox_steps), x, p)
+def quantiles(x, p, steps=200):
+    left = qleftquantiles(ii(steps=steps), x, p)
+    right = qrightquantiles(jj(steps=steps), x, p)
     return pbox.Pbox(left=left, right=right)  # quantiles are in x and the associated cumulative probabilities are in p
 
-def interp_step(u, pbox_steps=200):
+def interp_step(u, steps=200):
     u = np.sort(u)
 
-    seq = np.linspace(start=0, stop=len(u) - 0.00001, num=pbox_steps, endpoint=True)
+    seq = np.linspace(start=0, stop=len(u) - 0.00001, num=steps, endpoint=True)
     seq = np.array([trunc(seq_val) for seq_val in seq])
     return u[seq]
 
-def interp_cubicspline(vals, pbox_steps=200):
+def interp_cubicspline(vals, steps=200):
     vals = np.sort(vals) # sort
     vals_steps = np.array(range(len(vals))) + 1
     vals_steps = vals_steps / len(vals_steps)
 
-    steps = np.array(range(pbox_steps)) + 1
+    steps = np.array(range(steps)) + 1
     steps = steps / len(steps)
 
     interped = interp.CubicSpline(vals_steps, vals)
     return interped(steps)
 
-def interp_left(u, pbox_steps=200):
+def interp_left(u, steps=200):
     p = np.array(range(len(u))) / (len(u) - 1)
-    pp, x = ii(pbox_steps=pbox_steps), u
+    pp, x = ii(steps=steps), u
     return qleftquantiles(pp, x, p)
 
-def interp_right(d, pbox_steps=200):
+def interp_right(d, steps=200):
     p = np.array(range(len(d))) / (len(d) - 1)
-    pp, x = jj(pbox_steps=pbox_steps), d
+    pp, x = jj(steps=steps), d
     return qrightquantiles(pp, x, p)
 
-def interp_outer(x, left, pbox_steps=200):
+def interp_outer(x, left, steps=200):
     if (left) :
-        return interp_left(x, pbox_steps=pbox_steps)
+        return interp_left(x, steps=steps)
     else:
-        return interp_right(x, pbox_steps=pbox_steps)
+        return interp_right(x, steps=steps)
 
-def interp_linear(V, pbox_steps=200):
+def interp_linear(V, steps=200):
     m = len(V) - 1
 
-    if m == 0: return np.repeat(V, pbox_steps)
-    if pbox_steps == 1: return np.array([min(V), max(V)])
+    if m == 0: return np.repeat(V, steps)
+    if steps == 1: return np.array([min(V), max(V)])
 
     d = 1 / m
-    n = round(d * pbox_steps * 20)
+    n = round(d * steps * 20)
 
     if n == 0:
         c = V
@@ -458,19 +458,19 @@ def interp_linear(V, pbox_steps=200):
             w = V[i + 1]
             c.extend(np.linspace(start=v, stop=w, num=n))
 
-    u = [c[round((len(c) - 1) * (k + 0) / (pbox_steps - 1))] for k in range(pbox_steps)]
+    u = [c[round((len(c) - 1) * (k + 0) / (steps - 1))] for k in range(steps)]
 
     return np.array(u)
 
-def interpolate(u, interpolation='linear', left=True, pbox_steps=200):
+def interpolate(u, interpolation='linear', left=True, steps=200):
     if interpolation == 'outer':
-        return interp_outer(u, left, pbox_steps=pbox_steps)
+        return interp_outer(u, left, steps=steps)
     elif interpolation == 'spline':
-        return interp_cubicspline(u, pbox_steps=pbox_steps)
+        return interp_cubicspline(u, steps=steps)
     elif interpolation == 'step':
-        return interp_step(u, pbox_steps=pbox_steps)
+        return interp_step(u, steps=steps)
     else:
-        return interp_linear(u, pbox_steps=pbox_steps)
+        return interp_linear(u, steps=steps)
 
 def sideVariance(w, mu=None):
     if not isinstance(w, np.ndarray): w = np.array(w)

@@ -2283,7 +2283,7 @@ def KN(k,n):
     return KM(k,n-k)
 
 
-### Aternate names
+### Alternate names
 normal = norm
 N = normal
 unif = uniform
