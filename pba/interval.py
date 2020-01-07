@@ -16,64 +16,64 @@ import random as r
 class Interval():
 
     def __repr__(self): # return
-        return "[%g, %g]"%(self.LowerBound,self.UpperBound)
+        return "[%g, %g]"%(self.Left,self.Right)
 
     def __str__(self): # print
-        return "[%g, %g]"%(self.LowerBound,self.UpperBound)
+        return "[%g, %g]"%(self.Left,self.Right)
 
-    def __init__(self,LowerBound = None, UpperBound = None):
+    def __init__(self,Left = None, Right = None):
 
         # kill complex nums
-        assert not isinstance(LowerBound, np.complex) or not isinstance(UpperBound, np.complex), "Inputs must be real numbers"
+        assert not isinstance(Left, np.complex) or not isinstance(Right, np.complex), "Inputs must be real numbers"
 
         # assume vaccous if no inputs
-        if LowerBound is None and UpperBound is None:
-            UpperBound = np.inf
-            LowerBound = np.inf
+        if Left is None and Right is None:
+            Right = np.inf
+            Left = np.inf
 
         # If only one input assume zero width
-        elif LowerBound is None and UpperBound is not None:
-            LowerBound = UpperBound
-        elif LowerBound is not None and UpperBound is None:
-            UpperBound = LowerBound
+        elif Left is None and Right is not None:
+            Left = Right
+        elif Left is not None and Right is None:
+            Right = Left
 
         # if iterable, find endpoints
-        if hasattr(LowerBound, '__iter__') and hasattr(UpperBound, '__iter__'):
+        if hasattr(Left, '__iter__') and hasattr(Right, '__iter__'):
 
-            LL = min(LowerBound)
-            UL = min(UpperBound)
-            LU = max(LowerBound)
-            UU = max(UpperBound)
+            LL = min(Left)
+            UL = min(Right)
+            LU = max(Left)
+            UU = max(Right)
 
-            LowerBound = min(LL,LU)
-            UpperBound = max(LU,UU)
+            Left = min(LL,LU)
+            Right = max(LU,UU)
 
-        elif hasattr(LowerBound, '__iter__'):
+        elif hasattr(Left, '__iter__'):
 
-            LL = min(LowerBound)
-            LU = max(LowerBound)
+            LL = min(Left)
+            LU = max(Left)
 
-            LowerBound = min(LL,LU)
-
-
-        elif hasattr(UpperBound, '__iter__'):
-
-            UL = min(UpperBound)
-            UU = max(UpperBound)
-
-            UpperBound = max(LU,UU)
+            Left = min(LL,LU)
 
 
-        if LowerBound > UpperBound:
-            LowerUpper = [LowerBound, UpperBound]
-            LowerBound = min(LowerUpper)
-            UpperBound = max(LowerUpper)
+        elif hasattr(Right, '__iter__'):
 
-        self.LowerBound = LowerBound
-        self.UpperBound = UpperBound
+            UL = min(Right)
+            UU = max(Right)
+
+            Right = max(LU,UU)
+
+
+        if Left > Right:
+            LowerUpper = [Left, Right]
+            Left = min(LowerUpper)
+            Right = max(LowerUpper)
+
+        self.Left = Left
+        self.Right = Right
 
     def __iter__(self):
-        for bound in [self.LowerBound, self.UpperBound]:
+        for bound in [self.Left, self.Right]:
             yield bound
 
     def __len__(self):
@@ -82,15 +82,15 @@ class Interval():
     def __add__(self,other):
 
         if other.__class__.__name__ == 'Interval':
-            lo = self.LowerBound + other.LowerBound
-            hi = self.UpperBound + other.UpperBound
+            lo = self.Left + other.Left
+            hi = self.Right + other.Right
         elif other.__class__.__name__ == 'Pbox':
             # Perform Pbox addition assuming independance
             return other.add(self, method = 'i')
         else:
             try:
-                lo = self.LowerBound + other
-                hi  = seld.UpperBound + other
+                lo = self.Left + other
+                hi  = seld.Right + other
             except:
                 raise ValueError('unsupported operand type(s) for +: \'Interval\' and \'%s\'' %other.__class__.__name__)
 
@@ -103,15 +103,15 @@ class Interval():
 
         if other.__class__.__name__ == "Interval":
 
-            lo = self.LowerBound - other.UpperBound
-            hi = self.UpperBound - other.LowerBound
+            lo = self.Left - other.Right
+            hi = self.Right - other.Left
         elif other.__class__.__name__ == "Pbox":
             # Perform Pbox subtractnion assuming independance
             return other.rsub(self)
         else:
             try:
-                lo = self.LowerBound - other
-                hi  = self.UpperBound - other
+                lo = self.Left - other
+                hi  = self.Right - other
             except:
                 raise ValueError('unsupported operand type(s) for -: \'Interval\' and \'%s\'' %other.__class__.__name__)
 
@@ -120,16 +120,16 @@ class Interval():
     def __rsub__(self, other):
         if other.__class__.__name__ == "Interval":
             # should be overkill
-            lo = other.UpperBound - self.LowerBound
-            hi = other.UpperBound - self.UpperBound
+            lo = other.Right - self.Left
+            hi = other.Right - self.Right
 
         elif other.__class__.__name__ == "Pbox":
             # shoud have be caught by Pbox.__sub__()
             return other.__sub__(self)
         else:
             try:
-                lo = other - self.UpperBound
-                hi = other - self.LowerBound
+                lo = other - self.Right
+                hi = other - self.Left
 
             except:
                 raise ValueError('unsupported operand type(s) for -: \'Interval\' and \'%s\'' %other.__class__.__name__)
@@ -199,33 +199,33 @@ class Interval():
 
     def __pow__(self,other):
         if other.__class__.__name__ == "Interval":
-            pow1 = self.LowerBound ** other.LowerBound
-            pow2 = self.LowerBound ** other.UpperBound
-            pow3 = self.UpperBound ** other.LowerBound
-            pow4 = self.UpperBound ** other.UpperBound
+            pow1 = self.Left ** other.Left
+            pow2 = self.Left ** other.Right
+            pow3 = self.Right ** other.Left
+            pow4 = self.Right ** other.Right
             powUp = max(pow1,pow2,pow3,pow4)
             powLow = min(pow1,pow2,pow3,pow4)
         elif other.__class__.__name__ in ("int", "float"):
-            pow1 = self.LowerBound ** other
-            pow2 = self.UpperBound ** other
+            pow1 = self.Left ** other
+            pow2 = self.Right ** other
             powUp = max(pow1,pow2)
             powLow = min(pow1,pow2)
-            if (self.UpperBound >= 0) and (self.LowerBound <= 0) and (other % 2 == 0):
+            if (self.Right >= 0) and (self.Left <= 0) and (other % 2 == 0):
                 powLow = 0
         return Interval(powLow,powUp)
 
     def __rpow__(self,left):
         if left.__class__.__name__ == "Interval":
-            pow1 = left.LowerBound ** self.LowerBound
-            pow2 = left.LowerBound ** self.UpperBound
-            pow3 = left.UpperBound ** self.LowerBound
-            pow4 = left.UpperBound ** self.UpperBound
+            pow1 = left.Left ** self.Left
+            pow2 = left.Left ** self.Right
+            pow3 = left.Right ** self.Left
+            pow4 = left.Right ** self.Right
             powUp = max(pow1,pow2,pow3,pow4)
             powLow = min(pow1,pow2,pow3,pow4)
 
         elif left.__class__.__name__ in ("int", "float"):
-            pow1 = left ** self.LowerBound
-            pow2 = left ** self.UpperBound
+            pow1 = left ** self.Left
+            pow2 = left ** self.Right
             powUp = max(pow1,pow2)
             powLow = min(pow1,pow2)
 
@@ -233,10 +233,10 @@ class Interval():
 
 
     def left(self):
-        return self.LowerBound
+        return self.Left
 
     def right(self):
-        return self.UpperBound
+        return self.Right
 
     lo = left
     hi = right
@@ -253,11 +253,11 @@ class Interval():
                 for y in x:
                     if y.__class__.__name__ in ("int","float"):
                         y = Interval(y)
-                    LSum = LSum + y.LowerBound
-                    USum = USum + y.UpperBound
+                    LSum = LSum + y.Left
+                    USum = USum + y.Right
             if x.__class__.__name__ == "Interval":
-                LSum = LSum + x.LowerBound
-                USum = USum + x.UpperBound
+                LSum = LSum + x.Left
+                USum = USum + x.Right
             LMean = LSum / DataLen
             UMean = USum / DataLen
         return Interval(LMean, UMean)
@@ -271,17 +271,17 @@ class Interval():
         for x in [*args]:
             if x.__class__.__name__ in ("int","float"):
                 x = Interval(x)
-                LBounds.append(x.LowerBound)
-                UBounds.append(x.UpperBound)
+                LBounds.append(x.Left)
+                UBounds.append(x.Right)
             if x.__class__.__name__ in ("list","tuple"):
                 for y in x:
                     if y.__class__.__name__ in ("int","float"):
                         y = Interval(y)
-                    LBounds.append(y.LowerBound)
-                    UBounds.append(y.UpperBound)
+                    LBounds.append(y.Left)
+                    UBounds.append(y.Right)
             if x.__class__.__name__ == "Interval":
-                LBounds.append(x.LowerBound)
-                UBounds.append(x.UpperBound)
+                LBounds.append(x.Left)
+                UBounds.append(x.Right)
         while (len(LBounds) > 0):
             MinL = min(LBounds)
             LSorted.append(MinL)
@@ -309,20 +309,20 @@ class Interval():
         for x in [*args]:
             if x.__class__.__name__ in ("int","float"):
                 x = Interval(x)
-                LBounds.append(x.LowerBound)
-                UBounds.append(x.UpperBound)
+                LBounds.append(x.Left)
+                UBounds.append(x.Right)
             if x.__class__.__name__ in ("list","tuple"):
                 DataLen = DataLen + (len(x) - 1)
                 for y in x:
                     if y.__class__.__name__ in ("int","float"):
                         y = Interval(y)
-                    LBounds.append(y.LowerBound)
-                    UBounds.append(y.UpperBound)
+                    LBounds.append(y.Left)
+                    UBounds.append(y.Right)
 
         for y in LBounds:
-            LDev.append(abs(y - dataMean.LowerBound)**2)
+            LDev.append(abs(y - dataMean.Left)**2)
         for z in UBounds:
-            UDev.append(abs(z - dataMean.UpperBound)**2)
+            UDev.append(abs(z - dataMean.Right)**2)
 
         LSDev = (sum(LDev))/DataLen
         USDev = (sum(UDev))/DataLen
@@ -332,7 +332,7 @@ class Interval():
         NotImplemented
 
     def straddles(self,N):
-        if self.LowerBound <= N and self.UpperBound >= N:
+        if self.Left <= N and self.Right >= N:
             return True
         else:
             return False

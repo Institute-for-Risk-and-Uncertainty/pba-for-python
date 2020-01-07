@@ -179,16 +179,16 @@ def __get_bounds(function_name = None,steps = 200,*args,):
             var_lo = bvar
 
 
-    LowerBound = [min([b[i] for b in bounds]) for i in range(steps)]
-    UpperBound = [max([b[i] for b in bounds]) for i in range(steps)]
+    Left = [min([b[i] for b in bounds]) for i in range(steps)]
+    Right = [max([b[i] for b in bounds]) for i in range(steps)]
 
     var  = Interval(np.float64(var_lo),np.float64(var_hi))
     mean = Interval(np.float64(mean_lo),np.float64(mean_hi))
 
-    LowerBound = np.array(LowerBound)
-    UpperBound = np.array(UpperBound)
+    Left = np.array(Left)
+    Right = np.array(Right)
 
-    return LowerBound, UpperBound, mean, var
+    return Left, Right, mean, var
 
 
 def lognormal(mean, var, steps = 200):
@@ -205,14 +205,14 @@ def lognormal(mean, var, steps = 200):
     bound2 = sps.lognorm.ppf(x, mean.left(), var.right())
     bound3 = sps.lognorm.ppf(x, mean.right(), var.right())
 
-    LowerBound = [min(bound0[i],bound1[i],bound2[i],bound3[i]) for i in range(steps)]
-    UpperBound = [max(bound0[i],bound1[i],bound2[i],bound3[i]) for i in range(steps)]
+    Left = [min(bound0[i],bound1[i],bound2[i],bound3[i]) for i in range(steps)]
+    Right = [max(bound0[i],bound1[i],bound2[i],bound3[i]) for i in range(steps)]
 
-    LowerBound = np.array(LowerBound)
-    UpperBound = np.array(UpperBound)
+    Left = np.array(Left)
+    Right = np.array(Right)
     return Pbox(
-        LowerBound,
-        UpperBound,
+        Left,
+        Right,
         steps = steps,
         shape='normal',
         mean_left=mean.left(),
@@ -226,11 +226,11 @@ def alpha(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('alpha',steps,*args)
+    Left, Right, mean, var = __get_bounds('alpha',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'alpha',
           mean_left  = mean.left(),
@@ -244,11 +244,11 @@ def anglit(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('anglit',steps,*args)
+    Left, Right, mean, var = __get_bounds('anglit',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'anglit',
           mean_left  = mean.left(),
@@ -262,11 +262,11 @@ def arcsine(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('arcsine',steps,*args)
+    Left, Right, mean, var = __get_bounds('arcsine',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'arcsine',
           mean_left  = mean.left(),
@@ -280,11 +280,11 @@ def argus(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('argus',steps,*args)
+    Left, Right, mean, var = __get_bounds('argus',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'argus',
           mean_left  = mean.left(),
@@ -298,11 +298,11 @@ def beta(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('beta',steps,*args)
+    Left, Right, mean, var = __get_bounds('beta',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'beta',
           mean_left  = mean.left(),
@@ -316,11 +316,11 @@ def betaprime(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('betaprime',steps,*args)
+    Left, Right, mean, var = __get_bounds('betaprime',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'betaprime',
           mean_left  = mean.left(),
@@ -334,11 +334,11 @@ def bradford(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('bradford',steps,*args)
+    Left, Right, mean, var = __get_bounds('bradford',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'bradford',
           mean_left  = mean.left(),
@@ -352,11 +352,11 @@ def burr(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('burr',steps,*args)
+    Left, Right, mean, var = __get_bounds('burr',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'burr',
           mean_left  = mean.left(),
@@ -370,11 +370,11 @@ def burr12(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('burr12',steps,*args)
+    Left, Right, mean, var = __get_bounds('burr12',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'burr12',
           mean_left  = mean.left(),
@@ -388,11 +388,11 @@ def cauchy(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('cauchy',steps,*args)
+    Left, Right, mean, var = __get_bounds('cauchy',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'cauchy',
           mean_left  = mean.left(),
@@ -406,11 +406,11 @@ def chi(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('chi',steps,*args)
+    Left, Right, mean, var = __get_bounds('chi',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'chi',
           mean_left  = mean.left(),
@@ -424,11 +424,11 @@ def chi2(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('chi2',steps,*args)
+    Left, Right, mean, var = __get_bounds('chi2',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'chi2',
           mean_left  = mean.left(),
@@ -442,11 +442,11 @@ def cosine(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('cosine',steps,*args)
+    Left, Right, mean, var = __get_bounds('cosine',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'cosine',
           mean_left  = mean.left(),
@@ -460,11 +460,11 @@ def crystalball(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('crystalball',steps,*args)
+    Left, Right, mean, var = __get_bounds('crystalball',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'crystalball',
           mean_left  = mean.left(),
@@ -478,11 +478,11 @@ def dgamma(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('dgamma',steps,*args)
+    Left, Right, mean, var = __get_bounds('dgamma',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'dgamma',
           mean_left  = mean.left(),
@@ -496,11 +496,11 @@ def dweibull(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('dweibull',steps,*args)
+    Left, Right, mean, var = __get_bounds('dweibull',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'dweibull',
           mean_left  = mean.left(),
@@ -514,11 +514,11 @@ def erlang(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('erlang',steps,*args)
+    Left, Right, mean, var = __get_bounds('erlang',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'erlang',
           mean_left  = mean.left(),
@@ -532,11 +532,11 @@ def expon(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('expon',steps,*args)
+    Left, Right, mean, var = __get_bounds('expon',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'expon',
           mean_left  = mean.left(),
@@ -550,11 +550,11 @@ def exponnorm(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('exponnorm',steps,*args)
+    Left, Right, mean, var = __get_bounds('exponnorm',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'exponnorm',
           mean_left  = mean.left(),
@@ -568,11 +568,11 @@ def exponweib(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('exponweib',steps,*args)
+    Left, Right, mean, var = __get_bounds('exponweib',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'exponweib',
           mean_left  = mean.left(),
@@ -586,11 +586,11 @@ def exponpow(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('exponpow',steps,*args)
+    Left, Right, mean, var = __get_bounds('exponpow',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'exponpow',
           mean_left  = mean.left(),
@@ -604,11 +604,11 @@ def f(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('f',steps,*args)
+    Left, Right, mean, var = __get_bounds('f',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'f',
           mean_left  = mean.left(),
@@ -622,11 +622,11 @@ def fatiguelife(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('fatiguelife',steps,*args)
+    Left, Right, mean, var = __get_bounds('fatiguelife',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'fatiguelife',
           mean_left  = mean.left(),
@@ -640,11 +640,11 @@ def fisk(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('fisk',steps,*args)
+    Left, Right, mean, var = __get_bounds('fisk',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'fisk',
           mean_left  = mean.left(),
@@ -658,11 +658,11 @@ def foldcauchy(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('foldcauchy',steps,*args)
+    Left, Right, mean, var = __get_bounds('foldcauchy',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'foldcauchy',
           mean_left  = mean.left(),
@@ -676,11 +676,11 @@ def foldnorm(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('foldnorm',steps,*args)
+    Left, Right, mean, var = __get_bounds('foldnorm',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'foldnorm',
           mean_left  = mean.left(),
@@ -694,11 +694,11 @@ def frechet_r(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('frechet_r',steps,*args)
+    Left, Right, mean, var = __get_bounds('frechet_r',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'frechet_r',
           mean_left  = mean.left(),
@@ -712,11 +712,11 @@ def frechet_l(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('frechet_l',steps,*args)
+    Left, Right, mean, var = __get_bounds('frechet_l',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'frechet_l',
           mean_left  = mean.left(),
@@ -730,11 +730,11 @@ def genlogistic(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('genlogistic',steps,*args)
+    Left, Right, mean, var = __get_bounds('genlogistic',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'genlogistic',
           mean_left  = mean.left(),
@@ -748,11 +748,11 @@ def gennorm(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('gennorm',steps,*args)
+    Left, Right, mean, var = __get_bounds('gennorm',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'gennorm',
           mean_left  = mean.left(),
@@ -766,11 +766,11 @@ def genpareto(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('genpareto',steps,*args)
+    Left, Right, mean, var = __get_bounds('genpareto',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'genpareto',
           mean_left  = mean.left(),
@@ -784,11 +784,11 @@ def genexpon(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('genexpon',steps,*args)
+    Left, Right, mean, var = __get_bounds('genexpon',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'genexpon',
           mean_left  = mean.left(),
@@ -802,11 +802,11 @@ def genextreme(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('genextreme',steps,*args)
+    Left, Right, mean, var = __get_bounds('genextreme',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'genextreme',
           mean_left  = mean.left(),
@@ -820,11 +820,11 @@ def gausshyper(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('gausshyper',steps,*args)
+    Left, Right, mean, var = __get_bounds('gausshyper',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'gausshyper',
           mean_left  = mean.left(),
@@ -838,11 +838,11 @@ def gamma(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('gamma',steps,*args)
+    Left, Right, mean, var = __get_bounds('gamma',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'gamma',
           mean_left  = mean.left(),
@@ -856,11 +856,11 @@ def gengamma(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('gengamma',steps,*args)
+    Left, Right, mean, var = __get_bounds('gengamma',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'gengamma',
           mean_left  = mean.left(),
@@ -874,11 +874,11 @@ def genhalflogistic(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('genhalflogistic',steps,*args)
+    Left, Right, mean, var = __get_bounds('genhalflogistic',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'genhalflogistic',
           mean_left  = mean.left(),
@@ -892,11 +892,11 @@ def geninvgauss(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('geninvgauss',steps,*args)
+    Left, Right, mean, var = __get_bounds('geninvgauss',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'geninvgauss',
           mean_left  = mean.left(),
@@ -910,11 +910,11 @@ def gilbrat(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('gilbrat',steps,*args)
+    Left, Right, mean, var = __get_bounds('gilbrat',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'gilbrat',
           mean_left  = mean.left(),
@@ -928,11 +928,11 @@ def gompertz(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('gompertz',steps,*args)
+    Left, Right, mean, var = __get_bounds('gompertz',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'gompertz',
           mean_left  = mean.left(),
@@ -946,11 +946,11 @@ def gumbel_r(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('gumbel_r',steps,*args)
+    Left, Right, mean, var = __get_bounds('gumbel_r',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'gumbel_r',
           mean_left  = mean.left(),
@@ -964,11 +964,11 @@ def gumbel_l(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('gumbel_l',steps,*args)
+    Left, Right, mean, var = __get_bounds('gumbel_l',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'gumbel_l',
           mean_left  = mean.left(),
@@ -982,11 +982,11 @@ def halfcauchy(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('halfcauchy',steps,*args)
+    Left, Right, mean, var = __get_bounds('halfcauchy',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'halfcauchy',
           mean_left  = mean.left(),
@@ -1000,11 +1000,11 @@ def halflogistic(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('halflogistic',steps,*args)
+    Left, Right, mean, var = __get_bounds('halflogistic',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'halflogistic',
           mean_left  = mean.left(),
@@ -1018,11 +1018,11 @@ def halfnorm(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('halfnorm',steps,*args)
+    Left, Right, mean, var = __get_bounds('halfnorm',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'halfnorm',
           mean_left  = mean.left(),
@@ -1036,11 +1036,11 @@ def halfgennorm(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('halfgennorm',steps,*args)
+    Left, Right, mean, var = __get_bounds('halfgennorm',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'halfgennorm',
           mean_left  = mean.left(),
@@ -1054,11 +1054,11 @@ def hypsecant(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('hypsecant',steps,*args)
+    Left, Right, mean, var = __get_bounds('hypsecant',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'hypsecant',
           mean_left  = mean.left(),
@@ -1072,11 +1072,11 @@ def invgamma(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('invgamma',steps,*args)
+    Left, Right, mean, var = __get_bounds('invgamma',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'invgamma',
           mean_left  = mean.left(),
@@ -1090,11 +1090,11 @@ def invgauss(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('invgauss',steps,*args)
+    Left, Right, mean, var = __get_bounds('invgauss',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'invgauss',
           mean_left  = mean.left(),
@@ -1108,11 +1108,11 @@ def invweibull(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('invweibull',steps,*args)
+    Left, Right, mean, var = __get_bounds('invweibull',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'invweibull',
           mean_left  = mean.left(),
@@ -1126,11 +1126,11 @@ def johnsonsb(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('johnsonsb',steps,*args)
+    Left, Right, mean, var = __get_bounds('johnsonsb',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'johnsonsb',
           mean_left  = mean.left(),
@@ -1144,11 +1144,11 @@ def johnsonsu(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('johnsonsu',steps,*args)
+    Left, Right, mean, var = __get_bounds('johnsonsu',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'johnsonsu',
           mean_left  = mean.left(),
@@ -1162,11 +1162,11 @@ def kappa4(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('kappa4',steps,*args)
+    Left, Right, mean, var = __get_bounds('kappa4',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'kappa4',
           mean_left  = mean.left(),
@@ -1180,11 +1180,11 @@ def kappa3(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('kappa3',steps,*args)
+    Left, Right, mean, var = __get_bounds('kappa3',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'kappa3',
           mean_left  = mean.left(),
@@ -1198,11 +1198,11 @@ def ksone(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('ksone',steps,*args)
+    Left, Right, mean, var = __get_bounds('ksone',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'ksone',
           mean_left  = mean.left(),
@@ -1216,11 +1216,11 @@ def kstwobign(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('kstwobign',steps,*args)
+    Left, Right, mean, var = __get_bounds('kstwobign',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'kstwobign',
           mean_left  = mean.left(),
@@ -1234,11 +1234,11 @@ def laplace(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('laplace',steps,*args)
+    Left, Right, mean, var = __get_bounds('laplace',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'laplace',
           mean_left  = mean.left(),
@@ -1252,11 +1252,11 @@ def levy(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('levy',steps,*args)
+    Left, Right, mean, var = __get_bounds('levy',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'levy',
           mean_left  = mean.left(),
@@ -1270,11 +1270,11 @@ def levy_l(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('levy_l',steps,*args)
+    Left, Right, mean, var = __get_bounds('levy_l',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'levy_l',
           mean_left  = mean.left(),
@@ -1288,11 +1288,11 @@ def levy_stable(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('levy_stable',steps,*args)
+    Left, Right, mean, var = __get_bounds('levy_stable',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'levy_stable',
           mean_left  = mean.left(),
@@ -1306,11 +1306,11 @@ def logistic(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('logistic',steps,*args)
+    Left, Right, mean, var = __get_bounds('logistic',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'logistic',
           mean_left  = mean.left(),
@@ -1324,11 +1324,11 @@ def loggamma(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('loggamma',steps,*args)
+    Left, Right, mean, var = __get_bounds('loggamma',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'loggamma',
           mean_left  = mean.left(),
@@ -1342,11 +1342,11 @@ def loglaplace(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('loglaplace',steps,*args)
+    Left, Right, mean, var = __get_bounds('loglaplace',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'loglaplace',
           mean_left  = mean.left(),
@@ -1360,11 +1360,11 @@ def lognorm(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('lognorm',steps,*args)
+    Left, Right, mean, var = __get_bounds('lognorm',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'lognorm',
           mean_left  = mean.left(),
@@ -1378,11 +1378,11 @@ def loguniform(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('loguniform',steps,*args)
+    Left, Right, mean, var = __get_bounds('loguniform',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'loguniform',
           mean_left  = mean.left(),
@@ -1396,11 +1396,11 @@ def lomax(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('lomax',steps,*args)
+    Left, Right, mean, var = __get_bounds('lomax',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'lomax',
           mean_left  = mean.left(),
@@ -1414,11 +1414,11 @@ def maxwell(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('maxwell',steps,*args)
+    Left, Right, mean, var = __get_bounds('maxwell',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'maxwell',
           mean_left  = mean.left(),
@@ -1432,11 +1432,11 @@ def mielke(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('mielke',steps,*args)
+    Left, Right, mean, var = __get_bounds('mielke',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'mielke',
           mean_left  = mean.left(),
@@ -1450,11 +1450,11 @@ def moyal(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('moyal',steps,*args)
+    Left, Right, mean, var = __get_bounds('moyal',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'moyal',
           mean_left  = mean.left(),
@@ -1468,11 +1468,11 @@ def nakagami(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('nakagami',steps,*args)
+    Left, Right, mean, var = __get_bounds('nakagami',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'nakagami',
           mean_left  = mean.left(),
@@ -1486,11 +1486,11 @@ def ncx2(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('ncx2',steps,*args)
+    Left, Right, mean, var = __get_bounds('ncx2',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'ncx2',
           mean_left  = mean.left(),
@@ -1504,11 +1504,11 @@ def ncf(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('ncf',steps,*args)
+    Left, Right, mean, var = __get_bounds('ncf',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'ncf',
           mean_left  = mean.left(),
@@ -1522,11 +1522,11 @@ def nct(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('nct',steps,*args)
+    Left, Right, mean, var = __get_bounds('nct',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'nct',
           mean_left  = mean.left(),
@@ -1540,11 +1540,11 @@ def norm(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('norm',steps,*args)
+    Left, Right, mean, var = __get_bounds('norm',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'norm',
           mean_left  = mean.left(),
@@ -1558,11 +1558,11 @@ def norminvgauss(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('norminvgauss',steps,*args)
+    Left, Right, mean, var = __get_bounds('norminvgauss',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'norminvgauss',
           mean_left  = mean.left(),
@@ -1576,11 +1576,11 @@ def pareto(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('pareto',steps,*args)
+    Left, Right, mean, var = __get_bounds('pareto',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'pareto',
           mean_left  = mean.left(),
@@ -1594,11 +1594,11 @@ def pearson3(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('pearson3',steps,*args)
+    Left, Right, mean, var = __get_bounds('pearson3',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'pearson3',
           mean_left  = mean.left(),
@@ -1612,11 +1612,11 @@ def powerlaw(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('powerlaw',steps,*args)
+    Left, Right, mean, var = __get_bounds('powerlaw',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'powerlaw',
           mean_left  = mean.left(),
@@ -1630,11 +1630,11 @@ def powerlognorm(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('powerlognorm',steps,*args)
+    Left, Right, mean, var = __get_bounds('powerlognorm',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'powerlognorm',
           mean_left  = mean.left(),
@@ -1648,11 +1648,11 @@ def powernorm(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('powernorm',steps,*args)
+    Left, Right, mean, var = __get_bounds('powernorm',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'powernorm',
           mean_left  = mean.left(),
@@ -1666,11 +1666,11 @@ def rdist(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('rdist',steps,*args)
+    Left, Right, mean, var = __get_bounds('rdist',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'rdist',
           mean_left  = mean.left(),
@@ -1684,11 +1684,11 @@ def rayleigh(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('rayleigh',steps,*args)
+    Left, Right, mean, var = __get_bounds('rayleigh',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'rayleigh',
           mean_left  = mean.left(),
@@ -1702,11 +1702,11 @@ def rice(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('rice',steps,*args)
+    Left, Right, mean, var = __get_bounds('rice',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'rice',
           mean_left  = mean.left(),
@@ -1720,11 +1720,11 @@ def recipinvgauss(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('recipinvgauss',steps,*args)
+    Left, Right, mean, var = __get_bounds('recipinvgauss',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'recipinvgauss',
           mean_left  = mean.left(),
@@ -1738,11 +1738,11 @@ def semicircular(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('semicircular',steps,*args)
+    Left, Right, mean, var = __get_bounds('semicircular',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'semicircular',
           mean_left  = mean.left(),
@@ -1756,11 +1756,11 @@ def skewnorm(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('skewnorm',steps,*args)
+    Left, Right, mean, var = __get_bounds('skewnorm',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'skewnorm',
           mean_left  = mean.left(),
@@ -1774,11 +1774,11 @@ def t(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('t',steps,*args)
+    Left, Right, mean, var = __get_bounds('t',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 't',
           mean_left  = mean.left(),
@@ -1792,11 +1792,11 @@ def trapz(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('trapz',steps,*args)
+    Left, Right, mean, var = __get_bounds('trapz',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'trapz',
           mean_left  = mean.left(),
@@ -1810,11 +1810,11 @@ def triang(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('triang',steps,*args)
+    Left, Right, mean, var = __get_bounds('triang',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'triang',
           mean_left  = mean.left(),
@@ -1828,11 +1828,11 @@ def truncexpon(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('truncexpon',steps,*args)
+    Left, Right, mean, var = __get_bounds('truncexpon',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'truncexpon',
           mean_left  = mean.left(),
@@ -1846,11 +1846,11 @@ def truncnorm(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('truncnorm',steps,*args)
+    Left, Right, mean, var = __get_bounds('truncnorm',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'truncnorm',
           mean_left  = mean.left(),
@@ -1864,11 +1864,11 @@ def tukeylambda(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('tukeylambda',steps,*args)
+    Left, Right, mean, var = __get_bounds('tukeylambda',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'tukeylambda',
           mean_left  = mean.left(),
@@ -1882,11 +1882,11 @@ def uniform(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('uniform',steps,*args)
+    Left, Right, mean, var = __get_bounds('uniform',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'uniform',
           mean_left  = mean.left(),
@@ -1900,11 +1900,11 @@ def vonmises(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('vonmises',steps,*args)
+    Left, Right, mean, var = __get_bounds('vonmises',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'vonmises',
           mean_left  = mean.left(),
@@ -1918,11 +1918,11 @@ def vonmises_line(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('vonmises_line',steps,*args)
+    Left, Right, mean, var = __get_bounds('vonmises_line',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'vonmises_line',
           mean_left  = mean.left(),
@@ -1936,11 +1936,11 @@ def wald(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('wald',steps,*args)
+    Left, Right, mean, var = __get_bounds('wald',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'wald',
           mean_left  = mean.left(),
@@ -1954,11 +1954,11 @@ def weibull_min(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('weibull_min',steps,*args)
+    Left, Right, mean, var = __get_bounds('weibull_min',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'weibull_min',
           mean_left  = mean.left(),
@@ -1972,11 +1972,11 @@ def weibull_max(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('weibull_max',steps,*args)
+    Left, Right, mean, var = __get_bounds('weibull_max',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'weibull_max',
           mean_left  = mean.left(),
@@ -1990,11 +1990,11 @@ def wrapcauchy(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('wrapcauchy',steps,*args)
+    Left, Right, mean, var = __get_bounds('wrapcauchy',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'wrapcauchy',
           mean_left  = mean.left(),
@@ -2008,11 +2008,11 @@ def bernoulli(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('bernoulli',steps,*args)
+    Left, Right, mean, var = __get_bounds('bernoulli',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'bernoulli',
           mean_left  = mean.left(),
@@ -2026,11 +2026,11 @@ def betabinom(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('betabinom',steps,*args)
+    Left, Right, mean, var = __get_bounds('betabinom',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'betabinom',
           mean_left  = mean.left(),
@@ -2044,11 +2044,11 @@ def binom(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('binom',steps,*args)
+    Left, Right, mean, var = __get_bounds('binom',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'binom',
           mean_left  = mean.left(),
@@ -2062,11 +2062,11 @@ def boltzmann(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('boltzmann',steps,*args)
+    Left, Right, mean, var = __get_bounds('boltzmann',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'boltzmann',
           mean_left  = mean.left(),
@@ -2080,11 +2080,11 @@ def dlaplace(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('dlaplace',steps,*args)
+    Left, Right, mean, var = __get_bounds('dlaplace',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'dlaplace',
           mean_left  = mean.left(),
@@ -2098,11 +2098,11 @@ def geom(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('geom',steps,*args)
+    Left, Right, mean, var = __get_bounds('geom',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'geom',
           mean_left  = mean.left(),
@@ -2116,11 +2116,11 @@ def hypergeom(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('hypergeom',steps,*args)
+    Left, Right, mean, var = __get_bounds('hypergeom',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'hypergeom',
           mean_left  = mean.left(),
@@ -2134,11 +2134,11 @@ def logser(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('logser',steps,*args)
+    Left, Right, mean, var = __get_bounds('logser',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'logser',
           mean_left  = mean.left(),
@@ -2152,11 +2152,11 @@ def nbinom(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('nbinom',steps,*args)
+    Left, Right, mean, var = __get_bounds('nbinom',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'nbinom',
           mean_left  = mean.left(),
@@ -2170,11 +2170,11 @@ def planck(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('planck',steps,*args)
+    Left, Right, mean, var = __get_bounds('planck',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'planck',
           mean_left  = mean.left(),
@@ -2188,11 +2188,11 @@ def poisson(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('poisson',steps,*args)
+    Left, Right, mean, var = __get_bounds('poisson',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'poisson',
           mean_left  = mean.left(),
@@ -2206,11 +2206,11 @@ def randint(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('randint',steps,*args)
+    Left, Right, mean, var = __get_bounds('randint',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'randint',
           mean_left  = mean.left(),
@@ -2224,11 +2224,11 @@ def skellam(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('skellam',steps,*args)
+    Left, Right, mean, var = __get_bounds('skellam',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'skellam',
           mean_left  = mean.left(),
@@ -2242,11 +2242,11 @@ def zipf(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('zipf',steps,*args)
+    Left, Right, mean, var = __get_bounds('zipf',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'zipf',
           mean_left  = mean.left(),
@@ -2260,11 +2260,11 @@ def yulesimon(*args, steps = 200):
         if arg.__class__.__name__ != 'Interval':
             arg = Interval(arg)
 
-    LowerBound, UpperBound, mean, var = __get_bounds('yulesimon',steps,*args)
+    Left, Right, mean, var = __get_bounds('yulesimon',steps,*args)
 
     return Pbox(
-          LowerBound,
-          UpperBound,
+          Left,
+          Right,
           steps      = steps,
           shape      = 'yulesimon',
           mean_left  = mean.left(),
@@ -2279,7 +2279,6 @@ def KM(k,m):
     return beta(Interval(k,k+1),Interval(m,m+1))
 
 def KN(k,n):
-    assert k<n ['%i out of %i does not make sense. Did you mean to use KM?' %(k,n)]
     return KM(k,n-k)
 
 

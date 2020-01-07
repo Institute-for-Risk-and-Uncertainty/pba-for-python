@@ -3,8 +3,6 @@ from matplotlib import pyplot as plt
 
 from .interval import Interval
 
-global INFTY_OBJECT
-
 class Pbox(object):
 
     def __init__(self, left=None, right=None, steps=200, shape=None, mean_left=None, mean_right=None, var_left=None, var_right=None, interpolation='linear'):
@@ -123,8 +121,7 @@ class Pbox(object):
     def _computemoments(self):    # should we compute mean if it is a Cauchy, var if it's a t distribution?
         self.mean_left = np.max([self.mean_left, np.mean(self.left)])
         self.mean_right = np.min([self.mean_right, np.mean(self.right)])
-        print(self.left)
-        print(self.right)
+
         if not (np.any(self.left <= -np.inf) or np.any(np.inf <= self.right)):
             V, JJ = 0, 0
             j = np.array(range(self.n))
