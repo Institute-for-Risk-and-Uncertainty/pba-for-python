@@ -112,3 +112,8 @@ randint
 skellam
 zipf
 yulesimon
+KN
+KM
+U
+N
+normal

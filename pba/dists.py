@@ -222,9 +222,10 @@ def lognormal(mean, var, steps = 200):
 lognorm = lognormal
 
 def alpha(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('alpha',steps,*args)
 
@@ -240,9 +241,10 @@ def alpha(*args, steps = 200):
           )
 
 def anglit(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('anglit',steps,*args)
 
@@ -258,9 +260,10 @@ def anglit(*args, steps = 200):
           )
 
 def arcsine(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('arcsine',steps,*args)
 
@@ -276,9 +279,10 @@ def arcsine(*args, steps = 200):
           )
 
 def argus(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('argus',steps,*args)
 
@@ -294,9 +298,10 @@ def argus(*args, steps = 200):
           )
 
 def beta(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('beta',steps,*args)
 
@@ -312,9 +317,10 @@ def beta(*args, steps = 200):
           )
 
 def betaprime(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('betaprime',steps,*args)
 
@@ -330,9 +336,10 @@ def betaprime(*args, steps = 200):
           )
 
 def bradford(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('bradford',steps,*args)
 
@@ -348,9 +355,10 @@ def bradford(*args, steps = 200):
           )
 
 def burr(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('burr',steps,*args)
 
@@ -366,9 +374,10 @@ def burr(*args, steps = 200):
           )
 
 def burr12(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('burr12',steps,*args)
 
@@ -384,9 +393,10 @@ def burr12(*args, steps = 200):
           )
 
 def cauchy(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('cauchy',steps,*args)
 
@@ -402,9 +412,10 @@ def cauchy(*args, steps = 200):
           )
 
 def chi(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('chi',steps,*args)
 
@@ -420,9 +431,10 @@ def chi(*args, steps = 200):
           )
 
 def chi2(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('chi2',steps,*args)
 
@@ -438,9 +450,10 @@ def chi2(*args, steps = 200):
           )
 
 def cosine(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('cosine',steps,*args)
 
@@ -456,9 +469,10 @@ def cosine(*args, steps = 200):
           )
 
 def crystalball(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('crystalball',steps,*args)
 
@@ -474,9 +488,10 @@ def crystalball(*args, steps = 200):
           )
 
 def dgamma(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('dgamma',steps,*args)
 
@@ -492,9 +507,10 @@ def dgamma(*args, steps = 200):
           )
 
 def dweibull(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('dweibull',steps,*args)
 
@@ -510,9 +526,10 @@ def dweibull(*args, steps = 200):
           )
 
 def erlang(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('erlang',steps,*args)
 
@@ -528,9 +545,10 @@ def erlang(*args, steps = 200):
           )
 
 def expon(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('expon',steps,*args)
 
@@ -546,9 +564,10 @@ def expon(*args, steps = 200):
           )
 
 def exponnorm(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('exponnorm',steps,*args)
 
@@ -564,9 +583,10 @@ def exponnorm(*args, steps = 200):
           )
 
 def exponweib(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('exponweib',steps,*args)
 
@@ -582,9 +602,10 @@ def exponweib(*args, steps = 200):
           )
 
 def exponpow(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('exponpow',steps,*args)
 
@@ -600,9 +621,10 @@ def exponpow(*args, steps = 200):
           )
 
 def f(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('f',steps,*args)
 
@@ -618,9 +640,10 @@ def f(*args, steps = 200):
           )
 
 def fatiguelife(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('fatiguelife',steps,*args)
 
@@ -636,9 +659,10 @@ def fatiguelife(*args, steps = 200):
           )
 
 def fisk(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('fisk',steps,*args)
 
@@ -654,9 +678,10 @@ def fisk(*args, steps = 200):
           )
 
 def foldcauchy(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('foldcauchy',steps,*args)
 
@@ -672,9 +697,10 @@ def foldcauchy(*args, steps = 200):
           )
 
 def foldnorm(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('foldnorm',steps,*args)
 
@@ -690,9 +716,10 @@ def foldnorm(*args, steps = 200):
           )
 
 def frechet_r(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('frechet_r',steps,*args)
 
@@ -708,9 +735,10 @@ def frechet_r(*args, steps = 200):
           )
 
 def frechet_l(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('frechet_l',steps,*args)
 
@@ -726,9 +754,10 @@ def frechet_l(*args, steps = 200):
           )
 
 def genlogistic(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('genlogistic',steps,*args)
 
@@ -744,9 +773,10 @@ def genlogistic(*args, steps = 200):
           )
 
 def gennorm(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('gennorm',steps,*args)
 
@@ -762,9 +792,10 @@ def gennorm(*args, steps = 200):
           )
 
 def genpareto(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('genpareto',steps,*args)
 
@@ -780,9 +811,10 @@ def genpareto(*args, steps = 200):
           )
 
 def genexpon(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('genexpon',steps,*args)
 
@@ -798,9 +830,10 @@ def genexpon(*args, steps = 200):
           )
 
 def genextreme(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('genextreme',steps,*args)
 
@@ -816,9 +849,10 @@ def genextreme(*args, steps = 200):
           )
 
 def gausshyper(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('gausshyper',steps,*args)
 
@@ -834,9 +868,10 @@ def gausshyper(*args, steps = 200):
           )
 
 def gamma(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('gamma',steps,*args)
 
@@ -852,9 +887,10 @@ def gamma(*args, steps = 200):
           )
 
 def gengamma(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('gengamma',steps,*args)
 
@@ -870,9 +906,10 @@ def gengamma(*args, steps = 200):
           )
 
 def genhalflogistic(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('genhalflogistic',steps,*args)
 
@@ -888,9 +925,10 @@ def genhalflogistic(*args, steps = 200):
           )
 
 def geninvgauss(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('geninvgauss',steps,*args)
 
@@ -906,9 +944,10 @@ def geninvgauss(*args, steps = 200):
           )
 
 def gilbrat(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('gilbrat',steps,*args)
 
@@ -924,9 +963,10 @@ def gilbrat(*args, steps = 200):
           )
 
 def gompertz(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('gompertz',steps,*args)
 
@@ -942,9 +982,10 @@ def gompertz(*args, steps = 200):
           )
 
 def gumbel_r(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('gumbel_r',steps,*args)
 
@@ -960,9 +1001,10 @@ def gumbel_r(*args, steps = 200):
           )
 
 def gumbel_l(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('gumbel_l',steps,*args)
 
@@ -978,9 +1020,10 @@ def gumbel_l(*args, steps = 200):
           )
 
 def halfcauchy(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('halfcauchy',steps,*args)
 
@@ -996,9 +1039,10 @@ def halfcauchy(*args, steps = 200):
           )
 
 def halflogistic(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('halflogistic',steps,*args)
 
@@ -1014,9 +1058,10 @@ def halflogistic(*args, steps = 200):
           )
 
 def halfnorm(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('halfnorm',steps,*args)
 
@@ -1032,9 +1077,10 @@ def halfnorm(*args, steps = 200):
           )
 
 def halfgennorm(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('halfgennorm',steps,*args)
 
@@ -1050,9 +1096,10 @@ def halfgennorm(*args, steps = 200):
           )
 
 def hypsecant(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('hypsecant',steps,*args)
 
@@ -1068,9 +1115,10 @@ def hypsecant(*args, steps = 200):
           )
 
 def invgamma(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('invgamma',steps,*args)
 
@@ -1086,9 +1134,10 @@ def invgamma(*args, steps = 200):
           )
 
 def invgauss(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('invgauss',steps,*args)
 
@@ -1104,9 +1153,10 @@ def invgauss(*args, steps = 200):
           )
 
 def invweibull(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('invweibull',steps,*args)
 
@@ -1122,9 +1172,10 @@ def invweibull(*args, steps = 200):
           )
 
 def johnsonsb(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('johnsonsb',steps,*args)
 
@@ -1140,9 +1191,10 @@ def johnsonsb(*args, steps = 200):
           )
 
 def johnsonsu(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('johnsonsu',steps,*args)
 
@@ -1158,9 +1210,10 @@ def johnsonsu(*args, steps = 200):
           )
 
 def kappa4(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('kappa4',steps,*args)
 
@@ -1176,9 +1229,10 @@ def kappa4(*args, steps = 200):
           )
 
 def kappa3(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('kappa3',steps,*args)
 
@@ -1194,9 +1248,10 @@ def kappa3(*args, steps = 200):
           )
 
 def ksone(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('ksone',steps,*args)
 
@@ -1212,9 +1267,10 @@ def ksone(*args, steps = 200):
           )
 
 def kstwobign(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('kstwobign',steps,*args)
 
@@ -1230,9 +1286,10 @@ def kstwobign(*args, steps = 200):
           )
 
 def laplace(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('laplace',steps,*args)
 
@@ -1248,9 +1305,10 @@ def laplace(*args, steps = 200):
           )
 
 def levy(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('levy',steps,*args)
 
@@ -1266,9 +1324,10 @@ def levy(*args, steps = 200):
           )
 
 def levy_l(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('levy_l',steps,*args)
 
@@ -1284,9 +1343,10 @@ def levy_l(*args, steps = 200):
           )
 
 def levy_stable(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('levy_stable',steps,*args)
 
@@ -1302,9 +1362,10 @@ def levy_stable(*args, steps = 200):
           )
 
 def logistic(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('logistic',steps,*args)
 
@@ -1320,9 +1381,10 @@ def logistic(*args, steps = 200):
           )
 
 def loggamma(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('loggamma',steps,*args)
 
@@ -1338,9 +1400,10 @@ def loggamma(*args, steps = 200):
           )
 
 def loglaplace(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('loglaplace',steps,*args)
 
@@ -1356,9 +1419,10 @@ def loglaplace(*args, steps = 200):
           )
 
 def lognorm(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('lognorm',steps,*args)
 
@@ -1374,9 +1438,10 @@ def lognorm(*args, steps = 200):
           )
 
 def loguniform(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('loguniform',steps,*args)
 
@@ -1392,9 +1457,10 @@ def loguniform(*args, steps = 200):
           )
 
 def lomax(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('lomax',steps,*args)
 
@@ -1410,9 +1476,10 @@ def lomax(*args, steps = 200):
           )
 
 def maxwell(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('maxwell',steps,*args)
 
@@ -1428,9 +1495,10 @@ def maxwell(*args, steps = 200):
           )
 
 def mielke(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('mielke',steps,*args)
 
@@ -1446,9 +1514,10 @@ def mielke(*args, steps = 200):
           )
 
 def moyal(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('moyal',steps,*args)
 
@@ -1464,9 +1533,10 @@ def moyal(*args, steps = 200):
           )
 
 def nakagami(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('nakagami',steps,*args)
 
@@ -1482,9 +1552,10 @@ def nakagami(*args, steps = 200):
           )
 
 def ncx2(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('ncx2',steps,*args)
 
@@ -1500,9 +1571,10 @@ def ncx2(*args, steps = 200):
           )
 
 def ncf(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('ncf',steps,*args)
 
@@ -1518,9 +1590,10 @@ def ncf(*args, steps = 200):
           )
 
 def nct(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('nct',steps,*args)
 
@@ -1536,9 +1609,10 @@ def nct(*args, steps = 200):
           )
 
 def norm(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('norm',steps,*args)
 
@@ -1554,9 +1628,10 @@ def norm(*args, steps = 200):
           )
 
 def norminvgauss(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('norminvgauss',steps,*args)
 
@@ -1572,9 +1647,10 @@ def norminvgauss(*args, steps = 200):
           )
 
 def pareto(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('pareto',steps,*args)
 
@@ -1590,9 +1666,10 @@ def pareto(*args, steps = 200):
           )
 
 def pearson3(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('pearson3',steps,*args)
 
@@ -1608,9 +1685,10 @@ def pearson3(*args, steps = 200):
           )
 
 def powerlaw(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('powerlaw',steps,*args)
 
@@ -1626,9 +1704,10 @@ def powerlaw(*args, steps = 200):
           )
 
 def powerlognorm(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('powerlognorm',steps,*args)
 
@@ -1644,9 +1723,10 @@ def powerlognorm(*args, steps = 200):
           )
 
 def powernorm(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('powernorm',steps,*args)
 
@@ -1662,9 +1742,10 @@ def powernorm(*args, steps = 200):
           )
 
 def rdist(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('rdist',steps,*args)
 
@@ -1680,9 +1761,10 @@ def rdist(*args, steps = 200):
           )
 
 def rayleigh(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('rayleigh',steps,*args)
 
@@ -1698,9 +1780,10 @@ def rayleigh(*args, steps = 200):
           )
 
 def rice(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('rice',steps,*args)
 
@@ -1716,9 +1799,10 @@ def rice(*args, steps = 200):
           )
 
 def recipinvgauss(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('recipinvgauss',steps,*args)
 
@@ -1734,9 +1818,10 @@ def recipinvgauss(*args, steps = 200):
           )
 
 def semicircular(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('semicircular',steps,*args)
 
@@ -1752,9 +1837,10 @@ def semicircular(*args, steps = 200):
           )
 
 def skewnorm(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('skewnorm',steps,*args)
 
@@ -1770,9 +1856,10 @@ def skewnorm(*args, steps = 200):
           )
 
 def t(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('t',steps,*args)
 
@@ -1787,28 +1874,33 @@ def t(*args, steps = 200):
           var_right  = var.right()
           )
 
-def trapz(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+def trapz(a,b,c,d , steps = 200):
+    if a.__class__.__name__ != 'Interval':
+        a = Interval(a)
+    if b.__class__.__name__ != 'Interval':
+        b = Interval(b)
+    if c.__class__.__name__ != 'Interval':
+        c = Interval(c)
+    if d.__class__.__name__ != 'Interval':
+        d = Interval(d)
 
-    Left, Right, mean, var = __get_bounds('trapz',steps,*args)
+    print(b/d,c/d,a,d)
+    x = np.linspace(0.0001,0.9999,steps)
+    left = sps.trapz.ppf(x,b.lo()/d.lo(),c.lo()/d.lo(),a.lo(),d.lo()-a.lo())
+    right = sps.trapz.ppf(x,b.hi()/d.hi(),c.hi()/d.hi(),a.hi(),d.hi()-a.hi())
 
     return Pbox(
-          Left,
-          Right,
+          left,
+          right,
           steps      = steps,
-          shape      = 'trapz',
-          mean_left  = mean.left(),
-          mean_right = mean.right(),
-          var_left   = var.left(),
-          var_right  = var.right()
+          shape      = 'trapz'
           )
 
 def triang(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('triang',steps,*args)
 
@@ -1824,9 +1916,10 @@ def triang(*args, steps = 200):
           )
 
 def truncexpon(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('truncexpon',steps,*args)
 
@@ -1842,9 +1935,10 @@ def truncexpon(*args, steps = 200):
           )
 
 def truncnorm(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('truncnorm',steps,*args)
 
@@ -1860,9 +1954,10 @@ def truncnorm(*args, steps = 200):
           )
 
 def tukeylambda(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('tukeylambda',steps,*args)
 
@@ -1877,12 +1972,21 @@ def tukeylambda(*args, steps = 200):
           var_right  = var.right()
           )
 
-def uniform(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
 
-    Left, Right, mean, var = __get_bounds('uniform',steps,*args)
+def uniform(a, b, steps = 200):
+
+    x = np.linspace(0,1,steps)
+
+    if a.__class__.__name__ != 'Interval':
+        a = Interval(a,a)
+    if b.__class__.__name__ != 'Interval':
+        b = Interval(b,b)
+
+    Left = np.linspace(a.left(),b.left())
+    Right = np.linspace(a.right(),b.right())
+
+    mean = 0.5 * (a+b)
+    var = ((b-a)**2 )/12
 
     return Pbox(
           Left,
@@ -1896,9 +2000,10 @@ def uniform(*args, steps = 200):
           )
 
 def vonmises(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('vonmises',steps,*args)
 
@@ -1914,9 +2019,10 @@ def vonmises(*args, steps = 200):
           )
 
 def vonmises_line(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('vonmises_line',steps,*args)
 
@@ -1932,9 +2038,10 @@ def vonmises_line(*args, steps = 200):
           )
 
 def wald(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('wald',steps,*args)
 
@@ -1950,9 +2057,10 @@ def wald(*args, steps = 200):
           )
 
 def weibull_min(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('weibull_min',steps,*args)
 
@@ -1968,9 +2076,10 @@ def weibull_min(*args, steps = 200):
           )
 
 def weibull_max(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('weibull_max',steps,*args)
 
@@ -1986,9 +2095,10 @@ def weibull_max(*args, steps = 200):
           )
 
 def wrapcauchy(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('wrapcauchy',steps,*args)
 
@@ -2004,9 +2114,10 @@ def wrapcauchy(*args, steps = 200):
           )
 
 def bernoulli(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('bernoulli',steps,*args)
 
@@ -2022,9 +2133,10 @@ def bernoulli(*args, steps = 200):
           )
 
 def betabinom(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('betabinom',steps,*args)
 
@@ -2040,9 +2152,10 @@ def betabinom(*args, steps = 200):
           )
 
 def binom(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('binom',steps,*args)
 
@@ -2058,9 +2171,10 @@ def binom(*args, steps = 200):
           )
 
 def boltzmann(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('boltzmann',steps,*args)
 
@@ -2076,9 +2190,10 @@ def boltzmann(*args, steps = 200):
           )
 
 def dlaplace(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('dlaplace',steps,*args)
 
@@ -2094,9 +2209,10 @@ def dlaplace(*args, steps = 200):
           )
 
 def geom(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('geom',steps,*args)
 
@@ -2112,9 +2228,10 @@ def geom(*args, steps = 200):
           )
 
 def hypergeom(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('hypergeom',steps,*args)
 
@@ -2130,9 +2247,10 @@ def hypergeom(*args, steps = 200):
           )
 
 def logser(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('logser',steps,*args)
 
@@ -2148,9 +2266,10 @@ def logser(*args, steps = 200):
           )
 
 def nbinom(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('nbinom',steps,*args)
 
@@ -2166,9 +2285,10 @@ def nbinom(*args, steps = 200):
           )
 
 def planck(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('planck',steps,*args)
 
@@ -2184,9 +2304,10 @@ def planck(*args, steps = 200):
           )
 
 def poisson(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('poisson',steps,*args)
 
@@ -2202,9 +2323,10 @@ def poisson(*args, steps = 200):
           )
 
 def randint(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('randint',steps,*args)
 
@@ -2220,9 +2342,10 @@ def randint(*args, steps = 200):
           )
 
 def skellam(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('skellam',steps,*args)
 
@@ -2238,9 +2361,10 @@ def skellam(*args, steps = 200):
           )
 
 def zipf(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('zipf',steps,*args)
 
@@ -2256,9 +2380,10 @@ def zipf(*args, steps = 200):
           )
 
 def yulesimon(*args, steps = 200):
-    for arg in args:
-        if arg.__class__.__name__ != 'Interval':
-            arg = Interval(arg)
+    args = list(args)
+    for i in range(0,len(args)):
+        if args[i].__class__.__name__ != 'Interval':
+            args[i] = Interval(args[i])
 
     Left, Right, mean, var = __get_bounds('yulesimon',steps,*args)
 

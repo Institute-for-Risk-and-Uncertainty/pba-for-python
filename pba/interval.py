@@ -139,10 +139,10 @@ class Interval():
     def __mul__(self,other):
         if other.__class__.__name__ == "Interval":
 
-            b1 = self.lo * other.lo
-            b2 = self.lo * other.hi
-            b3 = self.hi * other.lo
-            b4 = self.hi * other.hi
+            b1 = self.lo() * other.lo()
+            b2 = self.lo() * other.hi()
+            b3 = self.hi() * other.lo()
+            b4 = self.hi() * other.hi()
 
             lo = min(b1,b2,b3,b4)
             hi = max(b1,b2,b3,b4)
@@ -155,8 +155,8 @@ class Interval():
 
             try:
 
-                lo = self.lo * other
-                hi = self.hi * other
+                lo = self.lo() * other
+                hi = self.hi() * other
 
             except:
                 raise ValueError('unsupported operand type(s) for *: \'Interval\' and \'%s\'' %other.__class__.__name__)
@@ -174,10 +174,10 @@ class Interval():
                 # Cant divide by zero
                 raise ZeroDivisionError()
 
-            b1 = self.lo * other.lo
-            b2 = self.lo * other.hi
-            b3 = self.hi * other.lo
-            b4 = self.hi * other.hi
+            b1 = self.lo() / other.lo()
+            b2 = self.lo() / other.hi()
+            b3 = self.hi() / other.lo()
+            b4 = self.hi() / other.hi()
 
             lo = min(b1,b2,b3,b4)
             hi = max(b1,b2,b3,b4)
@@ -186,7 +186,10 @@ class Interval():
             try:
                 return self * 1/other
             except:
+
                 raise ValueError('unsupported operand type(s) for /: \'Interval\' and \'%s\'' %other.__class__.__name__)
+
+        return Interval(lo,hi)
 
 
     def __rtruediv__(self,other):
@@ -347,10 +350,10 @@ class Interval():
             # Cant divide by zero
             raise ZeroDivisionError()
 
-        elif 1/self.hi < 1/self.lo:
-            return Interval(1/self.hi, 1/self.lo)
+        elif 1/self.hi() < 1/self.lo():
+            return Interval(1/self.hi(), 1/self.lo())
         else:
-            return Interval(1/self.lo, 1/self.hi)
+            return Interval(1/self.lo(), 1/self.hi())
 
 
 # a = Interval(1,2)
