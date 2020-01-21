@@ -184,7 +184,8 @@ class Interval():
 
         else:
             try:
-                return self * 1/other
+                lo = self.lo()/other
+                hi = self.hi()/other
             except:
 
                 raise ValueError('unsupported operand type(s) for /: \'Interval\' and \'%s\'' %other.__class__.__name__)
