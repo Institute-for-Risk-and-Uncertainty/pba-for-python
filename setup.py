@@ -4,7 +4,7 @@ setup(
     name='pba',
     version='v003',
     packages=['pba',],
-    license='Creative Commons Attribution-Noncommercial-Share Alike license',
+    license='MIT License',
     long_description=open('README').read(),
     install_requires=['numpy','scipy','matplotlib'],
     url='https://gitlab.com/nickgray1995/pba-for-python',
