@@ -5,7 +5,7 @@ setup(
     version='0.4.1',
     packages=['pba',],
     license='MIT License',
-    long_description=open('README').read(),
+    long_description=open('README.md').read(),
     install_requires=[
         'numpy>=1.17.3',
         'scipy>=1.4.0',
