@@ -87,28 +87,28 @@ class Pbox(object):
 
     def __add__(self, other):
 
-        return self.add(other, method = 'i')
+        return self.add(other, method = 'f')
 
     def __radd__(self,other):
-        return self.add(other, method = 'i')
+        return self.add(other, method = 'f')
 
     def __sub__(self,other):
 
-        return self.sub(other, method = 'i')
+        return self.sub(other, method = 'f')
 
     def __rsub__(self,other):
         self = - self
-        return self.add(other, method = 'i')
+        return self.add(other, method = 'f')
 
     def __mul__(self,other):
-        return self.mul(other, method = 'i')
+        return self.mul(other, method = 'f')
 
     def __rmul__(self,other):
-        return self.mul(other, method = 'i')
+        return self.mul(other, method = 'f')
 
     def __truediv__(self, other):
 
-        return self.div(other, method = 'i')
+        return self.div(other, method = 'f')
 
     def __rtruediv__(self,other):
 
@@ -161,7 +161,7 @@ class Pbox(object):
             self.var_right = right(b)
 
     ### Public funtions ###
-    def add(self, other, method = 'i'):
+    def add(self, other, method = 'f'):
 
         if method not in ['f','p','o','i']:
             raise ArithmeticError("Calculation method unkown")
@@ -240,7 +240,7 @@ class Pbox(object):
             except:
                 raise ValueError('unsupported operand type(s) for +: \'Pbox\' and \'%s\'' %other.__class__.__name__)
 
-    def sub(self, other, method = 'i'):
+    def sub(self, other, method = 'f'):
 
         if method == 'o':
             method = 'p'
@@ -249,7 +249,7 @@ class Pbox(object):
 
         return self.add(-other, method)
 
-    def mul(self, other, method = 'i'):
+    def mul(self, other, method = 'f'):
 
         if method not in ['f','p','o','i']:
             raise ArithmeticError("Calculation method unkown")
@@ -329,7 +329,7 @@ class Pbox(object):
             except:
                 raise ValueError('unsupported operand type(s) for *: \'Pbox\' and \'%s\'' %other.__class__.__name__)
 
-    def div(self, other, method = 'i'):
+    def div(self, other, method = 'f'):
 
         if method == 'o':
             method = 'p'
@@ -345,16 +345,50 @@ class Pbox(object):
             steps = self.steps
         )
 
-    def show(self,*args,**kwargs):
+    def show(self,plot = True):
         # If you want to know why numpy is the WORST thing about python
         # see this code snippet
         left = np.append(np.insert(self.left,0,min(self.left)),max(self.right))
         right = np.append(np.insert(self.right,0,min(self.left)),max(self.right))
         y  = np.append(np.insert(np.linspace(0,1,self.steps),0,0),1)
 
+
         plt.plot(left,y)
         plt.plot(right,y)
-        plt.show()
+        if plot:
+            plt.show()
+        else:
+            return plt
+
+    def get_interval(self, *args):
+
+        if len(args) == 1:
+
+            p1 = (1-args[0])/2
+            p2 = 1-p1
+
+        elif len(args) == 2:
+
+            p1 = args[0]
+            p2 = args[1]
+            
+        else:
+            raise Exception('Too many inputs')
+
+        y  = np.append(np.insert(np.linspace(0,1,self.steps),0,0),1)
+
+        y1 = 0
+        while y[y1] < p1:
+            y1 += 1
+
+        y2 = len(y)-1
+        while y[y2] > p2:
+            y2 -= 1
+
+        x1 = self.left[y1]
+        x2 = self.right[y2]
+        return Interval(x1,x2)
+
 
 # Public functions
 
