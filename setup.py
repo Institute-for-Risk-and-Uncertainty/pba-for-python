@@ -2,10 +2,11 @@ from distutils.core import setup
 
 setup(
     name='pba',
-    version='0.4.1',
+    version='0.4.2',
     packages=['pba',],
     license='MIT License',
-    long_description=open('README.md').read(),
+    long_description=open('README.rst').read(),
+    long_description_content_type="text/markdown",
     install_requires=[
         'numpy>=1.17.3',
         'scipy>=1.4.0',
