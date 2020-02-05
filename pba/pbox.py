@@ -366,7 +366,11 @@ class Pbox(object):
 
             if args[0] == 1:
                 # asking for whole pbox bounds
+<<<<<<< HEAD
                 return Interval(min(self.left),max(self.right))
+=======
+                return Interval[min(self.left),max(self.right())]
+>>>>>>> cf076e89e53211f251f48aea138aa230e85aea6f
 
             p1 = (1-args[0])/2
             p2 = 1-p1
