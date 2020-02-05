@@ -2400,11 +2400,11 @@ def yulesimon(*args, steps = 200):
 
 
 ### Other distributions
-def KM(k,m):
-    return beta(Interval(k,k+1),Interval(m,m+1))
+def KM(k,m,steps = 200):
+    return beta(Interval(k,k+1),Interval(m,m+1),steps = steps)
 
-def KN(k,n):
-    return KM(k,n-k)
+def KN(k,n,steps = 200):
+    return KM(k,n-k,steps)
 
 
 ### Alternate names
