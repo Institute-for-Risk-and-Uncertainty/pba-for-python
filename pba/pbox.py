@@ -364,6 +364,10 @@ class Pbox(object):
 
         if len(args) == 1:
 
+            if args[0] == 1:
+                # asking for whole pbox bounds
+                return Interval(min(self.left),max(self.right))
+
             p1 = (1-args[0])/2
             p2 = 1-p1
 
@@ -371,7 +375,7 @@ class Pbox(object):
 
             p1 = args[0]
             p2 = args[1]
-            
+
         else:
             raise Exception('Too many inputs')
 
