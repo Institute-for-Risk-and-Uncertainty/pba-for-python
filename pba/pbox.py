@@ -216,7 +216,8 @@ class Pbox(object):
 
             return Pbox(
                 left    = nleft,
-                right   = nright
+                right   = nright,
+                steps   = self.steps
             )
 
         else:
@@ -234,7 +235,8 @@ class Pbox(object):
                     mean_left  = self.mean_left + other,
                     mean_right = self.mean_right + other,
                     var_left   = self.var_left,
-                    var_right  = self.var_right
+                    var_right  = self.var_right,
+                    steps      = self.steps
                 )
 
             except:
@@ -323,7 +325,8 @@ class Pbox(object):
                     mean_left  = self.mean_left * other,
                     mean_right = self.mean_right * other,
                     var_left   = self.var_left,
-                    var_right  = self.var_right
+                    var_right  = self.var_right,
+                    steps      = self.steps
                 )
 
             except:
@@ -345,7 +348,7 @@ class Pbox(object):
             steps = self.steps
         )
 
-    def show(self,plot = True):
+    def show(self,now = True,**kwargs):
         # If you want to know why numpy is the WORST thing about python
         # see this code snippet
         left = np.append(np.insert(self.left,0,min(self.left)),max(self.right))
@@ -353,9 +356,9 @@ class Pbox(object):
         y  = np.append(np.insert(np.linspace(0,1,self.steps),0,0),1)
 
 
-        plt.plot(left,y)
-        plt.plot(right,y)
-        if plot:
+        plt.plot(left,y,**kwargs)
+        plt.plot(right,y,**kwargs)
+        if now:
             plt.show()
         else:
             return plt
@@ -366,11 +369,7 @@ class Pbox(object):
 
             if args[0] == 1:
                 # asking for whole pbox bounds
-<<<<<<< HEAD
                 return Interval(min(self.left),max(self.right))
-=======
-                return Interval[min(self.left),max(self.right())]
->>>>>>> cf076e89e53211f251f48aea138aa230e85aea6f
 
             p1 = (1-args[0])/2
             p2 = 1-p1
