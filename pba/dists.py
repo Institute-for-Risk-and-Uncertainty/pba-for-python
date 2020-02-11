@@ -1884,7 +1884,6 @@ def trapz(a,b,c,d , steps = 200):
     if d.__class__.__name__ != 'Interval':
         d = Interval(d)
 
-    print(b/d,c/d,a,d)
     x = np.linspace(0.0001,0.9999,steps)
     left = sps.trapz.ppf(x,b.lo()/d.lo(),c.lo()/d.lo(),a.lo(),d.lo()-a.lo())
     right = sps.trapz.ppf(x,b.hi()/d.hi(),c.hi()/d.hi(),a.hi(),d.hi()-a.hi())
@@ -2400,11 +2399,11 @@ def yulesimon(*args, steps = 200):
 
 
 ### Other distributions
-def KM(k,m):
-    return beta(Interval(k,k+1),Interval(m,m+1))
+def KM(k,m,steps = 200):
+    return beta(Interval(k,k+1),Interval(m,m+1),steps = steps)
 
-def KN(k,n):
-    return KM(k,n-k)
+def KN(k,n,steps = 200):
+    return KM(k,n-k,steps=steps)
 
 
 ### Alternate names
