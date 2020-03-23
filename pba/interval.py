@@ -90,7 +90,7 @@ class Interval():
         else:
             try:
                 lo = self.Left + other
-                hi  = seld.Right + other
+                hi  = self.Right + other
             except:
                 raise ValueError('unsupported operand type(s) for +: \'Interval\' and \'%s\'' %other.__class__.__name__)
 

@@ -396,6 +396,25 @@ class Pbox(object):
         x2 = self.right[y2]
         return Interval(x1,x2)
 
+    def get_probability(self, val):
+        p  = np.append(np.insert(np.linspace(0,1,self.steps),0,0),1)
+
+        i = 0
+        while i < self.steps and self.left[i] < val:
+            i += 1
+
+
+        ub = p[i]
+
+        j = 0
+
+        while j < self.steps and self.right[j] < val:
+            j += 1
+
+
+        lb = p[j]
+
+        return Interval(lb,ub)
 
 # Public functions
 
