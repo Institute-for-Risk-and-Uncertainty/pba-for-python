@@ -696,13 +696,52 @@ def foldcauchy(*args, steps = 200):
           var_right  = var.right()
           )
 
-def foldnorm(*args, steps = 200):
-    args = list(args)
-    for i in range(0,len(args)):
-        if args[i].__class__.__name__ != 'Interval':
-            args[i] = Interval(args[i])
+def foldnorm(mu,s, steps = 200):
 
-    Left, Right, mean, var = __get_bounds('foldnorm',steps,*args)
+    x = np.linspace(0.0001,0.9999,steps)
+    if mu.__class__.__name__ != 'Interval':
+        mu = Interval(mu)
+    if s.__class__.__name__ != 'Interval':
+        s = Interval(s)
+
+    new_args = [
+        [mu.lo()/s.lo(),0,s.lo()],
+        [mu.hi()/s.lo(),0,s.lo()],
+        [mu.lo()/s.hi(),0,s.hi()],
+        [mu.hi()/s.hi(),0,s.hi()]
+    ]
+
+
+    bounds = []
+
+    mean_hi = -np.inf
+    mean_lo = np.inf
+    var_lo = np.inf
+    var_hi = 0
+
+    for a in new_args:
+
+        bounds.append(sps.foldnorm.ppf(x,*a))
+        bmean, bvar = sps.foldnorm.stats(*a, moments = 'mv')
+
+        if bmean < mean_lo:
+            mean_lo = bmean
+        if bmean > mean_hi:
+            mean_hi = bmean
+        if bvar > var_hi:
+            var_hi = bvar
+        if bvar < var_lo:
+            var_lo = bvar
+
+
+    Left = [min([b[i] for b in bounds]) for i in range(steps)]
+    Right = [max([b[i] for b in bounds]) for i in range(steps)]
+
+    var  = Interval(np.float64(var_lo),np.float64(var_hi))
+    mean = Interval(np.float64(mean_lo),np.float64(mean_hi))
+
+    Left = np.array(Left)
+    Right = np.array(Right)
 
     return Pbox(
           Left,
@@ -1884,6 +1923,7 @@ def trapz(a,b,c,d , steps = 200):
     if d.__class__.__name__ != 'Interval':
         d = Interval(d)
 
+    print(b/d,c/d,a,d)
     x = np.linspace(0.0001,0.9999,steps)
     left = sps.trapz.ppf(x,b.lo()/d.lo(),c.lo()/d.lo(),a.lo(),d.lo()-a.lo())
     right = sps.trapz.ppf(x,b.hi()/d.hi(),c.hi()/d.hi(),a.hi(),d.hi()-a.hi())
@@ -2399,11 +2439,11 @@ def yulesimon(*args, steps = 200):
 
 
 ### Other distributions
-def KM(k,m,steps = 200):
-    return beta(Interval(k,k+1),Interval(m,m+1),steps = steps)
+def KM(k,m):
+    return beta(Interval(k,k+1),Interval(m,m+1))
 
-def KN(k,n,steps = 200):
-    return KM(k,n-k,steps=steps)
+def KN(k,n):
+    return KM(k,n-k)
 
 
 ### Alternate names

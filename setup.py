@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='pba',
-    version='0.4.dev4',
+    version='0.5.dev2',
     packages=['pba',],
     license='MIT License',
     long_description=open('README').read(),
@@ -18,8 +18,7 @@ setup(
 # RUN THIS CODE
 '''
 python3 setup.py sdist
-pip uninstall pba
-pip install /Users/nickgray/Documents/PhD/code/pba-for-python/dist/pba-0.4.dev4.tar.gz --user
+pip install /Users/nickgray/Documents/PhD/code/pba-for-python/dist/pba-0.5.dev2.tar.gz --user
 
 TEST
 python3 -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
