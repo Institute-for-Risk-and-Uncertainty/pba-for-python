@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='pba',
-    version='0.5.3',
+    version='0.5.4',
     packages=['pba',],
     license='MIT License',
     long_description=open('README.rst').read(),
@@ -12,7 +12,7 @@ setup(
         'scipy>=1.4.0',
         'matplotlib>=3.0.0'],
     python_requires='>=3',
-    url='https://gitlab.com/nickgray1995/pba-for-python',
+    url='python.pbacode.com',
     author='Nick Gray',
     author_email = 'nickgray@liv.ac.uk'
 )
