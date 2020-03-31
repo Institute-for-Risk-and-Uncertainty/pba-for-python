@@ -66,7 +66,7 @@ class Pbox(object):
         return f'Pbox: ~{shape_text}(range={range_text}, mean={mean_text}, var={var_text})'
 
     def __iter__(self):
-        for val in np.array([a.left,a.right]).flatten():
+        for val in np.array([self.left,self.right]).flatten():
             yield val
 
     def __neg__(self):
