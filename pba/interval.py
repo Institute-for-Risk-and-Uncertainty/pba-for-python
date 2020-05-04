@@ -92,7 +92,7 @@ class Interval():
                 lo = self.Left + other
                 hi  = self.Right + other
             except:
-                raise ValueError('unsupported operand type(s) for +: \'Interval\' and \'%s\'' %other.__class__.__name__)
+                return NotImplemented
 
         return Interval(lo,hi)
 
@@ -113,7 +113,7 @@ class Interval():
                 lo = self.Left - other
                 hi  = self.Right - other
             except:
-                raise ValueError('unsupported operand type(s) for -: \'Interval\' and \'%s\'' %other.__class__.__name__)
+                return NotImplemented
 
         return Interval(lo,hi)
 
@@ -132,7 +132,7 @@ class Interval():
                 hi = other - self.Left
 
             except:
-                raise ValueError('unsupported operand type(s) for -: \'Interval\' and \'%s\'' %other.__class__.__name__)
+                return NotImplemented
 
         return Interval(lo,hi)
 
@@ -159,7 +159,8 @@ class Interval():
                 hi = self.hi() * other
 
             except:
-                raise ValueError('unsupported operand type(s) for *: \'Interval\' and \'%s\'' %other.__class__.__name__)
+                
+                return NotImplemented
 
         return Interval(lo,hi)
 
@@ -188,7 +189,7 @@ class Interval():
                 hi = self.hi()/other
             except:
 
-                raise ValueError('unsupported operand type(s) for /: \'Interval\' and \'%s\'' %other.__class__.__name__)
+                return NotImplemented
 
         return Interval(lo,hi)
 
@@ -198,7 +199,7 @@ class Interval():
         try:
             return other * self.recip()
         except:
-            raise ValueError('unsupported operand type(s) for /: \'Interval\' and \'%s\'' %other.__class__.__name__)
+            return NotImplemented
 
 
     def __pow__(self,other):

@@ -115,7 +115,7 @@ class Pbox(object):
         try:
             return other * self.recip()
         except:
-            raise ValueError('unsupported operand type(s) for \\: \'Pbox\' and \'%s\'' %other.__class__.__name__)
+            return NotImplemented
 
     ### Local functions ###
     def _computemoments(self):    # should we compute mean if it is a Cauchy, var if it's a t distribution?
@@ -240,7 +240,7 @@ class Pbox(object):
                 )
 
             except:
-                raise ValueError('unsupported operand type(s) for +: \'Pbox\' and \'%s\'' %other.__class__.__name__)
+                return NotImplemented
 
     def sub(self, other, method = 'f'):
 
@@ -330,7 +330,7 @@ class Pbox(object):
                 )
 
             except:
-                raise ValueError('unsupported operand type(s) for *: \'Pbox\' and \'%s\'' %other.__class__.__name__)
+                return NotImplemented
 
     def div(self, other, method = 'f'):
 
