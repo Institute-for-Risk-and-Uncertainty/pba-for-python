@@ -128,7 +128,7 @@ dists = {
     'yulesimon' : sps.yulesimon
 }
 
-def __get_bounds(function_name = None,steps = 200,*args,):
+def __get_bounds(function_name = None,steps = 200,*args):
 
     x = np.linspace(0.0001,0.9999,steps)
 

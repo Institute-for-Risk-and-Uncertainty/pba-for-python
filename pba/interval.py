@@ -159,7 +159,7 @@ class Interval():
                 hi = self.hi() * other
 
             except:
-                
+
                 return NotImplemented
 
         return Interval(lo,hi)
@@ -235,6 +235,61 @@ class Interval():
             powLow = min(pow1,pow2)
 
         return Interval(powLow,powUp)
+
+    # <
+    def __lt__(self,other):
+
+        if other.__class__.__name__ == 'Interval':
+
+            if self.Right < other.Left:
+
+                return True
+
+            elif self.Left > other.Right:
+
+                return False
+
+            elif self.Right < other.Right:
+
+                return [0,1]
+        else:
+
+            try:
+                if self.Right < other:
+                    return True
+                elif self.straddles(other):
+                    return [0,1]
+                else:
+                    return False
+
+            except Exception as e:
+                raise ValueError()
+
+    # <=
+    # def __le__(self,other):
+    # <=
+                raise ValueError()
+
+    # # >
+    # def __gt__(self,other):
+    #
+    #     if other.__class__.__name__ == 'Interval':
+    #
+    # # >=
+    # def __ge__(self,other):
+    #
+    #     if other.__class__.__name__ == 'Interval':
+    #
+    # # ==
+    # def __eq__(self,other):
+    #
+    #     if other.__class__.__name__ == 'Interval':
+    #
+    # # !=
+    # def __ne__(self,other):
+    #
+    #     if other.__class__.__name__ == 'Interval':
+
 
 
     def left(self):
