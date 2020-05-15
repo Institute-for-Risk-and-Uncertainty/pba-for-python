@@ -15,4 +15,4 @@ K out of N confidence boxes can be specified using `pba.KN(k,n)`
 
 ***
 Note:
-currently there may be errors in creating p-boxes for certain distribution types because of the way arguments are passed to the distributions in scipy.stats library. If these errors are noticed please email me
+currently there may be errors in creating p-boxes for certain distribution types because of the way arguments are passed to the distributions in scipy.stats library. If these errors are noticed please email me 

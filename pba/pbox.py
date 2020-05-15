@@ -66,7 +66,7 @@ class Pbox(object):
         return f'Pbox: ~{shape_text}(range={range_text}, mean={mean_text}, var={var_text})'
 
     def __iter__(self):
-        for val in np.array([a.left,a.right]).flatten():
+        for val in np.array([self.left,self.right]).flatten():
             yield val
 
     def __neg__(self):
@@ -115,7 +115,7 @@ class Pbox(object):
         try:
             return other * self.recip()
         except:
-            raise ValueError('unsupported operand type(s) for \\: \'Pbox\' and \'%s\'' %other.__class__.__name__)
+            return NotImplemented
 
     ### Local functions ###
     def _computemoments(self):    # should we compute mean if it is a Cauchy, var if it's a t distribution?
@@ -240,7 +240,7 @@ class Pbox(object):
                 )
 
             except:
-                raise ValueError('unsupported operand type(s) for +: \'Pbox\' and \'%s\'' %other.__class__.__name__)
+                return NotImplemented
 
     def sub(self, other, method = 'f'):
 
@@ -330,7 +330,7 @@ class Pbox(object):
                 )
 
             except:
-                raise ValueError('unsupported operand type(s) for *: \'Pbox\' and \'%s\'' %other.__class__.__name__)
+                return NotImplemented
 
     def div(self, other, method = 'f'):
 
@@ -349,11 +349,10 @@ class Pbox(object):
         )
 
     def show(self,now = True,**kwargs):
-        # If you want to know why numpy is the WORST thing about python
+        # If you want to know why numpy is the WORST thing about numpy
         # see this code snippet
-        left = np.append(np.insert(self.left,0,min(self.left)),max(self.right))
-        right = np.append(np.insert(self.right,0,min(self.left)),max(self.right))
-        y  = np.append(np.insert(np.linspace(0,1,self.steps),0,0),1)
+        left, right = self.get_x()
+        y  = self.get_y()
 
 
         plt.plot(left,y,**kwargs)
@@ -416,6 +415,18 @@ class Pbox(object):
 
         return Interval(lb,ub)
 
+    def support(self):
+        return np.linspace(0,1,self.steps)
+
+    def get_x(self):
+        # returns the x values for plotting
+        left = np.append(np.insert(self.left,0,min(self.left)),max(self.right))
+        right = np.append(np.insert(self.right,0,min(self.left)),max(self.right))
+        return left, right
+
+    def get_y(self):
+        # returns y values for plotting
+        return np.append(np.insert(np.linspace(0,1,self.steps),0,0),1)
 # Public functions
 
 # Funcitons
