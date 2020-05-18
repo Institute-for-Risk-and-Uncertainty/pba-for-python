@@ -307,7 +307,7 @@ class Interval():
         else:
 
             try:
-                if self.Right < other:
+                if self.Right > other:
                     return True
                 elif self.straddles(other,endpoints = False):
                     return [0,1]
@@ -332,6 +332,67 @@ class Interval():
                 else:
                     return True
             except:
+                raise ValueError
+
+    def __le__(self,other):
+        if other.__class__.__name__ == 'Interval':
+
+            if self.Right <= other.Left:
+
+                return True
+
+            elif self.Left >= other.Right:
+
+                return False
+
+            elif self.straddles(other.Left,endpoints = True) or self.straddles(other.Right,endpoints = True):
+
+                return [0,1]
+
+            else:
+                return False
+        else:
+
+            try:
+                if self.Right <= other:
+                    return True
+                elif self.straddles(other,endpoints = True):
+                    return [0,1]
+                else:
+                    return False
+
+            except Exception as e:
+                raise ValueError
+
+    def __ge__(self,other):
+
+        if other.__class__.__name__ == 'Interval':
+
+            if self.Right <= other.Left:
+
+                return False
+
+            elif self.Left >= other.Right:
+
+                return True
+
+            elif self.straddles(other.Left,endpoints = True) or self.straddles(other.Right,endpoints = True):
+
+                return [0,1]
+
+            else:
+                return False
+        else:
+
+            try:
+                if self.Right > other:
+                    return True
+                elif self.straddles(other,endpoints = True):
+                    return [0,1]
+                else:
+                    return False
+
+            except Exception as e:
                 raise ValueError
 
     def left(self):
