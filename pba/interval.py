@@ -317,19 +317,22 @@ class Interval():
             except Exception as e:
                 raise ValueError
 
-    # # >=
-    # def __ge__(self,other):
-    #
-    #     if other.__class__.__name__ == 'Interval':
-    #
-    # # ==
-
     # # !=
-    # def __ne__(self,other):
-    #
-    #     if other.__class__.__name__ == 'Interval':
+    def __ne__(self,other):
+        if other.__class__.__name__ == 'Interval':
 
-
+            if self.straddles(other.Left) or self.straddles(other.Right):
+                return [False,True]
+            else:
+                return True
+        else:
+            try:
+                if self.straddles(other):
+                    return [False,True]
+                else:
+                    return True
+            except:
+                raise ValueError
 
     def left(self):
         return self.Left
