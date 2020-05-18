@@ -5,4 +5,5 @@ pba/__dependance.py
 pba/__init__.py
 pba/dists.py
 pba/interval.py
+pba/logic.py
 pba/pbox.py
