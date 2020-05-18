@@ -506,7 +506,7 @@ class Interval():
         return False
 
     def straddles_zero(self,endpoints = True):
-        self.straddles(0,endpoints)
+        return self.straddles(0,endpoints)
 
     def recip(self):
 
