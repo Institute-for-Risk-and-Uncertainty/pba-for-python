@@ -1,3 +1,7 @@
 test.py
 pba/__pycache__
 .DS_Store
+lib/
+bin/
+pyvenv.cfg
+*.pyc

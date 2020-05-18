@@ -12,6 +12,7 @@ nick: Sorry
 import numpy as np
 import random as r
 
+from .logic import Logical
 
 class Interval():
 
@@ -159,7 +160,7 @@ class Interval():
                 hi = self.hi() * other
 
             except:
-                
+
                 return NotImplemented
 
         return Interval(lo,hi)
@@ -236,6 +237,137 @@ class Interval():
 
         return Interval(powLow,powUp)
 
+
+    def __lt__(self,other):
+        # <
+        if other.__class__.__name__ == 'Interval':
+            if self.Right < other.Left:
+                return Logical(1,1)
+            elif self.Left > other.Right:
+                return Logical(0,0)
+            elif self.straddles(other.Left,endpoints = False) or self.straddles(other.Right,endpoints = False):
+                return Logical(0,1)
+            else:
+                return Logical(0,0)
+        else:
+            try:
+                if self.Right < other:
+                    return Logical(1,1)
+                elif self.straddles(other,endpoints = False):
+                    return Logical(0,1)
+                else:
+                    return Logical(0,0)
+            except Exception as e:
+                raise ValueError
+
+    def __eq__(self,other):
+        # ==
+        if other.__class__.__name__ == 'Interval':
+            if self.straddles(other.Left) or self.straddles(other.Right):
+                return Logical(0,1)
+            else:
+                return Logical(0,0)
+        else:
+            try:
+                if self.straddles(other):
+                    return Logical(0,1)
+                else:
+                    return Logical(0,0)
+            except:
+                raise ValueError
+
+
+    def __gt__(self,other):
+        # >
+        if other.__class__.__name__ == 'Interval':
+            if self.Right < other.Left:
+                return Logical(0,0)
+            elif self.Left > other.Right:
+                return Logical(1,1)
+            elif self.straddles(other.Left,endpoints = False) or self.straddles(other.Right,endpoints = False):
+                return Logical(0,1)
+            else:
+                return Logical(0,0)
+        else:
+            try:
+                if self.Right > other:
+                    return Logical(1,1)
+                elif self.straddles(other,endpoints = False):
+                    return Logical(0,1)
+                else:
+                    return Logical(0,0)
+            except Exception as e:
+                raise ValueError
+
+    def __ne__(self,other):
+        # !=
+        if other.__class__.__name__ == 'Interval':
+            if self.straddles(other.Left) or self.straddles(other.Right):
+                return Logical(0,1)
+            else:
+                return Logical(1,1)
+        else:
+            try:
+                if self.straddles(other):
+                    return Logical(0,1)
+                else:
+                    return Logical(1,1)
+            except:
+                raise ValueError
+
+    def __le__(self,other):
+        # <=
+        if other.__class__.__name__ == 'Interval':
+            if self.Right <= other.Left:
+                return Logical(1,1)
+            elif self.Left >= other.Right:
+                return Logical(0,0)
+            elif self.straddles(other.Left,endpoints = True) or self.straddles(other.Right,endpoints = True):
+                return Logical(0,1)
+            else:
+                return Logical(0,0)
+        else:
+            try:
+                if self.Right <= other:
+                    return Logical(1,1)
+                elif self.straddles(other,endpoints = True):
+                    return Logical(0,1)
+                else:
+                    return Logical(0,0)
+            except Exception as e:
+                raise ValueError
+
+    def __ge__(self,other):
+        if other.__class__.__name__ == 'Interval':
+            if self.Right <= other.Left:
+                return Logical(0,0)
+            elif self.Left >= other.Right:
+                return Logical(1,1)
+            elif self.straddles(other.Left,endpoints = True) or self.straddles(other.Right,endpoints = True):
+                return Logical(0,1)
+            else:
+                return Logical(0,0)
+        else:
+            try:
+                if self.Right > other:
+                    return Logical(1,1)
+                elif self.straddles(other,endpoints = True):
+                    return Logical(0,1)
+                else:
+                    return Logical(0,0)
+            except Exception as e:
+                raise ValueError
+
+    def __bool__(self):
+        print(Logical(self.Left,self.Right))
+        try:
+            if Logical(self.Left,self.Right):
+
+                return True
+            else:
+                return False
+        except:
+            raise ValueError("Truth value of Interval %s is ambiguous" %self)
 
     def left(self):
         return self.Left
@@ -336,15 +468,19 @@ class Interval():
     def mode(*args):
         NotImplemented
 
-    def straddles(self,N):
-        if self.Left <= N and self.Right >= N:
-            return True
+    def straddles(self,N, endpoints = True):
+
+        if endpoints:
+            if self.Left <= N and self.Right >= N:
+                return True
         else:
-            return False
+            if self.Left < N and self.Right > N:
+                return True
 
-    def straddles_zero(self):
-        self.straddles(0)
+        return False
 
+    def straddles_zero(self,endpoints = True):
+        return self.straddles(0,endpoints)
 
     def recip(self):
 
