@@ -267,24 +267,35 @@ class Interval():
 
     # <=
     # def __le__(self,other):
-    # <=
-                raise ValueError()
 
-    # # >
+
+    # >
     # def __gt__(self,other):
     #
     #     if other.__class__.__name__ == 'Interval':
-    #
+
     # # >=
     # def __ge__(self,other):
     #
     #     if other.__class__.__name__ == 'Interval':
     #
     # # ==
-    # def __eq__(self,other):
-    #
-    #     if other.__class__.__name__ == 'Interval':
-    #
+    def __eq__(self,other):
+
+        if other.__class__.__name__ == 'Interval':
+
+            if self.straddles(other.Left) or self.straddles(other.Right):
+                return [False,True]
+            else:
+                return False
+        else:
+            try:
+                if self.straddles(other):
+                    return [False,True]
+                else:
+                    return False
+            except:
+                raise ValueError
     # # !=
     # def __ne__(self,other):
     #
