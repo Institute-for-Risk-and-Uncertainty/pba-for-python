@@ -22,7 +22,7 @@ class Interval():
     def __str__(self): # print
         return "[%g, %g]"%(self.Left,self.Right)
 
-    def __init__(self,Left = None, Right = None):
+    def __init__(self,Left = None, Right = None, dep = None):
 
         # kill complex nums
         assert not isinstance(Left, np.complex) or not isinstance(Right, np.complex), "Inputs must be real numbers"
@@ -72,10 +72,18 @@ class Interval():
 
         self.Left = Left
         self.Right = Right
-
-        self.DepFuncs = dict()
-        self.DepFuncs[id(self)] = lambda x: Interval(x,x)
-        self.Dependencies = {id(self): self}
+        if dep is None:
+            self.DepFuncs = dict()
+            self.DepFuncs[id(self)] = lambda x: Interval(x, x, dep = {})
+            self.Dependencies = {id(self): self}
+        else:
+            self.DepFuncs = dep
+            if dep == {}:
+                self.Dependencies = dict()
+            else:
+                self.DepFuncs[id(self)] = lambda x: Interval(x,x, dep = {})
+                self.Dependencies = {id(self): self}
+        
 
     def __iter__(self):
         for bound in [self.Left, self.Right]:
@@ -547,6 +555,8 @@ class Interval():
             return target.__rsub__
         elif func == 'truediv':
             return target.__truediv__
+        elif func == 'rtruediv':
+            return target.__rtruediv__
         elif func == 'pow':
             return target.__pow__
         elif func == 'rpow':
@@ -554,7 +564,7 @@ class Interval():
 
     def Dep_Operation(self, other, func):
         Shared_Deps = set(self.Dependencies).intersection(set(other.Dependencies))
-        lo = [self.DepFuncs[Dep](self.Dependencies[Dep].Left).Dynamic_Func(func)(other.DepFuncs[Dep](other.Dependencies[Dep].Left)) for Dep in Shared_Deps]
+        lo = [self.DepFuncs[Dep](other.Dependencies[Dep].Left).Dynamic_Func(func)(other.DepFuncs[Dep](self.Dependencies[Dep].Left)) for Dep in Shared_Deps]
         hi = [self.DepFuncs[Dep](self.Dependencies[Dep].Right).Dynamic_Func(func)(other.DepFuncs[Dep](other.Dependencies[Dep].Right)) for Dep in Shared_Deps]
         lo = min([L.Left if isinstance(L, Interval) else L for L in lo])
         hi = max([H.Right if isinstance(H, Interval) else H for H in hi])
@@ -562,12 +572,36 @@ class Interval():
 
     def Build_Dependence(self, other, NewInt, func):
         if isinstance(other, Interval):
-            NewInt.DepFuncs[id(self)] = lambda x: self.Dynamic_Func(func, other)(I(x,x))
-            NewInt.Dependencies[id(other)] = other
-            NewInt.DepFuncs[id(other)] = lambda x: self.Dynamic_Func([func[1:] if func[0]=='r' else 'r' + func][0])(I(x,x))
+            Shared_Deps = set(self.Dependencies).intersection(set(other.Dependencies))
+            for DepShared in Shared_Deps:
+                if DepShared == id(self):
+                    NewInt.DepFuncs[DepShared] = lambda x: I(x, x).Dynamic_Func(func)(other.DepFuncs[DepShared](I(x, x))) if not isinstance(x, Interval) else x.Dynamic_Func(func)(other.DepFuncs[DepShared](x))
+                elif DepShared == id(other):
+                    NewInt.DepFuncs[DepShared] = lambda x: self.DepFuncs[DepShared](I(x, x)).Dynamic_Func(func)(I(x, x)) if not isinstance(x, Interval) else self.DepFuncs[DepShared](x).Dynamic_Func(func)(x)
+                else:
+                    NewInt.DepFuncs[DepShared] = lambda x: self.DepFuncs[DepShared](I(x, x)).Dynamic_Func(func)(other.DepFuncs[DepShared](I(x, x))) if not isinstance(x, Interval) else self.DepFuncs[DepShared](x).Dynamic_Func(func)(other.DepFuncs[DepShared](x))
+                NewInt.Dependencies[DepShared] = self.Dependencies[DepShared]
+            if not self.Dependencies == {} or other.Dependencies == {}: 
+                for DepSelf in set(self.DepFuncs).difference(other.DepFuncs):
+                    
+                    if DepSelf == id(self):
+                        NewInt.DepFuncs[DepSelf] = lambda x: I(x, x).Dynamic_Func(func)(other) if not isinstance(x, Interval) else x.Dynamic_Func(func)(other)
+                    else:
+                        TargFunc = self.DepFuncs[DepSelf]
+                        NewInt.DepFuncs[DepSelf] = lambda x: TargFunc(I(x, x)).Dynamic_Func(func)(other) if not isinstance(x, Interval) else TargFunc(x).Dynamic_Func(func)(other)
+                    NewInt.Dependencies[DepSelf] = self.Dependencies[DepSelf]
+                for DepOther in set(other.DepFuncs).difference(self.DepFuncs):
+                    
+                    if DepOther == id(other):
+                        NewInt.DepFuncs[DepOther] = lambda x: I(x, x).Dynamic_Func([func[1:] if func[0]=='r' else 'r' + func][0])(self) if not isinstance(x, Interval) else x.Dynamic_Func([func[1:] if func[0]=='r' else 'r' + func][0])(self)
+                    else:
+                        TargFunc = other.DepFuncs[DepOther]
+                        NewInt.DepFuncs[DepOther] = lambda x: TargFunc(I(x, x)).Dynamic_Func([func[1:] if func[0]=='r' else 'r' + func][0])(self) if not isinstance(x, Interval) else TargFunc(x).Dynamic_Func([func[1:] if func[0]=='r' else 'r' + func][0])(self)
+                    NewInt.Dependencies[DepOther] = other.Dependencies[DepOther]
+            
         else:
-            NewInt.DepFuncs[id(self)] = lambda x: self.Dynamic_Func(func, I(x,x))(other)
-        NewInt.Dependencies[id(self)] = self
+            NewInt.DepFuncs[id(self)] = lambda x: I(x, x).Dynamic_Func(func)( other)
+            NewInt.Dependencies[id(self)] = self
         return NewInt
 
 
