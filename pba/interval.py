@@ -173,16 +173,23 @@ class Interval():
         if other.__class__.__name__ == "Interval":
 
             if other.straddles_zero():
-                # Cant divide by zero
-                raise ZeroDivisionError()
+                if other.Left == 0:
+                    lo = min(self.lo() / other.hi(), self.hi() / other.hi())
+                    hi = np.inf
+                elif other.Right == 0:
+                    lo = -np.inf
+                    hi = max(self.lo() / other.lo(), self.hi() / other.lo())
+                else:
+                    # Cant divide by zero
+                    raise ZeroDivisionError()
+            else:
+                b1 = self.lo() / other.lo()
+                b2 = self.lo() / other.hi()
+                b3 = self.hi() / other.lo()
+                b4 = self.hi() / other.hi()
 
-            b1 = self.lo() / other.lo()
-            b2 = self.lo() / other.hi()
-            b3 = self.hi() / other.lo()
-            b4 = self.hi() / other.hi()
-
-            lo = min(b1,b2,b3,b4)
-            hi = max(b1,b2,b3,b4)
+                lo = min(b1,b2,b3,b4)
+                hi = max(b1,b2,b3,b4)
 
         else:
             try:
@@ -313,7 +320,10 @@ class Interval():
                 else:
                     return Logical(1,1)
             except:
-                raise ValueError
+                try:
+                    return not self is other
+                except:
+                    raise ValueError
 
     def __le__(self,other):
         # <=
@@ -492,6 +502,18 @@ class Interval():
             return Interval(1/self.hi(), 1/self.lo())
         else:
             return Interval(1/self.lo(), 1/self.hi())
+
+    def intersection(self, other):
+        if isinstance(other, Interval):
+            return I(max([x.Left for x in [self, other]]), min([x.Right for x in [self, other]]))
+        elif isinstance(other, list):
+            assert all([isinstance(o, Interval) for o in other]), 'All intersected objects must be intervals'
+            return I(max([x.Left for x in [self] + other]), min([x.Right for x in [self] + other]))            
+        else:
+            if self.straddles(other):
+                return other
+            else:
+                return None
 
 
 # a = Interval(1,2)
