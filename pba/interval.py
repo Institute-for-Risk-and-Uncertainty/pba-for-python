@@ -274,6 +274,11 @@ class Interval():
                 return Logical(0,1)
             else:
                 return Logical(0,0)
+        elif other is None:
+            try:
+                self is None
+            except:
+                raise ValueError
         else:
             try:
                 if self.straddles(other):
@@ -505,10 +510,16 @@ class Interval():
 
     def intersection(self, other):
         if isinstance(other, Interval):
-            return I(max([x.Left for x in [self, other]]), min([x.Right for x in [self, other]]))
+            if self.straddles(other):
+                return I(max([x.Left for x in [self, other]]), min([x.Right for x in [self, other]]))
+            else:
+                return None
         elif isinstance(other, list):
-            assert all([isinstance(o, Interval) for o in other]), 'All intersected objects must be intervals'
-            return I(max([x.Left for x in [self] + other]), min([x.Right for x in [self] + other]))            
+            if all([self.straddles(o) for o in other]):
+                assert all([isinstance(o, Interval) for o in other]), 'All intersected objects must be intervals'
+                return I(max([x.Left for x in [self] + other]), min([x.Right for x in [self] + other]))
+            else:
+                return None
         else:
             if self.straddles(other):
                 return other

@@ -11,67 +11,15 @@ nick: Sorry
 
 import numpy as np
 import random as r
+from pba.interval import Interval
 
 from .logic import Logical
 
-class Interval():
-
-    def __repr__(self): # return
-        return "[%g, %g]"%(self.Left,self.Right)
-
-    def __str__(self): # print
-        return "[%g, %g]"%(self.Left,self.Right)
+class DInterval(Interval):
 
     def __init__(self,Left = None, Right = None, dep = None):
-
-        # kill complex nums
-        assert not isinstance(Left, np.complex) or not isinstance(Right, np.complex), "Inputs must be real numbers"
-
-        # assume vaccous if no inputs
-        if Left is None and Right is None:
-            Right = np.inf
-            Left = np.inf
-
-        # If only one input assume zero width
-        elif Left is None and Right is not None:
-            Left = Right
-        elif Left is not None and Right is None:
-            Right = Left
-
-        # if iterable, find endpoints
-        if hasattr(Left, '__iter__') and hasattr(Right, '__iter__'):
-
-            LL = min(Left)
-            UL = min(Right)
-            LU = max(Left)
-            UU = max(Right)
-
-            Left = min(LL,LU)
-            Right = max(LU,UU)
-
-        elif hasattr(Left, '__iter__'):
-
-            LL = min(Left)
-            LU = max(Left)
-
-            Left = min(LL,LU)
-
-
-        elif hasattr(Right, '__iter__'):
-
-            UL = min(Right)
-            UU = max(Right)
-
-            Right = max(LU,UU)
-
-
-        if Left > Right:
-            LowerUpper = [Left, Right]
-            Left = min(LowerUpper)
-            Right = max(LowerUpper)
-
-        self.Left = Left
-        self.Right = Right
+        super.__init__(Left, Right)
+        
         if dep is None:
             self.DepFuncs = dict()
             self.DepFuncs[id(self)] = lambda x: Interval(x, x, dep = {})
