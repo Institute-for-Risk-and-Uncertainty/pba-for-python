@@ -11,67 +11,27 @@ nick: Sorry
 
 import numpy as np
 import random as r
+from pba.interval import Interval
 
 from .logic import Logical
 
-class Interval():
+class DInterval(Interval):
 
-    def __repr__(self): # return
-        return "[%g, %g]"%(self.Left,self.Right)
-
-    def __str__(self): # print
-        return "[%g, %g]"%(self.Left,self.Right)
-
-    def __init__(self,Left = None, Right = None):
-
-        # kill complex nums
-        assert not isinstance(Left, np.complex) or not isinstance(Right, np.complex), "Inputs must be real numbers"
-
-        # assume vaccous if no inputs
-        if Left is None and Right is None:
-            Right = np.inf
-            Left = np.inf
-
-        # If only one input assume zero width
-        elif Left is None and Right is not None:
-            Left = Right
-        elif Left is not None and Right is None:
-            Right = Left
-
-        # if iterable, find endpoints
-        if hasattr(Left, '__iter__') and hasattr(Right, '__iter__'):
-
-            LL = min(Left)
-            UL = min(Right)
-            LU = max(Left)
-            UU = max(Right)
-
-            Left = min(LL,LU)
-            Right = max(LU,UU)
-
-        elif hasattr(Left, '__iter__'):
-
-            LL = min(Left)
-            LU = max(Left)
-
-            Left = min(LL,LU)
-
-
-        elif hasattr(Right, '__iter__'):
-
-            UL = min(Right)
-            UU = max(Right)
-
-            Right = max(LU,UU)
-
-
-        if Left > Right:
-            LowerUpper = [Left, Right]
-            Left = min(LowerUpper)
-            Right = max(LowerUpper)
-
-        self.Left = Left
-        self.Right = Right
+    def __init__(self,Left = None, Right = None, dep = None):
+        super.__init__(Left, Right)
+        
+        if dep is None:
+            self.DepFuncs = dict()
+            self.DepFuncs[id(self)] = lambda x: Interval(x, x, dep = {})
+            self.Dependencies = {id(self): self}
+        else:
+            self.DepFuncs = dep
+            if dep == {}:
+                self.Dependencies = dict()
+            else:
+                self.DepFuncs[id(self)] = lambda x: Interval(x,x, dep = {})
+                self.Dependencies = {id(self): self}
+        
 
     def __iter__(self):
         for bound in [self.Left, self.Right]:
@@ -82,9 +42,15 @@ class Interval():
 
     def __add__(self,other):
 
-        if other.__class__.__name__ == 'Interval':
-            lo = self.Left + other.Left
-            hi = self.Right + other.Right
+        if isinstance(other, Interval):
+            if set(self.Dependencies).intersection(set(other.Dependencies)) != set():
+                if self is other:
+                    return self * 2
+                else:
+                    return self.Build_Dependence(other, self.Dep_Operation(other, 'add'), 'add')
+            else:
+                lo = self.Left + other.Left
+                hi = self.Right + other.Right
         elif other.__class__.__name__ == 'Pbox':
             # Perform Pbox addition assuming independance
             return other.add(self, method = 'i')
@@ -95,7 +61,7 @@ class Interval():
             except:
                 return NotImplemented
 
-        return Interval(lo,hi)
+        return self.Build_Dependence(other, Interval(lo, hi), 'add')
 
     def __radd__(self,left):
         return self.__add__(left)
@@ -103,9 +69,16 @@ class Interval():
     def __sub__(self, other):
 
         if other.__class__.__name__ == "Interval":
+            
+            if set(self.Dependencies).intersection(set(other.Dependencies)) != set():
+                if self is other:
+                    return I(0,0)
+                else:
+                    return self.Build_Dependence(other, self.Dep_Operation(other, 'sub'), 'sub')
+            else:
 
-            lo = self.Left - other.Right
-            hi = self.Right - other.Left
+                lo = self.Left - other.Right
+                hi = self.Right - other.Left
         elif other.__class__.__name__ == "Pbox":
             # Perform Pbox subtractnion assuming independance
             return other.rsub(self)
@@ -116,13 +89,19 @@ class Interval():
             except:
                 return NotImplemented
 
-        return Interval(lo,hi)
+        return self.Build_Dependence(other, Interval(lo, hi), 'sub')
 
     def __rsub__(self, other):
         if other.__class__.__name__ == "Interval":
+            if set(self.Dependencies).intersection(set(other.Dependencies)) != set():
+                if self is other:
+                    return I(0,0)
+                else:
+                    return self.Build_Dependence(other, self.Dep_Operation(other, 'rsub'), 'rsub')
+            else:
             # should be overkill
-            lo = other.Right - self.Left
-            hi = other.Right - self.Right
+                lo = other.Right - self.Left
+                hi = other.Right - self.Right
 
         elif other.__class__.__name__ == "Pbox":
             # shoud have be caught by Pbox.__sub__()
@@ -135,18 +114,24 @@ class Interval():
             except:
                 return NotImplemented
 
-        return Interval(lo,hi)
+        return self.Build_Dependence(other, Interval(lo, hi), 'rsub')
 
     def __mul__(self,other):
         if other.__class__.__name__ == "Interval":
+            if set(self.Dependencies).intersection(set(other.Dependencies)) != set():
+                if self is other:
+                    return self ** 2
+                else:
+                    return self.Build_Dependence(other, self.Dep_Operation(other, 'mul'), 'mul')
+            else:
 
-            b1 = self.lo() * other.lo()
-            b2 = self.lo() * other.hi()
-            b3 = self.hi() * other.lo()
-            b4 = self.hi() * other.hi()
+                b1 = self.lo() * other.lo()
+                b2 = self.lo() * other.hi()
+                b3 = self.hi() * other.lo()
+                b4 = self.hi() * other.hi()
 
-            lo = min(b1,b2,b3,b4)
-            hi = max(b1,b2,b3,b4)
+                lo = min(b1,b2,b3,b4)
+                hi = max(b1,b2,b3,b4)
 
         elif other.__class__.__name__ == "Pbox":
 
@@ -163,7 +148,8 @@ class Interval():
 
                 return NotImplemented
 
-        return Interval(lo,hi)
+        # return self.Build_Dependence(other, Interval(lo, hi), 'mul')
+        return Interval(lo, hi)
 
     def __rmul__(self,other):
         return self * other
@@ -171,18 +157,22 @@ class Interval():
     def __truediv__(self,other):
 
         if other.__class__.__name__ == "Interval":
-
-            if other.straddles_zero():
-                if other.Left == 0:
-                    lo = min(self.lo() / other.hi(), self.hi() / other.hi())
-                    hi = np.inf
-                elif other.Right == 0:
-                    lo = -np.inf
-                    hi = max(self.lo() / other.lo(), self.hi() / other.lo())
+            
+            if set(self.Dependencies).intersection(set(other.Dependencies)) != set():
+                if self is other:
+                    return I(1,1)
                 else:
-                    # Cant divide by zero
-                    raise ZeroDivisionError()
+                    return self.Build_Dependence(other, self.Dep_Operation(other, 'truediv'), 'truediv')
             else:
+
+                if other.straddles_zero():
+                    # Cant divide by zero
+                    # raise ZeroDivisionError()
+
+                    # But dividing by an interval which crosses 0 has an infinite limit, even if the zero division point is undefined.
+                    return I()
+                
+
                 b1 = self.lo() / other.lo()
                 b2 = self.lo() / other.hi()
                 b3 = self.hi() / other.lo()
@@ -199,7 +189,8 @@ class Interval():
 
                 return NotImplemented
 
-        return Interval(lo,hi)
+        # return self.Build_Dependence(other, Interval(lo, hi), 'truediv')
+        return Interval(lo, hi)
 
 
     def __rtruediv__(self,other):
@@ -212,37 +203,45 @@ class Interval():
 
     def __pow__(self,other):
         if other.__class__.__name__ == "Interval":
-            pow1 = self.Left ** other.Left
-            pow2 = self.Left ** other.Right
-            pow3 = self.Right ** other.Left
-            pow4 = self.Right ** other.Right
-            powUp = max(pow1,pow2,pow3,pow4)
-            powLow = min(pow1,pow2,pow3,pow4)
+            if set(self.Dependencies).intersection(set(other.Dependencies)) != set():
+                return self.Build_Dependence(other, self.Dep_Operation(other, 'pow'), 'pow')
+            else:
+                pow1 = self.Left ** other.Left
+                pow2 = self.Left ** other.Right
+                pow3 = self.Right ** other.Left
+                pow4 = self.Right ** other.Right
+                lo = min(pow1,pow2,pow3,pow4)
+                hi = max(pow1,pow2,pow3,pow4)
         elif other.__class__.__name__ in ("int", "float"):
             pow1 = self.Left ** other
             pow2 = self.Right ** other
-            powUp = max(pow1,pow2)
-            powLow = min(pow1,pow2)
+            lo = min(pow1,pow2)
+            hi = max(pow1,pow2)
             if (self.Right >= 0) and (self.Left <= 0) and (other % 2 == 0):
-                powLow = 0
-        return Interval(powLow,powUp)
+                lo = 0
+        # return self.Build_Dependence(other, Interval(lo, hi), 'pow')
+        return Interval(lo, hi)
 
     def __rpow__(self,left):
         if left.__class__.__name__ == "Interval":
-            pow1 = left.Left ** self.Left
-            pow2 = left.Left ** self.Right
-            pow3 = left.Right ** self.Left
-            pow4 = left.Right ** self.Right
-            powUp = max(pow1,pow2,pow3,pow4)
-            powLow = min(pow1,pow2,pow3,pow4)
+            if set(self.Dependencies).intersection(set(other.Dependencies)) != set():
+                return self.Build_Dependence(other, self.Dep_Operation(other, 'pow'), 'pow')
+            else:
+                pow1 = left.Left ** self.Left
+                pow2 = left.Left ** self.Right
+                pow3 = left.Right ** self.Left
+                pow4 = left.Right ** self.Right
+                lo = min(pow1,pow2,pow3,pow4)
+                hi = max(pow1,pow2,pow3,pow4)
 
         elif left.__class__.__name__ in ("int", "float"):
             pow1 = left ** self.Left
             pow2 = left ** self.Right
-            powUp = max(pow1,pow2)
-            powLow = min(pow1,pow2)
+            lo = min(pow1,pow2)
+            hi = max(pow1,pow2)
 
-        return Interval(powLow,powUp)
+        # return self.Build_Dependence(other, Interval(lo, hi), 'rpow')
+        return Interval(lo, hi)
 
 
     def __lt__(self,other):
@@ -274,11 +273,6 @@ class Interval():
                 return Logical(0,1)
             else:
                 return Logical(0,0)
-        elif other is None:
-            try:
-                self is None
-            except:
-                raise ValueError
         else:
             try:
                 if self.straddles(other):
@@ -326,7 +320,7 @@ class Interval():
                     return Logical(1,1)
             except:
                 try:
-                    return not self is other
+                    return self is other
                 except:
                     raise ValueError
 
@@ -510,21 +504,82 @@ class Interval():
 
     def intersection(self, other):
         if isinstance(other, Interval):
-            if self.straddles(other):
-                return I(max([x.Left for x in [self, other]]), min([x.Right for x in [self, other]]))
-            else:
-                return None
-        elif isinstance(other, list):
-            if all([self.straddles(o) for o in other]):
-                assert all([isinstance(o, Interval) for o in other]), 'All intersected objects must be intervals'
-                return I(max([x.Left for x in [self] + other]), min([x.Right for x in [self] + other]))
-            else:
-                return None
+            return I(max([x.Left for x in [self, other]]), min([x.Right for x in [self, other]]))
         else:
-            if self.straddles(other):
-                return other
-            else:
-                return None
+            return other
+
+    def Dynamic_Func(self, func, other = None):
+        if not other is None:
+            target = other
+        else:
+            target = self
+        if func == 'mul':
+            return target.__mul__
+        elif func == 'rmul':
+            return target.__rmul__
+        elif func == 'add':
+            return target.__add__
+        elif func == 'radd':
+            return target.__radd__
+        elif func == 'sub':
+            return target.__sub__
+        elif func == 'rsub':
+            return target.__rsub__
+        elif func == 'truediv':
+            return target.__truediv__
+        elif func == 'rtruediv':
+            return target.__rtruediv__
+        elif func == 'pow':
+            return target.__pow__
+        elif func == 'rpow':
+            return target.__rpow__
+
+    def Dep_Operation(self, other, func):
+        Shared_Deps = set(self.Dependencies).intersection(set(other.Dependencies))
+        Bounds = [self.DepFuncs[Dep](other.Dependencies[Dep].Left).Dynamic_Func(func)(other.DepFuncs[Dep](self.Dependencies[Dep].Left)) for Dep in Shared_Deps] + [self.DepFuncs[Dep](self.Dependencies[Dep].Right).Dynamic_Func(func)(other.DepFuncs[Dep](other.Dependencies[Dep].Right)) for Dep in Shared_Deps]
+        lo = min([B.Left if isinstance(B, Interval) else B for B in Bounds])
+        hi = max([B.Right if isinstance(B, Interval) else B for B in Bounds])
+        return Interval(lo, hi)
+
+    def Build_Dependence(self, other, NewInt, func):
+        if isinstance(other, Interval):
+            Shared_Deps = set(self.Dependencies).intersection(set(other.Dependencies))
+            for DepShared in Shared_Deps:
+                if DepShared == id(self):
+                    NewInt.DepFuncs[DepShared] = lambda x: I(x, x, dep = {}).Dynamic_Func(func)(other.DepFuncs[DepShared](I(x, x, dep = {}))) if not isinstance(x, Interval) else x.Dynamic_Func(func)(other.DepFuncs[DepShared](x))
+                elif DepShared == id(other):
+                    NewInt.DepFuncs[DepShared] = lambda x: self.DepFuncs[DepShared](I(x, x, dep = {})).Dynamic_Func(func)(I(x, x, dep = {})) if not isinstance(x, Interval) else self.DepFuncs[DepShared](x).Dynamic_Func(func)(x)
+                else:
+                    NewInt.DepFuncs[DepShared] = lambda x: self.DepFuncs[DepShared](I(x, x, dep = {})).Dynamic_Func(func)(other.DepFuncs[DepShared](I(x, x, dep = {}))) if not isinstance(x, Interval) else self.DepFuncs[DepShared](x).Dynamic_Func(func)(other.DepFuncs[DepShared](x))
+                NewInt.Dependencies[DepShared] = self.Dependencies[DepShared]
+            if not self.Dependencies == {} or other.Dependencies == {}: 
+                if len(self.Dependencies) > 1:
+                    for DepSelf in set(self.DepFuncs).difference(other.DepFuncs):
+                        if DepSelf != id(self):
+                            TargFunc = self.DepFuncs[DepSelf]
+                            NewInt.DepFuncs[DepSelf] = lambda x: TargFunc(I(x, x, dep = {})).Dynamic_Func(func)(other) if not isinstance(x, Interval) else TargFunc(x).Dynamic_Func(func)(other)
+                            NewInt.Dependencies[DepSelf] = self.Dependencies[DepSelf]
+                else:
+                    NewInt.DepFuncs[id(self)] = lambda x: I(x, x, dep = {}).Dynamic_Func(func)(other) if not isinstance(x, Interval) else x.Dynamic_Func(func)(other)
+                    NewInt.Dependencies[id(self)] = self
+                if func[0] == 'r':
+                    rfunc = func[1:] 
+                else:
+                    rfunc = 'r' + func
+                if len(other.Dependencies) > 1:
+                    for DepOther in set(other.DepFuncs).difference(self.DepFuncs):
+                        if DepOther != id(other):
+                            TargFunc = other.DepFuncs[DepOther]
+                            NewInt.DepFuncs[DepOther] = lambda x: TargFunc(I(x, x, dep = {})).Dynamic_Func(rfunc)(self) if not isinstance(x, Interval) else TargFunc(x).Dynamic_Func(rfunc)(self)
+                            NewInt.Dependencies[DepOther] = other.Dependencies[DepOther]
+                else:
+                    NewInt.DepFuncs[id(other)] = lambda x: I(x, x, dep = {}).Dynamic_Func(rfunc)(self) if not isinstance(x, Interval) else x.Dynamic_Func(rfunc)(self)
+                    NewInt.Dependencies[id(other)] = other
+            
+        else:
+            NewInt.DepFuncs[id(self)] = lambda x: I(x, x, dep = {}).Dynamic_Func(func)( other)
+            NewInt.Dependencies[id(self)] = self
+        return NewInt
 
 
 # a = Interval(1,2)
