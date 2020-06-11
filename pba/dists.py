@@ -10,6 +10,7 @@ else:
 
 import scipy.stats as sps
 import numpy as np
+import itertools
 
 dists = {
     'alpha' : sps.alpha,
@@ -130,32 +131,11 @@ dists = {
 
 def __get_bounds(function_name = None,steps = 200,*args):
 
+    # define support
     x = np.linspace(0.0001,0.9999,steps)
 
-    arg_list = [list(args)]
-    complete = False
-    # while not complete:
-    for i in arg_list:
-        for j in range(len(i)):
-            if i[j].__class__.__name__ == 'Interval':
-
-                k1 = [i[j].left() if l == i[j] else l for l in i]
-                k2 = [i[j].right() if l == i[j] else l for l in i]
-
-                arg_list.append(k1)
-                arg_list.append(k2)
-
-    new_args = []
-    for k in arg_list:
-        to_delete = False
-
-        for l in k:
-
-            if l.__class__.__name__ == 'Interval':
-                to_delete = True
-
-        if not to_delete and k not in new_args:
-            new_args.append(k)
+    #get bound arguments
+    new_args = itertools.product(*args)
 
     bounds = []
 
@@ -214,7 +194,7 @@ def lognormal(mean, var, steps = 200):
         Left,
         Right,
         steps = steps,
-        shape='normal',
+        shape='lognormal',
         mean_left=mean.left(),
         mean_right=mean.right(),
         var_left=var.left(),
