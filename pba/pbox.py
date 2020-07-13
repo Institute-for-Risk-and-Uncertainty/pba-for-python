@@ -2,6 +2,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 from .interval import Interval
+from .copula import Copula
 
 class Pbox(object):
 
