@@ -5,8 +5,6 @@
 #           -> Optimise gaussian copula. Currently requires multiple calls to mutivariate normal cdf, also produces NaNs at extremes
 #           -> Clayton and Frank copulas should be defined in terms of generator functions
 #           -> Gaussian, Clayton and Frank should return π, M and W at particular values
-#           -> Density estimator with H-volume. Matlab implementation: https://github.com/AnderGray/Hvolume-Matlab
-#           -> Copula plotter
 #
 #           -> Once completed, the Sigma, Tau and Rho convolutions may be defined
 #
@@ -15,9 +13,11 @@
 ###
 
 import numpy as np
+from matplotlib import pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+from matplotlib import cm
 from .interval import *
 from scipy.stats import multivariate_normal, norm 
-#import copulae as cops
 
 class Copula(object):
 
@@ -52,7 +52,7 @@ class Copula(object):
         
         return f'Copula ~ {statement1}({statement2})'
 
-    def getcdf(self, x,y):
+    def get_cdf(self, x, y):    # x, y are points on the unit square
 
         if self.func is not None:   # If function is known, return it 
             if self.param is not None: return self.func(x, y, self.param)
@@ -68,6 +68,70 @@ class Copula(object):
             yIndexUpper = int(np.ceil(y * (ysize-1)))
 
             return Interval(self.cdf[xIndexLower, yIndexLower], self.cdf[xIndexUpper, yIndexUpper])
+
+    def get_mass(self, x, y):   # x, y are intervals on the unit square
+
+        C22 = self.get_cdf(x.hi(), y.hi())
+        C21 = self.get_cdf(x.hi(), y.lo())
+        C12 = self.get_cdf(x.lo(), y.hi())
+        C11 = self.get_cdf(x.lo(), y.lo())
+
+        return C22 - C21 - C12 + C11
+
+    def show(self, pn = 50, fontsize = 20, cols = cm.RdGy):
+        ##
+        #   All the extra stuff is so that no more than 200 elements are plotted
+        ##
+        A = self.cdf; m = len(A)
+
+        if m < pn: pn = m
+
+        x = y = np.linspace(0, 1, num = pn)
+        X, Y = np.meshgrid(x,y)
+
+        nm = round(m/pn)
+        Z = A[::nm,::nm]    # Skip over evelemts
+
+        fig = plt.figure("SurfacPlots",figsize=(10,10))
+        ax = fig.add_subplot(1,1,1,projection="3d")
+        ax.plot_surface(X, Y, Z, rstride=2,edgecolors="k", cstride=2, alpha=0.8, linewidth=0.25, cmap = cols)
+        plt.xlabel("X",fontsize = fontsize); plt.ylabel("Y", fontsize = fontsize)
+
+        plt.show()
+
+    def showContour(self, fontsize = 20, cols = cm.coolwarm):
+        ##
+        #   All the extra stuff is so that no more than 200 elements are plotted
+        ##
+
+        pn = 200    # Max plot number
+        A = self.cdf; m = len(A)
+
+        if m < pn: pn = m
+
+        x = y = np.linspace(0, 1, num = pn)
+        X, Y = np.meshgrid(x,y)
+
+        nm = round(m/pn)
+        Z = A[::nm,::nm]    # Skip over evelemts
+
+        fig = plt.figure("SurfacPlots",figsize=(10,10))
+        ax = fig.add_subplot(2,1,1,projection="3d")
+        ax.plot_surface(X, Y, Z, rstride=2,edgecolors="k", cstride=2, alpha=0.8, linewidth=0.25, cmap = cols)
+        plt.xlabel("X",fontsize = fontsize); plt.ylabel("Y", fontsize = fontsize)
+        plt.title("Surface Plot", fontsize = fontsize)
+
+        ax1 = fig.add_subplot(2,1,2)
+        cp = ax1.contour(X, Y, Z, cmap = cols, levels = 15)
+        ax1.clabel(cp, inline=1, fontsize=10)
+        plt.xlabel("X", fontsize = fontsize); plt.ylabel("Y", fontsize = fontsize)
+        plt.title("Contour Plot", fontsize = fontsize)
+
+        plt.tight_layout()
+
+        plt.show()
+
+
 
 ###
 #   Copula functions and constructors
@@ -110,12 +174,3 @@ def Gaussian(r = 0, steps = 200):       # Slow, and produced NaNs
     x = y = np.linspace(0, 1, num=steps)
     cdf = np.array([[Gau(xs, ys,r) for xs in x] for ys in y])
     return Copula(cdf, Gau, r)
-
-'''
-def Gaussian(r = 0, steps = 200):
-    x = y = np.linspace(0, 1, num=steps)
-    g_cop = cops.GaussianCopula()
-    g_cop.params = r
-    cdf = np.array([[g_cop.cdf([xs, ys]) for xs in x] for ys in y])
-    return Copula(cdf, g_cop, r)
-'''
