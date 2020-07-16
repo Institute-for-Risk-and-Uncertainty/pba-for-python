@@ -4,7 +4,6 @@
 #   To Do:  
 #           -> Optimise gaussian copula. Currently requires multiple calls to mutivariate normal cdf, also produces NaNs at extremes
 #           -> Clayton and Frank copulas should be defined in terms of generator functions
-#           -> Gaussian, Clayton and Frank should return π, M and W at particular values
 #
 #           -> Once completed, the Sigma, Tau and Rho convolutions may be defined
 #
@@ -104,7 +103,6 @@ class Copula(object):
         ##
         #   All the extra stuff is so that no more than 200 elements are plotted
         ##
-
         pn = 200    # Max plot number
         A = self.cdf; m = len(A)
 
@@ -142,7 +140,7 @@ def perf(x,y): return min(x,y)
 def opp(x,y): return max(x+y-1,0)
 def F(x,y,s = 1): return np.log(1+(s^x-1)*(s^y-1)/(s-1))/np.log(s)      # Bugged
 def Cla(x,y, t = 0): return max((x^(-t)+y^(-t)-1)^(-1/t),0)             # Bugged
-def Gau(x,y,r=0): return multivariate_normal.cdf([norm.ppf(x), norm.ppf(y)], mean = [0, 0], cov=[[1, r], [r, 1]]) # Previous implementation
+def Gau(x,y,r=0): return mvn.cdf([norm.ppf(x), norm.ppf(y)], mean = [0, 0], cov=[[1, r], [r, 1]]) # Previous implementation
 
 
 
@@ -162,27 +160,52 @@ def W(steps = 200):
     cdf = np.array([[opp(xs, ys) for xs in x] for ys in y])
     return Copula(cdf, opp)
 
-def Frank(s = 1, steps = 200):
+def Frank(s = 1, steps = 200):      #   s>0; 0 for perfect, 1 for indep, inf for oposite
+
+    if s is 0:
+        C = M()
+        return Copula(C.cdf, F, 0)
+    if s is 1:
+        C = pi()
+        return Copula(C.cdf, F, 1)
+    if s is float('inf'):
+        C = W()
+        return Copula(C.cdf, F, float('inf'))
+
     x = y = np.linspace(0, 1, num=steps)
     cdf = np.array([[F(xs, ys, s) for xs in x] for ys in y])
     return Copula(cdf, F, s)
 
-def Clayton(t = 0, steps = 200):        
+def Clayton(t = 0, steps = 200):    #   t>-1; -1 for opposite, 0 for indep and inf for perfect
+
+    if t is 0:
+        C = pi()
+        return Copula(C.cdf, Cla ,0)
+    if t is -1:
+        C = W()
+        return Copula(C.cdf, Cla ,-1)
+    if t is float('inf'):
+        C = M()
+        return Copula(C.cdf, Cla , float('inf'))
+
     x = y = np.linspace(0, 1, num=steps)
     cdf = np.array([[Cla(xs, ys) for xs in x] for ys in y])
     return Copula(cdf, Cla, t)
 
 def Gaussian(r = 0, steps = 200):
 
-    if (r is 0): 
-        return pi()
-    if (r is -1):
-        return W()
-    if (r is 1):
-        return M()
+    if r is 0: 
+        C = pi()
+        return Copula(C.cdf, Gau, 0)
+    if r is -1:
+        C = W()
+        return Copula(C.cdf, Gau, -1)
+    if r is 1:
+        C = M()
+        return Copula(C.cdf, Gau, 1)
     
     x = np.linspace(0, 1, num=steps)
-    xx,yy = np.meshgrid(x,x,indexing='ij')
+    xx, yy = np.meshgrid(x,x,indexing='ij')
 
     X = np.array([xx.flatten(), yy.flatten()])
     cdf = mvn.cdf(norm.ppf(X.transpose()), mean=[0,0], cov=[[1, r], [r, 1]])
