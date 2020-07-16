@@ -2,8 +2,6 @@
 #   Defines copula functions. For plotting and use in convolutions
 #
 #   To Do:  
-#           -> Optimise gaussian copula. Currently requires multiple calls to mutivariate normal cdf, also produces NaNs at extremes
-#           -> Clayton and Frank copulas should be defined in terms of generator functions
 #
 #           -> Once completed, the Sigma, Tau and Rho convolutions may be defined
 #
@@ -130,7 +128,23 @@ class Copula(object):
 
         plt.show()
 
+###
+#   Copula generators for Archimedean (Frank and Clayton) copulas. Allows for easy and accurate copula generation 
+#   at any dimension in terms of univariate functions (generator and inverse generator).
+###
 
+def ClaGen(x, t = 1): return 1/t * (x **(-t) -1 )       # Clayton copula generator
+def ClaInv(x, t = 1): return (1 + t * x) ** (-1/t)      # Inverse generator
+
+def FGen(x, s = 1):                     # Frank generator
+    X1 = np.exp( -(x * s) ) -1
+    X2 = np.exp( -s ) -1
+    return -np.log( X1 / X2)
+
+def FInv(x, s = 1):                     # Inverse
+    X1 = np.exp( -x ) * (np.exp(-s) - 1)
+    X2 = np.log(1 + X1)
+    return - (X2 / s)
 
 ###
 #   Copula functions and constructors
@@ -138,9 +152,10 @@ class Copula(object):
 def indep(x,y): return x*y
 def perf(x,y): return min(x,y)
 def opp(x,y): return max(x+y-1,0)
-def F(x,y,s = 1): return np.log(1+(s^x-1)*(s^y-1)/(s-1))/np.log(s)      # Bugged
-def Cla(x,y, t = 0): return max((x^(-t)+y^(-t)-1)^(-1/t),0)             # Bugged
-def Gau(x,y,r=0): return mvn.cdf([norm.ppf(x), norm.ppf(y)], mean = [0, 0], cov=[[1, r], [r, 1]]) # Previous implementation
+#def F(x,y,s = 1): return np.log(1+(s^x-1)*(s^y-1)/(s-1))/np.log(s)      # Bugged
+def Cla(x, y, t = 1): return ClaInv( ClaGen(x, t) + ClaGen(y, t), t)
+def F(x,y,s = 1): return FInv( FGen(x, s) + FGen(y, s), s)
+def Gau(x,y,r=0): return mvn.cdf([norm.ppf(x), norm.ppf(y)], mean = [0, 0], cov=[[1, r], [r, 1]]) 
 
 
 
@@ -160,23 +175,23 @@ def W(steps = 200):
     cdf = np.array([[opp(xs, ys) for xs in x] for ys in y])
     return Copula(cdf, opp)
 
-def Frank(s = 1, steps = 200):      #   s>0; 0 for perfect, 1 for indep, inf for oposite
+def Frank(s = 0, steps = 200):      #   s is real; inf for perfect, 0 for indep, -inf for oposite
 
+    if s is float('-inf'):         # Limit should be set earlier
+        C = W()
+        return Copula(C.cdf, F, )
     if s is 0:
-        C = M()
-        return Copula(C.cdf, F, 0)
-    if s is 1:
         C = pi()
         return Copula(C.cdf, F, 1)
     if s is float('inf'):
-        C = W()
+        C = M()
         return Copula(C.cdf, F, float('inf'))
 
     x = y = np.linspace(0, 1, num=steps)
     cdf = np.array([[F(xs, ys, s) for xs in x] for ys in y])
     return Copula(cdf, F, s)
 
-def Clayton(t = 0, steps = 200):    #   t>-1; -1 for opposite, 0 for indep and inf for perfect
+def Clayton(t = 1, steps = 200):    #   t>-1; -1 for opposite, 0 for indep and inf for perfect
 
     if t is 0:
         C = pi()
@@ -184,15 +199,22 @@ def Clayton(t = 0, steps = 200):    #   t>-1; -1 for opposite, 0 for indep and i
     if t is -1:
         C = W()
         return Copula(C.cdf, Cla ,-1)
-    if t is float('inf'):
+    if t is float('inf'):                       # Limit should be set earlier
         C = M()
         return Copula(C.cdf, Cla , float('inf'))
 
-    x = y = np.linspace(0, 1, num=steps)
-    cdf = np.array([[Cla(xs, ys) for xs in x] for ys in y])
+    x = np.linspace(0, 1, num=steps)
+    xx, yy = np.meshgrid(x,x,indexing='ij')
+
+    X = np.array([xx.flatten(), yy.flatten()])
+    cdf = Cla(X[0, ], X[1, ], t)
+    cdf = cdf.reshape(steps, steps)
+
+    cdf[0,] = 0; cdf[:,0] = 0           # Grounds C
+
     return Copula(cdf, Cla, t)
 
-def Gaussian(r = 0, steps = 200):
+def Gaussian(r = 0, steps = 200):   #   -1 <= r <=1 ; -1 for opposite, 1 for indep and 1 for perfect
 
     if r is 0: 
         C = pi()
@@ -209,8 +231,8 @@ def Gaussian(r = 0, steps = 200):
 
     X = np.array([xx.flatten(), yy.flatten()])
     cdf = mvn.cdf(norm.ppf(X.transpose()), mean=[0,0], cov=[[1, r], [r, 1]])
-    cdf = cdf.reshape(200,200)
+    cdf = cdf.reshape(steps, steps)
 
-    cdf[0,] = 0; cdf[:,0] = 0           # Grounds C, NaN are produced from mvn.cdf
+    cdf[0,] = 0; cdf[:,0] = 0           # Grounds C
 
     return Copula(cdf, Gau, r)
