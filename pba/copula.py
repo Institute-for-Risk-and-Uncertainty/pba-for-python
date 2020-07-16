@@ -17,7 +17,8 @@ from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
 from .interval import *
-from scipy.stats import multivariate_normal, norm 
+from scipy.stats import multivariate_normal as mvn
+from scipy.stats import norm
 
 class Copula(object):
 
@@ -141,7 +142,8 @@ def perf(x,y): return min(x,y)
 def opp(x,y): return max(x+y-1,0)
 def F(x,y,s = 1): return np.log(1+(s^x-1)*(s^y-1)/(s-1))/np.log(s)      # Bugged
 def Cla(x,y, t = 0): return max((x^(-t)+y^(-t)-1)^(-1/t),0)             # Bugged
-def Gau(x,y,r=0): return multivariate_normal.cdf([norm.ppf(x), norm.ppf(y)], mean = [0, 0], cov=r) # Previous implementation
+def Gau(x,y,r=0): return multivariate_normal.cdf([norm.ppf(x), norm.ppf(y)], mean = [0, 0], cov=[[1, r], [r, 1]]) # Previous implementation
+
 
 
 # Copula constructors
@@ -170,7 +172,22 @@ def Clayton(t = 0, steps = 200):
     cdf = np.array([[Cla(xs, ys) for xs in x] for ys in y])
     return Copula(cdf, Cla, t)
 
-def Gaussian(r = 0, steps = 200):       # Slow, and produced NaNs
-    x = y = np.linspace(0, 1, num=steps)
-    cdf = np.array([[Gau(xs, ys,r) for xs in x] for ys in y])
+def Gaussian(r = 0, steps = 200):
+
+    if (r is 0): 
+        return pi()
+    if (r is -1):
+        return W()
+    if (r is 1):
+        return M()
+    
+    x = np.linspace(0, 1, num=steps)
+    xx,yy = np.meshgrid(x,x,indexing='ij')
+
+    X = np.array([xx.flatten(), yy.flatten()])
+    cdf = mvn.cdf(norm.ppf(X.transpose()), mean=[0,0], cov=[[1, r], [r, 1]])
+    cdf = cdf.reshape(200,200)
+
+    cdf[0,] = 0; cdf[:,0] = 0           # Grounds C, NaN are produced from mvn.cdf
+
     return Copula(cdf, Gau, r)
