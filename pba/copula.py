@@ -154,7 +154,10 @@ def perf(x,y): return min(x,y)
 def opp(x,y): return max(x+y-1,0)
 def Cla(x, y, t = 1): return ClaInv( ClaGen(x, t) + ClaGen(y, t), t)
 def F(x,y,s = 1): return FInv( FGen(x, s) + FGen(y, s), s)
-def Gau(x,y,r=0): return mvn.cdf([norm.ppf(x), norm.ppf(y)], mean = [0, 0], cov=[[1, r], [r, 1]]) 
+def Gau(x,y,r=0): 
+    if x == 0: return 0
+    if y == 0: return 0
+    return mvn.cdf([norm.ppf(x), norm.ppf(y)], mean = [0, 0], cov=[[1, r], [r, 1]]) 
 
 
 
