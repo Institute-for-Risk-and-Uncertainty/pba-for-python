@@ -152,7 +152,6 @@ def FInv(x, s = 1):                     # Inverse
 def indep(x,y): return x*y
 def perf(x,y): return min(x,y)
 def opp(x,y): return max(x+y-1,0)
-#def F(x,y,s = 1): return np.log(1+(s^x-1)*(s^y-1)/(s-1))/np.log(s)      # Bugged
 def Cla(x, y, t = 1): return ClaInv( ClaGen(x, t) + ClaGen(y, t), t)
 def F(x,y,s = 1): return FInv( FGen(x, s) + FGen(y, s), s)
 def Gau(x,y,r=0): return mvn.cdf([norm.ppf(x), norm.ppf(y)], mean = [0, 0], cov=[[1, r], [r, 1]]) 
@@ -179,7 +178,7 @@ def Frank(s = 0, steps = 200):      #   s is real; inf for perfect, 0 for indep,
 
     if s is float('-inf'):         # Limit should be set earlier
         C = W()
-        return Copula(C.cdf, F, )
+        return Copula(C.cdf, F, float('-inf'))
     if s is 0:
         C = pi()
         return Copula(C.cdf, F, 1)
@@ -195,7 +194,7 @@ def Clayton(t = 1, steps = 200):    #   t>-1; -1 for opposite, 0 for indep and i
 
     if t is 0:
         C = pi()
-        return Copula(C.cdf, Cla ,0)
+        return Copula(C.cdf, Cla , 0)
     if t is -1:
         C = W()
         return Copula(C.cdf, Cla ,-1)
