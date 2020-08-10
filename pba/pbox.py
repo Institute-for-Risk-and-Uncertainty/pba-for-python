@@ -362,6 +362,8 @@ class Pbox(object):
         else:
             return plt
 
+    plot = show
+
     def get_interval(self, *args):
 
         if len(args) == 1:
@@ -427,7 +429,7 @@ class Pbox(object):
     def get_y(self):
         # returns y values for plotting
         return np.append(np.insert(np.linspace(0,1,self.steps),0,0),1)
-# Public functions
+
 
 # Funcitons
 def env_int(*args):
