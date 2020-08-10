@@ -1,13 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Thu Oct 17 12:57:55 2019
-
-@author: sggdale (with 'inspiration' from Marco)
-
-nick: Sorry
-"""
-
-#testcommit
 
 import numpy as np
 import random as r
