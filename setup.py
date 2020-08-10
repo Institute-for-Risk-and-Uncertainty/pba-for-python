@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='pba',
-    version='0.6.2',
+    version='0.7.1',
     packages=['pba',],
     license='MIT License',
     long_description=open('README.rst').read(),
@@ -19,7 +19,7 @@ setup(
 # RUN THIS CODE
 '''
 python3 setup.py sdist
-python3 -m twine upload dist/*
+python3 -m twine upload dist/pba-
 
 pip uninstall pba
 pip install /Users/nickgray/Documents/PhD/code/pba-for-python/dist/pba-0.5.6.tar.gz --user

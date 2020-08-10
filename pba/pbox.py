@@ -96,7 +96,7 @@ class Pbox(object):
 
     def __rle__(self,other):
         return self.gt(other, method = 'f')
-		
+
     def __gt__(self,other):
         return self.gt(other, method = 'f')
 
@@ -108,7 +108,7 @@ class Pbox(object):
 
     def __rge__(self,other):
         return self.lt(other, method = 'f')
-    
+
     def __and__(self, other):
         return self.logicaland(other, method = 'f')
 
@@ -196,16 +196,9 @@ class Pbox(object):
 
     ### Public functions ###
 
-# "%<%" <- lt <- function(x,y) prob.pbox(frechetconv.pbox(x,negate(y),'+'),0);   
-# "%>%" <- gt <- function(x,y) xprob.pbox(frechetconv.pbox(y,negate(x),'+'),0)
-# "%<=%" <- lte <- function(x,y) xprob.pbox(frechetconv.pbox(x,negate(y),'+'),0);   
-# "%>=%" <- gte <- function(x,y) prob.pbox(frechetconv.pbox(y,negate(x),'+'),0)
-# "%&%" <- function(x,y) and.pbox(x,y);                               
-# "%|%" <- function(x,y) or.pbox(x,y)
-	
     def lt(self, other, method = 'f'):
 	    b = self.add(-other, method)
-	    return(b.get_probability(0))      # return (self.add(-other, method)).get_probability(0)     
+	    return(b.get_probability(0))      # return (self.add(-other, method)).get_probability(0)
 
     def le(self, other, method = 'f'):
         b = self.add(-other, method)
@@ -219,39 +212,9 @@ class Pbox(object):
     def ge(self, other, method = 'f'):
         self = - self
         b = self.add(other, method)
-        return(b.get_probability(0))   
+        return(b.get_probability(0))
 
-#pmin.pbox <- function (..., na.rm = FALSE) {  
-#  elts <- makepbox(...)
-#  m <- elts[[1]]
-#  for (each in elts[-1]) m <- frechetconv.pbox(m, each, 'pmin')
-#  m
-#  }
-#
-#pmax.pbox <- function (..., na.rm = FALSE) {  
-#  elts <- makepbox(...)
-#  m <- elts[[1]]
-#  for (each in elts[-1]) m <- frechetconv.pbox(m, each, 'pmax')
-#  m
-#  }
-#
-#pminI.pbox <- function (..., na.rm = FALSE) {  
-#  elts <- makepbox(...)
-#  m <- elts[[1]]
-#  for (each in elts[-1]) m <- conv.pbox(m, each, 'pmin')
-#  m
-#  }
-#
-#pmaxI.pbox <- function (..., na.rm = FALSE) {  
-#  elts <- makepbox(...)
-#  m <- elts[[1]]
-#  for (each in elts[-1]) m <- conv.pbox(m, each, 'pmax')
-#  m
-#  }
-
-
-
-    def logicaland(self, other, method = 'f'):   # conjunction 
+    def logicaland(self, other, method = 'f'):   # conjunction
         if      method=='i': return(self.mul(other,method))  # independence a * b
 #        else if method=='p': return(self.min(other,method))  # perfect min(a, b)
 #        else if method=='o': return(max(self.add(other,method)-1, 0))  # opposite max(a + b – 1, 0)
@@ -268,7 +231,7 @@ class Pbox(object):
 #        else if method=='-': return()  # negative env(1 – (1 – a) * (1 – b), min(1, a + b))
         # otherwise method=='f' :
         return(env(self.max(other,method), min(self.add(other,method),1)))
-        
+
     def env(self, other):
         if other.__class__.__name__ == 'Interval':
             other = Pbox(other, steps = self.steps)
@@ -278,7 +241,7 @@ class Pbox(object):
 
         nleft  = np.minimum(self.left, other.left)
         nright = np.maximum(self.right, other.right)
-        
+
         return Pbox(
                 left    = nleft,
                 right   = nright,
@@ -475,7 +438,7 @@ class Pbox(object):
 
     def show(self,now = True,**kwargs):
         # If you want to know why numpy is the WORST thing about Python
-        # see the get_x code 
+        # see the get_x code
         left, right = self.get_x()
         y  = self.get_y()
 
