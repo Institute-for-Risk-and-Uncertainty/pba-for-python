@@ -6,7 +6,11 @@ from .copula import Copula
 
 class Pbox(object):
 
-    def __init__(self, left=None, right=None, steps=200, shape=None, mean_left=None, mean_right=None, var_left=None, var_right=None, interpolation='linear'):
+    STEPS = 200
+
+    def __init__(self, left=None, right=None, steps=None, shape=None, mean_left=None, mean_right=None, var_left=None, var_right=None, interpolation='linear'):
+
+        if steps is None: steps = Pbox.STEPS
 
         if (left is not None) and (right is None):
             right = left
@@ -29,9 +33,8 @@ class Pbox(object):
 
         self.left = left
         self.right = right
-
         self.steps = steps
-        self.n = self.steps
+        self.n = steps
         self.shape = shape
         self.mean_left = -np.inf
         self.mean_right = np.inf
