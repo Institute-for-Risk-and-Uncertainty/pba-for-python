@@ -2427,7 +2427,7 @@ def KN(k,n,steps = Pbox.STEPS):
     return KM(k,n-k,steps=steps)
 
 
-### Alternate names
+### Aliases
 normal = norm
 N = normal
 unif = uniform
