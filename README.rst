@@ -18,7 +18,7 @@ Features
 Installation
 -------------
 
-Install $project by running:
+Install pba by running:
 
     pip install pba
 
