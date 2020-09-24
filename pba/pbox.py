@@ -26,10 +26,10 @@ class Pbox(object):
             right = np.array([right.right()])
 
         if len(left) != steps:
-            left = interpolate(left, interpolation=interpolation, left=False, steps=steps)
+            left = __interpolate(left, interpolation=interpolation, left=False, steps=steps)
 
         if len(right) != steps:
-            right = interpolate(right, interpolation=interpolation, left=True, steps=steps)
+            right = __interpolate(right, interpolation=interpolation, left=True, steps=steps)
 
         self.left = left
         self.right = right
@@ -166,7 +166,7 @@ class Pbox(object):
 
             for J in np.array(range(self.n)) - 1:
                 ud = [*self.left[j < J], *self.right[J <= j]]
-                v = sideVariance(ud)
+                v = __sideVariance(ud)
 
                 if V < v:
                     JJ = J
@@ -177,7 +177,7 @@ class Pbox(object):
     def _checkmoments(self):
 
         a = Interval(self.mean_left, self.mean_right) #mean(x)
-        b = dwMean(self)
+        b = __dwMean(self)
 
         self.mean_left = np.max([left(a), left(b)])
         self.mean_right = np.min([right(a), right(b)])
@@ -188,7 +188,7 @@ class Pbox(object):
             self.mean_right = right(b)
 
         a = Interval(self.var_left, self.var_right) #var(x)
-        b = dwVariance(self)
+        b = __dwVariance(self)
 
         self.var_left = np.max([left(a), left(b)])
         self.var_right = np.min([right(a),right(b)])
@@ -441,6 +441,10 @@ class Pbox(object):
         )
 
     def show(self,now = True,**kwargs):
+        """
+        
+        """
+
         # If you want to know why numpy is the WORST thing about Python
         # see the get_x code
         left, right = self.get_x()
@@ -522,87 +526,89 @@ class Pbox(object):
         # returns y values for plotting
         return np.append(np.insert(np.linspace(0,1,self.steps),0,0),1)
 
+def env(x,y):
+    return x.env(y)
 
 # Functions
-def env_int(*args):
-    left = min([min(i) if is_iterable(i) else i for i in args])
-    right = max([max(i) if is_iterable(i) else i for i in args])
-    return Interval(left, right)
+# def env_int(*args):
+#     left = min([min(i) if is_iterable(i) else i for i in args])
+#     right = max([max(i) if is_iterable(i) else i for i in args])
+#     return Interval(left, right)
 
-def left(imp):
-    if isinstance(imp, Interval) or isinstance(imp, pbox.Pbox):
-        return imp.left()
-    elif is_iterable(imp):
-        return min(imp)
-    else:
-        return imp
+# def left(imp):
+#     if isinstance(imp, Interval) or isinstance(imp, pbox.Pbox):
+#         return imp.left()
+#     elif is_iterable(imp):
+#         return min(imp)
+#     else:
+#         return imp
 
-def right(imp):
-    if isinstance(imp, Interval) or isinstance(imp, pbox.Pbox):
-        return imp.right()
-    elif is_iterable(imp):
-        return max(imp)
-    else:
-        return imp
+# def right(imp):
+#     if isinstance(imp, Interval) or isinstance(imp, pbox.Pbox):
+#         return imp.right()
+#     elif is_iterable(imp):
+#         return max(imp)
+#     else:
+#         return imp
 
-def left_list(implist, verbose=False):
-    if not is_iterable(implist):
-        return np.array(implist)
+# def left_list(implist, verbose=False):
+#     if not is_iterable(implist):
+#         return np.array(implist)
 
-    return np.array([left(imp) for imp in implist])
+#     return np.array([left(imp) for imp in implist])
 
-def right_list(implist, verbose=False):
-    if not is_iterable(implist):
-        return np.array(implist)
+# def right_list(implist, verbose=False):
+#     if not is_iterable(implist):
+#         return np.array(implist)
 
-    return np.array([right(imp) for imp in implist])
+#     return np.array([right(imp) for imp in implist])
 
-def qleftquantiles(pp, x, p): # if first p is not zero, the left tail will be -Inf
-    return [max(left_list(x)[right_list(p) <= P]) for P in pp]
+# def qleftquantiles(pp, x, p): # if first p is not zero, the left tail will be -Inf
+#     return [max(left_list(x)[right_list(p) <= P]) for P in pp]
 
-def qrightquantiles(pp, x, p):  # if last p is not one, the right tail will be Inf
-    return [min(right_list(x)[P <= left_list(p)]) for P in pp]
+# def qrightquantiles(pp, x, p):  # if last p is not one, the right tail will be Inf
+#     return [min(right_list(x)[P <= left_list(p)]) for P in pp]
 
-def quantiles(x, p, steps=200):
-    left = qleftquantiles(ii(steps=steps), x, p)
-    right = qrightquantiles(jj(steps=steps), x, p)
-    return pbox.Pbox(left=left, right=right)  # quantiles are in x and the associated cumulative probabilities are in p
+# def quantiles(x, p, steps=200):
+#     left = qleftquantiles(ii(steps=steps), x, p)
+#     right = qrightquantiles(jj(steps=steps), x, p)
+#     return pbox.Pbox(left=left, right=right)  # quantiles are in x and the associated cumulative probabilities are in p
 
-def interp_step(u, steps=200):
-    u = np.sort(u)
+# def __interp_step(u, steps=200):
+#     u = np.sort(u)
 
-    seq = np.linspace(start=0, stop=len(u) - 0.00001, num=steps, endpoint=True)
-    seq = np.array([trunc(seq_val) for seq_val in seq])
-    return u[seq]
+#     seq = np.linspace(start=0, stop=len(u) - 0.00001, num=steps, endpoint=True)
+#     seq = np.array([trunc(seq_val) for seq_val in seq])
+#     return u[seq]
 
-def interp_cubicspline(vals, steps=200):
-    vals = np.sort(vals) # sort
-    vals_steps = np.array(range(len(vals))) + 1
-    vals_steps = vals_steps / len(vals_steps)
+# def __interp_cubicspline(vals, steps=200):
+#     vals = np.sort(vals) # sort
+#     vals_steps = np.array(range(len(vals))) + 1
+#     vals_steps = vals_steps / len(vals_steps)
 
-    steps = np.array(range(steps)) + 1
-    steps = steps / len(steps)
+#     steps = np.array(range(steps)) + 1
+#     steps = steps / len(steps)
 
-    interped = interp.CubicSpline(vals_steps, vals)
-    return interped(steps)
+#     interped = interp.CubicSpline(vals_steps, vals)
+#     return interped(steps)
 
-def interp_left(u, steps=200):
-    p = np.array(range(len(u))) / (len(u) - 1)
-    pp, x = ii(steps=steps), u
-    return qleftquantiles(pp, x, p)
+# def __interp_left(u, steps=200):
+#     p = np.array(range(len(u))) / (len(u) - 1)
+#     pp, x = ii(steps=steps), u
+#     return qleftquantiles(pp, x, p)
 
-def interp_right(d, steps=200):
-    p = np.array(range(len(d))) / (len(d) - 1)
-    pp, x = jj(steps=steps), d
-    return qrightquantiles(pp, x, p)
+# def __interp_right(d, steps=200):
+#     p = np.array(range(len(d))) / (len(d) - 1)
+#     pp, x = jj(steps=steps), d
+#     return qrightquantiles(pp, x, p)
 
-def interp_outer(x, left, steps=200):
-    if (left) :
-        return interp_left(x, steps=steps)
-    else:
-        return interp_right(x, steps=steps)
+# def __interp_outer(x, left, steps=200):
+#     if (left) :
+#         return __interp_left(x, steps=steps)
+#     else:
+#         return __interp_right(x, steps=steps)
 
-def interp_linear(V, steps=200):
+def __interp_linear(V, steps=200):
     m = len(V) - 1
 
     if m == 0: return np.repeat(V, steps)
@@ -624,38 +630,38 @@ def interp_linear(V, steps=200):
 
     return np.array(u)
 
-def interpolate(u, interpolation='linear', left=True, steps=200):
-    if interpolation == 'outer':
-        return interp_outer(u, left, steps=steps)
-    elif interpolation == 'spline':
-        return interp_cubicspline(u, steps=steps)
-    elif interpolation == 'step':
-        return interp_step(u, steps=steps)
-    else:
-        return interp_linear(u, steps=steps)
+def __interpolate(u, interpolation='linear', left=True, steps=200):
+    # if interpolation == 'outer':
+    #     return __interp_outer(u, left, steps=steps)
+    # elif interpolation == 'spline':
+    #     return __interp_cubicspline(u, steps=steps)
+    # elif interpolation == 'step':
+    #     return __interp_step(u, steps=steps)
+    # else:
+    return __interp_linear(u, steps=steps)
 
-def sideVariance(w, mu=None):
+def __sideVariance(w, mu=None):
     if not isinstance(w, np.ndarray): w = np.array(w)
     if mu is None: mu = np.mean(w)
     return max(0, np.mean((w - mu) ** 2))
 
-def dwMean(pbox):
+def __dwMean(pbox):
     return Interval(np.mean(pbox.right), np.mean(pbox.left))
 
-def dwVariance(pbox):
+def __dwVariance(pbox):
     if np.any(np.isinf(pbox.left)) or np.any(np.isinf(pbox.right)):
         return Interval(0, np.inf)
 
     if np.all(pbox.right[0] == pbox.right) and np.all(pbox.left[0] == pbox.left):
         return Interval(0, (pbox.right[0] - pbox.left[0]) ** (2 / 4))
 
-    vr = sideVariance(pbox.left, np.mean(pbox.left))
+    vr = __sideVariance(pbox.left, np.mean(pbox.left))
     w = np.copy(pbox.left)
     n = len(pbox.left)
 
     for i in reversed(range(n)):
         w[i] = pbox.right[i]
-        v = sideVariance(w, np.mean(w))
+        v = __sideVariance(w, np.mean(w))
 
         if np.isnan(vr) or np.isnan(v):
             vr = np.inf
@@ -666,7 +672,7 @@ def dwVariance(pbox):
         vl = 0.0
     else:
         x = pbox.right
-        vl = sideVariance(w, np.mean(w))
+        vl = __sideVariance(w, np.mean(w))
 
         for i in reversed(range(n)):
             w[i] = pbox.left[i]
@@ -677,7 +683,7 @@ def dwVariance(pbox):
                     if w[i] < w[j]:
                         w[j] = here
 
-            v = sideVariance(w, np.mean(w))
+            v = __sideVariance(w, np.mean(w))
 
             if np.isnan(vl) or np.isnan(v):
                 vl = 0
@@ -685,12 +691,3 @@ def dwVariance(pbox):
                 vl = v
 
     return Interval(vl, vr)
-
-def straddles(x):
-    return (left(x) <= 0) and (0 <= right(x)) # includes zero
-
-def straddlingzero(x):
-    return (left(x) < 0) and (0 < right(x)) # neglects zero as an endpoint
-
-def env(x,y):
-    return x.env(y)

@@ -1628,6 +1628,7 @@ def nct(*args, steps = Pbox.STEPS):
           )
 
 def norm(*args,steps=None):
+    print('hello')
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1636,7 +1637,7 @@ def norm(*args,steps=None):
     if steps is None: steps  = Pbox.STEPS
 
     Left, Right, mean, var = __get_bounds('norm',steps,*args)
-
+    print(Left)
     return Pbox(
           Left,
           Right,

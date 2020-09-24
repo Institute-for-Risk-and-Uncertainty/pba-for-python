@@ -238,3 +238,5 @@ def Gaussian(r = 0, steps = 200):   #   -1 <= r <=1 ; -1 for opposite, 1 for ind
     cdf[0,] = 0; cdf[:,0] = 0           # Grounds C
 
     return Copula(cdf, Gau, r)
+
+__all__ = ['Copula']

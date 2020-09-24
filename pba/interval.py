@@ -392,7 +392,7 @@ class Interval():
                 raise ValueError
 
     def __bool__(self):
-        print(Logical(self.Left,self.Right))
+        # print(Logical(self.Left,self.Right))
         try:
             if Logical(self.Left,self.Right):
 
