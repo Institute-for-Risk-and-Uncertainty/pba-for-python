@@ -5,7 +5,6 @@ Created on Wed Jul 29 14:48:58 2020
 @author: ferson
 """
 
-
 # <, etc. now work;  
 # & and | work for independent, but not for Frechet because they need min, max
 # there are two kinds of min/max, the first for env and imp, but the one we need for logicals is the binary convolutions min and max
@@ -20,11 +19,27 @@ Created on Wed Jul 29 14:48:58 2020
 # and, or, not
 # env
 # min, max
-
+import numpy
+import matplotlib.pyplot as plt
 import pba
 
 a = pba.norm(0.05,0.01)
+d = a._computemoments()
+
 b = pba.unif(0.02,0.06)
+a.show()
+
+c = pba.norm(5,1, steps=200)
+c.show(title='200')
+
+c = a.env(b)
+c.show(title='method')
+
+c = pba.env(a,b)
+c.show(title='function')
+
+c = a.mixture(b)
+c.show(title='mixture')
 
 c = a + b    # both work
 d = a.add(b) # both work
@@ -150,7 +165,9 @@ print(c)
 #    ~(range=[0.0437569,0.131213],  mean=[0.08714,0.08886],  var=[0.000185,0.000246]) 
 
 
-pba.straddles(a)
+print(a.straddles())
+
+print(pba.straddles(a))
 
 a = pba.norm(0.05,0.01, steps=20)
 b = pba.unif(0.02,0.06, steps=20)

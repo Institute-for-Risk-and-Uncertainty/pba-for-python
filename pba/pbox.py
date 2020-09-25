@@ -3,9 +3,13 @@ from matplotlib import pyplot as plt
 
 from .interval import Interval
 
+__all__ = ['Pbox','env','min','max']
+
 class Pbox(object):
 
-    def __init__(self, left=None, right=None, steps=200, shape=None, mean_left=None, mean_right=None, var_left=None, var_right=None, interpolation='linear'):
+    defaultsteps = 200  ############# prolly should not be here
+
+    def __init__(self, left=None, right=None, steps=defaultsteps, shape=None, mean_left=None, mean_right=None, var_left=None, var_right=None, interpolation='linear'):
 
         if (left is not None) and (right is None):
             right = left
@@ -156,7 +160,7 @@ class Pbox(object):
         self.mean_left = np.max([self.mean_left, np.mean(self.left)])
         self.mean_right = np.min([self.mean_right, np.mean(self.right)])
 
-        if not (np.any(self.left <= -np.inf) or np.any(np.inf <= self.right)):
+        if not (np.any(np.array(self.left) <= -np.inf) or np.any(np.inf <= np.array(self.right))):
             V, JJ = 0, 0
             j = np.array(range(self.n))
 
@@ -169,6 +173,7 @@ class Pbox(object):
                     V = v
 
             self.var_right = V
+        # we don't need to return(self) ?
 
     def _checkmoments(self):
 
@@ -193,19 +198,26 @@ class Pbox(object):
             # use the observed variance
             self.var_left = left(b)
             self.var_right = right(b)
+        # we don't need to return(self) ?
 
     ### Public functions ###
 
-# "%<%" <- lt <- function(x,y) prob.pbox(frechetconv.pbox(x,negate(y),'+'),0);   
-# "%>%" <- gt <- function(x,y) xprob.pbox(frechetconv.pbox(y,negate(x),'+'),0)
-# "%<=%" <- lte <- function(x,y) xprob.pbox(frechetconv.pbox(x,negate(y),'+'),0);   
-# "%>=%" <- gte <- function(x,y) prob.pbox(frechetconv.pbox(y,negate(x),'+'),0)
-# "%&%" <- function(x,y) and.pbox(x,y);                               
-# "%|%" <- function(x,y) or.pbox(x,y)
-	
+    # "%<%" <- lt <- function(x,y) prob.pbox(frechetconv.pbox(x,negate(y),'+'),0);   
+    # "%>%" <- gt <- function(x,y) xprob.pbox(frechetconv.pbox(y,negate(x),'+'),0)
+    # "%<=%" <- lte <- function(x,y) xprob.pbox(frechetconv.pbox(x,negate(y),'+'),0);   
+    # "%>=%" <- gte <- function(x,y) prob.pbox(frechetconv.pbox(y,negate(x),'+'),0)
+    # "%&%" <- function(x,y) and.pbox(x,y);                               
+    # "%|%" <- function(x,y) or.pbox(x,y)
+
+    def straddles(self, N):
+        return (left(self) <= s) and (s <= right(self))  # includes s inside its support
+
+    def straddling(self, s = 0):
+        return (left(self) < s) and (s < right(self))  # neglects an endpoint
+
     def lt(self, other, method = 'f'):
-	    b = self.add(-other, method)
-	    return(b.get_probability(0))      # return (self.add(-other, method)).get_probability(0)     
+        b = self.add(-other, method)
+        return(b.get_probability(0))      # return (self.add(-other, method)).get_probability(0)
 
     def le(self, other, method = 'f'):
         b = self.add(-other, method)
@@ -221,42 +233,189 @@ class Pbox(object):
         b = self.add(other, method)
         return(b.get_probability(0))   
 
-#pmin.pbox <- function (..., na.rm = FALSE) {  
-#  elts <- makepbox(...)
-#  m <- elts[[1]]
-#  for (each in elts[-1]) m <- frechetconv.pbox(m, each, 'pmin')
-#  m
-#  }
-#
-#pmax.pbox <- function (..., na.rm = FALSE) {  
-#  elts <- makepbox(...)
-#  m <- elts[[1]]
-#  for (each in elts[-1]) m <- frechetconv.pbox(m, each, 'pmax')
-#  m
-#  }
-#
-#pminI.pbox <- function (..., na.rm = FALSE) {  
-#  elts <- makepbox(...)
-#  m <- elts[[1]]
-#  for (each in elts[-1]) m <- conv.pbox(m, each, 'pmin')
-#  m
-#  }
-#
-#pmaxI.pbox <- function (..., na.rm = FALSE) {  
-#  elts <- makepbox(...)
-#  m <- elts[[1]]
-#  for (each in elts[-1]) m <- conv.pbox(m, each, 'pmax')
-#  m
-#  }
 
+    #pmin.pbox <- function (..., na.rm = FALSE) {  
+    #  elts <- makepbox(...)
+    #  m <- elts[[1]]
+    #  for (each in elts[-1]) m <- frechetconv.pbox(m, each, 'pmin')
+    #  m
+    #  }
+    #
+    #pmax.pbox <- function (..., na.rm = FALSE) {  
+    #  elts <- makepbox(...)
+    #  m <- elts[[1]]
+    #  for (each in elts[-1]) m <- frechetconv.pbox(m, each, 'pmax')
+    #  m
+    #  }
+    #
+    #pminI.pbox <- function (..., na.rm = FALSE) {  
+    #  elts <- makepbox(...)
+    #  m <- elts[[1]]
+    #  for (each in elts[-1]) m <- conv.pbox(m, each, 'pmin')
+    #  m
+    #  }
+    #
+    #pmaxI.pbox <- function (..., na.rm = FALSE) {  
+    #  elts <- makepbox(...)
+    #  m <- elts[[1]]
+    #  for (each in elts[-1]) m <- conv.pbox(m, each, 'pmax')
+    #  m
+    #  }
 
+    def min(self, other, method = 'f'):
+
+        if method not in ['f','p','o','i']:
+            raise ArithmeticError("Calculation method unkown")
+
+        if other.__class__.__name__ == 'Interval':
+            other = Pbox(other, steps = self.steps)
+
+        if other.__class__.__name__ == 'Pbox':
+
+            # if self.steps != other.steps:
+            #     raise ArithmeticError("Both Pboxes must have the same number of steps")
+
+            if method == 'f':
+
+                nleft  = np.empty(self.steps)
+                nright = np.empty(self.steps)
+
+                for i in range(0,self.steps):
+                    j = np.array(range(i, self.steps))
+                    k = np.array(range(self.steps - 1, i-1, -1))
+
+                    nleft[i] = np.minimum(self.right[j],other.right[k])
+
+                    jj = np.array(range(0, i + 1))
+                    kk = np.array(range(i, -1 , -1))
+
+                    nright[i] = np.minimum(self.left[jj],other.left[kk])
+
+            elif method == 'p':
+
+                nleft  = np.minimum(self.left, other.left)
+                nright = np.minimum(self.right, other.right)
+
+            elif method == 'o':
+
+                nleft  = np.minimum(self.left, np.flip(other.left))
+                nright = np.minimum(self.right, np.flip(other.right))
+
+            elif method == 'i':
+
+                nleft  = []
+                nright = []
+                for i in self.left:
+                    for j in other.left:
+                        nleft.append(np.minimum(i,j))
+                for ii in self.right:
+                    for jj in other.right:
+                        nright.append(np.minimum(ii,jj))
+
+            nleft.sort()
+            nright.sort()
+
+            return Pbox(
+                left    = nleft,
+                right   = nright,
+                steps   = self.steps
+            )
+
+        else:
+            try:
+                # Try constant
+                nleft  = [i if i < other else other for i in self.left]
+                nright = [i if i < other else other for i in self.right]
+
+                return Pbox(
+                    left       = nleft,
+                    right      = nright,
+                    steps      = self.steps
+                )
+
+            except:
+                return NotImplemented
+
+    def max(self, other, method = 'f'):
+
+        if method not in ['f','p','o','i']:
+            raise ArithmeticError("Calculation method unkown")
+
+        if other.__class__.__name__ == 'Interval':
+            other = Pbox(other, steps = self.steps)
+
+        if other.__class__.__name__ == 'Pbox':
+
+            # if self.steps != other.steps:
+            #     raise ArithmeticError("Both Pboxes must have the same number of steps")
+
+            if method == 'f':
+
+                nleft  = np.empty(self.steps)
+                nright = np.empty(self.steps)
+
+                for i in range(0,self.steps):
+                    j = np.array(range(i, self.steps))
+                    k = np.array(range(self.steps - 1, i-1, -1))
+
+                    nleft[i] = np.maximum(self.right[j],other.right[k])
+
+                    jj = np.array(range(0, i + 1))
+                    kk = np.array(range(i, -1 , -1))
+
+                    nright[i] = np.maximum(self.left[jj],other.left[kk])
+
+            elif method == 'p':
+
+                nleft  = np.maximum(self.left, other.left)
+                nright = np.maximum(self.right, other.right)
+
+            elif method == 'o':
+
+                nleft  = np.maximum(self.left, np.flip(other.left))
+                nright = np.maximum(self.right, np.flip(other.right))
+
+            elif method == 'i':
+
+                nleft  = []
+                nright = []
+                for i in self.left:
+                    for j in other.left:
+                        nleft.append(np.maximum(i,j))
+                for ii in self.right:
+                    for jj in other.right:
+                        nright.append(np.maximum(ii,jj))
+
+            nleft.sort()
+            nright.sort()
+
+            return Pbox(
+                left    = nleft,
+                right   = nright,
+                steps   = self.steps
+            )
+
+        else:
+            try:
+                # Try constant
+                nleft  = [i if i > other else other for i in self.left]
+                nright = [i if i > other else other for i in self.right]
+
+                return Pbox(
+                    left       = nleft,
+                    right      = nright,
+                    steps      = self.steps
+                )
+
+            except:
+                return NotImplemented
 
     def logicaland(self, other, method = 'f'):   # conjunction 
         if      method=='i': return(self.mul(other,method))  # independence a * b
-#        else if method=='p': return(self.min(other,method))  # perfect min(a, b)
-#        else if method=='o': return(max(self.add(other,method)-1, 0))  # opposite max(a + b – 1, 0)
-#        else if method=='+': return(self.min(other,method))  # positive env(a * b, min(a, b))
-#        else if method=='-': return(self.min(other,method))  # negative env(max(a + b – 1, 0), a * b)
+    #        else if method=='p': return(self.min(other,method))  # perfect min(a, b)
+    #        else if method=='o': return(max(self.add(other,method)-1, 0))  # opposite max(a + b – 1, 0)
+    #        else if method=='+': return(self.min(other,method))  # positive env(a * b, min(a, b))
+    #        else if method=='-': return(self.min(other,method))  # negative env(max(a + b – 1, 0), a * b)
         # otherwise method=='f' :
         return(env(max(0, self.add(other,method) - 1),  self.min(other,method)))
 
@@ -284,7 +443,6 @@ class Pbox(object):
                 right   = nright,
                 steps   = self.steps
             )
-        return NotImplemented
 
     def add(self, other, method = 'f'):
 
@@ -473,15 +631,29 @@ class Pbox(object):
             steps = self.steps
         )
 
-    def show(self,now = True,**kwargs):
-        # If you want to know why numpy is the WORST thing about Python
-        # see the get_x code 
-        left, right = self.get_x()
-        y  = self.get_y()
+    def show(self,now = True, title = '', **kwargs):
+        # If you want to know why numpy is the WORST thing about Python, see the get_x code
+        #L, R = self.get_x()
+        #y  = self.get_y()
+        #plt.plot(L,y,**kwargs)
+        #plt.plot(R,y,**kwargs)
 
+        # now respects discretization
+        L = self.left
+        R = self.right
+        steps = self.steps
 
-        plt.plot(left,y,**kwargs)
-        plt.plot(right,y,**kwargs)
+        LL = np.concatenate((L, L, np.array([R[-1]])))
+        RR = np.concatenate((np.array([L[0]]), R, R))
+        ii = np.concatenate((np.arange(steps), np.arange(1, steps + 1), np.array([steps]))) / steps
+        jj = np.concatenate((np.array([0]),np.arange(steps + 1), np.arange(1, steps))) / steps
+
+        ii.sort();  jj.sort();  LL.sort();  RR.sort()
+
+        plt.plot(LL,ii,'r-',**kwargs)               # can kwargs overwrite 'r-'?
+        plt.plot(RR,jj,'k-',**kwargs)                # can kwargs overwrite 'k-'?
+        if title != '' : plt.title(title,**kwargs)   # can kwargs tweak title?
+
         if now:
             plt.show()
         else:
@@ -540,8 +712,8 @@ class Pbox(object):
 
         return Interval(lb,ub)
 
-    def support(self):
-        return np.linspace(0,1,self.steps)
+    def support(self):  
+        return Interval(min(self.left),max(self.right))
 
     def get_x(self):
         # returns the x values for plotting
@@ -552,6 +724,106 @@ class Pbox(object):
     def get_y(self):
         # returns y values for plotting
         return np.append(np.insert(np.linspace(0,1,self.steps),0,0),1)
+
+    def mixture(self, x, w=[], steps=defaultsteps) :
+        '''
+        IMPROVE READBILITY
+        '''
+        k = len(x)
+        if w == []:
+            w = [1] * k
+        
+
+        # temporary hack
+        # k = 2
+        # x = [self, x]
+        # w = [1,1]
+
+
+        if k != len(w):
+            return('Need same number of weights as arguments for mixture')
+        w = [i/sum(w) for i in w]               # w = w / sum(w)
+        u = []
+        d = []
+        n = []
+        ml = []
+        mh = []
+        m = []
+        vl = []
+        vh = []
+        v = []
+        for i in range(k) :
+            u = u + list(x[i].left)
+            d = np.append(d,x[i].right)
+            n = n + [w[i] / x[i].steps] * x[i].steps    # w[i]*rep(1/x[i].steps,x[i].steps))
+
+            # mu = mean(x[i])
+            # ml = ml + [mu.left()]
+            # mh = mh + [mu.right()]
+            # m = m + [mu]               # don't need?
+            # sigma2 = var(x[[i]])  ### !!!! shouldn't be the sample variance, but the population variance
+            # vl = vl + [sigma2.left()]
+            # vh = vh + [sigma2.right()]
+            # v = v + [sigma2]
+
+            ML = x[i].mean_left
+            MR = x[i].mean_right
+            VL = x[i].var_left
+            VR = x[i].var_right
+            m = m + [Interval(ML,MR)]
+            v = v + [Interval(VL,VR)]
+            ml = ml + [ML]
+            mh = mh + [MR]
+            vl = vl + [VL]
+            vh = vh + [VR]
+
+        n = [_/sum(n) for _ in n]                     # n = n / sum(n)
+        su = sorted(u)
+        su = [su[0]] + su
+        pu = [0] + list(np.cumsum([n[i] for i in np.argsort(u)]))  #  pu = c(0,cumsum(n[order(u)]))
+        sd = sorted(d); sd = sd + [sd[-1]]
+        pd = list(np.cumsum([n[i] for i in np.argsort(d)])) + [1]  #  pd = c(cumsum(n[order(d)]),1)
+        u = [];  d = []
+        j = len(pu) - 1
+        for p in reversed(np.arange(steps)/steps) :   # ii = np.arange(steps))/steps  #    ii = 0: (Pbox$steps-1) / Pbox$steps
+            while p < pu[j] : j = j - 1                 # repeat {if (pu[j] <= p) break; j = j - 1}
+            u = [su[j]] + u
+        j = 0
+        for p in (np.arange(steps)+1)/steps :         # jj = (np.arange(steps)+1)/steps #  jj =  1: Pbox$steps / Pbox$steps
+            while pd[j] < p : j = j + 1                 # repeat {if (p <= pu[j]) break; j = j + 1}
+            d = d + [sd[j]]
+        mu = Interval(np.sum([W * M for M,W in zip(w,ml)]), np.sum([W * M for M,W in zip(w,mh)]))
+        s2 = 0
+        for i in range(k) : s2  = s2 + w[i] * (v[i] + m[i]**2)
+        s2 = s2 - mu**2
+        return Pbox(u,d, mean_left=mu.left(), mean_right=mu.right(), var_left=s2.left(), var_right=s2.right())
+
+
+#nleft = np.minimum(self.left, other.left)
+#nright = np.maximum(self.right, other.right)
+#return Pbox(
+#    left=nleft,
+#    right=nright,
+#    steps=self.steps)
+
+#    mix.equal.numeric < - function(x, y=NULL)
+#    {  # argument is one or two arrays of scalars
+#        n < - length(x)
+#    sx < - sort.list(x)
+#    u < - x[sx[1 + 0:(Pbox$steps-1) / ((Pbox$steps) / n)]]
+#    d < - x[sx[1 + 1:Pbox$steps / ((Pbox$steps) / (n))]]; d < - c(head(d, n=-1), max(x))
+#    if (isTRUE(all.equal(0, Pbox$steps % % n))) d < - u
+#    #  if (missing(y)) pbox(u,d,shape='mixture') else setShape(env(pbox(u,d), mix.equal.numeric(y)),shape='mixture')
+#    if (missing(y))
+#    pbox(u, d, shape='mixture') else env(pbox(u, d), mix.equal.numeric(y))
+#    }
+#
+##    #argument is a list of intervals
+#mix.equal.interval <- function(x) env(mix.equal.numeric(left(x)), mix.equal.numeric(right(x)))
+
+
+
+
 # Public functions
 
 # Functions
@@ -561,7 +833,7 @@ def env_int(*args):
     return Interval(left, right)
 
 def left(imp):
-    if isinstance(imp, Interval) or isinstance(imp, pbox.Pbox):
+    if isinstance(imp, Interval) or isinstance(imp, 'pbox.Pbox'):  # neither "pba.pbox.Pbox" nor "pbox.Pbox" works (with or without quotemarks), even though type(b) is <class 'pba.pbox.Pbox' and isinstance(pba.norm(5,1),pba.pbox.Pbox) is True
         return imp.left()
     elif is_iterable(imp):
         return min(imp)
@@ -717,11 +989,13 @@ def dwVariance(pbox):
 
     return Interval(vl, vr)
 
-def straddles(x):
-    return (left(x) <= 0) and (0 <= right(x)) # includes zero
-
-def straddlingzero(x):
-    return (left(x) < 0) and (0 < right(x)) # neglects zero as an endpoint
 
 def env(x,y):
+    #print('yippy')
     return x.env(y)
+
+def min(x,y):
+    return x.min(y)
+
+def max(x,y):
+    return x.max(y)
