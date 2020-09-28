@@ -27,10 +27,10 @@ class Interval():
         # kill complex nums
         assert not isinstance(Left, np.complex) or not isinstance(Right, np.complex), "Inputs must be real numbers"
 
-        # assume vacuous if no inputs
+        # assume vaccous if no inputs
         if Left is None and Right is None:
             Right = np.inf
-            Left = -np.inf
+            Left = np.inf
 
         # If only one input assume zero width
         elif Left is None and Right is not None:
@@ -62,7 +62,7 @@ class Interval():
             UL = min(Right)
             UU = max(Right)
 
-            Right = max(UL,UU)
+            Right = max(LU,UU)
 
 
         if Left > Right:

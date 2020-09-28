@@ -1,27 +1,34 @@
-This is a probability bound analysis library for Python
+PBA
+========
 
-Intervals can be specified by using ``pba.I(x,y)``
+PBA is a probability bound analysis library for Python. That allows for the creation of pboxes and intervals within python
 
 Probability distributions can be specified using
 ``pba.distname(**args)`` for all distribution that scipy.stats supports.
 Using interval arguments return p-boxes
 
-K out of N confidence boxes can be specified using ``pba.KN(k,n)``
+Intervals can be created using 
 
-``+,-,*,/`` operations are supported. By default frechet convolutions
-are used. But independant, perfect and opposite convolutions are also
-supported, they can be specified using a letter as in:
+Features
+--------
 
-::
+- Interval Arithmetic
+- P-box Arithmetic
 
-   A.add(B, method = 'o') # A + B using opposite convolutions
-   C.sub(D, method = 'p') # C - D using perfect convolutions
-   E.mul(F, method = 'i') # E * F using independence convolutions
-   G.div(H, method = 'f') # G / H using frechet convolutions
+Installation
+-------------
 
---------------
+Install pba by running:
 
-Note: currently there may be errors in creating p-boxes for certain
-distribution types because of the way arguments are passed to the
-distributions in scipy.stats library. If these errors are noticed please
-email me
+    pip install pba
+
+Contribute & Support
+--------------------
+
+If you are having issues or would like to help with development or have intersting use cases, please let us know.
+You can email nickgray@liv.ac.uk
+
+License
+--------
+
+The project is licensed under the MIT License.

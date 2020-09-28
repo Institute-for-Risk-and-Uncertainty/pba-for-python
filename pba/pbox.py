@@ -2,14 +2,17 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 from .interval import Interval
+from .copula import Copula
 
 __all__ = ['Pbox','env','min','max']
 
 class Pbox(object):
 
-    defaultsteps = 200  ############# prolly should not be here
+    STEPS = 200
 
-    def __init__(self, left=None, right=None, steps=defaultsteps, shape=None, mean_left=None, mean_right=None, var_left=None, var_right=None, interpolation='linear'):
+    def __init__(self, left=None, right=None, steps=None, shape=None, mean_left=None, mean_right=None, var_left=None, var_right=None, interpolation='linear'):
+
+        if steps is None: steps = Pbox.STEPS
 
         if (left is not None) and (right is None):
             right = left
@@ -34,7 +37,6 @@ class Pbox(object):
         self.right = right
 
         self.steps = steps
-        self.n = self.steps
         self.shape = shape
         self.mean_left = -np.inf
         self.mean_right = np.inf
@@ -73,6 +75,7 @@ class Pbox(object):
         for val in np.array([self.left,self.right]).flatten():
             yield val
 
+
     def __neg__(self):
         if self.shape in ['uniform','normal','cauchy','triangular','skew-normal']:
             s = self.shape
@@ -100,7 +103,7 @@ class Pbox(object):
 
     def __rle__(self,other):
         return self.gt(other, method = 'f')
-		
+
     def __gt__(self,other):
         return self.gt(other, method = 'f')
 
@@ -112,7 +115,7 @@ class Pbox(object):
 
     def __rge__(self,other):
         return self.lt(other, method = 'f')
-    
+
     def __and__(self, other):
         return self.logicaland(other, method = 'f')
 
@@ -173,7 +176,6 @@ class Pbox(object):
                     V = v
 
             self.var_right = V
-        # we don't need to return(self) ?
 
     def _checkmoments(self):
 
@@ -198,22 +200,6 @@ class Pbox(object):
             # use the observed variance
             self.var_left = left(b)
             self.var_right = right(b)
-        # we don't need to return(self) ?
-
-    ### Public functions ###
-
-    # "%<%" <- lt <- function(x,y) prob.pbox(frechetconv.pbox(x,negate(y),'+'),0);   
-    # "%>%" <- gt <- function(x,y) xprob.pbox(frechetconv.pbox(y,negate(x),'+'),0)
-    # "%<=%" <- lte <- function(x,y) xprob.pbox(frechetconv.pbox(x,negate(y),'+'),0);   
-    # "%>=%" <- gte <- function(x,y) prob.pbox(frechetconv.pbox(y,negate(x),'+'),0)
-    # "%&%" <- function(x,y) and.pbox(x,y);                               
-    # "%|%" <- function(x,y) or.pbox(x,y)
-
-    def straddles(self, N):
-        return (left(self) <= s) and (s <= right(self))  # includes s inside its support
-
-    def straddling(self, s = 0):
-        return (left(self) < s) and (s < right(self))  # neglects an endpoint
 
     def lt(self, other, method = 'f'):
         b = self.add(-other, method)
@@ -231,36 +217,7 @@ class Pbox(object):
     def ge(self, other, method = 'f'):
         self = - self
         b = self.add(other, method)
-        return(b.get_probability(0))   
-
-
-    #pmin.pbox <- function (..., na.rm = FALSE) {  
-    #  elts <- makepbox(...)
-    #  m <- elts[[1]]
-    #  for (each in elts[-1]) m <- frechetconv.pbox(m, each, 'pmin')
-    #  m
-    #  }
-    #
-    #pmax.pbox <- function (..., na.rm = FALSE) {  
-    #  elts <- makepbox(...)
-    #  m <- elts[[1]]
-    #  for (each in elts[-1]) m <- frechetconv.pbox(m, each, 'pmax')
-    #  m
-    #  }
-    #
-    #pminI.pbox <- function (..., na.rm = FALSE) {  
-    #  elts <- makepbox(...)
-    #  m <- elts[[1]]
-    #  for (each in elts[-1]) m <- conv.pbox(m, each, 'pmin')
-    #  m
-    #  }
-    #
-    #pmaxI.pbox <- function (..., na.rm = FALSE) {  
-    #  elts <- makepbox(...)
-    #  m <- elts[[1]]
-    #  for (each in elts[-1]) m <- conv.pbox(m, each, 'pmax')
-    #  m
-    #  }
+        return(b.get_probability(0))
 
     def min(self, other, method = 'f'):
 
@@ -410,7 +367,7 @@ class Pbox(object):
             except:
                 return NotImplemented
 
-    def logicaland(self, other, method = 'f'):   # conjunction 
+    def logicaland(self, other, method = 'f'):   # conjunction
         if      method=='i': return(self.mul(other,method))  # independence a * b
     #        else if method=='p': return(self.min(other,method))  # perfect min(a, b)
     #        else if method=='o': return(max(self.add(other,method)-1, 0))  # opposite max(a + b – 1, 0)
@@ -427,7 +384,7 @@ class Pbox(object):
 #        else if method=='-': return()  # negative env(1 – (1 – a) * (1 – b), min(1, a + b))
         # otherwise method=='f' :
         return(env(self.max(other,method), min(self.add(other,method),1)))
-        
+
     def env(self, other):
         if other.__class__.__name__ == 'Interval':
             other = Pbox(other, steps = self.steps)
@@ -437,7 +394,7 @@ class Pbox(object):
 
         nleft  = np.minimum(self.left, other.left)
         nright = np.maximum(self.right, other.right)
-        
+
         return Pbox(
                 left    = nleft,
                 right   = nright,
@@ -659,6 +616,8 @@ class Pbox(object):
         else:
             return plt
 
+        plot = show
+
     def get_interval(self, *args):
 
         if len(args) == 1:
@@ -712,7 +671,7 @@ class Pbox(object):
 
         return Interval(lb,ub)
 
-    def support(self):  
+    def support(self):
         return Interval(min(self.left),max(self.right))
 
     def get_x(self):
@@ -732,7 +691,7 @@ class Pbox(object):
         k = len(x)
         if w == []:
             w = [1] * k
-        
+
 
         # temporary hack
         # k = 2
@@ -797,34 +756,6 @@ class Pbox(object):
         for i in range(k) : s2  = s2 + w[i] * (v[i] + m[i]**2)
         s2 = s2 - mu**2
         return Pbox(u,d, mean_left=mu.left(), mean_right=mu.right(), var_left=s2.left(), var_right=s2.right())
-
-
-#nleft = np.minimum(self.left, other.left)
-#nright = np.maximum(self.right, other.right)
-#return Pbox(
-#    left=nleft,
-#    right=nright,
-#    steps=self.steps)
-
-#    mix.equal.numeric < - function(x, y=NULL)
-#    {  # argument is one or two arrays of scalars
-#        n < - length(x)
-#    sx < - sort.list(x)
-#    u < - x[sx[1 + 0:(Pbox$steps-1) / ((Pbox$steps) / n)]]
-#    d < - x[sx[1 + 1:Pbox$steps / ((Pbox$steps) / (n))]]; d < - c(head(d, n=-1), max(x))
-#    if (isTRUE(all.equal(0, Pbox$steps % % n))) d < - u
-#    #  if (missing(y)) pbox(u,d,shape='mixture') else setShape(env(pbox(u,d), mix.equal.numeric(y)),shape='mixture')
-#    if (missing(y))
-#    pbox(u, d, shape='mixture') else env(pbox(u, d), mix.equal.numeric(y))
-#    }
-#
-##    #argument is a list of intervals
-#mix.equal.interval <- function(x) env(mix.equal.numeric(left(x)), mix.equal.numeric(right(x)))
-
-
-
-
-# Public functions
 
 # Functions
 def env_int(*args):
