@@ -3,8 +3,9 @@ from matplotlib import pyplot as plt
 
 from .interval import Interval
 from .copula import Copula
+from .core import env
 
-__all__ = ['Pbox','env','min','max']
+__all__ = ['Pbox']
 
 class Pbox(object):
 
@@ -165,9 +166,9 @@ class Pbox(object):
 
         if not (np.any(np.array(self.left) <= -np.inf) or np.any(np.inf <= np.array(self.right))):
             V, JJ = 0, 0
-            j = np.array(range(self.n))
+            j = np.array(range(self.steps))
 
-            for J in np.array(range(self.n)) - 1:
+            for J in np.array(range(self.steps)) - 1:
                 ud = [*self.left[j < J], *self.right[J <= j]]
                 v = sideVariance(ud)
 
@@ -684,10 +685,13 @@ class Pbox(object):
         # returns y values for plotting
         return np.append(np.insert(np.linspace(0,1,self.steps),0,0),1)
 
-    def mixture(self, x, w=[], steps=defaultsteps) :
+    def mixture(self, x, w=[], steps=None) :
         '''
         IMPROVE READBILITY
         '''
+
+        if steps is None: steps = self.steps
+
         k = len(x)
         if w == []:
             w = [1] * k
@@ -919,14 +923,3 @@ def dwVariance(pbox):
                 vl = v
 
     return Interval(vl, vr)
-
-
-def env(x,y):
-    #print('yippy')
-    return x.env(y)
-
-def min(x,y):
-    return x.min(y)
-
-def max(x,y):
-    return x.max(y)

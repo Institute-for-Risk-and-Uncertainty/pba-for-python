@@ -1,28 +1,38 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Thu Oct 17 12:57:55 2019
-
-@author: sggdale (with 'inspiration' from Marco)
-
-nick: Sorry
-"""
-
-#testcommit
 
 import numpy as np
 import random as r
 
 from .logic import Logical
 
+__all__ = ['Interval','I']
+
 class Interval():
+    """
+    Interval
+    ---------
+    An interval is an uncertain number for which only the endpoints are known, for example if :math:`x=[a,b]`
+    then this can be interpreted as :math:`x` being between :math:`a` and :math:`b` but with no more information about the value of :math:`x`
+    .
+    Intervals can be created using::
+        pba.I(left,right)
+        pba.Interval(left,right)
+    Parameters
+    ----------
+    left : numeric
+        Left side of interval
+    right : numeric
+        Right side of interval
+    Attributes
+    ----------
+    Left : numeric
+        Left side of interval
+    Right : numeric
+        Right side of interval
 
-    def __repr__(self): # return
-        return "[%g, %g]"%(self.Left,self.Right)
-
-    def __str__(self): # print
-        return "[%g, %g]"%(self.Left,self.Right)
-
+    """
     def __init__(self,Left = None, Right = None):
+
 
         # kill complex nums
         assert not isinstance(Left, np.complex) or not isinstance(Right, np.complex), "Inputs must be real numbers"
@@ -72,6 +82,12 @@ class Interval():
 
         self.Left = Left
         self.Right = Right
+
+    def __repr__(self): # return
+        return "[%g, %g]"%(self.Left,self.Right)
+
+    def __str__(self): # print
+        return "[%g, %g]"%(self.Left,self.Right)
 
     def __iter__(self):
         for bound in [self.Left, self.Right]:
@@ -385,15 +401,21 @@ class Interval():
             raise ValueError("Truth value of Interval %s is ambiguous" %self)
 
     def left(self):
+        """
+        Returns the left side of the interval
+        """
         return self.Left
 
     def right(self):
+        """
+        Returns the right side of the interval
+        """
         return self.Right
 
     lo = left
     hi = right
 
-    def mean(*args):
+  def mean(*args):
         LSum = 0
         USum = 0
         DataLen = len(args)
@@ -482,9 +504,23 @@ class Interval():
 
     def mode(*args):
         NotImplemented
-
+        
     def straddles(self,N, endpoints = True):
+        """
+        Parameters
+        ----------
+        N : numeric
+            Number to check
+        endpoints : bool
+            Whether to include the endpoints within the check
 
+        Returns
+        -------
+        True
+            If :math:`\\mathrm{left} \\leq N \\leq \mathrm{right}` (Assuming `endpoints=True`)
+        False
+            Otherwise
+        """
         if endpoints:
             if self.Left <= N and self.Right >= N:
                 return True
@@ -495,10 +531,17 @@ class Interval():
         return False
 
     def straddles_zero(self,endpoints = True):
+        """
+        Checks whether :math:`0` is within the interval
+        """
         return self.straddles(0,endpoints)
 
     def recip(self):
+        """
+        Calculates the reciprocle of the interval.
+        If :math:`0 \\in [a,b]` it returns a division by zero error
 
+        """
         if self.straddles_zero():
             # Cant divide by zero
             raise ZeroDivisionError()
@@ -509,6 +552,9 @@ class Interval():
             return Interval(1/self.lo(), 1/self.hi())
 
     def intersection(self, other):
+        '''
+        Calculates the intersection between two intervals
+        '''
         if isinstance(other, Interval):
             if self.straddles(other):
                 return I(max([x.Left for x in [self, other]]), min([x.Right for x in [self, other]]))

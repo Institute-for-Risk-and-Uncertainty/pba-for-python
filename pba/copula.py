@@ -1,7 +1,7 @@
 ###
 #   Defines copula functions. For plotting and use in convolutions
 #
-#   To Do:  
+#   To Do:
 #
 #           -> Once completed, the Sigma, Tau and Rho convolutions may be defined
 #
@@ -17,6 +17,7 @@ from .interval import *
 from scipy.stats import multivariate_normal as mvn
 from scipy.stats import norm
 
+__all__ = ['Copula','ClaGen','ClaInv','FGen','FInv','indep','perf','opp','Cla','F','Gau','pi','M','W','Frank','Clayton','Gaussian']
 class Copula(object):
 
     def __init__(self, cdf=None, func=None, param = None):
@@ -46,13 +47,13 @@ class Copula(object):
             if func == Gau: parName = "r"
             if func == F: parName = "s"
             if func == Cla: parName = "t"
-            statement2 = f'{parName}={self.param}'   
-        
+            statement2 = f'{parName}={self.param}'
+
         return f'Copula ~ {statement1}({statement2})'
 
     def get_cdf(self, x, y):    # x, y are points on the unit square
 
-        if self.func is not None:   # If function is known, return it 
+        if self.func is not None:   # If function is known, return it
             if self.param is not None: return self.func(x, y, self.param)
             return self.func(x,y)
 
@@ -129,7 +130,7 @@ class Copula(object):
         plt.show()
 
 ###
-#   Copula generators for Archimedean (Frank and Clayton) copulas. Allows for easy and accurate copula generation 
+#   Copula generators for Archimedean (Frank and Clayton) copulas. Allows for easy and accurate copula generation
 #   at any dimension in terms of univariate functions (generator and inverse generator).
 ###
 
@@ -154,10 +155,10 @@ def perf(x,y): return min(x,y)
 def opp(x,y): return max(x+y-1,0)
 def Cla(x, y, t = 1): return ClaInv( ClaGen(x, t) + ClaGen(y, t), t)
 def F(x,y,s = 1): return FInv( FGen(x, s) + FGen(y, s), s)
-def Gau(x,y,r=0): 
+def Gau(x,y,r=0):
     if x == 0: return 0
     if y == 0: return 0
-    return mvn.cdf([norm.ppf(x), norm.ppf(y)], mean = [0, 0], cov=[[1, r], [r, 1]]) 
+    return mvn.cdf([norm.ppf(x), norm.ppf(y)], mean = [0, 0], cov=[[1, r], [r, 1]])
 
 
 
@@ -218,7 +219,7 @@ def Clayton(t = 1, steps = 200):    #   t>-1; -1 for opposite, 0 for indep and i
 
 def Gaussian(r = 0, steps = 200):   #   -1 <= r <=1 ; -1 for opposite, 1 for indep and 1 for perfect
 
-    if r is 0: 
+    if r is 0:
         C = pi()
         return Copula(C.cdf, Gau, 0)
     if r is -1:
@@ -227,7 +228,7 @@ def Gaussian(r = 0, steps = 200):   #   -1 <= r <=1 ; -1 for opposite, 1 for ind
     if r is 1:
         C = M()
         return Copula(C.cdf, Gau, 1)
-    
+
     x = np.linspace(0, 1, num=steps)
     xx, yy = np.meshgrid(x,x,indexing='ij')
 
@@ -238,5 +239,3 @@ def Gaussian(r = 0, steps = 200):   #   -1 <= r <=1 ; -1 for opposite, 1 for ind
     cdf[0,] = 0; cdf[:,0] = 0           # Grounds C
 
     return Copula(cdf, Gau, r)
-
-__all__ = ['Copula']
