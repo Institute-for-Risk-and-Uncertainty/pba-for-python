@@ -129,7 +129,7 @@ dists = {
     'yulesimon' : sps.yulesimon
 }
 
-def __get_bounds(function_name = None,steps = Pbox.STEPS,*args):
+def __get_bounds(function_name = None,steps = 200,*args):
 
     # define support
     x = np.linspace(0.0001,0.9999,steps)
@@ -171,7 +171,7 @@ def __get_bounds(function_name = None,steps = Pbox.STEPS,*args):
     return Left, Right, mean, var
 
 
-def lognormal(mean, var, steps = Pbox.STEPS):
+def lognormal(mean, var, steps = 200):
 
     x = np.linspace(0,1,steps)
 
@@ -201,7 +201,7 @@ def lognormal(mean, var, steps = Pbox.STEPS):
         var_right=var.right())
 lognorm = lognormal
 
-def alpha(*args, steps = Pbox.STEPS):
+def alpha(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -220,7 +220,7 @@ def alpha(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def anglit(*args, steps = Pbox.STEPS):
+def anglit(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -239,7 +239,7 @@ def anglit(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def arcsine(*args, steps = Pbox.STEPS):
+def arcsine(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -258,7 +258,7 @@ def arcsine(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def argus(*args, steps = Pbox.STEPS):
+def argus(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -277,7 +277,7 @@ def argus(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def beta(*args, steps = Pbox.STEPS):
+def beta(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -296,7 +296,7 @@ def beta(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def betaprime(*args, steps = Pbox.STEPS):
+def betaprime(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -315,7 +315,7 @@ def betaprime(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def bradford(*args, steps = Pbox.STEPS):
+def bradford(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -334,7 +334,7 @@ def bradford(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def burr(*args, steps = Pbox.STEPS):
+def burr(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -353,7 +353,7 @@ def burr(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def burr12(*args, steps = Pbox.STEPS):
+def burr12(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -372,7 +372,7 @@ def burr12(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def cauchy(*args, steps = Pbox.STEPS):
+def cauchy(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -391,7 +391,7 @@ def cauchy(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def chi(*args, steps = Pbox.STEPS):
+def chi(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -410,7 +410,7 @@ def chi(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def chi2(*args, steps = Pbox.STEPS):
+def chi2(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -429,7 +429,7 @@ def chi2(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def cosine(*args, steps = Pbox.STEPS):
+def cosine(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -448,7 +448,7 @@ def cosine(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def crystalball(*args, steps = Pbox.STEPS):
+def crystalball(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -467,7 +467,7 @@ def crystalball(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def dgamma(*args, steps = Pbox.STEPS):
+def dgamma(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -486,7 +486,7 @@ def dgamma(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def dweibull(*args, steps = Pbox.STEPS):
+def dweibull(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -505,7 +505,7 @@ def dweibull(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def erlang(*args, steps = Pbox.STEPS):
+def erlang(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -524,7 +524,7 @@ def erlang(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def expon(*args, steps = Pbox.STEPS):
+def expon(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -543,7 +543,7 @@ def expon(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def exponnorm(*args, steps = Pbox.STEPS):
+def exponnorm(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -562,7 +562,7 @@ def exponnorm(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def exponweib(*args, steps = Pbox.STEPS):
+def exponweib(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -581,7 +581,7 @@ def exponweib(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def exponpow(*args, steps = Pbox.STEPS):
+def exponpow(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -600,7 +600,7 @@ def exponpow(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def f(*args, steps = Pbox.STEPS):
+def f(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -619,7 +619,7 @@ def f(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def fatiguelife(*args, steps = Pbox.STEPS):
+def fatiguelife(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -638,7 +638,7 @@ def fatiguelife(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def fisk(*args, steps = Pbox.STEPS):
+def fisk(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -657,7 +657,7 @@ def fisk(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def foldcauchy(*args, steps = Pbox.STEPS):
+def foldcauchy(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -676,7 +676,7 @@ def foldcauchy(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def foldnorm(mu,s, steps = Pbox.STEPS):
+def foldnorm(mu,s, steps = 200):
 
     x = np.linspace(0.0001,0.9999,steps)
     if mu.__class__.__name__ != 'Interval':
@@ -734,7 +734,7 @@ def foldnorm(mu,s, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def frechet_r(*args, steps = Pbox.STEPS):
+def frechet_r(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -753,7 +753,7 @@ def frechet_r(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def frechet_l(*args, steps = Pbox.STEPS):
+def frechet_l(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -772,7 +772,7 @@ def frechet_l(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def genlogistic(*args, steps = Pbox.STEPS):
+def genlogistic(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -791,7 +791,7 @@ def genlogistic(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def gennorm(*args, steps = Pbox.STEPS):
+def gennorm(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -810,7 +810,7 @@ def gennorm(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def genpareto(*args, steps = Pbox.STEPS):
+def genpareto(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -829,7 +829,7 @@ def genpareto(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def genexpon(*args, steps = Pbox.STEPS):
+def genexpon(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -848,7 +848,7 @@ def genexpon(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def genextreme(*args, steps = Pbox.STEPS):
+def genextreme(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -867,7 +867,7 @@ def genextreme(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def gausshyper(*args, steps = Pbox.STEPS):
+def gausshyper(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -886,7 +886,7 @@ def gausshyper(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def gamma(*args, steps = Pbox.STEPS):
+def gamma(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -905,7 +905,7 @@ def gamma(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def gengamma(*args, steps = Pbox.STEPS):
+def gengamma(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -924,7 +924,7 @@ def gengamma(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def genhalflogistic(*args, steps = Pbox.STEPS):
+def genhalflogistic(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -943,7 +943,7 @@ def genhalflogistic(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def geninvgauss(*args, steps = Pbox.STEPS):
+def geninvgauss(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -962,7 +962,7 @@ def geninvgauss(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def gilbrat(*args, steps = Pbox.STEPS):
+def gilbrat(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -981,7 +981,7 @@ def gilbrat(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def gompertz(*args, steps = Pbox.STEPS):
+def gompertz(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1000,7 +1000,7 @@ def gompertz(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def gumbel_r(*args, steps = Pbox.STEPS):
+def gumbel_r(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1019,7 +1019,7 @@ def gumbel_r(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def gumbel_l(*args, steps = Pbox.STEPS):
+def gumbel_l(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1038,7 +1038,7 @@ def gumbel_l(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def halfcauchy(*args, steps = Pbox.STEPS):
+def halfcauchy(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1057,7 +1057,7 @@ def halfcauchy(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def halflogistic(*args, steps = Pbox.STEPS):
+def halflogistic(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1076,7 +1076,7 @@ def halflogistic(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def halfnorm(*args, steps = Pbox.STEPS):
+def halfnorm(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1095,7 +1095,7 @@ def halfnorm(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def halfgennorm(*args, steps = Pbox.STEPS):
+def halfgennorm(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1114,7 +1114,7 @@ def halfgennorm(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def hypsecant(*args, steps = Pbox.STEPS):
+def hypsecant(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1133,7 +1133,7 @@ def hypsecant(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def invgamma(*args, steps = Pbox.STEPS):
+def invgamma(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1152,7 +1152,7 @@ def invgamma(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def invgauss(*args, steps = Pbox.STEPS):
+def invgauss(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1171,7 +1171,7 @@ def invgauss(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def invweibull(*args, steps = Pbox.STEPS):
+def invweibull(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1190,7 +1190,7 @@ def invweibull(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def johnsonsb(*args, steps = Pbox.STEPS):
+def johnsonsb(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1209,7 +1209,7 @@ def johnsonsb(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def johnsonsu(*args, steps = Pbox.STEPS):
+def johnsonsu(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1228,7 +1228,7 @@ def johnsonsu(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def kappa4(*args, steps = Pbox.STEPS):
+def kappa4(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1247,7 +1247,7 @@ def kappa4(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def kappa3(*args, steps = Pbox.STEPS):
+def kappa3(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1266,7 +1266,7 @@ def kappa3(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def ksone(*args, steps = Pbox.STEPS):
+def ksone(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1285,7 +1285,7 @@ def ksone(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def kstwobign(*args, steps = Pbox.STEPS):
+def kstwobign(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1304,7 +1304,7 @@ def kstwobign(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def laplace(*args, steps = Pbox.STEPS):
+def laplace(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1323,7 +1323,7 @@ def laplace(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def levy(*args, steps = Pbox.STEPS):
+def levy(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1342,7 +1342,7 @@ def levy(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def levy_l(*args, steps = Pbox.STEPS):
+def levy_l(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1361,7 +1361,7 @@ def levy_l(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def levy_stable(*args, steps = Pbox.STEPS):
+def levy_stable(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1380,7 +1380,7 @@ def levy_stable(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def logistic(*args, steps = Pbox.STEPS):
+def logistic(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1399,7 +1399,7 @@ def logistic(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def loggamma(*args, steps = Pbox.STEPS):
+def loggamma(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1418,7 +1418,7 @@ def loggamma(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def loglaplace(*args, steps = Pbox.STEPS):
+def loglaplace(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1437,7 +1437,7 @@ def loglaplace(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def lognorm(*args, steps = Pbox.STEPS):
+def lognorm(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1456,7 +1456,7 @@ def lognorm(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def loguniform(*args, steps = Pbox.STEPS):
+def loguniform(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1475,7 +1475,7 @@ def loguniform(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def lomax(*args, steps = Pbox.STEPS):
+def lomax(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1494,7 +1494,7 @@ def lomax(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def maxwell(*args, steps = Pbox.STEPS):
+def maxwell(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1513,7 +1513,7 @@ def maxwell(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def mielke(*args, steps = Pbox.STEPS):
+def mielke(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1532,7 +1532,7 @@ def mielke(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def moyal(*args, steps = Pbox.STEPS):
+def moyal(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1551,7 +1551,7 @@ def moyal(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def nakagami(*args, steps = Pbox.STEPS):
+def nakagami(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1570,7 +1570,7 @@ def nakagami(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def ncx2(*args, steps = Pbox.STEPS):
+def ncx2(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1589,7 +1589,7 @@ def ncx2(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def ncf(*args, steps = Pbox.STEPS):
+def ncf(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1608,7 +1608,7 @@ def ncf(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def nct(*args, steps = Pbox.STEPS):
+def nct(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1627,13 +1627,11 @@ def nct(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def norm(*args,steps=None):
+def norm(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
             args[i] = Interval(args[i])
-
-    if steps is None: steps  = Pbox.STEPS
 
     Left, Right, mean, var = __get_bounds('norm',steps,*args)
 
@@ -1648,7 +1646,7 @@ def norm(*args,steps=None):
           var_right  = var.right()
           )
 
-def norminvgauss(*args, steps = Pbox.STEPS):
+def norminvgauss(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1667,7 +1665,7 @@ def norminvgauss(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def pareto(*args, steps = Pbox.STEPS):
+def pareto(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1686,7 +1684,7 @@ def pareto(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def pearson3(*args, steps = Pbox.STEPS):
+def pearson3(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1705,7 +1703,7 @@ def pearson3(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def powerlaw(*args, steps = Pbox.STEPS):
+def powerlaw(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1724,7 +1722,7 @@ def powerlaw(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def powerlognorm(*args, steps = Pbox.STEPS):
+def powerlognorm(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1743,7 +1741,7 @@ def powerlognorm(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def powernorm(*args, steps = Pbox.STEPS):
+def powernorm(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1762,7 +1760,7 @@ def powernorm(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def rdist(*args, steps = Pbox.STEPS):
+def rdist(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1781,7 +1779,7 @@ def rdist(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def rayleigh(*args, steps = Pbox.STEPS):
+def rayleigh(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1800,7 +1798,7 @@ def rayleigh(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def rice(*args, steps = Pbox.STEPS):
+def rice(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1819,7 +1817,7 @@ def rice(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def recipinvgauss(*args, steps = Pbox.STEPS):
+def recipinvgauss(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1838,7 +1836,7 @@ def recipinvgauss(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def semicircular(*args, steps = Pbox.STEPS):
+def semicircular(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1857,7 +1855,7 @@ def semicircular(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def skewnorm(*args, steps = Pbox.STEPS):
+def skewnorm(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1876,7 +1874,7 @@ def skewnorm(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def t(*args, steps = Pbox.STEPS):
+def t(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1895,7 +1893,7 @@ def t(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def trapz(a,b,c,d , steps = Pbox.STEPS):
+def trapz(a,b,c,d , steps = 200):
     if a.__class__.__name__ != 'Interval':
         a = Interval(a)
     if b.__class__.__name__ != 'Interval':
@@ -1916,7 +1914,7 @@ def trapz(a,b,c,d , steps = Pbox.STEPS):
           shape      = 'trapz'
           )
 
-def triang(*args, steps = Pbox.STEPS):
+def triang(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1935,7 +1933,7 @@ def triang(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def truncexpon(*args, steps = Pbox.STEPS):
+def truncexpon(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1954,7 +1952,7 @@ def truncexpon(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def truncnorm(*args, steps = Pbox.STEPS):
+def truncnorm(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1973,7 +1971,7 @@ def truncnorm(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def tukeylambda(*args, steps = Pbox.STEPS):
+def tukeylambda(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -1993,7 +1991,7 @@ def tukeylambda(*args, steps = Pbox.STEPS):
           )
 
 
-def uniform(a, b, steps = Pbox.STEPS):
+def uniform(a, b, steps = 200):
 
     x = np.linspace(0,1,steps)
 
@@ -2019,7 +2017,7 @@ def uniform(a, b, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def vonmises(*args, steps = Pbox.STEPS):
+def vonmises(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -2038,7 +2036,7 @@ def vonmises(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def vonmises_line(*args, steps = Pbox.STEPS):
+def vonmises_line(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -2057,7 +2055,7 @@ def vonmises_line(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def wald(*args, steps = Pbox.STEPS):
+def wald(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -2076,7 +2074,7 @@ def wald(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def weibull_min(*args, steps = Pbox.STEPS):
+def weibull_min(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -2095,7 +2093,7 @@ def weibull_min(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def weibull_max(*args, steps = Pbox.STEPS):
+def weibull_max(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -2114,7 +2112,7 @@ def weibull_max(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def wrapcauchy(*args, steps = Pbox.STEPS):
+def wrapcauchy(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -2133,7 +2131,7 @@ def wrapcauchy(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def bernoulli(*args, steps = Pbox.STEPS):
+def bernoulli(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -2152,7 +2150,7 @@ def bernoulli(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def betabinom(*args, steps = Pbox.STEPS):
+def betabinom(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -2171,7 +2169,7 @@ def betabinom(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def binom(*args, steps = Pbox.STEPS):
+def binom(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -2190,7 +2188,7 @@ def binom(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def boltzmann(*args, steps = Pbox.STEPS):
+def boltzmann(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -2209,7 +2207,7 @@ def boltzmann(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def dlaplace(*args, steps = Pbox.STEPS):
+def dlaplace(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -2228,7 +2226,7 @@ def dlaplace(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def geom(*args, steps = Pbox.STEPS):
+def geom(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -2247,7 +2245,7 @@ def geom(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def hypergeom(*args, steps = Pbox.STEPS):
+def hypergeom(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -2266,7 +2264,7 @@ def hypergeom(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def logser(*args, steps = Pbox.STEPS):
+def logser(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -2285,7 +2283,7 @@ def logser(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def nbinom(*args, steps = Pbox.STEPS):
+def nbinom(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -2304,7 +2302,7 @@ def nbinom(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def planck(*args, steps = Pbox.STEPS):
+def planck(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -2323,7 +2321,7 @@ def planck(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def poisson(*args, steps = Pbox.STEPS):
+def poisson(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -2342,7 +2340,7 @@ def poisson(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def randint(*args, steps = Pbox.STEPS):
+def randint(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -2361,7 +2359,7 @@ def randint(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def skellam(*args, steps = Pbox.STEPS):
+def skellam(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -2380,7 +2378,7 @@ def skellam(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def zipf(*args, steps = Pbox.STEPS):
+def zipf(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -2399,7 +2397,7 @@ def zipf(*args, steps = Pbox.STEPS):
           var_right  = var.right()
           )
 
-def yulesimon(*args, steps = Pbox.STEPS):
+def yulesimon(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -2420,14 +2418,14 @@ def yulesimon(*args, steps = Pbox.STEPS):
 
 
 ### Other distributions
-def KM(k,m,steps = Pbox.STEPS):
+def KM(k,m,steps = 200):
     return beta(Interval(k,k+1),Interval(m,m+1),steps = steps)
 
-def KN(k,n,steps = Pbox.STEPS):
+def KN(k,n,steps = 200):
     return KM(k,n-k,steps=steps)
 
 
-### Aliases
+### Alternate names
 normal = norm
 N = normal
 unif = uniform

@@ -8,6 +8,4 @@ pyvenv.cfg
 pba/intervalDtrack.py
 pbaenv/
 pbaenv/include
-
-
 .vscode
