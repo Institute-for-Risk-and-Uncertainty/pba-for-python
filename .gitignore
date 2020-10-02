@@ -5,7 +5,5 @@ lib/
 bin/
 pyvenv.cfg
 *.pyc
-pba/intervalDtrack.py
-pbaenv/
-pbaenv/include
 .vscode
+.env

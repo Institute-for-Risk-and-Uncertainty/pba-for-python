@@ -415,95 +415,95 @@ class Interval():
     lo = left
     hi = right
 
-  def mean(*args):
-        LSum = 0
-        USum = 0
-        DataLen = len(args)
-        for x in args:
-            if x.__class__.__name__ in ("int","float"):
-                x = Interval(x)
-            if x.__class__.__name__ in ("list","tuple"):
-                DataLen = DataLen + (len(x) - 1)
-                for y in x:
-                    if y.__class__.__name__ in ("int","float"):
-                        y = Interval(y)
-                    LSum = LSum + y.Left
-                    USum = USum + y.Right
-            if x.__class__.__name__ == "Interval":
-                LSum = LSum + x.Left
-                USum = USum + x.Right
-            LMean = LSum / DataLen
-            UMean = USum / DataLen
-        return Interval(LMean, UMean)
+    # def mean(*args):
+    #     LSum = 0
+    #     USum = 0
+    #     DataLen = len(args)
+    #     for x in args:
+    #         if x.__class__.__name__ in ("int","float"):
+    #             x = Interval(x)
+    #         if x.__class__.__name__ in ("list","tuple"):
+    #             DataLen = DataLen + (len(x) - 1)
+    #             for y in x:
+    #                 if y.__class__.__name__ in ("int","float"):
+    #                     y = Interval(y)
+    #                 LSum = LSum + y.Left
+    #                 USum = USum + y.Right
+    #         if x.__class__.__name__ == "Interval":
+    #             LSum = LSum + x.Left
+    #             USum = USum + x.Right
+    #         LMean = LSum / DataLen
+    #         UMean = USum / DataLen
+    #     return Interval(LMean, UMean)
 
-    def median(*args):
-        LBounds = []
-        LSorted = []
-        UBounds = []
-        USorted = []
+    # def median(*args):
+    #     LBounds = []
+    #     LSorted = []
+    #     UBounds = []
+    #     USorted = []
 
-        for x in [*args]:
-            if x.__class__.__name__ in ("int","float"):
-                x = Interval(x)
-                LBounds.append(x.Left)
-                UBounds.append(x.Right)
-            if x.__class__.__name__ in ("list","tuple"):
-                for y in x:
-                    if y.__class__.__name__ in ("int","float"):
-                        y = Interval(y)
-                    LBounds.append(y.Left)
-                    UBounds.append(y.Right)
-            if x.__class__.__name__ == "Interval":
-                LBounds.append(x.Left)
-                UBounds.append(x.Right)
-        while (len(LBounds) > 0):
-            MinL = min(LBounds)
-            LSorted.append(MinL)
-            LBounds.remove(MinL)
-        while (len(UBounds) > 0):
-            MinU = min(UBounds)
-            USorted.append(MinU)
-            UBounds.remove(MinU)
+    #     for x in [*args]:
+    #         if x.__class__.__name__ in ("int","float"):
+    #             x = Interval(x)
+    #             LBounds.append(x.Left)
+    #             UBounds.append(x.Right)
+    #         if x.__class__.__name__ in ("list","tuple"):
+    #             for y in x:
+    #                 if y.__class__.__name__ in ("int","float"):
+    #                     y = Interval(y)
+    #                 LBounds.append(y.Left)
+    #                 UBounds.append(y.Right)
+    #         if x.__class__.__name__ == "Interval":
+    #             LBounds.append(x.Left)
+    #             UBounds.append(x.Right)
+    #     while (len(LBounds) > 0):
+    #         MinL = min(LBounds)
+    #         LSorted.append(MinL)
+    #         LBounds.remove(MinL)
+    #     while (len(UBounds) > 0):
+    #         MinU = min(UBounds)
+    #         USorted.append(MinU)
+    #         UBounds.remove(MinU)
 
-        if (len(LSorted) % 2) != 0:
-            LMedian = LSorted[len(LSorted)//2]
-            UMedian = USorted[len(USorted)//2]
-        else:
-            LMedian = (LSorted[len(LSorted)//2] + LSorted[(len(LSorted)//2)-1])/2
-            UMedian = (USorted[len(USorted)//2] + USorted[(len(USorted)//2)-1])/2
-        return Interval(LMedian,UMedian)
+    #     if (len(LSorted) % 2) != 0:
+    #         LMedian = LSorted[len(LSorted)//2]
+    #         UMedian = USorted[len(USorted)//2]
+    #     else:
+    #         LMedian = (LSorted[len(LSorted)//2] + LSorted[(len(LSorted)//2)-1])/2
+    #         UMedian = (USorted[len(USorted)//2] + USorted[(len(USorted)//2)-1])/2
+    #     return Interval(LMedian,UMedian)
 
-    def variance(*args):
-        dataMean = Interval.mean(*args)
-        LBounds = []
-        UBounds = []
-        LDev = []
-        UDev = []
-        DataLen = len(args)
-        for x in [*args]:
-            if x.__class__.__name__ in ("int","float"):
-                x = Interval(x)
-                LBounds.append(x.Left)
-                UBounds.append(x.Right)
-            if x.__class__.__name__ in ("list","tuple"):
-                DataLen = DataLen + (len(x) - 1)
-                for y in x:
-                    if y.__class__.__name__ in ("int","float"):
-                        y = Interval(y)
-                    LBounds.append(y.Left)
-                    UBounds.append(y.Right)
+    # def variance(*args):
+    #     dataMean = Interval.mean(*args)
+    #     LBounds = []
+    #     UBounds = []
+    #     LDev = []
+    #     UDev = []
+    #     DataLen = len(args)
+    #     for x in [*args]:
+    #         if x.__class__.__name__ in ("int","float"):
+    #             x = Interval(x)
+    #             LBounds.append(x.Left)
+    #             UBounds.append(x.Right)
+    #         if x.__class__.__name__ in ("list","tuple"):
+    #             DataLen = DataLen + (len(x) - 1)
+    #             for y in x:
+    #                 if y.__class__.__name__ in ("int","float"):
+    #                     y = Interval(y)
+    #                 LBounds.append(y.Left)
+    #                 UBounds.append(y.Right)
 
-        for y in LBounds:
-            LDev.append(abs(y - dataMean.Left)**2)
-        for z in UBounds:
-            UDev.append(abs(z - dataMean.Right)**2)
+    #     for y in LBounds:
+    #         LDev.append(abs(y - dataMean.Left)**2)
+    #     for z in UBounds:
+    #         UDev.append(abs(z - dataMean.Right)**2)
 
-        LSDev = (sum(LDev))/DataLen
-        USDev = (sum(UDev))/DataLen
-        return Interval(LSDev, USDev)
+    #     LSDev = (sum(LDev))/DataLen
+    #     USDev = (sum(UDev))/DataLen
+    #     return Interval(LSDev, USDev)
 
-    def mode(*args):
-        NotImplemented
+    # def mode(*args):
+    #     NotImplemented
         
     def straddles(self,N, endpoints = True):
         """

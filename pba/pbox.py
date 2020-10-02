@@ -617,7 +617,7 @@ class Pbox(object):
         else:
             return plt
 
-        plot = show
+    plot = show
 
     def get_interval(self, *args):
 
@@ -760,6 +760,38 @@ class Pbox(object):
         for i in range(k) : s2  = s2 + w[i] * (v[i] + m[i]**2)
         s2 = s2 - mu**2
         return Pbox(u,d, mean_left=mu.left(), mean_right=mu.right(), var_left=s2.left(), var_right=s2.right())
+
+
+    def straddles(self,N, endpoints = True):
+        """
+        Parameters
+        ----------
+        N : numeric
+            Number to check
+        endpoints : bool
+            Whether to include the endpoints within the check
+
+        Returns
+        -------
+        True
+            If :math:`\\mathrm{left} \\leq N \\leq \mathrm{right}` (Assuming `endpoints=True`)
+        False
+            Otherwise
+        """
+        if endpoints:
+            if min(self.left) <= N and max(self.right) >= N:
+                return True
+        else:
+            if min(self.left) < N and max(self.right) > N:
+                return True
+
+        return False
+
+    def straddles_zero(self,endpoints = True):
+        """
+        Checks whether :math:`0` is within the p-box
+        """
+        return self.straddles(0,endpoints)
 
 # Functions
 def env_int(*args):
