@@ -2,7 +2,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 from .interval import Interval
-from .copula import Copula
+from .copula import Copula, pi
 
 class Pbox(object):
 
@@ -341,6 +341,64 @@ class Pbox(object):
             method = 'o'
 
         return self.mul(1/other, method)
+
+    def sigma(self, other, op = lambda x,y: x+y, C = pi()):
+
+        m = self.n
+        p = other.n
+        n = min(self.steps, other.steps, m*p)
+        Zu = np.ones(n)
+        Zd = np.ones(n)
+
+        zds = [[op(dx, dy) for dx in self.right[2:]] for dy in other.right[2:]]
+        zus = [[op(ux, uy) for ux in self.left[1:-1]]for  uy in other.right[1:-1]]        # Carteesian products
+
+        zus = np.array(zus).reshape(-1)
+        zds = np.array(zds).reshape(-1)
+
+        Zd[0] = np.min(zds); Zd[-1] = np.max(zds)
+        Zu[0] = np.min(zus); Zu[-1] = np.max(zus)
+
+        dCdf = np.ones(len(zus))
+        uCdf = np.zeros(len(zus))
+
+        iis = np.linspace(0.0001,0.9999,n)
+        jjs = np.linspace(0.0001,0.9999,n)
+
+        probs = C.cdf[1:, 1:] + C.cdf[:-1, :-1] - C.cdf[:-1, 1:] - C.cdf[1:, :-1]
+        probs = probs.reshape(-1)
+
+        inds = np.argsort(zds)
+        zds = zds[inds]
+        dProbs = probs[inds]
+        dCdf = np.flip(1 - np.cumsum(np.flip(dProbs)))
+        
+        inds = np.argsort(zus)
+        zus = zus[inds]
+        uProbs = probs[inds]
+        uCdf = np.cumsum(uProbs)
+
+        for i in range(3,n):
+
+            ups   = np.all([iis[i-1] <= uCdf , uCdf <= iis[i]], axis=0)
+            downs = np.all([jjs[i-1] <= dCdf , dCdf <= jjs[i]], axis=0)
+
+            Zu[i]   = Zu[i-1]
+            Zd[i-1] = Zd[i-2]
+            if any(ups):   Zu[i]  = min(zus[ups])
+        
+            if any(downs): Zd[i-1] = max(zds[downs])
+
+
+        return Pbox(
+            left       =  Zu,
+            right      =  Zd,
+            steps      = n
+        )
+
+            
+
+
 
     def recip(self):
         return Pbox(
