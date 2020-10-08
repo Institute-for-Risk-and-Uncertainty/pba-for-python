@@ -350,55 +350,50 @@ class Pbox(object):
         Zu = np.ones(n)
         Zd = np.ones(n)
 
-        zds = [[op(dx, dy) for dx in self.right[2:]] for dy in other.right[2:]]
-        zus = [[op(ux, uy) for ux in self.left[1:-1]]for  uy in other.right[1:-1]]        # Carteesian products
+        zds = [[op(dx, dy) for dx in self.right[1:]] for dy in other.right[1:]]         # Carteesian products
+        zus = [[op(ux, uy) for ux in self.left[:-1]]for  uy in other.right[:-1]]        
 
         zus = np.array(zus).reshape(-1)
         zds = np.array(zds).reshape(-1)
 
-        Zd[0] = np.min(zds); Zd[-1] = np.max(zds)
+        Zd[0] = np.min(zds); Zd[-1] = np.max(zds)       # Find endpoints
         Zu[0] = np.min(zus); Zu[-1] = np.max(zus)
 
         dCdf = np.ones(len(zus))
         uCdf = np.zeros(len(zus))
 
-        iis = np.linspace(0.0001,0.9999,n)
-        jjs = np.linspace(0.0001,0.9999,n)
+        iis = np.linspace(0.001,0.995,n)        # Assuming unbounded
+        jjs = np.linspace(0.005,0.999,n)        # Assuming unbounded
 
-        probs = C.cdf[1:, 1:] + C.cdf[:-1, :-1] - C.cdf[:-1, 1:] - C.cdf[1:, :-1]
+        probs = C.cdf[1:, 1:] + C.cdf[:-1, :-1] - C.cdf[:-1, 1:] - C.cdf[1:, :-1]   # Probs masses of cart products elements
         probs = probs.reshape(-1)
 
-        inds = np.argsort(zds)
-        zds = zds[inds]
+        inds = np.argsort(zds)                                  # Find sorted indexes of zds
+        zds = zds[inds]                                         # Sort zds and probs according to inds
         dProbs = probs[inds]
-        dCdf = np.flip(1 - np.cumsum(np.flip(dProbs)))
-        
+        dCdf = np.flip(1 - np.cumsum(np.flip(dProbs)))          # Find dCdf by begining from 1 and removing mass
+
         inds = np.argsort(zus)
         zus = zus[inds]
         uProbs = probs[inds]
-        uCdf = np.cumsum(uProbs)
+        uCdf = np.cumsum(uProbs)                                # Find uCdf by beginning from 0 and cumsum
 
-        for i in range(3,n):
+        for i in range(1,n):                                    # Find inverse cdf values for iis and jjs
 
             ups   = np.all([iis[i-1] <= uCdf , uCdf <= iis[i]], axis=0)
             downs = np.all([jjs[i-1] <= dCdf , dCdf <= jjs[i]], axis=0)
 
             Zu[i]   = Zu[i-1]
             Zd[i-1] = Zd[i-2]
-            if any(ups):   Zu[i]  = min(zus[ups])
-        
-            if any(downs): Zd[i-1] = max(zds[downs])
 
+            if any(ups):   Zu[i]  = min(zus[ups])
+            if any(downs): Zd[i-1] = max(zds[downs])
 
         return Pbox(
             left       =  Zu,
             right      =  Zd,
             steps      = n
         )
-
-            
-
-
 
     def recip(self):
         return Pbox(
