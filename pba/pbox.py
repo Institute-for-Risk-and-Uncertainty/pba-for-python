@@ -2,7 +2,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 from .interval import Interval
-from .copula import Copula, pi
+from .copula import Copula, pi, Gaussian
 
 class Pbox(object):
 
@@ -162,9 +162,9 @@ class Pbox(object):
             self.var_right = right(b)
 
     ### Public funtions ###
-    def add(self, other, method = 'f'):
+    def add(self, other, method = 'f', corr = 0):
 
-        if method not in ['f','p','o','i']:
+        if method not in ['f','p','o','i', 'c']:
             raise ArithmeticError("Calculation method unkown")
 
         if other.__class__.__name__ == 'Interval':
@@ -211,6 +211,12 @@ class Pbox(object):
                 for ii in self.right:
                     for jj in other.right:
                         nright.append(ii+jj)
+            
+            elif method == 'c':
+                if corr == 1: return self.add(other,method='p')
+                if corr == -1: return self.add(other,method='o')
+                if corr == 0: return self.add(other,method='i')
+                return self.sigma(other, lambda x,y: x+y, Gaussian(corr))
 
             nleft.sort()
             nright.sort()
@@ -252,9 +258,9 @@ class Pbox(object):
 
         return self.add(-other, method)
 
-    def mul(self, other, method = 'f'):
+    def mul(self, other, method = 'f', corr = 0):
 
-        if method not in ['f','p','o','i']:
+        if method not in ['f','p','o','i', 'c']:
             raise ArithmeticError("Calculation method unkown")
 
         if other.__class__.__name__ == 'Interval':
@@ -301,6 +307,12 @@ class Pbox(object):
                 for ii in self.right:
                     for jj in other.right:
                         nright.append(ii*jj)
+
+            elif method == 'c':
+                if corr == 1: return self.mul(other,method='p')
+                if corr == -1: return self.mul(other,method='o')
+                if corr == 0: return self.mul(other,method='i')
+                return self.sigma(other, lambda x,y: x*y, Gaussian(corr))
 
             nleft.sort()
             nright.sort()
