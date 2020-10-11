@@ -354,7 +354,7 @@ class Pbox(object):
 
         return self.mul(1/other, method)
 
-    def sigma(self, other, op = lambda x,y: x+y, C = pi()):
+    def sigma(self, other, op = lambda x,y: x*y, C = pi()):
 
         m = self.n
         p = other.n
