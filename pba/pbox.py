@@ -72,6 +72,8 @@ class Pbox(object):
 
         return f'Pbox: ~{shape_text}(range={range_text}, mean={mean_text}, var={var_text})'
 
+    __str__ = __repr__
+
     def __iter__(self):
         for val in np.array([self.left,self.right]).flatten():
             yield val
@@ -403,11 +405,11 @@ class Pbox(object):
             )
 
     def add(self, other, method = 'f'):
-
+       
         if method not in ['f','p','o','i']:
             raise ArithmeticError("Calculation method unkown")
 
-        if other.__class__.__name__ == 'Interval':
+        if other.__class__.__name__ == 'Interval': 
             other = Pbox(other, steps = self.steps)
 
         if other.__class__.__name__ == 'Pbox':
@@ -671,6 +673,13 @@ class Pbox(object):
         lb = p[j]
 
         return Interval(lb,ub)
+
+    def exp(self):
+        pass
+
+    def mean(self):
+        # check
+        return Interval(self.mean_left,self.mean_right)
 
     def support(self):
         return Interval(min(self.left),max(self.right))

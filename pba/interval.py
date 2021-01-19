@@ -572,7 +572,10 @@ class Interval():
             else:
                 return None
 
-
+    def exp(self):
+        lo = np.exp(self.Left)
+        hi = np.exp(self.Right)
+        return Interval(lo,hi)
 # a = Interval(1,2)
 # b = Interval(3,4)
 # c = Interval(-2,5)
