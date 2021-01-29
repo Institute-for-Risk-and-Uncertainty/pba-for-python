@@ -32,7 +32,7 @@ class Logical:
     __str__ = __repr__
 
 def always(logical):
-    assert isinstance(logical, Logical)
+    assert logical.__class__.__name__ == 'Logical'
 
     if logical.Left == logical.Right == 1:
         return True
@@ -40,7 +40,7 @@ def always(logical):
         return False
 
 def sometimes(logical):
-    assert isinstance(logical, Logical)
+    assert logical.__class__.__name__ == 'Logical'
 
     if logical:
         # using Logical.__bool__
