@@ -380,7 +380,7 @@ class Interval():
                 return Logical(0,0)
         else:
             try:
-                if self.Right > other:
+                if self.Left > other:
                     return Logical(1,1)
                 elif self.straddles(other,endpoints = True):
                     return Logical(0,1)
