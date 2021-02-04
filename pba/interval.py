@@ -414,6 +414,13 @@ class Interval():
 
     lo = left
     hi = right
+    
+    def width(self):
+        """
+        Returns the width of the interval
+        self.Right - self.Left
+        """
+        return self.Right - self.Left
 
     # def mean(*args):
     #     LSum = 0
