@@ -72,7 +72,7 @@ class Interval():
             UL = min(Right)
             UU = max(Right)
 
-            Right = max(LU,UU)
+            Right = max(UL,UU)
 
 
         if Left > Right:
@@ -400,6 +400,38 @@ class Interval():
         except:
             raise ValueError("Truth value of Interval %s is ambiguous" %self)
 
+    def padd(self,other):
+        """
+        Returns addition using perfect arithmetic
+        
+        a+b = [a.Left + b.Left, a.Right + b.Right]
+        """
+        return Interval(self.Left + other.Left, self.Right + other.Right)
+  
+    def psub(self,other):
+        """
+        Returns subtraction using perfect arithmetic
+        
+        a+b = [a.Left - b.Left, a.Right - b.Right]
+        """
+        return Interval(self.Left - other.Left, self.Right - other.Right)
+    
+    def oadd(self,other):
+        """
+        Returns addition using opposite arithmetic
+        
+        a+b = [a.Left + b.Right, a.Right + b.Left]
+        """
+        return Interval(self.Left + other.Right, self.Right + other.Left)
+  
+    def osub(self,other):
+        """
+        Returns subtraction using opposite arithmetic
+        
+        a+b = [a.Left - b.Right, a.Right - b.Left]
+        """
+        return Interval(self.Left - other.Right, self.Right - other.Left)
+      
     def left(self):
         """
         Returns the left side of the interval
@@ -422,6 +454,15 @@ class Interval():
         """
         return self.Right - self.Left
 
+    
+    def midpoint(self):
+        """
+        Returns midpoint of interval
+        (self.Left+self.Right)/2
+        """
+        
+        return (self.Left+self.Right)/2
+    
     # def mean(*args):
     #     LSum = 0
     #     USum = 0
