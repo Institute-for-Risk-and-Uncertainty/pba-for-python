@@ -244,12 +244,12 @@ class Pbox(object):
                     j = np.array(range(i, self.steps))
                     k = np.array(range(self.steps - 1, i-1, -1))
 
-                    nleft[i] = np.minimum(self.right[j],other.right[k])
+                    nright[i] = np.minimum(self.right[j],other.right[k])
 
                     jj = np.array(range(0, i + 1))
                     kk = np.array(range(i, -1 , -1))
 
-                    nright[i] = np.minimum(self.left[jj],other.left[kk])
+                    nleft[i] = np.minimum(self.left[jj],other.left[kk])
 
             elif method == 'p':
 
@@ -318,12 +318,12 @@ class Pbox(object):
                     j = np.array(range(i, self.steps))
                     k = np.array(range(self.steps - 1, i-1, -1))
 
-                    nleft[i] = np.maximum(self.right[j],other.right[k])
+                    nright[i] = np.maximum(self.right[j],other.right[k])
 
                     jj = np.array(range(0, i + 1))
                     kk = np.array(range(i, -1 , -1))
 
-                    nright[i] = np.maximum(self.left[jj],other.left[kk])
+                    nleft[i] = np.maximum(self.left[jj],other.left[kk])
 
             elif method == 'p':
 
@@ -426,12 +426,12 @@ class Pbox(object):
                     j = np.array(range(i, self.steps))
                     k = np.array(range(self.steps - 1, i-1, -1))
 
-                    nleft[i] = np.min(self.right[j] + other.right[k])
+                    nright[i] = np.min(self.right[j] + other.right[k])
 
                     jj = np.array(range(0, i + 1))
                     kk = np.array(range(i, -1 , -1))
 
-                    nright[i] = np.max(self.left[jj] + other.left[kk])
+                    nleft[i] = np.max(self.left[jj] + other.left[kk])
 
             elif method == 'p':
 
@@ -516,12 +516,12 @@ class Pbox(object):
                     j = np.array(range(i, self.steps))
                     k = np.array(range(self.steps - 1, i-1, -1))
 
-                    nleft[i] = np.min(self.right[j] * other.right[k])
+                    nright[i] = np.min(self.right[j] * other.right[k])
 
                     jj = np.array(range(0, i + 1))
                     kk = np.array(range(i, -1 , -1))
 
-                    nright[i] = np.max(self.left[jj] * other.left[kk])
+                    nleft[i] = np.max(self.left[jj] * other.left[kk])
 
             elif method == 'p':
 
