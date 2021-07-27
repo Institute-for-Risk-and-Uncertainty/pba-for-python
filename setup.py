@@ -7,9 +7,9 @@ setup(
     license='MIT License',
     long_description=open('README.rst').read(),
     install_requires=[
-        'numpy>=1.17.3',
-        'scipy>=1.4.0',
-        'matplotlib>=3.0.0'],
+        'numpy>=1.21.1',
+        'scipy>=1.7.0',
+        'matplotlib>=3.3.2'],
     python_requires='>=3',
     url='https://github.com/Institute-for-Risk-and-Uncertainty/pba-for-python',
     author='Nick Gray',
