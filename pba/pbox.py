@@ -5,7 +5,13 @@ from .interval import Interval
 from .copula import Copula
 from .core import env
 
-__all__ = ['Pbox']
+__all__ = [
+    # import class
+    'Pbox',
+    'mixture',
+    # import non distribution functions
+    'box', 'mmms'
+]
 
 class Pbox(object):
 
@@ -19,14 +25,22 @@ class Pbox(object):
             right = left
 
         if left is None and right is None:
-            left = -np.inf
-            right = np.inf
+            left = np.array((-np.inf))
+            right = np.array((np.inf))
 
         if isinstance(left, Interval):
-            left = np.array([left.left()])
+            left = np.array([left.left]*steps)
+        elif not isinstance(left, np.ndarray):
+            left = np.array(left)
+
 
         if isinstance(right, Interval):
-            right = np.array([right.right()])
+            right = np.array([right.right]*steps)
+        elif not isinstance(left, np.ndarray):
+            right = np.array(right)
+        
+        if len(left) == len(right) and len(left) != steps:
+            print("WARNING: The left and right arrays have the same length which is inconsistent with steps.")
 
         if len(left) != steps:
             left = interpolate(left, interpolation=interpolation, left=False, steps=steps)
@@ -694,83 +708,6 @@ class Pbox(object):
         # returns y values for plotting
         return np.append(np.insert(np.linspace(0,1,self.steps),0,0),1)
 
-    def mixture(self, x, w=[], steps=None) :
-        '''
-        IMPROVE READBILITY
-        '''
-
-        if steps is None: steps = self.steps
-
-        k = len(x)
-        if w == []:
-            w = [1] * k
-
-
-        # temporary hack
-        # k = 2
-        # x = [self, x]
-        # w = [1,1]
-
-
-        if k != len(w):
-            return('Need same number of weights as arguments for mixture')
-        w = [i/sum(w) for i in w]               # w = w / sum(w)
-        u = []
-        d = []
-        n = []
-        ml = []
-        mh = []
-        m = []
-        vl = []
-        vh = []
-        v = []
-        for i in range(k) :
-            u = u + list(x[i].left)
-            d = np.append(d,x[i].right)
-            n = n + [w[i] / x[i].steps] * x[i].steps    # w[i]*rep(1/x[i].steps,x[i].steps))
-
-            # mu = mean(x[i])
-            # ml = ml + [mu.left()]
-            # mh = mh + [mu.right()]
-            # m = m + [mu]               # don't need?
-            # sigma2 = var(x[[i]])  ### !!!! shouldn't be the sample variance, but the population variance
-            # vl = vl + [sigma2.left()]
-            # vh = vh + [sigma2.right()]
-            # v = v + [sigma2]
-
-            ML = x[i].mean_left
-            MR = x[i].mean_right
-            VL = x[i].var_left
-            VR = x[i].var_right
-            m = m + [Interval(ML,MR)]
-            v = v + [Interval(VL,VR)]
-            ml = ml + [ML]
-            mh = mh + [MR]
-            vl = vl + [VL]
-            vh = vh + [VR]
-
-        n = [_/sum(n) for _ in n]                     # n = n / sum(n)
-        su = sorted(u)
-        su = [su[0]] + su
-        pu = [0] + list(np.cumsum([n[i] for i in np.argsort(u)]))  #  pu = c(0,cumsum(n[order(u)]))
-        sd = sorted(d); sd = sd + [sd[-1]]
-        pd = list(np.cumsum([n[i] for i in np.argsort(d)])) + [1]  #  pd = c(cumsum(n[order(d)]),1)
-        u = [];  d = []
-        j = len(pu) - 1
-        for p in reversed(np.arange(steps)/steps) :   # ii = np.arange(steps))/steps  #    ii = 0: (Pbox$steps-1) / Pbox$steps
-            while p < pu[j] : j = j - 1                 # repeat {if (pu[j] <= p) break; j = j - 1}
-            u = [su[j]] + u
-        j = 0
-        for p in (np.arange(steps)+1)/steps :         # jj = (np.arange(steps)+1)/steps #  jj =  1: Pbox$steps / Pbox$steps
-            while pd[j] < p : j = j + 1                 # repeat {if (p <= pu[j]) break; j = j + 1}
-            d = d + [sd[j]]
-        mu = Interval(np.sum([W * M for M,W in zip(w,ml)]), np.sum([W * M for M,W in zip(w,mh)]))
-        s2 = 0
-        for i in range(k) : s2  = s2 + w[i] * (v[i] + m[i]**2)
-        s2 = s2 - mu**2
-        return Pbox(u,d, mean_left=mu.left(), mean_right=mu.right(), var_left=s2.left(), var_right=s2.right())
-
-
     def straddles(self,N, endpoints = True):
         """
         Parameters
@@ -804,34 +741,34 @@ class Pbox(object):
 
 # Functions
 def env_int(*args):
-    left = min([min(i) if is_iterable(i) else i for i in args])
-    right = max([max(i) if is_iterable(i) else i for i in args])
+    left = min([min(i) if hasattr(i,"__iter__") else i for i in args])
+    right = max([max(i) if hasattr(i,"__iter__") else i for i in args])
     return Interval(left, right)
 
 def left(imp):
-    if isinstance(imp, Interval) or isinstance(imp, 'pbox.Pbox'):  # neither "pba.pbox.Pbox" nor "pbox.Pbox" works (with or without quotemarks), even though type(b) is <class 'pba.pbox.Pbox' and isinstance(pba.norm(5,1),pba.pbox.Pbox) is True
-        return imp.left()
-    elif is_iterable(imp):
+    if isinstance(imp, Interval) or isinstance(imp, Pbox):  # neither "pba.pbox.Pbox" nor "pbox.Pbox" works (with or without quotemarks), even though type(b) is <class 'pba.pbox.Pbox' and isinstance(pba.norm(5,1),pba.pbox.Pbox) is True
+        return imp.left
+    elif hasattr(imp,"__iter__"):
         return min(imp)
     else:
         return imp
 
 def right(imp):
-    if isinstance(imp, Interval) or isinstance(imp, pbox.Pbox):
-        return imp.right()
-    elif is_iterable(imp):
+    if isinstance(imp, Interval) or isinstance(imp, Pbox):
+        return imp.right
+    elif hasattr(imp,"__iter__"):
         return max(imp)
     else:
         return imp
 
 def left_list(implist, verbose=False):
-    if not is_iterable(implist):
+    if not hasattr(implist,"__iter__"):
         return np.array(implist)
 
     return np.array([left(imp) for imp in implist])
 
 def right_list(implist, verbose=False):
-    if not is_iterable(implist):
+    if not hasattr(implist,"__iter__"):
         return np.array(implist)
 
     return np.array([right(imp) for imp in implist])
@@ -845,7 +782,7 @@ def qrightquantiles(pp, x, p):  # if last p is not one, the right tail will be I
 def quantiles(x, p, steps=200):
     left = qleftquantiles(ii(steps=steps), x, p)
     right = qrightquantiles(jj(steps=steps), x, p)
-    return pbox.Pbox(left=left, right=right)  # quantiles are in x and the associated cumulative probabilities are in p
+    return Pbox(left=left, right=right)  # quantiles are in x and the associated cumulative probabilities are in p
 
 def interp_step(u, steps=200):
     u = np.sort(u)
@@ -964,3 +901,169 @@ def dwVariance(pbox):
                 vl = v
 
     return Interval(vl, vr)
+
+
+def mixture(*args, w=[], steps=Pbox.STEPS):
+    '''
+    IMPROVE READBILITY
+    '''
+    x = list(args)
+
+    k = len(x)
+    if w == []:
+        w = [1] * k
+
+
+    # temporary hack
+    # k = 2
+    # x = [self, x]
+    # w = [1,1]
+
+
+    if k != len(w):
+        return('Need same number of weights as arguments for mixture')
+    w = [i/sum(w) for i in w]               # w = w / sum(w)
+    u = []
+    d = []
+    n = []
+    ml = []
+    mh = []
+    m = []
+    vl = []
+    vh = []
+    v = []
+    for i in range(k) :
+        u = u + list(x[i].left)
+        d = np.append(d,x[i].right)
+        n = n + [w[i] / x[i].steps] * x[i].steps    # w[i]*rep(1/x[i].steps,x[i].steps))
+
+        # mu = mean(x[i])
+        # ml = ml + [mu.left()]
+        # mh = mh + [mu.right()]
+        # m = m + [mu]               # don't need?
+        # sigma2 = var(x[[i]])  ### !!!! shouldn't be the sample variance, but the population variance
+        # vl = vl + [sigma2.left()]
+        # vh = vh + [sigma2.right()]
+        # v = v + [sigma2]
+
+        ML = x[i].mean_left
+        MR = x[i].mean_right
+        VL = x[i].var_left
+        VR = x[i].var_right
+        m = m + [Interval(ML,MR)]
+        v = v + [Interval(VL,VR)]
+        ml = ml + [ML]
+        mh = mh + [MR]
+        vl = vl + [VL]
+        vh = vh + [VR]
+
+    n = [_/sum(n) for _ in n]                     # n = n / sum(n)
+    su = sorted(u)
+    su = [su[0]] + su
+    pu = [0] + list(np.cumsum([n[i] for i in np.argsort(u)]))  #  pu = c(0,cumsum(n[order(u)]))
+    sd = sorted(d); sd = sd + [sd[-1]]
+    pd = list(np.cumsum([n[i] for i in np.argsort(d)])) + [1]  #  pd = c(cumsum(n[order(d)]),1)
+    u = [];  d = []
+    j = len(pu) - 1
+    for p in reversed(np.arange(steps)/steps) :   # ii = np.arange(steps))/steps  #    ii = 0: (Pbox$steps-1) / Pbox$steps
+        while p < pu[j] : j = j - 1                 # repeat {if (pu[j] <= p) break; j = j - 1}
+        u = [su[j]] + u
+    j = 0
+    for p in (np.arange(steps)+1)/steps :         # jj = (np.arange(steps)+1)/steps #  jj =  1: Pbox$steps / Pbox$steps
+        while pd[j] < p : j = j + 1                 # repeat {if (p <= pu[j]) break; j = j + 1}
+        d = d + [sd[j]]
+    mu = Interval(np.sum([W * M for M,W in zip(w,ml)]), np.sum([W * M for M,W in zip(w,mh)]))
+    s2 = 0
+    for i in range(k) : s2  = s2 + w[i] * (v[i] + m[i]**2)
+    s2 = s2 - mu**2
+
+    return Pbox(np.array(u),np.array(d), mean_left=mu.left, mean_right=mu.right, var_left=s2.left, var_right=s2.right, steps = steps)
+
+### None-Distribution Pboxes 
+
+def box(a,b = None, steps = Pbox.STEPS):
+    i = Interval(a,b)
+    return Pbox(
+        left = i,
+        mean_left = i.left,
+        mean_right= i.right,
+        var_left = 0,
+        var_right=((i.right-i.left)**2)/4
+    )
+    
+def mmms(minimum, maximum, mean, stddev, **kwargs):
+    def _left(x): 
+        if type(x) in [int,float]:
+            return x
+        if x.__class__.__name__ == "Interval":
+            return x.left
+        if x.__class__.__name__ == "Pbox":
+            return min(x.left)
+        
+    def _right(x): 
+        if type(x) in [int,float]:
+            return x
+        if x.__class__.__name__ == "Interval":
+            return x.right
+        if x.__class__.__name__ == "Pbox":
+            return max(x.right)           
+           
+    def _imp(a,b) : 
+        return Interval(max(_left(a),_left(b)),min(_right(a),_right(b)))
+    def _env(a,b) : 
+        return Interval(min(_left(a),_left(b)),max(_right(a),_right(b)))    
+    
+    def _constrain(a, b, msg) :
+        if ((right(a) < left(b)) or (right(b) < left(a))) : 
+            print("Math Problem: impossible constraint", msg)
+        return _imp(a,b)
+    
+    zero = 0.0                          
+    one = 1.0
+    ran = maximum - minimum;
+    m = _constrain(mean, Interval(minimum,maximum), "(mean)");
+    s = _constrain(stddev, _env(Interval(0.0),(abs(ran*ran/4.0 - (maximum-mean-ran/2.0)**2))**0.5)," (dispersion)")
+    ml = (m.left-minimum)/ran
+    sl = s.left/ran
+    mr = (m.right-minimum)/ran
+    sr = s.right/ran
+    z = box(minimum, maximum)
+    n  = len(z.left)
+    L = [0.0] * n
+    R = [1.0] * n
+    for i in range(n) :
+        p = i / n
+        if (p <= zero) : 
+            x2 = zero
+        else : x2 = ml - sr * (one / p - one)**0.5
+        if (ml + p <= one) :
+            x3 = zero
+        else : 
+            x5 = p*p + sl*sl - p
+            if (x5 >= zero) :                  
+                      x4 = one - p + x5**0.5
+                      if (x4 < ml) : x4 = ml
+            else : x4 = ml
+            x3 = (p + sl*sl + x4*x4 - one) / (x4 + p - one)
+        if ((p <= zero) or (p <= (one - ml))) : x6 = zero
+        else : x6 = (ml - one) / p + one
+        L[i] = max(max(max(x2,x3),x6),zero) * ran + minimum;
+    
+        p = (i+1)/n
+        if (p >= one) : x2 = one
+        else : x2 = mr + sr * (one/(one/p - one))**0.5
+        if (mr + p >= one) : x3 = one
+        else :
+               x5 = p*p + sl*sl - p
+               if (x5 >= zero) :                  
+                      x4 = one - p - x5**0.5
+                      if (x4 > mr) : x4 = mr                  
+               else : x4 = mr 
+               x3 = (p + sl*sl + x4*x4 - one) / (x4 + p - one) - one
+             
+        if (((one - mr) <= p) or (one <= p)) : x6 = one
+        else : x6 = mr / (one - p)
+        R[i] = min(min(min(x2,x3),x6),one) * ran + minimum
+  
+    v = s**2
+    return Pbox(np.array(L),np.array(R),mean_left=left(m),mean_right=right(m),var_left=left(v),var_right=right(v))
