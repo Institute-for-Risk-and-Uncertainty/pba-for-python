@@ -39,8 +39,8 @@ class Pbox(object):
         elif not isinstance(left, np.ndarray):
             right = np.array(right)
         
-        if len(left) == len(right) and len(left) != steps:
-            print("WARNING: The left and right arrays have the same length which is inconsistent with steps.")
+        # if len(left) == len(right) and len(left) != steps:
+        #     print("WARNING: The left and right arrays have the same length which is inconsistent with steps.")
 
         if len(left) != steps:
             left = interpolate(left, interpolation=interpolation, left=False, steps=steps)
@@ -907,7 +907,17 @@ def mixture(*args, w=[], steps=Pbox.STEPS):
     '''
     IMPROVE READBILITY
     '''
-    x = list(args)
+    x = []
+    for a in args:
+        if a.__class__.__name__ != 'Pbox':
+            try:
+                try:
+                    a = box(a)
+                except:
+                    a = Pbox(a)
+            except:
+                raise TypeError("Unable to convert %s object (%s) to Pbox" %(type(a),a))
+        x.append(a)
 
     k = len(x)
     if w == []:
