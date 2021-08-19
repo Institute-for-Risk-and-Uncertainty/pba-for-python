@@ -1001,7 +1001,9 @@ def box(a,b = None, steps = Pbox.STEPS):
         var_right=((i.right-i.left)**2)/4
     )
     
-def mmms(minimum, maximum, mean, stddev, **kwargs):
+def mmms(minimum, maximum, mean, stddev, steps = Pbox.STEPS, **kwargs):
+    if minimum == maximum:
+        return box(minimum, maximum)
     def _left(x): 
         if type(x) in [int,float]:
             return x
@@ -1076,4 +1078,4 @@ def mmms(minimum, maximum, mean, stddev, **kwargs):
         R[i] = min(min(min(x2,x3),x6),one) * ran + minimum
   
     v = s**2
-    return Pbox(np.array(L),np.array(R),mean_left=left(m),mean_right=right(m),var_left=left(v),var_right=right(v))
+    return Pbox(np.array(L),np.array(R),mean_left=left(m),mean_right=right(m),var_left=left(v),var_right=right(v),steps = steps)

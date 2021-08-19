@@ -40,7 +40,7 @@ class Interval():
         # assume vaccous if no inputs
         if left is None and right is None:
             right = np.inf
-            left = np.inf
+            left = -np.inf
 
         # If only one input assume zero width
         elif left is None and right is not None:
