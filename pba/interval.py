@@ -3,9 +3,8 @@
 import numpy as np
 import random as r
 
-from .logic import Logical
 
-__all__ = ['Interval','I']
+__all__ = ['Interval','I','Logical']
 
 class Interval():
     """
@@ -390,15 +389,20 @@ class Interval():
                 raise ValueError
 
     def __bool__(self):
-        print(Logical(self.left,self.right))
-        try:
-            if Logical(self.left,self.right):
 
+        try:
+            if self.to_logical():
                 return True
             else:
                 return False
         except:
             raise ValueError("Truth value of Interval %s is ambiguous" %self)
+        
+    def __abs__(self):
+        if self.straddles_zero():
+            return Interval(0, max(abs(self.left),abs(self.right)))
+        else:
+            return Interval(abs(self.left),abs(self.right))
 
     def padd(self,other):
         """
@@ -460,95 +464,22 @@ class Interval():
         
         return (self.left+self.right)/2
     
-    # def mean(*args):
-    #     LSum = 0
-    #     USum = 0
-    #     DataLen = len(args)
-    #     for x in args:
-    #         if x.__class__.__name__ in ("int","float"):
-    #             x = Interval(x)
-    #         if x.__class__.__name__ in ("list","tuple"):
-    #             DataLen = DataLen + (len(x) - 1)
-    #             for y in x:
-    #                 if y.__class__.__name__ in ("int","float"):
-    #                     y = Interval(y)
-    #                 LSum = LSum + y.left
-    #                 USum = USum + y.right
-    #         if x.__class__.__name__ == "Interval":
-    #             LSum = LSum + x.left
-    #             USum = USum + x.right
-    #         LMean = LSum / DataLen
-    #         UMean = USum / DataLen
-    #     return Interval(LMean, UMean)
-
-    # def median(*args):
-    #     LBounds = []
-    #     LSorted = []
-    #     UBounds = []
-    #     USorted = []
-
-    #     for x in [*args]:
-    #         if x.__class__.__name__ in ("int","float"):
-    #             x = Interval(x)
-    #             LBounds.append(x.left)
-    #             UBounds.append(x.right)
-    #         if x.__class__.__name__ in ("list","tuple"):
-    #             for y in x:
-    #                 if y.__class__.__name__ in ("int","float"):
-    #                     y = Interval(y)
-    #                 LBounds.append(y.left)
-    #                 UBounds.append(y.right)
-    #         if x.__class__.__name__ == "Interval":
-    #             LBounds.append(x.left)
-    #             UBounds.append(x.right)
-    #     while (len(LBounds) > 0):
-    #         MinL = min(LBounds)
-    #         LSorted.append(MinL)
-    #         LBounds.remove(MinL)
-    #     while (len(UBounds) > 0):
-    #         MinU = min(UBounds)
-    #         USorted.append(MinU)
-    #         UBounds.remove(MinU)
-
-    #     if (len(LSorted) % 2) != 0:
-    #         LMedian = LSorted[len(LSorted)//2]
-    #         UMedian = USorted[len(USorted)//2]
-    #     else:
-    #         LMedian = (LSorted[len(LSorted)//2] + LSorted[(len(LSorted)//2)-1])/2
-    #         UMedian = (USorted[len(USorted)//2] + USorted[(len(USorted)//2)-1])/2
-    #     return Interval(LMedian,UMedian)
-
-    # def variance(*args):
-    #     dataMean = Interval.mean(*args)
-    #     LBounds = []
-    #     UBounds = []
-    #     LDev = []
-    #     UDev = []
-    #     DataLen = len(args)
-    #     for x in [*args]:
-    #         if x.__class__.__name__ in ("int","float"):
-    #             x = Interval(x)
-    #             LBounds.append(x.left)
-    #             UBounds.append(x.right)
-    #         if x.__class__.__name__ in ("list","tuple"):
-    #             DataLen = DataLen + (len(x) - 1)
-    #             for y in x:
-    #                 if y.__class__.__name__ in ("int","float"):
-    #                     y = Interval(y)
-    #                 LBounds.append(y.left)
-    #                 UBounds.append(y.right)
-
-    #     for y in LBounds:
-    #         LDev.append(abs(y - dataMean.left)**2)
-    #     for z in UBounds:
-    #         UDev.append(abs(z - dataMean.right)**2)
-
-    #     LSDev = (sum(LDev))/DataLen
-    #     USDev = (sum(UDev))/DataLen
-    #     return Interval(LSDev, USDev)
-
-    # def mode(*args):
-    #     NotImplemented
+    def to_logical(self):
+        '''
+        Turns the interval into a logical interval, this is done by chacking the truth value of the ends of the interval
+        '''
+        if self.left:
+            left = True
+        else:
+            left = False
+        
+        if self.right:
+            right = True
+        else:
+            right = False
+        
+        return Logical(left,right)
+    
         
     def straddles(self,N, endpoints = True):
         """
@@ -631,3 +562,32 @@ class Interval():
 
 # Alias
 I = Interval
+
+class Logical(Interval):
+    
+    def __init__(self, left: bool = False,right: bool = True):
+
+        if left < right:
+            self.left = left
+            self.right = right
+        else:
+            self.left = left
+            self.right = right
+
+    def __bool__(self):
+
+        if self.left == 0 and self.right == 0:
+            return False
+        else:
+            return True
+
+    def __repr__(self):
+
+        if self.left == 0 and self.right == 0:
+            return 'False'
+        elif self.left == 1 and self.right == 1:
+            return 'True'
+        else:
+            return "[%g, %g]"%(self.left,self.right)
+
+    __str__ = __repr__
