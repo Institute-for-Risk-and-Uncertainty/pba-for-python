@@ -152,6 +152,9 @@ class Interval():
 
         return Interval(lo,hi)
 
+    def __neg__(self):
+        return Interval(-self.right, -self.left)
+    
     def __mul__(self,other):
         if other.__class__.__name__ == "Interval":
 
