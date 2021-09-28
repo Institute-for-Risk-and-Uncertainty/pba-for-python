@@ -218,7 +218,11 @@ class Interval():
 
 
     def __rtruediv__(self,other):
-
+        
+        if self.straddles_zero():
+            
+            raise ZeroDivisionError()
+        
         try:
             return other * self.recip()
         except:
