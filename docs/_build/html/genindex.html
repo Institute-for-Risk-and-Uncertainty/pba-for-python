@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
 
   
   
@@ -26,11 +28,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -164,7 +165,6 @@
  | <a href="#N"><strong>N</strong></a>
  | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
- | <a href="#Q"><strong>Q</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
@@ -181,8 +181,6 @@
       <li><a href="source/pba.pbox.html#pba.pbox.Pbox.add">add() (pba.pbox.Pbox method)</a>
 </li>
       <li><a href="source/pba.dists.html#pba.dists.alpha">alpha() (in module pba.dists)</a>
-</li>
-      <li><a href="source/pba.logic.html#pba.logic.always">always() (in module pba.logic)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -206,11 +204,13 @@
 </li>
       <li><a href="source/pba.dists.html#pba.dists.betaprime">betaprime() (in module pba.dists)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/pba.dists.html#pba.dists.binom">binom() (in module pba.dists)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/pba.dists.html#pba.dists.boltzmann">boltzmann() (in module pba.dists)</a>
+</li>
+      <li><a href="source/pba.pbox.html#pba.pbox.box">box() (in module pba.pbox)</a>
 </li>
       <li><a href="source/pba.dists.html#pba.dists.bradford">bradford() (in module pba.dists)</a>
 </li>
@@ -256,15 +256,11 @@
 </li>
       <li><a href="source/pba.pbox.html#pba.pbox.Pbox.div">div() (pba.pbox.Pbox method)</a>
 </li>
-      <li><a href="source/pba.dists.html#pba.dists.dlaplace">dlaplace() (in module pba.dists)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/pba.dists.html#pba.dists.dlaplace">dlaplace() (in module pba.dists)</a>
+</li>
       <li><a href="source/pba.dists.html#pba.dists.dweibull">dweibull() (in module pba.dists)</a>
-</li>
-      <li><a href="source/pba.pbox.html#pba.pbox.dwMean">dwMean() (in module pba.pbox)</a>
-</li>
-      <li><a href="source/pba.pbox.html#pba.pbox.dwVariance">dwVariance() (in module pba.pbox)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -272,16 +268,18 @@
 <h2 id="E">E</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="source/pba.pbox.html#pba.pbox.env">env() (in module pba.pbox)</a>
-
-      <ul>
-        <li><a href="source/pba.pbox.html#pba.pbox.Pbox.env">(pba.pbox.Pbox method)</a>
+      <li><a href="source/pba.pbox.html#pba.pbox.Pbox.env">env() (pba.pbox.Pbox method)</a>
 </li>
-      </ul></li>
-      <li><a href="source/pba.pbox.html#pba.pbox.env_int">env_int() (in module pba.pbox)</a>
+      <li><a href="source/pba.interval.html#pba.interval.Interval.equiv">equiv() (pba.interval.Interval method)</a>
 </li>
       <li><a href="source/pba.dists.html#pba.dists.erlang">erlang() (in module pba.dists)</a>
 </li>
+      <li><a href="source/pba.interval.html#pba.interval.Interval.exp">exp() (pba.interval.Interval method)</a>
+
+      <ul>
+        <li><a href="source/pba.pbox.html#pba.pbox.Pbox.exp">(pba.pbox.Pbox method)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/pba.dists.html#pba.dists.expon">expon() (in module pba.dists)</a>
@@ -306,10 +304,10 @@
 </li>
       <li><a href="source/pba.copula.html#pba.copula.FGen">FGen() (in module pba.copula)</a>
 </li>
-      <li><a href="source/pba.copula.html#pba.copula.FInv">FInv() (in module pba.copula)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/pba.copula.html#pba.copula.FInv">FInv() (in module pba.copula)</a>
+</li>
       <li><a href="source/pba.dists.html#pba.dists.fisk">fisk() (in module pba.dists)</a>
 </li>
       <li><a href="source/pba.dists.html#pba.dists.foldcauchy">foldcauchy() (in module pba.dists)</a>
@@ -317,10 +315,6 @@
       <li><a href="source/pba.dists.html#pba.dists.foldnorm">foldnorm() (in module pba.dists)</a>
 </li>
       <li><a href="source/pba.copula.html#pba.copula.Frank">Frank() (in module pba.copula)</a>
-</li>
-      <li><a href="source/pba.dists.html#pba.dists.frechet_l">frechet_l() (in module pba.dists)</a>
-</li>
-      <li><a href="source/pba.dists.html#pba.dists.frechet_r">frechet_r() (in module pba.dists)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -412,24 +406,10 @@
 </li>
       <li><a href="source/pba.copula.html#pba.copula.indep">indep() (in module pba.copula)</a>
 </li>
-      <li><a href="source/pba.pbox.html#pba.pbox.interp_cubicspline">interp_cubicspline() (in module pba.pbox)</a>
-</li>
-      <li><a href="source/pba.pbox.html#pba.pbox.interp_left">interp_left() (in module pba.pbox)</a>
-</li>
-      <li><a href="source/pba.pbox.html#pba.pbox.interp_linear">interp_linear() (in module pba.pbox)</a>
-</li>
-      <li><a href="source/pba.pbox.html#pba.pbox.interp_outer">interp_outer() (in module pba.pbox)</a>
-</li>
-      <li><a href="source/pba.pbox.html#pba.pbox.interp_right">interp_right() (in module pba.pbox)</a>
+      <li><a href="source/pba.interval.html#pba.interval.Interval.intersection">intersection() (pba.interval.Interval method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="source/pba.pbox.html#pba.pbox.interp_step">interp_step() (in module pba.pbox)</a>
-</li>
-      <li><a href="source/pba.pbox.html#pba.pbox.interpolate">interpolate() (in module pba.pbox)</a>
-</li>
-      <li><a href="source/pba.interval.html#pba.interval.Interval.intersection">intersection() (pba.interval.Interval method)</a>
-</li>
       <li><a href="source/pba.interval.html#pba.interval.Interval">Interval (class in pba.interval)</a>
 </li>
       <li><a href="source/pba.dists.html#pba.dists.invgamma">invgamma() (in module pba.dists)</a>
@@ -480,14 +460,6 @@
 </li>
       <li><a href="source/pba.pbox.html#pba.pbox.Pbox.le">le() (pba.pbox.Pbox method)</a>
 </li>
-      <li><a href="source/pba.pbox.html#pba.pbox.left">left() (in module pba.pbox)</a>
-
-      <ul>
-        <li><a href="source/pba.interval.html#pba.interval.Interval.left">(pba.interval.Interval method)</a>
-</li>
-      </ul></li>
-      <li><a href="source/pba.pbox.html#pba.pbox.left_list">left_list() (in module pba.pbox)</a>
-</li>
       <li><a href="source/pba.dists.html#pba.dists.levy">levy() (in module pba.dists)</a>
 </li>
       <li><a href="source/pba.dists.html#pba.dists.levy_l">levy_l() (in module pba.dists)</a>
@@ -498,12 +470,12 @@
 </li>
       <li><a href="source/pba.dists.html#pba.dists.loggamma">loggamma() (in module pba.dists)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="source/pba.logic.html#pba.logic.Logical">Logical (class in pba.logic)</a>
+      <li><a href="source/pba.interval.html#pba.interval.Logical">Logical (class in pba.interval)</a>
 </li>
       <li><a href="source/pba.pbox.html#pba.pbox.Pbox.logicaland">logicaland() (pba.pbox.Pbox method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/pba.pbox.html#pba.pbox.Pbox.logicalor">logicalor() (pba.pbox.Pbox method)</a>
 </li>
       <li><a href="source/pba.dists.html#pba.dists.logistic">logistic() (in module pba.dists)</a>
@@ -530,9 +502,23 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/pba.copula.html#pba.copula.M">M() (in module pba.copula)</a>
 </li>
+      <li><a href="source/pba.pbox.html#pba.pbox.Pbox.max">max() (pba.pbox.Pbox method)</a>
+</li>
       <li><a href="source/pba.dists.html#pba.dists.maxwell">maxwell() (in module pba.dists)</a>
 </li>
+      <li><a href="source/pba.pbox.html#pba.pbox.Pbox.mean">mean() (pba.pbox.Pbox method)</a>
+</li>
+      <li><a href="source/pba.interval.html#pba.interval.Interval.midpoint">midpoint() (pba.interval.Interval method)</a>
+</li>
       <li><a href="source/pba.dists.html#pba.dists.mielke">mielke() (in module pba.dists)</a>
+</li>
+      <li><a href="source/pba.pbox.html#pba.pbox.Pbox.min">min() (pba.pbox.Pbox method)</a>
+</li>
+      <li><a href="source/pba.pbox.html#pba.pbox.mixture">mixture() (in module pba.pbox)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/pba.pbox.html#pba.pbox.mmms">mmms() (in module pba.pbox)</a>
 </li>
       <li>
     module
@@ -546,13 +532,9 @@
 </li>
         <li><a href="source/pba.interval.html#module-pba.interval">pba.interval</a>
 </li>
-        <li><a href="source/pba.logic.html#module-pba.logic">pba.logic</a>
-</li>
         <li><a href="source/pba.pbox.html#module-pba.pbox">pba.pbox</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/pba.dists.html#pba.dists.moyal">moyal() (in module pba.dists)</a>
 </li>
       <li><a href="source/pba.pbox.html#pba.pbox.Pbox.mul">mul() (pba.pbox.Pbox method)</a>
@@ -589,7 +571,17 @@
 <h2 id="O">O</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/pba.interval.html#pba.interval.Interval.oadd">oadd() (pba.interval.Interval method)</a>
+</li>
+      <li><a href="source/pba.interval.html#pba.interval.Interval.odiv">odiv() (pba.interval.Interval method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/pba.interval.html#pba.interval.Interval.omul">omul() (pba.interval.Interval method)</a>
+</li>
       <li><a href="source/pba.copula.html#pba.copula.opp">opp() (in module pba.copula)</a>
+</li>
+      <li><a href="source/pba.interval.html#pba.interval.Interval.osub">osub() (pba.interval.Interval method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -597,6 +589,8 @@
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/pba.interval.html#pba.interval.Interval.padd">padd() (pba.interval.Interval method)</a>
+</li>
       <li><a href="source/pba.dists.html#pba.dists.pareto">pareto() (in module pba.dists)</a>
 </li>
       <li>
@@ -628,22 +622,17 @@
 </li>
       </ul></li>
       <li>
-    pba.logic
-
-      <ul>
-        <li><a href="source/pba.logic.html#module-pba.logic">module</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
     pba.pbox
 
       <ul>
         <li><a href="source/pba.pbox.html#module-pba.pbox">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/pba.pbox.html#pba.pbox.Pbox">Pbox (class in pba.pbox)</a>
+</li>
+      <li><a href="source/pba.interval.html#pba.interval.Interval.pdiv">pdiv() (pba.interval.Interval method)</a>
 </li>
       <li><a href="source/pba.dists.html#pba.dists.pearson3">pearson3() (in module pba.dists)</a>
 </li>
@@ -655,6 +644,8 @@
 </li>
       <li><a href="source/pba.pbox.html#pba.pbox.Pbox.plot">plot() (pba.pbox.Pbox method)</a>
 </li>
+      <li><a href="source/pba.interval.html#pba.interval.Interval.pmul">pmul() (pba.interval.Interval method)</a>
+</li>
       <li><a href="source/pba.dists.html#pba.dists.poisson">poisson() (in module pba.dists)</a>
 </li>
       <li><a href="source/pba.dists.html#pba.dists.powerlaw">powerlaw() (in module pba.dists)</a>
@@ -663,19 +654,7 @@
 </li>
       <li><a href="source/pba.dists.html#pba.dists.powernorm">powernorm() (in module pba.dists)</a>
 </li>
-  </ul></td>
-</tr></table>
-
-<h2 id="Q">Q</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="source/pba.pbox.html#pba.pbox.qleftquantiles">qleftquantiles() (in module pba.pbox)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="source/pba.pbox.html#pba.pbox.qrightquantiles">qrightquantiles() (in module pba.pbox)</a>
-</li>
-      <li><a href="source/pba.pbox.html#pba.pbox.quantiles">quantiles() (in module pba.pbox)</a>
+      <li><a href="source/pba.interval.html#pba.interval.Interval.psub">psub() (pba.interval.Interval method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -689,25 +668,17 @@
 </li>
       <li><a href="source/pba.dists.html#pba.dists.rdist">rdist() (in module pba.dists)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/pba.interval.html#pba.interval.Interval.recip">recip() (pba.interval.Interval method)</a>
 
       <ul>
         <li><a href="source/pba.pbox.html#pba.pbox.Pbox.recip">(pba.pbox.Pbox method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/pba.dists.html#pba.dists.recipinvgauss">recipinvgauss() (in module pba.dists)</a>
 </li>
       <li><a href="source/pba.dists.html#pba.dists.rice">rice() (in module pba.dists)</a>
-</li>
-      <li><a href="source/pba.pbox.html#pba.pbox.right">right() (in module pba.pbox)</a>
-
-      <ul>
-        <li><a href="source/pba.interval.html#pba.interval.Interval.right">(pba.interval.Interval method)</a>
-</li>
-      </ul></li>
-      <li><a href="source/pba.pbox.html#pba.pbox.right_list">right_list() (in module pba.pbox)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -725,28 +696,26 @@
       </ul></li>
       <li><a href="source/pba.copula.html#pba.copula.Copula.showContour">showContour() (pba.copula.Copula method)</a>
 </li>
-      <li><a href="source/pba.pbox.html#pba.pbox.sideVariance">sideVariance() (in module pba.pbox)</a>
-</li>
       <li><a href="source/pba.dists.html#pba.dists.skellam">skellam() (in module pba.dists)</a>
 </li>
       <li><a href="source/pba.dists.html#pba.dists.skewnorm">skewnorm() (in module pba.dists)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="source/pba.logic.html#pba.logic.sometimes">sometimes() (in module pba.logic)</a>
-</li>
       <li><a href="source/pba.pbox.html#pba.pbox.Pbox.STEPS">STEPS (pba.pbox.Pbox attribute)</a>
 </li>
-      <li><a href="source/pba.pbox.html#pba.pbox.straddles">straddles() (in module pba.pbox)</a>
+      <li><a href="source/pba.interval.html#pba.interval.Interval.straddles">straddles() (pba.interval.Interval method)</a>
 
       <ul>
-        <li><a href="source/pba.interval.html#pba.interval.Interval.straddles">(pba.interval.Interval method)</a>
+        <li><a href="source/pba.pbox.html#pba.pbox.Pbox.straddles">(pba.pbox.Pbox method)</a>
 </li>
       </ul></li>
       <li><a href="source/pba.interval.html#pba.interval.Interval.straddles_zero">straddles_zero() (pba.interval.Interval method)</a>
+
+      <ul>
+        <li><a href="source/pba.pbox.html#pba.pbox.Pbox.straddles_zero">(pba.pbox.Pbox method)</a>
 </li>
-      <li><a href="source/pba.pbox.html#pba.pbox.straddlingzero">straddlingzero() (in module pba.pbox)</a>
-</li>
+      </ul></li>
       <li><a href="source/pba.pbox.html#pba.pbox.Pbox.sub">sub() (pba.pbox.Pbox method)</a>
 </li>
       <li><a href="source/pba.pbox.html#pba.pbox.Pbox.support">support() (pba.pbox.Pbox method)</a>
@@ -759,12 +728,14 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/pba.dists.html#pba.dists.t">t() (in module pba.dists)</a>
 </li>
-      <li><a href="source/pba.dists.html#pba.dists.trapz">trapz() (in module pba.dists)</a>
+      <li><a href="source/pba.interval.html#pba.interval.Interval.to_logical">to_logical() (pba.interval.Interval method)</a>
 </li>
-      <li><a href="source/pba.dists.html#pba.dists.triang">triang() (in module pba.dists)</a>
+      <li><a href="source/pba.dists.html#pba.dists.trapz">trapz() (in module pba.dists)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/pba.dists.html#pba.dists.triang">triang() (in module pba.dists)</a>
+</li>
       <li><a href="source/pba.dists.html#pba.dists.truncexpon">truncexpon() (in module pba.dists)</a>
 </li>
       <li><a href="source/pba.dists.html#pba.dists.truncnorm">truncnorm() (in module pba.dists)</a>
@@ -807,11 +778,13 @@
 </li>
       <li><a href="source/pba.dists.html#pba.dists.wald">wald() (in module pba.dists)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/pba.dists.html#pba.dists.weibull_max">weibull_max() (in module pba.dists)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/pba.dists.html#pba.dists.weibull_min">weibull_min() (in module pba.dists)</a>
+</li>
+      <li><a href="source/pba.interval.html#pba.interval.Interval.width">width() (pba.interval.Interval method)</a>
 </li>
       <li><a href="source/pba.dists.html#pba.dists.wrapcauchy">wrapcauchy() (in module pba.dists)</a>
 </li>

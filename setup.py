@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='pba',
-    version='0.10.2',
+    version='0.10.3',
     packages=['pba',],
     license='MIT License',
     long_description=open('README.rst').read(),
@@ -20,4 +20,6 @@ setup(
 python3 setup.py sdist
 python3 -m twine upload dist/pba-
 
+cd docs
+make html
 '''

@@ -426,6 +426,22 @@ class Interval():
         a+b = [a.left - b.left, a.right - b.right]
         """
         return Interval(self.left - other.left, self.right - other.right)
+
+    def pmul(self,other):
+        """
+        Returns multiplication using opposite arithmetic
+        
+        a*b = [a.left * b.left, a.right * b.right]
+        """
+        return Interval(self.left * other.left, self.right * other.right)
+
+    def pdiv(self,other):
+        """
+        Returns division using opposite arithmetic
+        
+        a/b = [a.left / b.left, a.right / b.right]
+        """
+        return Interval(self.left / other.left, self.right / other.right)    
     
     def oadd(self,other):
         """
@@ -442,7 +458,30 @@ class Interval():
         a+b = [a.left - b.right, a.right - b.left]
         """
         return Interval(self.left - other.right, self.right - other.left)
-      
+    
+    def omul(self,other):
+        """
+        Returns multiplication using opposite arithmetic
+        
+        a*b = [a.left * b.right, a.right * b.left]
+        """
+        return Interval(self.left * other.right, self.right * other.left)
+
+    def odiv(self,other):
+        """
+        Returns division using opposite arithmetic
+        
+        a/b = [a.left / b.right, a.right / b.left]
+        """
+        return Interval(self.left / other.right, self.right / other.left)      
+    
+    def equiv(self,other):
+        """
+        Checks whether two intervals are equivalent. 
+        True if self.left == other.right and self.right == other.right
+        """
+        return (self.left == other.left and self.right == other.right)
+    
     def lo(self):
         """
         Returns the left side of the interval
@@ -571,7 +610,23 @@ class Interval():
 I = Interval
 
 class Logical(Interval):
+    '''
+    Imprecise Boolean object
     
+    Parameters
+    ----------
+    left : bool
+        left side of interval
+    right : bool
+        right side of interval
+    Attributes
+    ----------
+    left : bool
+        left side of interval
+    right : bool
+        right side of interval
+        
+    '''
     def __init__(self, left: bool = False,right: bool = True):
 
         if left < right:
