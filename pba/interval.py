@@ -86,7 +86,7 @@ class Interval:
         return "Interval [%g, %g]"%(self.left,self.right)
 
     def __str__(self) -> str: # print
-        return "[%g, %g]"%(self.left,self.right)
+        return "Interval [%g, %g]"%(self.left,self.right)
 
     def __format__(self, format_spec: str) -> str:
         try:
