@@ -19,11 +19,11 @@ sys.path.insert(0, os.path.abspath('../'))
 # -- Project information -----------------------------------------------------
 
 project = 'PBA for Python'
-copyright = '2020, Nick Gray'
+copyright = '2021, Nick Gray'
 author = 'Nick Gray'
 
 # The full version, including alpha/beta/rc tags
-release = '0.8.0'
+release = '0.10.4'
 
 
 # -- General configuration ---------------------------------------------------
@@ -55,7 +55,8 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme'
+extensions.append("sphinxjp.themes.basicstrap")
+html_theme = 'basicstrap'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

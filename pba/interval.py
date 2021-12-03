@@ -6,7 +6,7 @@ import random as r
 
 __all__ = ['Interval','I','Logical']
 
-class Interval():
+class Interval:
     """
     Interval
     ---------
@@ -82,12 +82,18 @@ class Interval():
         self.left = left
         self.right = right
 
-    def __repr__(self): # return
+    def __repr__(self) -> str: # return
+        return "Interval [%g, %g]"%(self.left,self.right)
+
+    def __str__(self) -> str: # print
         return "[%g, %g]"%(self.left,self.right)
 
-    def __str__(self): # print
-        return "[%g, %g]"%(self.left,self.right)
-
+    def __format__(self, format_spec: str) -> str:
+        try:
+            return f'[{format(self.left, format_spec)},{format(self.right, format_spec)}]'
+        except:
+            raise ValueError(f'{format_spec} format specifier not understood for Interval object')
+        
     def __iter__(self):
         for bound in [self.left, self.right]:
             yield bound
@@ -627,8 +633,11 @@ class Logical(Interval):
         right side of interval
         
     '''
-    def __init__(self, left: bool = False,right: bool = True):
+    def __init__(self, left: bool ,right: bool = None):
 
+        if right is None:
+            right = left
+            
         if left < right:
             self.left = left
             self.right = right

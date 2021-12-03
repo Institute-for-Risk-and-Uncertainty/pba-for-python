@@ -1,3 +1,5 @@
+from typing import *
+
 import numpy as np
 from matplotlib import pyplot as plt
 
@@ -13,7 +15,7 @@ __all__ = [
     'box', 'mmms'
 ]
 
-class Pbox(object):
+class Pbox:
 
     STEPS = 200
 
@@ -218,208 +220,18 @@ class Pbox(object):
             self.var_left = left(b)
             self.var_right = right(b)
 
-    def lt(self, other, method = 'f'):
-        b = self.add(-other, method)
-        return(b.get_probability(0))      # return (self.add(-other, method)).get_probability(0)
+    def add(self, other: Union["Pbox",Interval,float,int], method  = 'f') -> "Pbox":
+        '''
+        Adds to Pbox to other using the defined dependency method
+        
+        :param other: Pbox, Interval or numeric type
+        :param method: 
 
-    def le(self, other, method = 'f'):
-        b = self.add(-other, method)
-        return(b.get_probability(0))      # how is the "or equal to" affecting the calculation?
-
-    def gt(self, other, method = 'f'):
-        self = - self
-        b = self.add(other, method)
-        return(b.get_probability(0))      # maybe 1-prob ?
-
-    def ge(self, other, method = 'f'):
-        self = - self
-        b = self.add(other, method)
-        return(b.get_probability(0))
-
-    def min(self, other, method = 'f'):
-
-        if method not in ['f','p','o','i']:
-            raise ArithmeticError("Calculation method unkown")
-
-        if other.__class__.__name__ == 'Interval':
-            other = Pbox(other, steps = self.steps)
-
-        if other.__class__.__name__ == 'Pbox':
-
-            # if self.steps != other.steps:
-            #     raise ArithmeticError("Both Pboxes must have the same number of steps")
-
-            if method == 'f':
-
-                nleft  = np.empty(self.steps)
-                nright = np.empty(self.steps)
-
-                for i in range(0,self.steps):
-                    j = np.array(range(i, self.steps))
-                    k = np.array(range(self.steps - 1, i-1, -1))
-
-                    nright[i] = np.minimum(self.right[j],other.right[k])
-
-                    jj = np.array(range(0, i + 1))
-                    kk = np.array(range(i, -1 , -1))
-
-                    nleft[i] = np.minimum(self.left[jj],other.left[kk])
-
-            elif method == 'p':
-
-                nleft  = np.minimum(self.left, other.left)
-                nright = np.minimum(self.right, other.right)
-
-            elif method == 'o':
-
-                nleft  = np.minimum(self.left, np.flip(other.left))
-                nright = np.minimum(self.right, np.flip(other.right))
-
-            elif method == 'i':
-
-                nleft  = []
-                nright = []
-                for i in self.left:
-                    for j in other.left:
-                        nleft.append(np.minimum(i,j))
-                for ii in self.right:
-                    for jj in other.right:
-                        nright.append(np.minimum(ii,jj))
-
-            nleft.sort()
-            nright.sort()
-
-            return Pbox(
-                left    = nleft,
-                right   = nright,
-                steps   = self.steps
-            )
-
-        else:
-            try:
-                # Try constant
-                nleft  = [i if i < other else other for i in self.left]
-                nright = [i if i < other else other for i in self.right]
-
-                return Pbox(
-                    left       = nleft,
-                    right      = nright,
-                    steps      = self.steps
-                )
-
-            except:
-                return NotImplemented
-
-    def max(self, other, method = 'f'):
-
-        if method not in ['f','p','o','i']:
-            raise ArithmeticError("Calculation method unkown")
-
-        if other.__class__.__name__ == 'Interval':
-            other = Pbox(other, steps = self.steps)
-
-        if other.__class__.__name__ == 'Pbox':
-
-            # if self.steps != other.steps:
-            #     raise ArithmeticError("Both Pboxes must have the same number of steps")
-
-            if method == 'f':
-
-                nleft  = np.empty(self.steps)
-                nright = np.empty(self.steps)
-
-                for i in range(0,self.steps):
-                    j = np.array(range(i, self.steps))
-                    k = np.array(range(self.steps - 1, i-1, -1))
-
-                    nright[i] = np.maximum(self.right[j],other.right[k])
-
-                    jj = np.array(range(0, i + 1))
-                    kk = np.array(range(i, -1 , -1))
-
-                    nleft[i] = np.maximum(self.left[jj],other.left[kk])
-
-            elif method == 'p':
-
-                nleft  = np.maximum(self.left, other.left)
-                nright = np.maximum(self.right, other.right)
-
-            elif method == 'o':
-
-                nleft  = np.maximum(self.left, np.flip(other.left))
-                nright = np.maximum(self.right, np.flip(other.right))
-
-            elif method == 'i':
-
-                nleft  = []
-                nright = []
-                for i in self.left:
-                    for j in other.left:
-                        nleft.append(np.maximum(i,j))
-                for ii in self.right:
-                    for jj in other.right:
-                        nright.append(np.maximum(ii,jj))
-
-            nleft.sort()
-            nright.sort()
-
-            return Pbox(
-                left    = nleft,
-                right   = nright,
-                steps   = self.steps
-            )
-
-        else:
-            try:
-                # Try constant
-                nleft  = [i if i > other else other for i in self.left]
-                nright = [i if i > other else other for i in self.right]
-
-                return Pbox(
-                    left       = nleft,
-                    right      = nright,
-                    steps      = self.steps
-                )
-
-            except:
-                return NotImplemented
-
-    def logicaland(self, other, method = 'f'):   # conjunction
-        if      method=='i': return(self.mul(other,method))  # independence a * b
-    #        else if method=='p': return(self.min(other,method))  # perfect min(a, b)
-    #        else if method=='o': return(max(self.add(other,method)-1, 0))  # opposite max(a + b – 1, 0)
-    #        else if method=='+': return(self.min(other,method))  # positive env(a * b, min(a, b))
-    #        else if method=='-': return(self.min(other,method))  # negative env(max(a + b – 1, 0), a * b)
-        # otherwise method=='f' :
-        return(env(max(0, self.add(other,method) - 1),  self.min(other,method)))
-
-    def logicalor(self, other, method = 'f'):    # disjunction
-        if      method=='i': return(1 - (1-self) * (1-other))  # independent 1 – (1 – a) * (1 – b)
-#        else if method=='p': return(self.max(other,method))  # perfect max(a, b)
-#        else if method=='o': return(min(self.add(other,method),1)) # opposite min(1, a + b)
-#        else if method=='+': return(env(,min(self.add(other,method),1))  # positive env(max(a, b), 1 – (1 – a) * (1 – b))
-#        else if method=='-': return()  # negative env(1 – (1 – a) * (1 – b), min(1, a + b))
-        # otherwise method=='f' :
-        return(env(self.max(other,method), min(self.add(other,method),1)))
-
-    def env(self, other):
-        if other.__class__.__name__ == 'Interval':
-            other = Pbox(other, steps = self.steps)
-        if other.__class__.__name__ == 'Pbox':
-            if self.steps != other.steps:
-                raise ArithmeticError("Both Pboxes must have the same number of steps")
-
-        nleft  = np.minimum(self.left, other.left)
-        nright = np.maximum(self.right, other.right)
-
-        return Pbox(
-                left    = nleft,
-                right   = nright,
-                steps   = self.steps
-            )
-
-    def add(self, other, method = 'f'):
-       
+        :return: Pbox
+        :rtype: Pbox
+        
+        
+        '''
         if method not in ['f','p','o','i']:
             raise ArithmeticError("Calculation method unkown")
 
@@ -605,12 +417,218 @@ class Pbox(object):
             steps = self.steps
         )
 
+
+    def lt(self, other, method = 'f'):
+        b = self.add(-other, method)
+        return(b.get_probability(0))      # return (self.add(-other, method)).get_probability(0)
+
+    def le(self, other, method = 'f'):
+        b = self.add(-other, method)
+        return(b.get_probability(0))      # how is the "or equal to" affecting the calculation?
+
+    def gt(self, other, method = 'f'):
+        self = - self
+        b = self.add(other, method)
+        return(b.get_probability(0))      # maybe 1-prob ?
+
+    def ge(self, other, method = 'f'):
+        self = - self
+        b = self.add(other, method)
+        return(b.get_probability(0))
+
+    def min(self, other, method = 'f'):
+
+        if method not in ['f','p','o','i']:
+            raise ArithmeticError("Calculation method unkown")
+
+        if other.__class__.__name__ == 'Interval':
+            other = Pbox(other, steps = self.steps)
+
+        if other.__class__.__name__ == 'Pbox':
+
+            # if self.steps != other.steps:
+            #     raise ArithmeticError("Both Pboxes must have the same number of steps")
+
+            if method == 'f':
+
+                nleft  = np.empty(self.steps)
+                nright = np.empty(self.steps)
+
+                for i in range(0,self.steps):
+                    j = np.array(range(i, self.steps))
+                    k = np.array(range(self.steps - 1, i-1, -1))
+
+                    nright[i] = np.minimum(self.right[j],other.right[k])
+
+                    jj = np.array(range(0, i + 1))
+                    kk = np.array(range(i, -1 , -1))
+
+                    nleft[i] = np.minimum(self.left[jj],other.left[kk])
+
+            elif method == 'p':
+
+                nleft  = np.minimum(self.left, other.left)
+                nright = np.minimum(self.right, other.right)
+
+            elif method == 'o':
+
+                nleft  = np.minimum(self.left, np.flip(other.left))
+                nright = np.minimum(self.right, np.flip(other.right))
+
+            elif method == 'i':
+
+                nleft  = []
+                nright = []
+                for i in self.left:
+                    for j in other.left:
+                        nleft.append(np.minimum(i,j))
+                for ii in self.right:
+                    for jj in other.right:
+                        nright.append(np.minimum(ii,jj))
+
+            nleft.sort()
+            nright.sort()
+
+            return Pbox(
+                left    = nleft,
+                right   = nright,
+                steps   = self.steps
+            )
+
+        else:
+            try:
+                # Try constant
+                nleft  = [i if i < other else other for i in self.left]
+                nright = [i if i < other else other for i in self.right]
+
+                return Pbox(
+                    left       = nleft,
+                    right      = nright,
+                    steps      = self.steps
+                )
+
+            except:
+                return NotImplemented
+
+    def max(self, other, method = 'f'):
+
+        if method not in ['f','p','o','i']:
+            raise ArithmeticError("Calculation method unkown")
+
+        if other.__class__.__name__ == 'Interval':
+            other = Pbox(other, steps = self.steps)
+
+        if other.__class__.__name__ == 'Pbox':
+
+            # if self.steps != other.steps:
+            #     raise ArithmeticError("Both Pboxes must have the same number of steps")
+
+            if method == 'f':
+
+                nleft  = np.empty(self.steps)
+                nright = np.empty(self.steps)
+
+                for i in range(0,self.steps):
+                    j = np.array(range(i, self.steps))
+                    k = np.array(range(self.steps - 1, i-1, -1))
+
+                    nright[i] = np.maximum(self.right[j],other.right[k])
+
+                    jj = np.array(range(0, i + 1))
+                    kk = np.array(range(i, -1 , -1))
+
+                    nleft[i] = np.maximum(self.left[jj],other.left[kk])
+
+            elif method == 'p':
+
+                nleft  = np.maximum(self.left, other.left)
+                nright = np.maximum(self.right, other.right)
+
+            elif method == 'o':
+
+                nleft  = np.maximum(self.left, np.flip(other.left))
+                nright = np.maximum(self.right, np.flip(other.right))
+
+            elif method == 'i':
+
+                nleft  = []
+                nright = []
+                for i in self.left:
+                    for j in other.left:
+                        nleft.append(np.maximum(i,j))
+                for ii in self.right:
+                    for jj in other.right:
+                        nright.append(np.maximum(ii,jj))
+
+            nleft.sort()
+            nright.sort()
+
+            return Pbox(
+                left    = nleft,
+                right   = nright,
+                steps   = self.steps
+            )
+
+        else:
+            try:
+                # Try constant
+                nleft  = [i if i > other else other for i in self.left]
+                nright = [i if i > other else other for i in self.right]
+
+                return Pbox(
+                    left       = nleft,
+                    right      = nright,
+                    steps      = self.steps
+                )
+
+            except:
+                return NotImplemented
+
+    def logicaland(self, other, method = 'f'):   # conjunction
+        if method=='i': 
+            return(self.mul(other,method))  # independence a * b
+        # elif method=='p': 
+        #     return(self.min(other,method))  # perfect min(a, b)
+        # elif method=='o': 
+        #     return(max(self.add(other,method)-1, 0))  # opposite max(a + b – 1, 0)
+        # elif method=='+': 
+        #     return(self.min(other,method))  # positive env(a * b, min(a, b))
+        # elif method=='-': 
+        #     return(self.min(other,method))  # negative env(max(a + b – 1, 0), a * b)
+        else:
+            return(env(max(0, self.add(other,method) - 1),  self.min(other,method)))
+
+    def logicalor(self, other, method = 'f'):    # disjunction
+        if method=='i':
+            return(1 - (1-self) * (1-other))  # independent 1 – (1 – a) * (1 – b)
+        # elif method=='p':
+        #    return(self.max(other,method))  # perfect max(a, b)
+        # elif method=='o':
+        #    return(min(self.add(other,method),1)) # opposite min(1, a + b)
+        # elif method=='+':
+        #    return(env(,min(self.add(other,method),1))  # positive env(max(a, b), 1 – (1 – a) * (1 – b))
+        # elif method=='-':
+        #    return()  # negative env(1 – (1 – a) * (1 – b), min(1, a + b))
+        else:
+            return(env(self.max(other,method), min(self.add(other,method),1)))
+
+    def env(self, other):
+        if other.__class__.__name__ == 'Interval':
+            other = Pbox(other, steps = self.steps)
+        if other.__class__.__name__ == 'Pbox':
+            if self.steps != other.steps:
+                raise ArithmeticError("Both Pboxes must have the same number of steps")
+
+        nleft  = np.minimum(self.left, other.left)
+        nright = np.maximum(self.right, other.right)
+
+        return Pbox(
+                left    = nleft,
+                right   = nright,
+                steps   = self.steps
+            )
+
     def show(self,now = True, title = '', **kwargs):
-        # If you want to know why numpy is the WORST thing about Python, see the get_x code
-        #L, R = self.get_x()
-        #y  = self.get_y()
-        #plt.plot(L,y,**kwargs)
-        #plt.plot(R,y,**kwargs)
 
         # now respects discretization
         L = self.left
@@ -635,7 +653,7 @@ class Pbox(object):
 
     plot = show
 
-    def get_interval(self, *args):
+    def get_interval(self, *args) -> Interval:
 
         if len(args) == 1:
 
@@ -668,7 +686,7 @@ class Pbox(object):
         x2 = self.right[y2]
         return Interval(x1,x2)
 
-    def get_probability(self, val):
+    def get_probability(self, val) -> Interval:
         p  = np.append(np.insert(np.linspace(0,1,self.steps),0,0),1)
 
         i = 0
@@ -688,27 +706,29 @@ class Pbox(object):
 
         return Interval(lb,ub)
 
-    def exp(self):
-        pass
+    # def exp(self):
+    #     pass
 
-    def mean(self):
-        # check
+    def mean(self) -> Interval:
+        '''
+        Returns the mean of the pbox
+        '''
         return Interval(self.mean_left,self.mean_right)
 
-    def support(self):
+    def support(self) -> Interval:
         return Interval(min(self.left),max(self.right))
 
     def get_x(self):
-        # returns the x values for plotting
+        '''returns the x values for plotting'''
         left = np.append(np.insert(self.left,0,min(self.left)),max(self.right))
         right = np.append(np.insert(self.right,0,min(self.left)),max(self.right))
         return left, right
 
     def get_y(self):
-        # returns y values for plotting
+        '''returns the y values for plotting'''
         return np.append(np.insert(np.linspace(0,1,self.steps),0,0),1)
 
-    def straddles(self,N, endpoints = True):
+    def straddles(self,N, endpoints = True) -> bool:
         """
         Parameters
         ----------
@@ -733,7 +753,7 @@ class Pbox(object):
 
         return False
 
-    def straddles_zero(self,endpoints = True):
+    def straddles_zero(self,endpoints = True) -> bool:
         """
         Checks whether :math:`0` is within the p-box
         """
@@ -903,25 +923,41 @@ def dwVariance(pbox):
     return Interval(vl, vr)
 
 
-def mixture(*args, w=[], steps=Pbox.STEPS):
+def mixture(
+    *args: Union[Pbox,Interval,float,int],
+    weights: List[Union[float,int]] = [], 
+    steps: int = Pbox.STEPS
+    ) -> Pbox:
     '''
-    IMPROVE READBILITY
+    Returns Box interval
+    Parameters
+    ----------
+    *args :
+        Number of p-boxes or objects that can be tran
+    weights:
+        Right side of box
+    
+    Returns
+    ----------
+    Pbox
     '''
+    #TODO: IMPROVE READBILITY
+
     x = []
-    for a in args:
-        if a.__class__.__name__ != 'Pbox':
+    for pbox in args:
+        if pbox.__class__.__name__ != 'Pbox':
             try:
                 try:
-                    a = box(a)
+                    pbox = box(pbox)
                 except:
-                    a = Pbox(a)
+                    pbox = Pbox(pbox)
             except:
-                raise TypeError("Unable to convert %s object (%s) to Pbox" %(type(a),a))
-        x.append(a)
+                raise TypeError("Unable to convert %s object (%s) to Pbox" %(type(pbox),pbox))
+        x.append(pbox)
 
     k = len(x)
-    if w == []:
-        w = [1] * k
+    if weights == []:
+        weights = [1] * k
 
 
     # temporary hack
@@ -930,9 +966,9 @@ def mixture(*args, w=[], steps=Pbox.STEPS):
     # w = [1,1]
 
 
-    if k != len(w):
+    if k != len(weights):
         return('Need same number of weights as arguments for mixture')
-    w = [i/sum(w) for i in w]               # w = w / sum(w)
+    weights = [i/sum(weights) for i in weights]               # w = w / sum(w)
     u = []
     d = []
     n = []
@@ -945,7 +981,7 @@ def mixture(*args, w=[], steps=Pbox.STEPS):
     for i in range(k) :
         u = u + list(x[i].left)
         d = np.append(d,x[i].right)
-        n = n + [w[i] / x[i].steps] * x[i].steps    # w[i]*rep(1/x[i].steps,x[i].steps))
+        n = n + [weights[i] / x[i].steps] * x[i].steps    # w[i]*rep(1/x[i].steps,x[i].steps))
 
         # mu = mean(x[i])
         # ml = ml + [mu.left()]
@@ -982,26 +1018,76 @@ def mixture(*args, w=[], steps=Pbox.STEPS):
     for p in (np.arange(steps)+1)/steps :         # jj = (np.arange(steps)+1)/steps #  jj =  1: Pbox$steps / Pbox$steps
         while pd[j] < p : j = j + 1                 # repeat {if (p <= pu[j]) break; j = j + 1}
         d = d + [sd[j]]
-    mu = Interval(np.sum([W * M for M,W in zip(w,ml)]), np.sum([W * M for M,W in zip(w,mh)]))
+    mu = Interval(np.sum([W * M for M,W in zip(weights,ml)]), np.sum([W * M for M,W in zip(weights,mh)]))
     s2 = 0
-    for i in range(k) : s2  = s2 + w[i] * (v[i] + m[i]**2)
+    for i in range(k) : s2  = s2 + weights[i] * (v[i] + m[i]**2)
     s2 = s2 - mu**2
 
     return Pbox(np.array(u),np.array(d), mean_left=mu.left, mean_right=mu.right, var_left=s2.left, var_right=s2.right, steps = steps)
 
 ### None-Distribution Pboxes 
 
-def box(a,b = None, steps = Pbox.STEPS):
+def box(
+    a: Union[Interval,float,int] ,
+    b = None, 
+    steps = Pbox.STEPS
+    ) -> Pbox:
+    '''
+    Returns Box interval
+    
+    
+    Parameters
+    ----------
+        a :
+            Left side of box
+        b:
+            Right side of box
+    
+    Returns
+    ----------
+        Pbox:
+            p-box
+        
+    '''
+    if b == None:
+        b = a
     i = Interval(a,b)
     return Pbox(
-        left = i,
+        left = a,
+        right = b,
         mean_left = i.left,
         mean_right= i.right,
         var_left = 0,
-        var_right=((i.right-i.left)**2)/4
+        var_right=((i.right-i.left)**2)/4,
+        steps = steps
     )
     
-def mmms(minimum, maximum, mean, stddev, steps = Pbox.STEPS, **kwargs):
+def mmms(
+    minimum: Union[Interval,float,int], 
+    maximum: Union[Interval,float,int], 
+    mean: Union[Interval,float,int], 
+    stddev: Union[Interval,float,int], 
+    steps: int = Pbox.STEPS
+    ) -> Pbox:
+    '''
+    Generates a distribution-free p-box based upon the minimum, maximum, mean and standard deviation of the variable
+ 
+    Parameters
+    ----------
+    minimum : 
+        minimum value of the variable
+    maximum : 
+        maximum value of the variable
+    mean : 
+        mean value of the variable
+    stddev :
+        standard deviation of the variable 
+    
+    Returns
+    ----------
+    Pbox
+
+    '''
     if minimum == maximum:
         return box(minimum, maximum)
     def _left(x): 
