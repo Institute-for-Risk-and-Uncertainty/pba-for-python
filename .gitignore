@@ -6,4 +6,5 @@ bin/
 pyvenv.cfg
 *.pyc
 .vscode
-venv
+.venv
+dist/*

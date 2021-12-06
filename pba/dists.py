@@ -282,7 +282,11 @@ def beta(*args, steps = 200):
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
             args[i] = Interval(args[i])
-
+        if args[i].left == 0:
+            args[i].left = 1e-5
+        if args[i].right == 0:
+            args[i].right = 1e-5
+            
     Left, Right, mean, var = __get_bounds('beta',steps,*args)
 
     return Pbox(
