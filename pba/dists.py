@@ -1908,8 +1908,8 @@ def trapz(a,b,c,d , steps = 200):
         d = Interval(d)
 
     x = np.linspace(0.0001,0.9999,steps)
-    left = sps.trapz.ppf(x,b.lo()/d.lo(),c.lo()/d.lo(),a.lo(),d.lo()-a.lo())
-    right = sps.trapz.ppf(x,b.hi()/d.hi(),c.hi()/d.hi(),a.hi(),d.hi()-a.hi())
+    left = sps.trapz.ppf(x,*sorted([b.lo()/d.lo(),c.lo()/d.lo(),a.lo(),d.lo()-a.lo()]))
+    right = sps.trapz.ppf(x,*sorted([b.hi()/d.hi(),c.hi()/d.hi(),a.hi(),d.hi()-a.hi()]))
 
     return Pbox(
           left,
@@ -1956,13 +1956,21 @@ def truncexpon(*args, steps = 200):
           var_right  = var.right
           )
 
-def truncnorm(*args, steps = 200):
-    args = list(args)
-    for i in range(0,len(args)):
-        if args[i].__class__.__name__ != 'Interval':
-            args[i] = Interval(args[i])
+def truncnorm(left,right,mean = None,stddev = None, steps = 200):
+    
+    if left.__class__.__name__ != 'Interval':
+        left = Interval(left)
+    if right.__class__.__name__ != 'Interval':
+        right = Interval(right)
+    if mean.__class__.__name__ != 'Interval':
+        mean = Interval(mean)
+    if stddev.__class__.__name__ != 'Interval':
+        stddev = Interval(stddev)
+    
+    a,b = (left - mean)/stddev, (right - mean)/stddev
+    
 
-    Left, Right, mean, var = __get_bounds('truncnorm',steps,*args)
+    Left, Right, mean, var = __get_bounds('truncnorm',steps,a,b,mean,stddev)
 
     return Pbox(
           Left,

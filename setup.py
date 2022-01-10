@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='pba',
-    version='0.10.5',
+    version='0.10.6',
     packages=['pba',],
     license='MIT License',
     long_description=open('README.rst').read(),
