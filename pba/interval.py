@@ -604,6 +604,13 @@ class Interval:
         lo = np.exp(self.left)
         hi = np.exp(self.right)
         return Interval(lo,hi)
+    
+    def sqrt(self):
+        if self.left >= 0:
+            return Interval(np.sqrt(self.left),np.sqrt(self.right))
+        else:
+            print("RuntimeWarning: invalid value encountered in sqrt")
+            return Interval(np.nan,np.sqrt(self.right))
 # a = Interval(1,2)
 # b = Interval(3,4)
 # c = Interval(-2,5)

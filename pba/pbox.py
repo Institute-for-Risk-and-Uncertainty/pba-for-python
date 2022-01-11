@@ -177,6 +177,12 @@ class Pbox:
         except:
             return NotImplemented
 
+    def __pow__(self,other):
+        if isinstance(other,int):
+            return self.pow(other)
+        else: 
+            return NotImplemented
+        
     ### Local functions ###
     def _computemoments(self):    # should we compute mean if it is a Cauchy, var if it's a t distribution?
         self.mean_left = np.max([self.mean_left, np.mean(self.left)])
@@ -220,6 +226,15 @@ class Pbox:
             self.var_left = left(b)
             self.var_right = right(b)
 
+    def _unary(self, *args, function = lambda x: x):
+        print(args)
+        ints = [function(Interval(l,r),*args) for l,r in zip(self.left,self.right)]
+        return Pbox(
+            left = np.array([i.left for i in ints]),
+            right = np.array([i.right for i in ints])
+        )
+        
+    ### Access Functions
     def add(self, other: Union["Pbox",Interval,float,int], method  = 'f') -> "Pbox":
         '''
         Adds to Pbox to other using the defined dependency method
@@ -410,6 +425,15 @@ class Pbox:
 
         return self.mul(1/other, method)
 
+    def pow(self, n):
+        return self._unary(n, function = lambda x,n: x**n)
+        
+    def exp(self): 
+        return self._unary(function = lambda x: x.exp())
+    
+    def sqrt(self):
+        return self._unary(function = lambda x: x.sqrt())
+    
     def recip(self):
         return Pbox(
             left  = 1 / np.flip(self.right),
@@ -1053,8 +1077,8 @@ def box(
         b = a
     i = Interval(a,b)
     return Pbox(
-        left = a,
-        right = b,
+        left = np.repeat(a,steps),
+        right = np.repeat(b,steps),
         mean_left = i.left,
         mean_right= i.right,
         var_left = 0,
