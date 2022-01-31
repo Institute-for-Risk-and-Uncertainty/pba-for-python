@@ -1,9 +1,10 @@
 from typing import *
+from warnings import *
 
 import numpy as np
 from matplotlib import pyplot as plt
 
-from .interval import Interval
+from .interval import Interval, Logical
 from .copula import Copula
 from .core import env
 
@@ -12,7 +13,7 @@ __all__ = [
     'Pbox',
     'mixture',
     # import non distribution functions
-    'box', 'mmms'
+    'box', 'mmms', 'min_max_mean', 'min_max', 'min_mean', 'min_max_mean_std'
 ]
 
 class Pbox:
@@ -444,21 +445,21 @@ class Pbox:
 
     def lt(self, other, method = 'f'):
         b = self.add(-other, method)
-        return(b.get_probability(0))      # return (self.add(-other, method)).get_probability(0)
+        return Logical(b.get_probability(0))      # return (self.add(-other, method)).get_probability(0)
 
     def le(self, other, method = 'f'):
         b = self.add(-other, method)
-        return(b.get_probability(0))      # how is the "or equal to" affecting the calculation?
+        return Logical(b.get_probability(0))      # how is the "or equal to" affecting the calculation?
 
     def gt(self, other, method = 'f'):
         self = - self
         b = self.add(other, method)
-        return(b.get_probability(0))      # maybe 1-prob ?
+        return Logical(b.get_probability(0))      # maybe 1-prob ?
 
     def ge(self, other, method = 'f'):
         self = - self
         b = self.add(other, method)
-        return(b.get_probability(0))
+        return Logical(b.get_probability(0))
 
     def min(self, other, method = 'f'):
 
@@ -730,8 +731,9 @@ class Pbox:
 
         return Interval(lb,ub)
 
-    # def exp(self):
-    #     pass
+    def summary(self) -> str:
+
+        return self.__repr__()
 
     def mean(self) -> Interval:
         '''
@@ -1052,10 +1054,10 @@ def mixture(
 ### None-Distribution Pboxes 
 
 def box(
-    a: Union[Interval,float,int] ,
-    b = None, 
-    steps = Pbox.STEPS
-    ) -> Pbox:
+        a: Union[Interval,float,int] ,
+        b = None, 
+        steps = Pbox.STEPS
+        ) -> Pbox:
     '''
     Returns Box interval
     
@@ -1077,22 +1079,69 @@ def box(
         b = a
     i = Interval(a,b)
     return Pbox(
-        left = np.repeat(a,steps),
-        right = np.repeat(b,steps),
+        left = np.repeat(i.left,steps),
+        right = np.repeat(i.right,steps),
         mean_left = i.left,
         mean_right= i.right,
         var_left = 0,
         var_right=((i.right-i.left)**2)/4,
         steps = steps
     )
-    
-def mmms(
-    minimum: Union[Interval,float,int], 
-    maximum: Union[Interval,float,int], 
-    mean: Union[Interval,float,int], 
-    stddev: Union[Interval,float,int], 
-    steps: int = Pbox.STEPS
+
+min_max = box
+
+def min_mean(
+        minimum: Union[Interval,float,int], 
+        mean: Union[Interval,float,int], 
+        steps = Pbox.STEPS
     ) -> Pbox:
+    jjj = [j/steps for j in range(1,steps-1)] + [1-1/steps]
+    right = [((mean-minimum)/(1-j) + minimum) for j in jjj]
+    return Pbox(
+        left = np.repeat(minimum,steps),
+        right = right
+    )
+def min_max_mean(    
+        minimum: Union[Interval,float,int], 
+        maximum: Union[Interval,float,int], 
+        mean: Union[Interval,float,int], 
+        steps: int = Pbox.STEPS
+    ) -> Pbox:
+    '''
+    Generates a distribution-free p-box based upon the minimum, maximum and mean of the variable
+ 
+    Parameters
+    ----------
+    minimum : 
+        minimum value of the variable
+    maximum : 
+        maximum value of the variable
+    mean : 
+        mean value of the variable
+    stddev :
+        standard deviation of the variable 
+    
+    Returns
+    ----------
+    Pbox
+    '''
+    mid = (maximum-mean)/(maximum-minimum)
+    ii = [i/steps for i in range(steps)]
+    left = [minimum if i <= mid else ((mean-maximum)/i + maximum) for i in ii]
+    jj = [j/steps for j in range(1,steps+1)]
+    right = [maximum if mid <= j else (mean - minimum * j) / (1 - j) for j in jj]
+    
+    return Pbox(
+        left = np.array(left),
+        right = np.array(right))
+
+def min_max_mean_std(
+        minimum: Union[Interval,float,int], 
+        maximum: Union[Interval,float,int], 
+        mean: Union[Interval,float,int], 
+        stddev: Union[Interval,float,int], 
+        steps: int = Pbox.STEPS
+        ) -> Pbox:
     '''
     Generates a distribution-free p-box based upon the minimum, maximum, mean and standard deviation of the variable
  
@@ -1189,3 +1238,7 @@ def mmms(
   
     v = s**2
     return Pbox(np.array(L),np.array(R),mean_left=left(m),mean_right=right(m),var_left=left(v),var_right=right(v),steps = steps)
+
+def mmms(*args):
+    warn("This function will be depreciated - use min_max_mean_std instead", DeprecationWarning)
+    return min_max_mean_std(*args)

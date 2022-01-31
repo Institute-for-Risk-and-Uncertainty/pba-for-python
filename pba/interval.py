@@ -611,14 +611,14 @@ class Interval:
         else:
             print("RuntimeWarning: invalid value encountered in sqrt")
             return Interval(np.nan,np.sqrt(self.right))
-# a = Interval(1,2)
-# b = Interval(3,4)
-# c = Interval(-2,5)
-# d = Interval(-7,-4)
-
-##.sort() function to sort numbers for median
-##list1.count(x) function to help with mode
-
+        
+    def sin(self):
+        return Interval(np.sin(self.left),np.sin(self.right))
+    def cos(self):
+        return Interval(np.cos(self.left),np.cos(self.right))
+    def tan(self):
+        return Interval(np.tan(self.left),np.tan(self.right))
+    
 # Alias
 I = Interval
 
@@ -642,21 +642,16 @@ class Logical(Interval):
     '''
     def __init__(self, left: bool ,right: bool = None):
 
-        if right is None:
-            right = left
-            
-        if left < right:
-            self.left = left
-            self.right = right
-        else:
-            self.left = left
-            self.right = right
+        super().__init__(left, right)
 
     def __bool__(self):
 
         if self.left == 0 and self.right == 0:
             return False
+        if self.left == 1 and self.right == 1:
+            return True
         else:
+            print('WARNING: Truth value of Logical is ambiguous, use pba.sometime or pba.always')
             return True
 
     def __repr__(self):
