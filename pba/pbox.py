@@ -38,7 +38,7 @@ class Pbox:
 
         if isinstance(right, Interval):
             right = np.array([right.right]*steps)
-        elif not isinstance(left, np.ndarray):
+        elif not isinstance(right, np.ndarray):
             right = np.array(right)
         
         # if len(left) == len(right) and len(left) != steps:
