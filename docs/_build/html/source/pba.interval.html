@@ -1,398 +1,144 @@
 <!DOCTYPE html>
-
-
-
-
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    
-    <title>pba.interval module &mdash; PBA for Python 0.12.beta documentation</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    
-
-<link rel="stylesheet" href="../_static/css/basicstrap-base.css" type="text/css" />
-<link rel="stylesheet" id="current-theme" href="../_static/css/bootstrap3/bootstrap.min.css" type="text/css" />
-<link rel="stylesheet" id="current-adjust-theme" type="text/css" />
-
-<link rel="stylesheet" href="../_static/css/font-awesome.min.css">
-
-<style type="text/css">
-  body {
-    padding-top: 60px;
-    padding-bottom: 40px;
-  }
-</style>
-
-<link rel="stylesheet" href="../_static/css/basicstrap.css" type="text/css" />
-<link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-<link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-<link rel="stylesheet" href="../_static/css/basicstrap.css" type="text/css" />
-    
-<script type="text/javascript">
-  var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:    '../',
-            VERSION:     '0.12.beta',
-            COLLAPSE_INDEX: false,
-            FILE_SUFFIX: '.html',
-            HAS_SOURCE:  true
-  };
-</script>
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/js/jquery.min.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script type="text/javascript" src="../_static/js/bootstrap3.min.js"></script>
-<script type="text/javascript" src="../_static/js/jquery.cookie.min.js"></script>
-<script type="text/javascript" src="../_static/js/basicstrap.js"></script>
-<script type="text/javascript">
-</script>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intervals &mdash; PBA for Python 0.12 beta documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="top" title="PBA for Python 0.12.beta documentation" href="../index.html" /> 
-  </head>
-  <body role="document">
-    <div id="navbar-top" class="navbar navbar-fixed-top navbar-default" role="navigation" aria-label="top navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../index.html">PBA for Python 0.12.beta documentation</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
+    <link rel="next" title="Interval" href="../api/pba.interval.Interval.html" />
+    <link rel="prev" title="PBA" href="../index.html" /> 
+</head>
 
-            
-              <li><a href="../py-modindex.html" title="Python Module Index" >modules </a></li>
-              <li><a href="../genindex.html" title="General Index" accesskey="I">index </a></li>
-            
-            <li class="visible-xs"><a href="../_sources/source/pba.interval.rst.txt" rel="nofollow">Show Source</a></li>
-
-            <li class="visible-xs">
-                <form class="search form-search form-inline navbar-form navbar-right sp-searchbox" action="../search.html" method="get">
-                  <div class="input-append input-group">
-                    <input type="text" class="search-query form-control" name="q" placeholder="Search...">
-                    <span class="input-group-btn">
-                    <input type="submit" class="btn" value="Go" />
-                    </span>
-                  </div>
-                  <input type="hidden" name="check_keywords" value="yes" />
-                  <input type="hidden" name="area" value="default" />
-                </form>
-            </li>
-
-            
-
-          </ul>
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> PBA for Python
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Intervals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-pba.interval">pba.interval Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#classes">Classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.interval.Interval.html">Interval</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.interval.I.html">I</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.interval.Logical.html">Logical</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pba.pbox.html">P-Boxes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pba.dists.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pba.copula.html">Copulas</a></li>
+</ul>
 
         </div>
       </div>
-    </div>
-    
+    </nav>
 
-    <!-- container -->
-    <div class="container-fluid">
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PBA for Python</a>
+      </nav>
 
-      <!-- row -->
-      <div class="row">
-         
-<div class="col-md-3 hidden-xs" id="sidebar-wrapper">
-  <div class="sidebar hidden-xs" role="navigation" aria-label="main navigation">
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/source/pba.interval.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" role="search">
-  <h3>Quick search</h3>
-  <form class="search form-inline" action="../search.html" method="get">
-      <div class="input-append input-group">
-        <input type="text" class="search-query form-control" name="q" placeholder="Search...">
-        <span class="input-group-btn">
-        <input type="submit" class="btn" value="Go" />
-        </span>
-      </div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Intervals</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/source/pba.interval.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
 </div>
-  </div>
-</div> 
-        
-
-        <div class="col-md-9" id="content-wrapper">
-          <div class="document" role="main">
-            <div class="documentwrapper">
-              <div class="bodywrapper">
-                <div class="body">
-                  
-  <div class="section" id="module-pba.interval">
-<span id="pba-interval-module"></span><h1>pba.interval module<a class="headerlink" href="#module-pba.interval" title="Permalink to this headline">¶</a></h1>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pba.interval.I">
-<span class="sig-prename descclassname"><span class="pre">pba.interval.</span></span><span class="sig-name descname"><span class="pre">I</span></span><a class="headerlink" href="#pba.interval.I" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="#pba.interval.Interval" title="pba.interval.Interval"><code class="xref py py-class docutils literal notranslate"><span class="pre">pba.interval.Interval</span></code></a></p>
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="pba.interval.Interval">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pba.interval.</span></span><span class="sig-name descname"><span class="pre">Interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>An interval is an uncertain number for which only the endpoints are known, for example if <span class="math notranslate nohighlight">\(x=[a,b]\)</span>
-then this can be interpreted as <span class="math notranslate nohighlight">\(x\)</span> being between <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> but with no more information about the value of <span class="math notranslate nohighlight">\(x\)</span>
-.
-Intervals can be created using:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pba</span><span class="o">.</span><span class="n">I</span><span class="p">(</span><span class="n">left</span><span class="p">,</span><span class="n">right</span><span class="p">)</span>
-<span class="n">pba</span><span class="o">.</span><span class="n">Interval</span><span class="p">(</span><span class="n">left</span><span class="p">,</span><span class="n">right</span><span class="p">)</span>
-</pre></div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="intervals">
+<h1>Intervals<a class="headerlink" href="#intervals" title="Permalink to this headline"></a></h1>
+<div class="toctree-wrapper compound">
 </div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>left</strong> (<em>numeric</em>) – left side of interval</p></li>
-<li><p><strong>right</strong> (<em>numeric</em>) – right side of interval</p></li>
-</ul>
-</dd>
-<dt class="field-even">Variables</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>~Interval.left</strong> (<em>numeric</em>) – left side of interval</p></li>
-<li><p><strong>~Interval.right</strong> (<em>numeric</em>) – right side of interval</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.cos">
-<span class="sig-name descname"><span class="pre">cos</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.cos" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.equiv">
-<span class="sig-name descname"><span class="pre">equiv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.equiv" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks whether two intervals are equivalent.
-True if self.left == other.right and self.right == other.right</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.exp">
-<span class="sig-name descname"><span class="pre">exp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.exp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.hi">
-<span class="sig-name descname"><span class="pre">hi</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.hi" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the right side of the interval</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.intersection">
-<span class="sig-name descname"><span class="pre">intersection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.intersection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the intersection between two intervals</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.lo">
-<span class="sig-name descname"><span class="pre">lo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.lo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the left side of the interval</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.midpoint">
-<span class="sig-name descname"><span class="pre">midpoint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.midpoint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns midpoint of interval
-(self.left+self.right)/2</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.oadd">
-<span class="sig-name descname"><span class="pre">oadd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.oadd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns addition using opposite arithmetic</p>
-<p>a+b = [a.left + b.right, a.right + b.left]</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.odiv">
-<span class="sig-name descname"><span class="pre">odiv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.odiv" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns division using opposite arithmetic</p>
-<p>a/b = [a.left / b.right, a.right / b.left]</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.omul">
-<span class="sig-name descname"><span class="pre">omul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.omul" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns multiplication using opposite arithmetic</p>
-<p>a*b = [a.left * b.right, a.right * b.left]</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.osub">
-<span class="sig-name descname"><span class="pre">osub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.osub" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns subtraction using opposite arithmetic</p>
-<p>a+b = [a.left - b.right, a.right - b.left]</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.padd">
-<span class="sig-name descname"><span class="pre">padd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.padd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns addition using perfect arithmetic</p>
-<p>a+b = [a.left + b.left, a.right + b.right]</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.pdiv">
-<span class="sig-name descname"><span class="pre">pdiv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.pdiv" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns division using opposite arithmetic</p>
-<p>a/b = [a.left / b.left, a.right / b.right]</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.pmul">
-<span class="sig-name descname"><span class="pre">pmul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.pmul" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns multiplication using opposite arithmetic</p>
-<p>a*b = [a.left * b.left, a.right * b.right]</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.psub">
-<span class="sig-name descname"><span class="pre">psub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.psub" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns subtraction using perfect arithmetic</p>
-<p>a+b = [a.left - b.left, a.right - b.right]</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.recip">
-<span class="sig-name descname"><span class="pre">recip</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.recip" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the reciprocle of the interval.
-If <span class="math notranslate nohighlight">\(0 \in [a,b]\)</span> it returns a division by zero error</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.sin">
-<span class="sig-name descname"><span class="pre">sin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.sin" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.sqrt">
-<span class="sig-name descname"><span class="pre">sqrt</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.sqrt" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.straddles">
-<span class="sig-name descname"><span class="pre">straddles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.straddles" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>N</strong> (<em>numeric</em>) – Number to check</p></li>
-<li><p><strong>endpoints</strong> (<em>bool</em>) – Whether to include the endpoints within the check</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>True</em> – If <span class="math notranslate nohighlight">\(\mathrm{left} \leq N \leq \mathrm{right}\)</span> (Assuming <cite>endpoints=True</cite>)</p></li>
-<li><p><em>False</em> – Otherwise</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.straddles_zero">
-<span class="sig-name descname"><span class="pre">straddles_zero</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endpoints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.straddles_zero" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks whether <span class="math notranslate nohighlight">\(0\)</span> is within the interval</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.tan">
-<span class="sig-name descname"><span class="pre">tan</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.tan" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.to_logical">
-<span class="sig-name descname"><span class="pre">to_logical</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.to_logical" title="Permalink to this definition">¶</a></dt>
-<dd><p>Turns the interval into a logical interval, this is done by chacking the truth value of the ends of the interval</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.width">
-<span class="sig-name descname"><span class="pre">width</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.width" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the width of the interval
-self.right - self.left</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="pba.interval.Logical">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pba.interval.</span></span><span class="sig-name descname"><span class="pre">Logical</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Logical" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#pba.interval.Interval" title="pba.interval.Interval"><code class="xref py py-class docutils literal notranslate"><span class="pre">pba.interval.Interval</span></code></a></p>
-<p>Imprecise Boolean object</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>left</strong> (<em>bool</em>) – left side of interval</p></li>
-<li><p><strong>right</strong> (<em>bool</em>) – right side of interval</p></li>
-</ul>
-</dd>
-<dt class="field-even">Variables</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>~Logical.left</strong> (<em>bool</em>) – left side of interval</p></li>
-<li><p><strong>~Logical.right</strong> (<em>bool</em>) – right side of interval</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
+<div class="section" id="module-pba.interval">
+<span id="pba-interval-module"></span><h2>pba.interval Module<a class="headerlink" href="#module-pba.interval" title="Permalink to this headline"></a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline"></a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.interval.Interval.html#pba.interval.Interval" title="pba.interval.Interval"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Interval</span></code></a>([left, right])</p></td>
+<td><p>An interval is an uncertain number for which only the endpoints are known, for example if <span class="math notranslate nohighlight">\(x=[a,b]\)</span> then this can be interpreted as <span class="math notranslate nohighlight">\(x\)</span> being between <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> but with no more information about the value of <span class="math notranslate nohighlight">\(x\)</span>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.interval.I.html#pba.interval.I" title="pba.interval.I"><code class="xref py py-obj docutils literal notranslate"><span class="pre">I</span></code></a></p></td>
+<td><p>alias of <a class="reference internal" href="../api/pba.interval.Interval.html#pba.interval.Interval" title="pba.interval.Interval"><code class="xref py py-class docutils literal notranslate"><span class="pre">pba.interval.Interval</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.interval.Logical.html#pba.interval.Logical" title="pba.interval.Logical"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Logical</span></code></a>(left[, right])</p></td>
+<td><p>Imprecise Boolean object</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 
 
-                </div>
-              </div>
-            </div>
+           </div>
           </div>
-        </div>
-        
-        
-      </div><!-- /row -->
-
-      <!-- row -->
-      <div class="row footer-relbar">
-<div id="navbar-related" class=" related navbar navbar-default" role="navigation" aria-label="related navigation">
-  <div class="navbar-inner">
-    <ul class="nav navbar-nav ">
-        <li><a href="../index.html">PBA for Python 0.12.beta documentation</a></li>
-    </ul>
-<ul class="nav navbar-nav pull-right hidden-xs hidden-sm">
-      
-        <li><a href="../py-modindex.html" title="Python Module Index" >modules</a></li>
-        <li><a href="../genindex.html" title="General Index" >index</a></li>
-        <li><a href="#">top</a></li> 
-      
-    </ul>
-  </div>
-</div>
-      </div><!-- /row -->
-
-      <!-- footer -->
-      <footer role="contentinfo">
-          &copy; Copyright 2021, Nick Gray.
-        Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.4.0.
-      </footer>
-      <!-- /footer -->
-
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="PBA" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../api/pba.interval.Interval.html" class="btn btn-neutral float-right" title="Interval" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-    <!-- /container -->
 
-  </body>
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Nick Gray.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
 </html>

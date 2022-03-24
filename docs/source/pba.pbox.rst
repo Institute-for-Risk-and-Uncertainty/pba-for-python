@@ -1,7 +1,9 @@
-pba.pbox module
-===============
+P-Boxes
+=======
 
-.. automodule:: pba.pbox
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. toctree::
+   :maxdepth: 3
+   :caption: Contents:
+
+.. automodapi:: pba.pbox
+   :no-inheritance-diagram:

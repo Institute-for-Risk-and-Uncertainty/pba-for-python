@@ -6,10 +6,13 @@
 .. include:: ../README.rst
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
-   
-   
+
+   source/pba.interval.rst
+   source/pba.pbox.rst
+   source/pba.dists.rst
+   source/pba.copula.rst
 
 Indices and tables
 ==================

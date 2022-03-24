@@ -1,778 +1,607 @@
 <!DOCTYPE html>
-
-
-
-
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    
-    <title>pba.dists module &mdash; PBA for Python 0.12.beta documentation</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    
-
-<link rel="stylesheet" href="../_static/css/basicstrap-base.css" type="text/css" />
-<link rel="stylesheet" id="current-theme" href="../_static/css/bootstrap3/bootstrap.min.css" type="text/css" />
-<link rel="stylesheet" id="current-adjust-theme" type="text/css" />
-
-<link rel="stylesheet" href="../_static/css/font-awesome.min.css">
-
-<style type="text/css">
-  body {
-    padding-top: 60px;
-    padding-bottom: 40px;
-  }
-</style>
-
-<link rel="stylesheet" href="../_static/css/basicstrap.css" type="text/css" />
-<link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-<link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-<link rel="stylesheet" href="../_static/css/basicstrap.css" type="text/css" />
-    
-<script type="text/javascript">
-  var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:    '../',
-            VERSION:     '0.12.beta',
-            COLLAPSE_INDEX: false,
-            FILE_SUFFIX: '.html',
-            HAS_SOURCE:  true
-  };
-</script>
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/js/jquery.min.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/js/bootstrap3.min.js"></script>
-<script type="text/javascript" src="../_static/js/jquery.cookie.min.js"></script>
-<script type="text/javascript" src="../_static/js/basicstrap.js"></script>
-<script type="text/javascript">
-</script>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Distributions &mdash; PBA for Python 0.12 beta documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="top" title="PBA for Python 0.12.beta documentation" href="../index.html" /> 
-  </head>
-  <body role="document">
-    <div id="navbar-top" class="navbar navbar-fixed-top navbar-default" role="navigation" aria-label="top navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../index.html">PBA for Python 0.12.beta documentation</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
+    <link rel="next" title="KM" href="../api/pba.dists.KM.html" />
+    <link rel="prev" title="Pbox" href="../api/pba.pbox.Pbox.html" /> 
+</head>
 
-            
-              <li><a href="../py-modindex.html" title="Python Module Index" >modules </a></li>
-              <li><a href="../genindex.html" title="General Index" accesskey="I">index </a></li>
-            
-            <li class="visible-xs"><a href="../_sources/source/pba.dists.rst.txt" rel="nofollow">Show Source</a></li>
-
-            <li class="visible-xs">
-                <form class="search form-search form-inline navbar-form navbar-right sp-searchbox" action="../search.html" method="get">
-                  <div class="input-append input-group">
-                    <input type="text" class="search-query form-control" name="q" placeholder="Search...">
-                    <span class="input-group-btn">
-                    <input type="submit" class="btn" value="Go" />
-                    </span>
-                  </div>
-                  <input type="hidden" name="check_keywords" value="yes" />
-                  <input type="hidden" name="area" value="default" />
-                </form>
-            </li>
-
-            
-
-          </ul>
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> PBA for Python
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="pba.interval.html">Intervals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pba.pbox.html">P-Boxes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Distributions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-pba.dists">pba.dists Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#functions">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.KM.html">KM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.KN.html">KN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.N.html">N</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.U.html">U</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.alpha.html">alpha</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.anglit.html">anglit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.arcsine.html">arcsine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.argus.html">argus</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.bernoulli.html">bernoulli</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.beta.html">beta</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.betabinom.html">betabinom</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.betaprime.html">betaprime</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.binom.html">binom</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.boltzmann.html">boltzmann</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.bradford.html">bradford</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.burr.html">burr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.burr12.html">burr12</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.cauchy.html">cauchy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.chi.html">chi</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.chi2.html">chi2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.cosine.html">cosine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.crystalball.html">crystalball</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.dgamma.html">dgamma</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.dlaplace.html">dlaplace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.dweibull.html">dweibull</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.erlang.html">erlang</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.expon.html">expon</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.exponnorm.html">exponnorm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.exponpow.html">exponpow</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.exponweib.html">exponweib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.f.html">f</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.fatiguelife.html">fatiguelife</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.fisk.html">fisk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.foldcauchy.html">foldcauchy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.foldnorm.html">foldnorm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.gamma.html">gamma</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.gausshyper.html">gausshyper</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.genexpon.html">genexpon</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.genextreme.html">genextreme</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.gengamma.html">gengamma</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.genhalflogistic.html">genhalflogistic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.geninvgauss.html">geninvgauss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.genlogistic.html">genlogistic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.gennorm.html">gennorm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.genpareto.html">genpareto</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.geom.html">geom</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.gilbrat.html">gilbrat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.gompertz.html">gompertz</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.gumbel_l.html">gumbel_l</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.gumbel_r.html">gumbel_r</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.halfcauchy.html">halfcauchy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.halfgennorm.html">halfgennorm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.halflogistic.html">halflogistic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.halfnorm.html">halfnorm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.hypergeom.html">hypergeom</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.hypsecant.html">hypsecant</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.invgamma.html">invgamma</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.invgauss.html">invgauss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.invweibull.html">invweibull</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.johnsonsb.html">johnsonsb</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.johnsonsu.html">johnsonsu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.kappa3.html">kappa3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.kappa4.html">kappa4</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.ksone.html">ksone</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.kstwobign.html">kstwobign</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.laplace.html">laplace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.levy.html">levy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.levy_l.html">levy_l</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.levy_stable.html">levy_stable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.loggamma.html">loggamma</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.logistic.html">logistic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.loglaplace.html">loglaplace</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.lognorm.html">lognorm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.lognormal.html">lognormal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.logser.html">logser</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.loguniform.html">loguniform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.lomax.html">lomax</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.maxwell.html">maxwell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.mielke.html">mielke</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.moyal.html">moyal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.nakagami.html">nakagami</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.nbinom.html">nbinom</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.ncf.html">ncf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.nct.html">nct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.ncx2.html">ncx2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.norm.html">norm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.normal.html">normal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.norminvgauss.html">norminvgauss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.pareto.html">pareto</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.pearson3.html">pearson3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.planck.html">planck</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.poisson.html">poisson</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.powerlaw.html">powerlaw</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.powerlognorm.html">powerlognorm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.powernorm.html">powernorm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.randint.html">randint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.rayleigh.html">rayleigh</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.rdist.html">rdist</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.recipinvgauss.html">recipinvgauss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.rice.html">rice</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.semicircular.html">semicircular</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.skellam.html">skellam</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.skewnorm.html">skewnorm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.t.html">t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.trapz.html">trapz</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.triang.html">triang</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.truncexpon.html">truncexpon</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.truncnorm.html">truncnorm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.tukeylambda.html">tukeylambda</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.unif.html">unif</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.uniform.html">uniform</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.vonmises.html">vonmises</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.vonmises_line.html">vonmises_line</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.wald.html">wald</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.weibull_max.html">weibull_max</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.weibull_min.html">weibull_min</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.wrapcauchy.html">wrapcauchy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.yulesimon.html">yulesimon</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.dists.zipf.html">zipf</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pba.copula.html">Copulas</a></li>
+</ul>
 
         </div>
       </div>
-    </div>
-    
+    </nav>
 
-    <!-- container -->
-    <div class="container-fluid">
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PBA for Python</a>
+      </nav>
 
-      <!-- row -->
-      <div class="row">
-         
-<div class="col-md-3 hidden-xs" id="sidebar-wrapper">
-  <div class="sidebar hidden-xs" role="navigation" aria-label="main navigation">
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/source/pba.dists.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" role="search">
-  <h3>Quick search</h3>
-  <form class="search form-inline" action="../search.html" method="get">
-      <div class="input-append input-group">
-        <input type="text" class="search-query form-control" name="q" placeholder="Search...">
-        <span class="input-group-btn">
-        <input type="submit" class="btn" value="Go" />
-        </span>
-      </div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Distributions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/source/pba.dists.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
 </div>
-  </div>
-</div> 
-        
-
-        <div class="col-md-9" id="content-wrapper">
-          <div class="document" role="main">
-            <div class="documentwrapper">
-              <div class="bodywrapper">
-                <div class="body">
-                  
-  <div class="section" id="module-pba.dists">
-<span id="pba-dists-module"></span><h1>pba.dists module<a class="headerlink" href="#module-pba.dists" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.KM">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">KM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.KM" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.KN">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">KN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.KN" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.N">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">N</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.N" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.U">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">U</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.U" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.alpha">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">alpha</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.alpha" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.anglit">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">anglit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.anglit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.arcsine">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">arcsine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.arcsine" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.argus">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">argus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.argus" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.bernoulli">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">bernoulli</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.bernoulli" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.beta">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">beta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.beta" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.betabinom">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">betabinom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.betabinom" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.betaprime">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">betaprime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.betaprime" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.binom">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">binom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.binom" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.boltzmann">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">boltzmann</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.boltzmann" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.bradford">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">bradford</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.bradford" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.burr">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">burr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.burr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.burr12">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">burr12</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.burr12" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.cauchy">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">cauchy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.cauchy" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.chi">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">chi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.chi" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.chi2">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">chi2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.chi2" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.cosine">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">cosine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.cosine" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.crystalball">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">crystalball</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.crystalball" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.dgamma">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">dgamma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.dgamma" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.dlaplace">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">dlaplace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.dlaplace" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.dweibull">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">dweibull</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.dweibull" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.erlang">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">erlang</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.erlang" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.expon">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">expon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.expon" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.exponnorm">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">exponnorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.exponnorm" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.exponpow">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">exponpow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.exponpow" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.exponweib">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">exponweib</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.exponweib" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.f">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">f</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.f" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.fatiguelife">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">fatiguelife</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.fatiguelife" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.fisk">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">fisk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.fisk" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.foldcauchy">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">foldcauchy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.foldcauchy" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.foldnorm">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">foldnorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.foldnorm" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.gamma">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">gamma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.gamma" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.gausshyper">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">gausshyper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.gausshyper" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.genexpon">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">genexpon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.genexpon" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.genextreme">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">genextreme</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.genextreme" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.gengamma">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">gengamma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.gengamma" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.genhalflogistic">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">genhalflogistic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.genhalflogistic" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.geninvgauss">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">geninvgauss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.geninvgauss" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.genlogistic">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">genlogistic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.genlogistic" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.gennorm">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">gennorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.gennorm" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.genpareto">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">genpareto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.genpareto" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.geom">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">geom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.geom" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.gilbrat">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">gilbrat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.gilbrat" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.gompertz">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">gompertz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.gompertz" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.gumbel_l">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">gumbel_l</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.gumbel_l" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.gumbel_r">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">gumbel_r</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.gumbel_r" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.halfcauchy">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">halfcauchy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.halfcauchy" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.halfgennorm">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">halfgennorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.halfgennorm" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.halflogistic">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">halflogistic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.halflogistic" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.halfnorm">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">halfnorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.halfnorm" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.hypergeom">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">hypergeom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.hypergeom" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.hypsecant">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">hypsecant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.hypsecant" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.invgamma">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">invgamma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.invgamma" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.invgauss">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">invgauss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.invgauss" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.invweibull">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">invweibull</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.invweibull" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.johnsonsb">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">johnsonsb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.johnsonsb" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.johnsonsu">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">johnsonsu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.johnsonsu" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.kappa3">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">kappa3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.kappa3" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.kappa4">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">kappa4</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.kappa4" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.ksone">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">ksone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.ksone" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.kstwobign">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">kstwobign</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.kstwobign" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.laplace">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">laplace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.laplace" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.levy">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">levy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.levy" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.levy_l">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">levy_l</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.levy_l" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.levy_stable">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">levy_stable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.levy_stable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.loggamma">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">loggamma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.loggamma" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.logistic">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">logistic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.logistic" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.loglaplace">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">loglaplace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.loglaplace" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.lognorm">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">lognorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.lognorm" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.lognormal">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">lognormal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.lognormal" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.logser">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">logser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.logser" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.loguniform">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">loguniform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.loguniform" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.lomax">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">lomax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.lomax" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.maxwell">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">maxwell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.maxwell" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.mielke">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">mielke</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.mielke" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.moyal">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">moyal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.moyal" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.nakagami">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">nakagami</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.nakagami" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.nbinom">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">nbinom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.nbinom" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.ncf">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">ncf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.ncf" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.nct">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">nct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.nct" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.ncx2">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">ncx2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.ncx2" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.norm">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">norm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.norm" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.normal">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">normal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.normal" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.norminvgauss">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">norminvgauss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.norminvgauss" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.pareto">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">pareto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.pareto" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.pearson3">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">pearson3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.pearson3" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.planck">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">planck</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.planck" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.poisson">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">poisson</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.poisson" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.powerlaw">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">powerlaw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.powerlaw" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.powerlognorm">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">powerlognorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.powerlognorm" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.powernorm">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">powernorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.powernorm" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.randint">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">randint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.randint" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.rayleigh">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">rayleigh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.rayleigh" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.rdist">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">rdist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.rdist" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.recipinvgauss">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">recipinvgauss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.recipinvgauss" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.rice">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">rice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.rice" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.semicircular">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">semicircular</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.semicircular" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.skellam">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">skellam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.skellam" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.skewnorm">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">skewnorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.skewnorm" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.t">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">t</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.t" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.trapz">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">trapz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.trapz" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.triang">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">triang</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.triang" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.truncexpon">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">truncexpon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.truncexpon" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.truncnorm">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">truncnorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stddev</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.truncnorm" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.tukeylambda">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">tukeylambda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.tukeylambda" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.unif">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">unif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.unif" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.uniform">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">uniform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.uniform" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.vonmises">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">vonmises</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.vonmises" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.vonmises_line">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">vonmises_line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.vonmises_line" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.wald">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">wald</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.wald" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.weibull_max">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">weibull_max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.weibull_max" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.weibull_min">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">weibull_min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.weibull_min" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.wrapcauchy">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">wrapcauchy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.wrapcauchy" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.yulesimon">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">yulesimon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.yulesimon" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.zipf">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">zipf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.zipf" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="distributions">
+<h1>Distributions<a class="headerlink" href="#distributions" title="Permalink to this headline"></a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<div class="section" id="module-pba.dists">
+<span id="pba-dists-module"></span><h2>pba.dists Module<a class="headerlink" href="#module-pba.dists" title="Permalink to this headline"></a></h2>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline"></a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.KM.html#pba.dists.KM" title="pba.dists.KM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KM</span></code></a>(k, m[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.KN.html#pba.dists.KN" title="pba.dists.KN"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KN</span></code></a>(k, n[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.N.html#pba.dists.N" title="pba.dists.N"><code class="xref py py-obj docutils literal notranslate"><span class="pre">N</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.U.html#pba.dists.U" title="pba.dists.U"><code class="xref py py-obj docutils literal notranslate"><span class="pre">U</span></code></a>(a, b[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.alpha.html#pba.dists.alpha" title="pba.dists.alpha"><code class="xref py py-obj docutils literal notranslate"><span class="pre">alpha</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.anglit.html#pba.dists.anglit" title="pba.dists.anglit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">anglit</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.arcsine.html#pba.dists.arcsine" title="pba.dists.arcsine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arcsine</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.argus.html#pba.dists.argus" title="pba.dists.argus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">argus</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.bernoulli.html#pba.dists.bernoulli" title="pba.dists.bernoulli"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bernoulli</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.beta.html#pba.dists.beta" title="pba.dists.beta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">beta</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.betabinom.html#pba.dists.betabinom" title="pba.dists.betabinom"><code class="xref py py-obj docutils literal notranslate"><span class="pre">betabinom</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.betaprime.html#pba.dists.betaprime" title="pba.dists.betaprime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">betaprime</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.binom.html#pba.dists.binom" title="pba.dists.binom"><code class="xref py py-obj docutils literal notranslate"><span class="pre">binom</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.boltzmann.html#pba.dists.boltzmann" title="pba.dists.boltzmann"><code class="xref py py-obj docutils literal notranslate"><span class="pre">boltzmann</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.bradford.html#pba.dists.bradford" title="pba.dists.bradford"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bradford</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.burr.html#pba.dists.burr" title="pba.dists.burr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">burr</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.burr12.html#pba.dists.burr12" title="pba.dists.burr12"><code class="xref py py-obj docutils literal notranslate"><span class="pre">burr12</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.cauchy.html#pba.dists.cauchy" title="pba.dists.cauchy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cauchy</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.chi.html#pba.dists.chi" title="pba.dists.chi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">chi</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.chi2.html#pba.dists.chi2" title="pba.dists.chi2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">chi2</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.cosine.html#pba.dists.cosine" title="pba.dists.cosine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cosine</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.crystalball.html#pba.dists.crystalball" title="pba.dists.crystalball"><code class="xref py py-obj docutils literal notranslate"><span class="pre">crystalball</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.dgamma.html#pba.dists.dgamma" title="pba.dists.dgamma"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dgamma</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.dlaplace.html#pba.dists.dlaplace" title="pba.dists.dlaplace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dlaplace</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.dweibull.html#pba.dists.dweibull" title="pba.dists.dweibull"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dweibull</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.erlang.html#pba.dists.erlang" title="pba.dists.erlang"><code class="xref py py-obj docutils literal notranslate"><span class="pre">erlang</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.expon.html#pba.dists.expon" title="pba.dists.expon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">expon</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.exponnorm.html#pba.dists.exponnorm" title="pba.dists.exponnorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exponnorm</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.exponpow.html#pba.dists.exponpow" title="pba.dists.exponpow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exponpow</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.exponweib.html#pba.dists.exponweib" title="pba.dists.exponweib"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exponweib</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.f.html#pba.dists.f" title="pba.dists.f"><code class="xref py py-obj docutils literal notranslate"><span class="pre">f</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.fatiguelife.html#pba.dists.fatiguelife" title="pba.dists.fatiguelife"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fatiguelife</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.fisk.html#pba.dists.fisk" title="pba.dists.fisk"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fisk</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.foldcauchy.html#pba.dists.foldcauchy" title="pba.dists.foldcauchy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">foldcauchy</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.foldnorm.html#pba.dists.foldnorm" title="pba.dists.foldnorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">foldnorm</span></code></a>(mu, s[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.gamma.html#pba.dists.gamma" title="pba.dists.gamma"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gamma</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.gausshyper.html#pba.dists.gausshyper" title="pba.dists.gausshyper"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gausshyper</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.genexpon.html#pba.dists.genexpon" title="pba.dists.genexpon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">genexpon</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.genextreme.html#pba.dists.genextreme" title="pba.dists.genextreme"><code class="xref py py-obj docutils literal notranslate"><span class="pre">genextreme</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.gengamma.html#pba.dists.gengamma" title="pba.dists.gengamma"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gengamma</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.genhalflogistic.html#pba.dists.genhalflogistic" title="pba.dists.genhalflogistic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">genhalflogistic</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.geninvgauss.html#pba.dists.geninvgauss" title="pba.dists.geninvgauss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">geninvgauss</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.genlogistic.html#pba.dists.genlogistic" title="pba.dists.genlogistic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">genlogistic</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.gennorm.html#pba.dists.gennorm" title="pba.dists.gennorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gennorm</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.genpareto.html#pba.dists.genpareto" title="pba.dists.genpareto"><code class="xref py py-obj docutils literal notranslate"><span class="pre">genpareto</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.geom.html#pba.dists.geom" title="pba.dists.geom"><code class="xref py py-obj docutils literal notranslate"><span class="pre">geom</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.gilbrat.html#pba.dists.gilbrat" title="pba.dists.gilbrat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gilbrat</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.gompertz.html#pba.dists.gompertz" title="pba.dists.gompertz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gompertz</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.gumbel_l.html#pba.dists.gumbel_l" title="pba.dists.gumbel_l"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gumbel_l</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.gumbel_r.html#pba.dists.gumbel_r" title="pba.dists.gumbel_r"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gumbel_r</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.halfcauchy.html#pba.dists.halfcauchy" title="pba.dists.halfcauchy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">halfcauchy</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.halfgennorm.html#pba.dists.halfgennorm" title="pba.dists.halfgennorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">halfgennorm</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.halflogistic.html#pba.dists.halflogistic" title="pba.dists.halflogistic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">halflogistic</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.halfnorm.html#pba.dists.halfnorm" title="pba.dists.halfnorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">halfnorm</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.hypergeom.html#pba.dists.hypergeom" title="pba.dists.hypergeom"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hypergeom</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.hypsecant.html#pba.dists.hypsecant" title="pba.dists.hypsecant"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hypsecant</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.invgamma.html#pba.dists.invgamma" title="pba.dists.invgamma"><code class="xref py py-obj docutils literal notranslate"><span class="pre">invgamma</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.invgauss.html#pba.dists.invgauss" title="pba.dists.invgauss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">invgauss</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.invweibull.html#pba.dists.invweibull" title="pba.dists.invweibull"><code class="xref py py-obj docutils literal notranslate"><span class="pre">invweibull</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.johnsonsb.html#pba.dists.johnsonsb" title="pba.dists.johnsonsb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">johnsonsb</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.johnsonsu.html#pba.dists.johnsonsu" title="pba.dists.johnsonsu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">johnsonsu</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.kappa3.html#pba.dists.kappa3" title="pba.dists.kappa3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kappa3</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.kappa4.html#pba.dists.kappa4" title="pba.dists.kappa4"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kappa4</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.ksone.html#pba.dists.ksone" title="pba.dists.ksone"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ksone</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.kstwobign.html#pba.dists.kstwobign" title="pba.dists.kstwobign"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kstwobign</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.laplace.html#pba.dists.laplace" title="pba.dists.laplace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">laplace</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.levy.html#pba.dists.levy" title="pba.dists.levy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">levy</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.levy_l.html#pba.dists.levy_l" title="pba.dists.levy_l"><code class="xref py py-obj docutils literal notranslate"><span class="pre">levy_l</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.levy_stable.html#pba.dists.levy_stable" title="pba.dists.levy_stable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">levy_stable</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.loggamma.html#pba.dists.loggamma" title="pba.dists.loggamma"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loggamma</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.logistic.html#pba.dists.logistic" title="pba.dists.logistic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logistic</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.loglaplace.html#pba.dists.loglaplace" title="pba.dists.loglaplace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loglaplace</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.lognorm.html#pba.dists.lognorm" title="pba.dists.lognorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lognorm</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.lognormal.html#pba.dists.lognormal" title="pba.dists.lognormal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lognormal</span></code></a>(mean, var[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.logser.html#pba.dists.logser" title="pba.dists.logser"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logser</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.loguniform.html#pba.dists.loguniform" title="pba.dists.loguniform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loguniform</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.lomax.html#pba.dists.lomax" title="pba.dists.lomax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lomax</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.maxwell.html#pba.dists.maxwell" title="pba.dists.maxwell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">maxwell</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.mielke.html#pba.dists.mielke" title="pba.dists.mielke"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mielke</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.moyal.html#pba.dists.moyal" title="pba.dists.moyal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">moyal</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.nakagami.html#pba.dists.nakagami" title="pba.dists.nakagami"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nakagami</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.nbinom.html#pba.dists.nbinom" title="pba.dists.nbinom"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nbinom</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.ncf.html#pba.dists.ncf" title="pba.dists.ncf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ncf</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.nct.html#pba.dists.nct" title="pba.dists.nct"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nct</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.ncx2.html#pba.dists.ncx2" title="pba.dists.ncx2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ncx2</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.norm.html#pba.dists.norm" title="pba.dists.norm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">norm</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.normal.html#pba.dists.normal" title="pba.dists.normal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">normal</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.norminvgauss.html#pba.dists.norminvgauss" title="pba.dists.norminvgauss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">norminvgauss</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.pareto.html#pba.dists.pareto" title="pba.dists.pareto"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pareto</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.pearson3.html#pba.dists.pearson3" title="pba.dists.pearson3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pearson3</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.planck.html#pba.dists.planck" title="pba.dists.planck"><code class="xref py py-obj docutils literal notranslate"><span class="pre">planck</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.poisson.html#pba.dists.poisson" title="pba.dists.poisson"><code class="xref py py-obj docutils literal notranslate"><span class="pre">poisson</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.powerlaw.html#pba.dists.powerlaw" title="pba.dists.powerlaw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">powerlaw</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.powerlognorm.html#pba.dists.powerlognorm" title="pba.dists.powerlognorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">powerlognorm</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.powernorm.html#pba.dists.powernorm" title="pba.dists.powernorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">powernorm</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.randint.html#pba.dists.randint" title="pba.dists.randint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">randint</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.rayleigh.html#pba.dists.rayleigh" title="pba.dists.rayleigh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rayleigh</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.rdist.html#pba.dists.rdist" title="pba.dists.rdist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rdist</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.recipinvgauss.html#pba.dists.recipinvgauss" title="pba.dists.recipinvgauss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">recipinvgauss</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.rice.html#pba.dists.rice" title="pba.dists.rice"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rice</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.semicircular.html#pba.dists.semicircular" title="pba.dists.semicircular"><code class="xref py py-obj docutils literal notranslate"><span class="pre">semicircular</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.skellam.html#pba.dists.skellam" title="pba.dists.skellam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">skellam</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.skewnorm.html#pba.dists.skewnorm" title="pba.dists.skewnorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">skewnorm</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.t.html#pba.dists.t" title="pba.dists.t"><code class="xref py py-obj docutils literal notranslate"><span class="pre">t</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.trapz.html#pba.dists.trapz" title="pba.dists.trapz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trapz</span></code></a>(a, b, c, d[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.triang.html#pba.dists.triang" title="pba.dists.triang"><code class="xref py py-obj docutils literal notranslate"><span class="pre">triang</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.truncexpon.html#pba.dists.truncexpon" title="pba.dists.truncexpon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">truncexpon</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.truncnorm.html#pba.dists.truncnorm" title="pba.dists.truncnorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">truncnorm</span></code></a>(left, right[, mean, stddev, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.tukeylambda.html#pba.dists.tukeylambda" title="pba.dists.tukeylambda"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tukeylambda</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.unif.html#pba.dists.unif" title="pba.dists.unif"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unif</span></code></a>(a, b[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.uniform.html#pba.dists.uniform" title="pba.dists.uniform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">uniform</span></code></a>(a, b[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.vonmises.html#pba.dists.vonmises" title="pba.dists.vonmises"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vonmises</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.vonmises_line.html#pba.dists.vonmises_line" title="pba.dists.vonmises_line"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vonmises_line</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.wald.html#pba.dists.wald" title="pba.dists.wald"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wald</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.weibull_max.html#pba.dists.weibull_max" title="pba.dists.weibull_max"><code class="xref py py-obj docutils literal notranslate"><span class="pre">weibull_max</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.weibull_min.html#pba.dists.weibull_min" title="pba.dists.weibull_min"><code class="xref py py-obj docutils literal notranslate"><span class="pre">weibull_min</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.wrapcauchy.html#pba.dists.wrapcauchy" title="pba.dists.wrapcauchy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wrapcauchy</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.dists.yulesimon.html#pba.dists.yulesimon" title="pba.dists.yulesimon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">yulesimon</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.dists.zipf.html#pba.dists.zipf" title="pba.dists.zipf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zipf</span></code></a>(*args[, steps])</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 
 
-                </div>
-              </div>
-            </div>
+           </div>
           </div>
-        </div>
-        
-        
-      </div><!-- /row -->
-
-      <!-- row -->
-      <div class="row footer-relbar">
-<div id="navbar-related" class=" related navbar navbar-default" role="navigation" aria-label="related navigation">
-  <div class="navbar-inner">
-    <ul class="nav navbar-nav ">
-        <li><a href="../index.html">PBA for Python 0.12.beta documentation</a></li>
-    </ul>
-<ul class="nav navbar-nav pull-right hidden-xs hidden-sm">
-      
-        <li><a href="../py-modindex.html" title="Python Module Index" >modules</a></li>
-        <li><a href="../genindex.html" title="General Index" >index</a></li>
-        <li><a href="#">top</a></li> 
-      
-    </ul>
-  </div>
-</div>
-      </div><!-- /row -->
-
-      <!-- footer -->
-      <footer role="contentinfo">
-          &copy; Copyright 2021, Nick Gray.
-        Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.4.0.
-      </footer>
-      <!-- /footer -->
-
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../api/pba.pbox.Pbox.html" class="btn btn-neutral float-left" title="Pbox" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../api/pba.dists.KM.html" class="btn btn-neutral float-right" title="KM" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-    <!-- /container -->
 
-  </body>
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Nick Gray.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
 </html>
