@@ -1,10 +1,14 @@
 if __name__ is not None and "." in __name__:
     from .interval import Interval
+    from .pbox import Pbox
 else:
     from interval import Interval
+    from pbox import Pbox
 import json
 
 import scipy.stats as sps
+import numpy as np
+import itertools
 
 extra = {
     'lognorm': sps.lognorm,
@@ -12,52 +16,62 @@ extra = {
     'trapz': sps.trapz,
     'truncnorm': sps.truncnorm,
     'uniform': sps.uniform,
+    'beta': sps.beta
 }
 
 dist = read_json('data.json')['dists']
 
-def __get_bounds(function_name=None, steps=200, *args):
+class Bounds():
+    STEPS=200
 
-    # define support
-    x = np.linspace(0.0001, 0.9999, steps)
+    def __init__(self, shape, *args):
+        self.bounds = get_distributions(self.shape, *args)
+        self.pbox = self._pba_constructor(*args)
 
-    #get bound arguments
-    new_args = itertools.product(*args)
+    def _pba_constructor(self, *args):
+        args = list(args)
 
-    bounds = []
+        for i in range(len(args)):
+            if args[i].__class__.__name__ != 'Interval':
+                args[i] = Interval(args[i])
 
-    mean_hi = -np.inf
-    mean_lo = np.inf
-    var_lo = np.inf
-    var_hi = 0
+        Left, Right, mean, var = get_bounds(self.shape, self.STEPS, *args)
+        return Pbox(
+            Left,
+            Right,
+            steps=self.STEPS,
+            shape=self.shape,
+            mean_left=mean.left,
+            mean_right=mean.right,
+            var_left=var.left,
+            var_right=var.right
+        )
 
-    for a in new_args:
+    def __getattr__(self, name):
+        dist_methods = ['cdf', 'dist', 'entropy', 'expect', 'interval', 'isf',
+                        'kwds', 'logcdf', 'logpdf', 'logpmf', 'logsf', 'mean',
+                        'median', 'moment', 'pdf', 'pmf', 'ppf', 'random_state',
+                        'rvs', 'sf', 'stats', 'std', 'support', 'var']
+        try:
+            if name in dist_methods:
+                m = {}
+                for k, v in self.bounds.items():
+                    m[k] = getattr(v['dist'], name)
 
-        bounds.append(dists[function_name].ppf(x, *a))
-        bmean, bvar = dists[function_name].stats(*a, moments='mv')
+                def f(x):
+                    l = [g(x) for j, g in m.items()]
+                    return Interval(min(l), max(l))
 
-        if bmean < mean_lo:
-            mean_lo = bmean
-        if bmean > mean_hi:
-            mean_hi = bmean
-        if bvar > var_hi:
-            var_hi = bvar
-        if bvar < var_lo:
-            var_lo = bvar
-
-    Left = [min([b[i] for b in bounds]) for i in range(steps)]
-    Right = [max([b[i] for b in bounds]) for i in range(steps)]
-
-    var = Interval(np.float64(var_lo), np.float64(var_hi))
-    mean = Interval(np.float64(mean_lo), np.float64(mean_hi))
-
-    Left = np.array(Left)
-    Right = np.array(Right)
-
-    return Left, Right, mean, var
+                return f
+        except AttributeError:
+            try:
+                return getattr(self.pbox, name)
+            except AttributeError:
+                raise AttributeError(
+                    "Bounds' object has no attribute '%s'" % name)
 
 
-class Parametric():
+class Parametric(Bounds):
     """
     A parametric Pbox is defined where parameters of a named distribtuion are specified as
     Intervals. 
@@ -82,55 +96,29 @@ class Parametric():
 
     """
     params = []
+    __pbox__=True
 
-    def __init__(self, distribution, pbox=True, *args, **kwargs):
-        self._parameter_list = list_parameters(distribution)
-        self.distribution = distribution
+    def __init__(self, shape, *args, **kwargs):
+        self.params = list_parameters(shape)
+        self.shape = shape
 
         if args:
             self.set_from_args(*args)
         if kwargs:
             self.set_parameters(**kwargs)
-
-        self._pbox = self._pba_constructor(*args)
+            args = [v for i, v in kwargs.items()]
+        
+        super().__init__(self.shape,*args)
         return None
 
-    def _pdf(self):
-        return None
+    def get_parameter_values(self):
+        return [getattr(self, k) for k in self.params]
 
-    def _cdf(self):
-        return None
-
-    def _ppf(self):
-        return None
-
-    def _logpdf(self):
-        return None
-
-
-    def _pba_constructor(self, *args):
-        args = list(args)
-
-        for i in range(len(args)):
-            if args[i].__class__.__name__ != 'Interval':
-                args[i] = Interval(args[i])
-
-        Left, Right, mean, var = __get_bounds(self.distribution, steps, *args)
-        return Pbox(
-            Left,
-            Right,
-            steps      = steps,
-            shape      = self.distribution,
-            mean_left  = mean.left,
-            mean_right = mean.right,
-            var_left   = var.left,
-            var_right  = var.right
-            )
     def set_from_args(self,*args):
-        self._parameter_list
+        self.params
         args = list(args)
         for i, v in enumerate(args):
-            d = {self._parameter_list[i]:v}
+            d = {self.params[i]:v}
             self._set_parameter(**d)
 
     def set_parameters(self, **kwargs):
@@ -140,17 +128,20 @@ class Parametric():
     def _set_parameter(self, **kwargs):
         if kwargs:
             for k, v in kwargs.items():
-                assert k in self._parameter_list, '{} not in param list: {}'.format(
+                assert k in self.params, '{} not in param list: {}'.format(
                     k, param)
                 if not isinstance(v, Interval):
                     v = Interval(v)
                 setattr(self, k, v)
     
-    def __getattr__(self, name):
-        try:
-            return getattr(self._pbox, name)
-        except AttributeError:
-            raise AttributeError("Constructor' object has no attribute '%s'" % name)
+    # def __getattr__(self, name):
+    #     try:
+    #         return getattr(self.bounds, name)
+    #     except:
+    #         try:
+    #             return getattr(self.pbox, name)
+    #         except AttributeError:
+    #             raise AttributeError("Parametric' object has no attribute '%s'" % name)
 
 def check_implimentation(distribution):
     if distribution in dist:
@@ -194,3 +185,50 @@ def read_json(file_name):
     f = open(file_name)
     data = json.load(f)
     return data
+
+def get_distributions(distribution, *args):
+    new_args = itertools.product(*args)
+    bounds={}
+    i=0
+    for a in new_args:
+        bounds[i] = {}
+        bounds[i]['dist'] = getattr(sps, distribution)
+        bounds[i]['param'] = a
+        i+=1
+    return bounds
+
+def get_bounds(distribution, support=[1E-5, 1-1E-5], *args):
+    # define support
+    steps=200
+    x = np.linspace(1E-5, 1-1E-5, 200)
+    #get bound arguments
+    new_args = itertools.product(*args)
+
+    bounds = []
+    mean_hi = -np.inf
+    mean_lo = np.inf
+    var_lo = np.inf
+    var_hi = 0
+
+    for a in new_args:
+        bounds.append(getattr(sps, distribution).ppf(x, *a))
+        bmean, bvar = getattr(sps, distribution).stats(*a, moments='mv')
+        if bmean < mean_lo:
+            mean_lo = bmean
+        if bmean > mean_hi:
+            mean_hi = bmean
+        if bvar > var_hi:
+            var_hi = bvar
+        if bvar < var_lo:
+            var_lo = bvar
+
+    Left = [min([b[i] for b in bounds]) for i in range(steps)]
+    Right = [max([b[i] for b in bounds]) for i in range(steps)]
+
+    var = Interval(np.float64(var_lo), np.float64(var_hi))
+    mean = Interval(np.float64(mean_lo), np.float64(mean_hi))
+
+    Left = np.array(Left)
+    Right = np.array(Right)
+
+    return Left, Right, mean, var
