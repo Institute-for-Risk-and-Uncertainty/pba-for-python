@@ -11,6 +11,7 @@ else:
 import scipy.stats as sps
 import numpy as np
 import itertools
+import warnings
 
 dists = {
     'alpha' : sps.alpha,
@@ -2431,7 +2432,9 @@ def yulesimon(*args, steps = 200):
 
 ### Other distributions
 def KM(k,m,steps = 200):
-    return beta(Interval(k,k+1),Interval(m,m+1),steps = steps)
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        return beta(Interval(k,k+1),Interval(m,m+1),steps = steps)
 
 def KN(k,n,steps = 200):
     return KM(k,n-k,steps=steps)
