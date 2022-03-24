@@ -244,10 +244,9 @@ if __name__ == '__main__':
     import matplotlib.pyplot as plt
 
     N = Parametric('norm', Interval(0,.2), Interval(1,4))
-    
     N.pbox.plot()
 
-    Xi = np.linspace(-2,3,200)
+    Xi = np.linspace(-15,15,200)
     pdf = [N.pdf(i) for i in Xi]
     L, R = zip(*pdf)
 
@@ -255,5 +254,46 @@ if __name__ == '__main__':
     plt.title('PBox Density')
     plt.plot(Xi, L)
     plt.plot(Xi, R)
+    plt.show()
+
+    cdf = [N.cdf(i) for i in Xi]
+    L, R = zip(*cdf)
+
+    plt.figure()
+    plt.title('PBox Cumulative Parametric Compute')
+    plt.plot(Xi, L)
+    plt.plot(Xi, R)
+    plt.show()
+
+    sf = [N.sf(i) for i in Xi]
+    L, R = zip(*sf)
+
+    plt.figure()
+    plt.title('PBox Survival Function')
+    plt.plot(Xi, L)
+    plt.plot(Xi, R)
+    plt.show()
+
+    logcdf = [N.logcdf(i) for i in Xi]
+    L, R = zip(*logcdf)
+
+    # Is this right?
+    plt.figure()
+    plt.title('PBox Log CDF Function')
+    plt.plot(Xi, L)
+    plt.plot(Xi, R)
+    plt.show()
+
+    print('Expected Value: {}'.format(N.expect(None)))
+
+    alpha = np.linspace(0,.99,200)
+    CI=[N.interval(i) for i in alpha]
+    L, R=zip(*CI)
+
+    # Is this right?
+    plt.figure()
+    plt.title('PBox CI Function')
+    plt.plot(L,alpha)
+    plt.plot(R,alpha)
     plt.show()
 
