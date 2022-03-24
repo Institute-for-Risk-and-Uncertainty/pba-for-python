@@ -70,22 +70,28 @@ class Bounds():
                 raise AttributeError(
                     "Bounds' object has no attribute '%s'" % name)
 
+#TODO: Create a wrapper to allow instanciation with distribution name function wrappers.
 
 class Parametric(Bounds):
     """
     A parametric Pbox is defined where parameters of a named distribtuion are specified as
-    Intervals. 
+    Intervals. This class wraps the scipy.stats library and supports all scipy methods such as
+    pdf, cdf, survival function etc. 
     
-    Parametric can be created using::
-        pba.I(left,right)
-        pba.Interval(left,right)
+    Parametric can be created using any combination of the following styles:
+        pba.Parametric('norm', [0,1], [1,2])
+        pba.Parametric('cauchy', Interval[0,1], 1)
+        pba.Parametric('beta', a = Interval[0,.5], b=0.5)
+        
         
     Parameters
     ----------
-    left : numeric
+    shape : numeric
         left side of interval
-    right : numeric
-        right side of interval
+    **args : float, list, np.array, Interval
+        set of distribution parameters
+    **kwargs :
+        set of key value pairs for the distribution parameters
         
     Attributes
     ----------
@@ -109,7 +115,7 @@ class Parametric(Bounds):
             args = [v for i, v in kwargs.items()]
         
         super().__init__(self.shape,*args)
-        return None
+        
 
     def get_parameter_values(self):
         return [getattr(self, k) for k in self.params]
@@ -192,7 +198,7 @@ def get_distributions(distribution, *args):
     i=0
     for a in new_args:
         bounds[i] = {}
-        bounds[i]['dist'] = getattr(sps, distribution)
+        bounds[i]['dist'] = getattr(sps, distribution)(*a)
         bounds[i]['param'] = a
         i+=1
     return bounds
@@ -232,3 +238,22 @@ def get_bounds(distribution, support=[1E-5, 1-1E-5], *args):
     Right = np.array(Right)
 
     return Left, Right, mean, var
+
+
+if __name__ == '__main__':
+    import matplotlib.pyplot as plt
+
+    N = Parametric('norm', Interval(0,.2), Interval(1,4))
+    
+    N.pbox.plot()
+
+    Xi = np.linspace(-2,3,200)
+    pdf = [N.pdf(i) for i in Xi]
+    L, R = zip(*pdf)
+
+    plt.figure()
+    plt.title('PBox Density')
+    plt.plot(Xi, L)
+    plt.plot(Xi, R)
+    plt.show()
+
