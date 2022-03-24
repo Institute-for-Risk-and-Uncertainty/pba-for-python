@@ -35,7 +35,6 @@ networkx==2.6.3
 numpy==1.21.1
 packaging==20.4
 parso==0.8.3
-pba==0.12b4
 pexpect==4.8.0
 pickleshare==0.7.5
 Pillow==7.2.0
