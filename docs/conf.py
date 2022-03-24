@@ -23,7 +23,7 @@ copyright = '2021, Nick Gray'
 author = 'Nick Gray'
 
 # The full version, including alpha/beta/rc tags
-release = '0.10.4'
+release = '0.11.1'
 
 
 # -- General configuration ---------------------------------------------------
@@ -34,7 +34,8 @@ release = '0.10.4'
 extensions = [
 
     'sphinx.ext.napoleon',
-    'sphinx.ext.mathjax'
+    'sphinx.ext.mathjax',
+    'sphinx_automodapi.automodapi'
 ]
  
 napoleon_google_docstring = False
@@ -56,7 +57,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # a list of builtin themes.
 #
 extensions.append("sphinxjp.themes.basicstrap")
-html_theme = 'basicstrap'
+html_theme = 'sphinx_rtd_theme'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

@@ -1,7 +1,9 @@
-pba.interval module
-===================
+Intervals
+=========
 
-.. automodule:: pba.interval
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. toctree::
+   :maxdepth: 3
+   :caption: Contents:
+
+.. automodapi:: pba.interval
+   :no-inheritance-diagram:

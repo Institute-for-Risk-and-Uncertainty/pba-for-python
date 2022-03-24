@@ -1,7 +1,9 @@
-pba.dists module
-================
+Distributions
+=============
 
-.. automodule:: pba.dists
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. toctree::
+   :maxdepth: 3
+   :caption: Contents:
+
+.. automodapi:: pba.dists
+   :no-inheritance-diagram:

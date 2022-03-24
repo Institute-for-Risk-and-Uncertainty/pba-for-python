@@ -1,7 +1,10 @@
-pba.copula module
-=================
+Copulas
+=======
 
-.. automodule:: pba.copula
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. toctree::
+   :maxdepth: 3
+   :caption: Contents:
+
+
+.. automodapi:: pba.copula
+   :no-inheritance-diagram:

@@ -1,408 +1,161 @@
 <!DOCTYPE html>
-
-
-
-
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    
-    <title>pba.pbox module &mdash; PBA for Python 0.10.4 documentation</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    
-
-<link rel="stylesheet" href="../_static/css/basicstrap-base.css" type="text/css" />
-<link rel="stylesheet" id="current-theme" href="../_static/css/bootstrap3/bootstrap.min.css" type="text/css" />
-<link rel="stylesheet" id="current-adjust-theme" type="text/css" />
-
-<link rel="stylesheet" href="../_static/css/font-awesome.min.css">
-
-<style type="text/css">
-  body {
-    padding-top: 60px;
-    padding-bottom: 40px;
-  }
-</style>
-
-<link rel="stylesheet" href="../_static/css/basicstrap.css" type="text/css" />
-<link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-<link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-<link rel="stylesheet" href="../_static/css/basicstrap.css" type="text/css" />
-    
-<script type="text/javascript">
-  var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:    '../',
-            VERSION:     '0.10.4',
-            COLLAPSE_INDEX: false,
-            FILE_SUFFIX: '.html',
-            HAS_SOURCE:  true
-  };
-</script>
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/js/jquery.min.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script type="text/javascript" src="../_static/js/bootstrap3.min.js"></script>
-<script type="text/javascript" src="../_static/js/jquery.cookie.min.js"></script>
-<script type="text/javascript" src="../_static/js/basicstrap.js"></script>
-<script type="text/javascript">
-</script>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>P-Boxes &mdash; PBA for Python 0.11.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="top" title="PBA for Python 0.10.4 documentation" href="../index.html" /> 
-  </head>
-  <body role="document">
-    <div id="navbar-top" class="navbar navbar-fixed-top navbar-default" role="navigation" aria-label="top navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../index.html">PBA for Python 0.10.4 documentation</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
+    <link rel="next" title="mixture" href="../api/pba.pbox.mixture.html" />
+    <link rel="prev" title="Logical" href="../api/pba.interval.Logical.html" /> 
+</head>
 
-            
-              <li><a href="../py-modindex.html" title="Python Module Index" >modules </a></li>
-              <li><a href="../genindex.html" title="General Index" accesskey="I">index </a></li>
-            
-            <li class="visible-xs"><a href="../_sources/source/pba.pbox.rst.txt" rel="nofollow">Show Source</a></li>
-
-            <li class="visible-xs">
-                <form class="search form-search form-inline navbar-form navbar-right sp-searchbox" action="../search.html" method="get">
-                  <div class="input-append input-group">
-                    <input type="text" class="search-query form-control" name="q" placeholder="Search...">
-                    <span class="input-group-btn">
-                    <input type="submit" class="btn" value="Go" />
-                    </span>
-                  </div>
-                  <input type="hidden" name="check_keywords" value="yes" />
-                  <input type="hidden" name="area" value="default" />
-                </form>
-            </li>
-
-            
-
-          </ul>
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> PBA for Python
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="pba.interval.html">Intervals</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">P-Boxes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-pba.pbox">pba.pbox Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#functions">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.pbox.mixture.html">mixture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.pbox.box.html">box</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.pbox.mmms.html">mmms</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#classes">Classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.pbox.Pbox.html">Pbox</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pba.dists.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pba.copula.html">Copulas</a></li>
+</ul>
 
         </div>
       </div>
-    </div>
-    
+    </nav>
 
-    <!-- container -->
-    <div class="container-fluid">
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PBA for Python</a>
+      </nav>
 
-      <!-- row -->
-      <div class="row">
-         
-<div class="col-md-3 hidden-xs" id="sidebar-wrapper">
-  <div class="sidebar hidden-xs" role="navigation" aria-label="main navigation">
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/source/pba.pbox.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" role="search">
-  <h3>Quick search</h3>
-  <form class="search form-inline" action="../search.html" method="get">
-      <div class="input-append input-group">
-        <input type="text" class="search-query form-control" name="q" placeholder="Search...">
-        <span class="input-group-btn">
-        <input type="submit" class="btn" value="Go" />
-        </span>
-      </div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>P-Boxes</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/source/pba.pbox.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
 </div>
-  </div>
-</div> 
-        
-
-        <div class="col-md-9" id="content-wrapper">
-          <div class="document" role="main">
-            <div class="documentwrapper">
-              <div class="bodywrapper">
-                <div class="body">
-                  
-  <div class="section" id="module-pba.pbox">
-<span id="pba-pbox-module"></span><h1>pba.pbox module<a class="headerlink" href="#module-pba.pbox" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="pba.pbox.Pbox">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pba.pbox.</span></span><span class="sig-name descname"><span class="pre">Pbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean_left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean_right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox.Pbox" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pba.pbox.Pbox.STEPS">
-<span class="sig-name descname"><span class="pre">STEPS</span></span><em class="property"> <span class="pre">=</span> <span class="pre">200</span></em><a class="headerlink" href="#pba.pbox.Pbox.STEPS" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.pbox.Pbox.add">
-<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pba.pbox.Pbox" title="pba.pbox.Pbox"><span class="pre">pba.pbox.Pbox</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="pba.interval.html#pba.interval.Interval" title="pba.interval.Interval"><span class="pre">pba.interval.Interval</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'f'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pba.pbox.Pbox" title="pba.pbox.Pbox"><span class="pre">pba.pbox.Pbox</span></a></span></span><a class="headerlink" href="#pba.pbox.Pbox.add" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds to Pbox to other using the defined dependency method</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>other</strong> – Pbox, Interval or numeric type</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Pbox</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#pba.pbox.Pbox" title="pba.pbox.Pbox">Pbox</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.pbox.Pbox.div">
-<span class="sig-name descname"><span class="pre">div</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'f'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox.Pbox.div" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.pbox.Pbox.env">
-<span class="sig-name descname"><span class="pre">env</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox.Pbox.env" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.pbox.Pbox.ge">
-<span class="sig-name descname"><span class="pre">ge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'f'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox.Pbox.ge" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.pbox.Pbox.get_interval">
-<span class="sig-name descname"><span class="pre">get_interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="pba.interval.html#pba.interval.Interval" title="pba.interval.Interval"><span class="pre">pba.interval.Interval</span></a></span></span><a class="headerlink" href="#pba.pbox.Pbox.get_interval" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.pbox.Pbox.get_probability">
-<span class="sig-name descname"><span class="pre">get_probability</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="pba.interval.html#pba.interval.Interval" title="pba.interval.Interval"><span class="pre">pba.interval.Interval</span></a></span></span><a class="headerlink" href="#pba.pbox.Pbox.get_probability" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.pbox.Pbox.get_x">
-<span class="sig-name descname"><span class="pre">get_x</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox.Pbox.get_x" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns the x values for plotting</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.pbox.Pbox.get_y">
-<span class="sig-name descname"><span class="pre">get_y</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox.Pbox.get_y" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns the y values for plotting</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.pbox.Pbox.gt">
-<span class="sig-name descname"><span class="pre">gt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'f'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox.Pbox.gt" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.pbox.Pbox.le">
-<span class="sig-name descname"><span class="pre">le</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'f'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox.Pbox.le" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.pbox.Pbox.logicaland">
-<span class="sig-name descname"><span class="pre">logicaland</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'f'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox.Pbox.logicaland" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.pbox.Pbox.logicalor">
-<span class="sig-name descname"><span class="pre">logicalor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'f'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox.Pbox.logicalor" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.pbox.Pbox.lt">
-<span class="sig-name descname"><span class="pre">lt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'f'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox.Pbox.lt" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.pbox.Pbox.max">
-<span class="sig-name descname"><span class="pre">max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'f'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox.Pbox.max" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.pbox.Pbox.mean">
-<span class="sig-name descname"><span class="pre">mean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="pba.interval.html#pba.interval.Interval" title="pba.interval.Interval"><span class="pre">pba.interval.Interval</span></a></span></span><a class="headerlink" href="#pba.pbox.Pbox.mean" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the mean of the pbox</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.pbox.Pbox.min">
-<span class="sig-name descname"><span class="pre">min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'f'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox.Pbox.min" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.pbox.Pbox.mul">
-<span class="sig-name descname"><span class="pre">mul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'f'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox.Pbox.mul" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.pbox.Pbox.plot">
-<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">now</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox.Pbox.plot" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.pbox.Pbox.recip">
-<span class="sig-name descname"><span class="pre">recip</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox.Pbox.recip" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.pbox.Pbox.show">
-<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">now</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox.Pbox.show" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.pbox.Pbox.straddles">
-<span class="sig-name descname"><span class="pre">straddles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#pba.pbox.Pbox.straddles" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>N</strong> (<em>numeric</em>) – Number to check</p></li>
-<li><p><strong>endpoints</strong> (<em>bool</em>) – Whether to include the endpoints within the check</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>True</em> – If <span class="math notranslate nohighlight">\(\mathrm{left} \leq N \leq \mathrm{right}\)</span> (Assuming <cite>endpoints=True</cite>)</p></li>
-<li><p><em>False</em> – Otherwise</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.pbox.Pbox.straddles_zero">
-<span class="sig-name descname"><span class="pre">straddles_zero</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endpoints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#pba.pbox.Pbox.straddles_zero" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks whether <span class="math notranslate nohighlight">\(0\)</span> is within the p-box</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.pbox.Pbox.sub">
-<span class="sig-name descname"><span class="pre">sub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'f'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox.Pbox.sub" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.pbox.Pbox.support">
-<span class="sig-name descname"><span class="pre">support</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="pba.interval.html#pba.interval.Interval" title="pba.interval.Interval"><span class="pre">pba.interval.Interval</span></a></span></span><a class="headerlink" href="#pba.pbox.Pbox.support" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.pbox.box">
-<span class="sig-prename descclassname"><span class="pre">pba.pbox.</span></span><span class="sig-name descname"><span class="pre">box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pba.interval.html#pba.interval.Interval" title="pba.interval.Interval"><span class="pre">pba.interval.Interval</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pba.pbox.Pbox" title="pba.pbox.Pbox"><span class="pre">pba.pbox.Pbox</span></a></span></span><a class="headerlink" href="#pba.pbox.box" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns Box interval</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>a</strong> – Left side of box</p></li>
-<li><p><strong>b</strong> – Right side of box</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>p-box</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#pba.pbox.Pbox" title="pba.pbox.Pbox">Pbox</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.pbox.mixture">
-<span class="sig-prename descclassname"><span class="pre">pba.pbox.</span></span><span class="sig-name descname"><span class="pre">mixture</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#pba.pbox.Pbox" title="pba.pbox.Pbox"><span class="pre">pba.pbox.Pbox</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="pba.interval.html#pba.interval.Interval" title="pba.interval.Interval"><span class="pre">pba.interval.Interval</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pba.pbox.Pbox" title="pba.pbox.Pbox"><span class="pre">pba.pbox.Pbox</span></a></span></span><a class="headerlink" href="#pba.pbox.mixture" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns Box interval
-:Parameters: * <strong>*args</strong> – Number of p-boxes or objects that can be tran</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><strong>weights</strong> – Right side of box</p></li>
-</ul>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference internal" href="#pba.pbox.Pbox" title="pba.pbox.Pbox">Pbox</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pba.pbox.mmms">
-<span class="sig-prename descclassname"><span class="pre">pba.pbox.</span></span><span class="sig-name descname"><span class="pre">mmms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">minimum</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pba.interval.html#pba.interval.Interval" title="pba.interval.Interval"><span class="pre">pba.interval.Interval</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximum</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pba.interval.html#pba.interval.Interval" title="pba.interval.Interval"><span class="pre">pba.interval.Interval</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pba.interval.html#pba.interval.Interval" title="pba.interval.Interval"><span class="pre">pba.interval.Interval</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stddev</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pba.interval.html#pba.interval.Interval" title="pba.interval.Interval"><span class="pre">pba.interval.Interval</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pba.pbox.Pbox" title="pba.pbox.Pbox"><span class="pre">pba.pbox.Pbox</span></a></span></span><a class="headerlink" href="#pba.pbox.mmms" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generates a distribution-free p-box based upon the minimum, maximum, mean and standard deviation of the variable</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>minimum</strong> – minimum value of the variable</p></li>
-<li><p><strong>maximum</strong> – maximum value of the variable</p></li>
-<li><p><strong>mean</strong> – mean value of the variable</p></li>
-<li><p><strong>stddev</strong> – standard deviation of the variable</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#pba.pbox.Pbox" title="pba.pbox.Pbox">Pbox</a></p>
-</dd>
-</dl>
-</dd></dl>
-
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="p-boxes">
+<h1>P-Boxes<a class="headerlink" href="#p-boxes" title="Permalink to this headline"></a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<div class="section" id="module-pba.pbox">
+<span id="pba-pbox-module"></span><h2>pba.pbox Module<a class="headerlink" href="#module-pba.pbox" title="Permalink to this headline"></a></h2>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline"></a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.pbox.mixture.html#pba.pbox.mixture" title="pba.pbox.mixture"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mixture</span></code></a>(*args[, weights, steps])</p></td>
+<td><p>Returns Box interval :Parameters: * <strong>*args</strong> -- Number of p-boxes or objects that can be tran              * <strong>weights</strong> -- Right side of box</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.pbox.box.html#pba.pbox.box" title="pba.pbox.box"><code class="xref py py-obj docutils literal notranslate"><span class="pre">box</span></code></a>(a[, b, steps])</p></td>
+<td><p>Returns Box interval</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.pbox.mmms.html#pba.pbox.mmms" title="pba.pbox.mmms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mmms</span></code></a>(minimum, maximum, mean, stddev[, steps])</p></td>
+<td><p>Generates a distribution-free p-box based upon the minimum, maximum, mean and standard deviation of the variable</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline"></a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.pbox.Pbox.html#pba.pbox.Pbox" title="pba.pbox.Pbox"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pbox</span></code></a>([left, right, steps, shape, mean_left, ...])</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 
 
-                </div>
-              </div>
-            </div>
+           </div>
           </div>
-        </div>
-        
-        
-      </div><!-- /row -->
-
-      <!-- row -->
-      <div class="row footer-relbar">
-<div id="navbar-related" class=" related navbar navbar-default" role="navigation" aria-label="related navigation">
-  <div class="navbar-inner">
-    <ul class="nav navbar-nav ">
-        <li><a href="../index.html">PBA for Python 0.10.4 documentation</a></li>
-    </ul>
-<ul class="nav navbar-nav pull-right hidden-xs hidden-sm">
-      
-        <li><a href="../py-modindex.html" title="Python Module Index" >modules</a></li>
-        <li><a href="../genindex.html" title="General Index" >index</a></li>
-        <li><a href="#">top</a></li> 
-      
-    </ul>
-  </div>
-</div>
-      </div><!-- /row -->
-
-      <!-- footer -->
-      <footer role="contentinfo">
-          &copy; Copyright 2021, Nick Gray.
-        Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.2.0.
-      </footer>
-      <!-- /footer -->
-
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../api/pba.interval.Logical.html" class="btn btn-neutral float-left" title="Logical" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../api/pba.pbox.mixture.html" class="btn btn-neutral float-right" title="mixture" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-    <!-- /container -->
 
-  </body>
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Nick Gray.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
 </html>
