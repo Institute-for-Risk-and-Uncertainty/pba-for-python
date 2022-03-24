@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     
-    <title>pba.interval module &mdash; PBA for Python 0.10.4 documentation</title>
+    <title>pba.interval module &mdash; PBA for Python 0.12.beta documentation</title>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -34,7 +34,7 @@
 <script type="text/javascript">
   var DOCUMENTATION_OPTIONS = {
             URL_ROOT:    '../',
-            VERSION:     '0.10.4',
+            VERSION:     '0.12.beta',
             COLLAPSE_INDEX: false,
             FILE_SUFFIX: '.html',
             HAS_SOURCE:  true
@@ -52,7 +52,7 @@
 </script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="top" title="PBA for Python 0.10.4 documentation" href="../index.html" /> 
+    <link rel="top" title="PBA for Python 0.12.beta documentation" href="../index.html" /> 
   </head>
   <body role="document">
     <div id="navbar-top" class="navbar navbar-fixed-top navbar-default" role="navigation" aria-label="top navigation">
@@ -64,7 +64,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="../index.html">PBA for Python 0.10.4 documentation</a>
+          <a class="navbar-brand" href="../index.html">PBA for Python 0.12.beta documentation</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -148,7 +148,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="pba.interval.Interval">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pba.interval.</span></span><span class="sig-name descname"><span class="pre">Interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pba.interval.</span></span><span class="sig-name descname"><span class="pre">Interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>An interval is an uncertain number for which only the endpoints are known, for example if <span class="math notranslate nohighlight">\(x=[a,b]\)</span>
 then this can be interpreted as <span class="math notranslate nohighlight">\(x\)</span> being between <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> but with no more information about the value of <span class="math notranslate nohighlight">\(x\)</span>
@@ -167,11 +167,16 @@ Intervals can be created using:</p>
 </dd>
 <dt class="field-even">Variables</dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>left</strong> (<em>numeric</em>) – left side of interval</p></li>
-<li><p><strong>right</strong> (<em>numeric</em>) – right side of interval</p></li>
+<li><p><strong>~Interval.left</strong> (<em>numeric</em>) – left side of interval</p></li>
+<li><p><strong>~Interval.right</strong> (<em>numeric</em>) – right side of interval</p></li>
 </ul>
 </dd>
 </dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pba.interval.Interval.cos">
+<span class="sig-name descname"><span class="pre">cos</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.cos" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.equiv">
 <span class="sig-name descname"><span class="pre">equiv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.equiv" title="Permalink to this definition">¶</a></dt>
@@ -273,6 +278,16 @@ If <span class="math notranslate nohighlight">\(0 \in [a,b]\)</span> it returns 
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="pba.interval.Interval.sin">
+<span class="sig-name descname"><span class="pre">sin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.sin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pba.interval.Interval.sqrt">
+<span class="sig-name descname"><span class="pre">sqrt</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.sqrt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.straddles">
 <span class="sig-name descname"><span class="pre">straddles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.straddles" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
@@ -299,6 +314,11 @@ If <span class="math notranslate nohighlight">\(0 \in [a,b]\)</span> it returns 
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="pba.interval.Interval.tan">
+<span class="sig-name descname"><span class="pre">tan</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.tan" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.to_logical">
 <span class="sig-name descname"><span class="pre">to_logical</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.to_logical" title="Permalink to this definition">¶</a></dt>
 <dd><p>Turns the interval into a logical interval, this is done by chacking the truth value of the ends of the interval</p>
@@ -315,7 +335,7 @@ self.right - self.left</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="pba.interval.Logical">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pba.interval.</span></span><span class="sig-name descname"><span class="pre">Logical</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Logical" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pba.interval.</span></span><span class="sig-name descname"><span class="pre">Logical</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Logical" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pba.interval.Interval" title="pba.interval.Interval"><code class="xref py py-class docutils literal notranslate"><span class="pre">pba.interval.Interval</span></code></a></p>
 <p>Imprecise Boolean object</p>
 <dl class="field-list simple">
@@ -327,8 +347,8 @@ self.right - self.left</p>
 </dd>
 <dt class="field-even">Variables</dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>left</strong> (<em>bool</em>) – left side of interval</p></li>
-<li><p><strong>right</strong> (<em>bool</em>) – right side of interval</p></li>
+<li><p><strong>~Logical.left</strong> (<em>bool</em>) – left side of interval</p></li>
+<li><p><strong>~Logical.right</strong> (<em>bool</em>) – right side of interval</p></li>
 </ul>
 </dd>
 </dl>
@@ -351,7 +371,7 @@ self.right - self.left</p>
 <div id="navbar-related" class=" related navbar navbar-default" role="navigation" aria-label="related navigation">
   <div class="navbar-inner">
     <ul class="nav navbar-nav ">
-        <li><a href="../index.html">PBA for Python 0.10.4 documentation</a></li>
+        <li><a href="../index.html">PBA for Python 0.12.beta documentation</a></li>
     </ul>
 <ul class="nav navbar-nav pull-right hidden-xs hidden-sm">
       
@@ -367,7 +387,7 @@ self.right - self.left</p>
       <!-- footer -->
       <footer role="contentinfo">
           &copy; Copyright 2021, Nick Gray.
-        Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.2.0.
+        Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 4.4.0.
       </footer>
       <!-- /footer -->
 

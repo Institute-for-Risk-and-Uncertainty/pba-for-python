@@ -10,7 +10,6 @@ Submodules
    pba.copula
    pba.dists
    pba.interval
-   pba.logic
    pba.pbox
 
 Module contents
