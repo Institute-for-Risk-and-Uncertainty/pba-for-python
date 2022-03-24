@@ -19,21 +19,27 @@ extra = {
     'beta': sps.beta
 }
 
-dist = read_json('data.json')['dists']
+def read_json(file_name):
+    f = open(file_name)
+    data = json.load(f)
+    return data
+
+dist = read_json('/Users/dominiccalleja/pba-for-python/pba/data.json')['dists']
 
 class Bounds():
     STEPS=200
 
     def __init__(self, shape, *args):
+        
         self.bounds = get_distributions(self.shape, *args)
         self.pbox = self._pba_constructor(*args)
 
     def _pba_constructor(self, *args):
-        args = list(args)
+        # args = list(args)
 
-        for i in range(len(args)):
-            if args[i].__class__.__name__ != 'Interval':
-                args[i] = Interval(args[i])
+        # for i in range(len(args)):
+        #     if args[i].__class__.__name__ != 'Interval':
+        #         args[i] = Interval(args[i])
 
         Left, Right, mean, var = get_bounds(self.shape, self.STEPS, *args)
         return Pbox(
@@ -63,11 +69,10 @@ class Bounds():
                     return Interval(min(l), max(l))
 
                 return f
-        except AttributeError:
-            try:
+            else:
                 return getattr(self.pbox, name)
-            except AttributeError:
-                raise AttributeError(
+        except AttributeError:
+            raise AttributeError(
                     "Bounds' object has no attribute '%s'" % name)
 
 #TODO: Create a wrapper to allow instanciation with distribution name function wrappers.
@@ -109,6 +114,7 @@ class Parametric(Bounds):
         self.shape = shape
 
         if args:
+            args = args2int(*args)
             self.set_from_args(*args)
         if kwargs:
             self.set_parameters(**kwargs)
@@ -124,6 +130,8 @@ class Parametric(Bounds):
         self.params
         args = list(args)
         for i, v in enumerate(args):
+            # if not isinstance(v, Interval):
+            #     v = Interval(v)
             d = {self.params[i]:v}
             self._set_parameter(**d)
 
@@ -142,12 +150,22 @@ class Parametric(Bounds):
     
     # def __getattr__(self, name):
     #     try:
-    #         return getattr(self.bounds, name)
+    #         return getattr(self.pbox, name)
     #     except:
     #         try:
-    #             return getattr(self.pbox, name)
+    #             return getattr(self.bounds, name)
     #         except AttributeError:
-    #             raise AttributeError("Parametric' object has no attribute '%s'" % name)
+    #             raise AttributeError("Parametric' object has no attribute '%s'" % name) 
+    
+
+def args2int(*args):
+    args = list(args)
+    for i, a in enumerate(args):
+        if not isinstance(a, Interval):
+            args[i] = Interval(a)
+    return args
+
+
 
 def check_implimentation(distribution):
     if distribution in dist:
@@ -185,12 +203,6 @@ def list_parameters(distribution):
         parameters.insert(0,'loc')
         parameters.insert(1,'scale')
     return parameters
-
-
-def read_json(file_name):
-    f = open(file_name)
-    data = json.load(f)
-    return data
 
 def get_distributions(distribution, *args):
     new_args = itertools.product(*args)
@@ -240,11 +252,18 @@ def get_bounds(distribution, support=[1E-5, 1-1E-5], *args):
     return Left, Right, mean, var
 
 
+class Normal: 
+    def __init__(self,*args, **kwargs):
+        self.wrap = Parametric('norm', *args, **kwargs)        
+    # # def print_name(self):
+    # #     return self.wrap.name
+    #     return self.wrap
+
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
 
     N = Parametric('norm', Interval(0,.2), Interval(1,4))
-    N.pbox.plot()
+    N.plot()
 
     Xi = np.linspace(-15,15,200)
     pdf = [N.pdf(i) for i in Xi]
@@ -284,8 +303,6 @@ if __name__ == '__main__':
     plt.plot(Xi, R)
     plt.show()
 
-    print('Expected Value: {}'.format(N.expect(None)))
-
     alpha = np.linspace(0,.99,200)
     CI=[N.interval(i) for i in alpha]
     L, R=zip(*CI)
@@ -297,3 +314,4 @@ if __name__ == '__main__':
     plt.plot(R,alpha)
     plt.show()
 
+    print('Expected Value: {}'.format(N.expect(None)))
