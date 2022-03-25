@@ -25,7 +25,8 @@ def read_json(file_name):
     data = json.load(f)
     return data
 
-dist = read_json(str(Path(__file__).parent) +'/data.json')['dists']
+
+dist = read_json(str(Path(__file__).parent) + '/data.json')['dists']
 
 class Bounds():
     STEPS=200
