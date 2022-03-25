@@ -1,5 +1,9 @@
 from typing import *
-from .interval import Logical, Interval
+if __name__ is not None and "." in __name__:
+    from .interval import *
+else:
+    from interval import Logical, Interval
+
 
 def env(x,y):
     if x.__class__.__name__ == 'Pbox':

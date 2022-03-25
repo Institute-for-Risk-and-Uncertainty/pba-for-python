@@ -31,9 +31,8 @@ dist = read_json(str(Path(__file__).parent) + '/data.json')['dists']
 
 class Bounds():
     STEPS=200
-
     def __init__(self, shape, *args, n_subinterval=5):
-        
+        self.shape = shape
         self.bounds = get_distributions(self.shape, *args, n_subinterval=n_subinterval)
         self.pbox = self._pba_constructor(*args)
 
@@ -66,22 +65,44 @@ class Bounds():
                 m = {}
                 for k, v in self.bounds.items():
                     m[k] = getattr(v['dist'], name)
-
-                def f(x):
-                    l = [g(x) for j, g in m.items()]
-                    if isinstance(x, float):
-                        return Interval(min(l), max(l))
-                    if isinstance(x,list) or isinstance(x, np.ndarray):
-                        l = np.array(l)
-                        mi, ma = np.min(l, axis=0), np.max(l, axis=0)
-                        I = zip(mi, ma)
-                        return [Interval(i) for i in I] 
-                return f
+                
+                if self.shape == 'beta':
+                    def F(x): return f_scaled(
+                        x, m, user_support=self.support)
+                else:
+                    F = lambda x: f(x,m)
+                return F
             else:
                 return getattr(self.pbox, name)
         except AttributeError:
             raise AttributeError(
                     "Bounds' object has no attribute '%s'" % name)
+
+
+def f(x, m):
+    l = [g(x) for j, g in m.items()]
+    if isinstance(x, float):
+        return Interval(min(l), max(l))
+    if isinstance(x,list) or isinstance(x, np.ndarray):
+        l = np.array(l)
+        mi, ma = np.min(l, axis=0), np.max(l, axis=0)
+        I = zip(mi, ma)
+        return [Interval(i) for i in I] 
+
+def f_scaled(x, m, dist_support = [0, 1], user_support=[0,1]):
+    xi = Z_conv(x, mi = user_support[0], ma = user_support[1])
+    l = [g(xi) for j, g in m.items()]
+    if isinstance(xi, float):
+        return Interval(min(l), max(l))
+    if isinstance(xi,list) or isinstance(xi, np.ndarray):
+        l = np.array(l)
+        mi, ma = np.min(l, axis=0), np.max(l, axis=0)
+        I = zip(mi, ma)
+        return [Interval(i) for i in I]
+
+class beta_scale(Bounds):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
 #TODO: Create a wrapper to allow instanciation with distribution name function wrappers.
 
@@ -125,11 +146,18 @@ class Parametric(Bounds):
             args = args2int(*args)
             self.set_from_args(*args)
         if kwargs:
+            kwargs = self._set_support(**kwargs)
             self.set_parameters(**kwargs)
             args = [v for i, v in kwargs.items()]
         
         super().__init__(self.shape,*args, n_subinterval= n_subinterval)
-        
+
+    def _set_support(self, **kwargs):
+        v = [v for k, v in kwargs.items() if k == 'support']
+        if v:
+            del kwargs['support']
+        self.support = v[0]        
+        return kwargs
 
     def get_parameter_values(self):
         return [getattr(self, k) for k in self.params]
@@ -151,7 +179,7 @@ class Parametric(Bounds):
         if kwargs:
             for k, v in kwargs.items():
                 assert k in self.params, '{} not in param list: {}'.format(
-                    k, param)
+                    k, self.params)
                 if not isinstance(v, Interval):
                     v = Interval(v)
                 setattr(self, k, v)
@@ -164,7 +192,10 @@ class Parametric(Bounds):
     #             return getattr(self.bounds, name)
     #         except AttributeError:
     #             raise AttributeError("Parametric' object has no attribute '%s'" % name) 
-    
+
+
+def Z_conv(x, mi=0, ma=1): return (x - mi)/(ma - mi)
+def X_conv(z, mi=0, ma=1): return (z + mi)*(ma - mi)
 
 def args2int(*args):
     args = list(args)
@@ -279,8 +310,18 @@ class t(Parametric):
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
     import time
+
+    # B = Parametric('beta', a=Interval(0.1,.5), b=Interval(.2,.5), support=[0,100], n_subinterval=5)
+    # xb = np.linspace(B.support[0],B.support[1],100)
+    # B_cdf = B.pdf(xb)
+    # L, R = zip(*B_cdf)
     
-    N = Parametric('norm', Interval(3,5), Interval(1,4), n_subinterval=15)
+    # plt.plot(xb,L)
+    # plt.plot(xb,R)
+    # plt.show()
+
+    
+    N = Parametric('norm', Interval(3,5), Interval(1,4), n_subinterval=5)
     N.plot()
 
     """
@@ -300,14 +341,19 @@ if __name__ == '__main__':
     print('Vector eval : {}sec'.format(dt1))
 
     print('Time Saving : {}%'.format((dt1/dt0)))
+    L, R = zip(*pdf)
+    plt.plot(Xi,L, c = 'C{}'.format(0))
+    plt.plot(Xi,R, c = 'C{}'.format(0))
+    plt.legend()
+    plt.show()
 
     """
     Sub intervalised check
     """
     PDF_n = []
-    n_check = [0,5,10,20, 40]
+    n_check = [0,16,20]
     for n in n_check:
-        N = Parametric('norm', Interval(3, 5), Interval(1, 4), n_subinterval=n)
+        N = Parametric('norm', Interval(0,5), Interval(1, 4), n_subinterval=n)
         PDF_n.append(N.pdf(Xi))
 
     for i in range(len(n_check)):
@@ -320,7 +366,7 @@ if __name__ == '__main__':
     """
     Outputs
     """
-    L, R = zip(*pdf)
+    L, R = zip(*pdf0)
     plt.figure()
     plt.title('PBox Density Parametric Compute')
     plt.plot(Xi, L)

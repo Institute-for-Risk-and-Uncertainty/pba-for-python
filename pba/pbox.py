@@ -4,10 +4,15 @@ from warnings import *
 import numpy as np
 from matplotlib import pyplot as plt
 
-from .interval import Interval, Logical
-from .copula import Copula
-from .core import env
-
+if __name__ is not None and "." in __name__:
+    from .interval import Interval, Logical
+    from .copula import Copula
+    from .core import env
+else:
+    from interval import Interval, Logical
+    from copula import Copula
+    from core import env
+    
 __all__ = [
     # import class
     'Pbox',
@@ -245,7 +250,6 @@ class Pbox:
 
         :return: Pbox
         :rtype: Pbox
-        
         
         '''
         if method not in ['f','p','o','i']:
