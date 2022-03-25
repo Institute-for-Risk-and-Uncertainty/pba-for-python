@@ -109,7 +109,7 @@ class Parametric(Bounds):
     params = []
     __pbox__=True
 
-    def __init__(self, shape, *args, **kwargs, n_subinterval=5):
+    def __init__(self, shape, *args, n_subinterval=5, **kwargs):
         self.params = list_parameters(shape)
         self.shape = shape
 
@@ -259,17 +259,19 @@ def subintervalise(interval, n):
     x = np.hstack([xi[:-1],xi[1:]])
     return x.T
 
-class Normal: 
+class Normal(Parametric): 
     def __init__(self,*args, **kwargs):
-        self.wrap = Parametric('norm', *args, **kwargs)        
-    # # def print_name(self):
-    # #     return self.wrap.name
-    #     return self.wrap
+        super().__init__('norm', *args, **kwargs)        
+
+class t(Parametric): 
+    def __init__(self,*args, **kwargs):
+        super().__init__('t', *args, **kwargs)        
+
 
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
 
-    N = Parametric('norm', Interval(0,.2), Interval(1,4))
+    N = Parametric('norm', Interval(3,5), Interval(1,4), n_subinterval=10)
     N.plot()
 
     Xi = np.linspace(-15,15,200)
@@ -306,6 +308,16 @@ if __name__ == '__main__':
     # Is this right?
     plt.figure()
     plt.title('PBox Log CDF Function')
+    plt.plot(Xi, L)
+    plt.plot(Xi, R)
+    plt.show()
+
+    logpdf = [N.logpdf(i) for i in Xi]
+    L, R = zip(*logpdf)
+
+    # Is this right?
+    plt.figure()
+    plt.title('PBox Log PDF Function')
     plt.plot(Xi, L)
     plt.plot(Xi, R)
     plt.show()
