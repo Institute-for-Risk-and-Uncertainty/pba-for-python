@@ -275,28 +275,50 @@ class t(Parametric):
 
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
-
-    N = Parametric('norm', Interval(3,5), Interval(1,4), n_subinterval=10)
+    import time
+    
+    N = Parametric('norm', Interval(3,5), Interval(1,4), n_subinterval=15)
     N.plot()
 
+    """
+    Speed check 
+    """
+    t0 = time.time()
     Xi = np.linspace(-15,15,200)
-    # pdf = [N.pdf(i) for i in Xi]
+    pdf0 = [N.pdf(i) for i in Xi]
+    t1 = time.time()
+    dt0 = t1-t0
+    print('For loop eval : {}sec'.format(dt0))
 
-    pdf0 = N.pdf(np.linspace(-15,15,200))
+    t2 = time.time()
+    pdf = N.pdf(Xi)
+    t3 = time.time()
+    dt1 = t3-t2
+    print('Vector eval : {}sec'.format(dt1))
 
+    print('Time Saving : {}%'.format((dt1/dt0)))
+
+    """
+    Outputs
+    """
+    L, R = zip(*pdf)
     plt.figure()
-    plt.title('PBox Density')
+    plt.title('PBox Density Parametric Compute')
     plt.plot(Xi, L)
     plt.plot(Xi, R)
     plt.show()
+
 
     cdf = [N.cdf(i) for i in Xi]
     L, R = zip(*cdf)
 
     plt.figure()
-    plt.title('PBox Cumulative Parametric Compute')
-    plt.plot(Xi, L)
-    plt.plot(Xi, R)
+    plt.title('PBox Cumulative')
+    plt.plot(N.left, np.linspace(0, 1, len(N.left)), c='C1', label='PBA')
+    plt.plot(N.right, np.linspace(0, 1, len(N.left)), c='C1')
+    plt.plot(Xi, L, c='C0', label='Full dist')
+    plt.plot(Xi, R, c='C0')
+    plt.legend()
     plt.show()
 
     sf = [N.sf(i) for i in Xi]
