@@ -62,3 +62,4 @@ urllib3==1.26.3
 watchdog==1.0.2
 webencodings==0.5.1
 zipp==3.2.0
+data.json
