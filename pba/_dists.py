@@ -66,8 +66,13 @@ class Bounds():
 
                 def f(x):
                     l = [g(x) for j, g in m.items()]
-                    return Interval(min(l), max(l))
-
+                    if isinstance(x, float):
+                        return Interval(min(l), max(l))
+                    if isinstance(x,list) or isinstance(x, np.ndarray):
+                        l = np.array(l)
+                        mi, ma = np.min(l, axis=0), np.max(l, axis=0)
+                        I = zip(mi, ma)
+                        return [Interval(i) for i in I] 
                 return f
             else:
                 return getattr(self.pbox, name)
@@ -275,8 +280,9 @@ if __name__ == '__main__':
     N.plot()
 
     Xi = np.linspace(-15,15,200)
-    pdf = [N.pdf(i) for i in Xi]
-    L, R = zip(*pdf)
+    # pdf = [N.pdf(i) for i in Xi]
+
+    pdf0 = N.pdf(np.linspace(-15,15,200))
 
     plt.figure()
     plt.title('PBox Density')
