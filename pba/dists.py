@@ -279,6 +279,9 @@ def argus(*args, steps = 200):
           )
 
 def beta(*args, steps = 200):
+    '''
+    Beta distribution
+    '''
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':

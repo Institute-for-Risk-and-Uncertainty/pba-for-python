@@ -12,6 +12,8 @@ import itertools
 import sys
 from pathlib import Path
 
+
+
 extra = {
     'lognorm': sps.lognorm,
     'foldnorm': sps.foldnorm,
@@ -112,8 +114,8 @@ class Parametric(Bounds):
     Intervals. This class wraps the scipy.stats library and supports all scipy methods such as
     pdf, cdf, survival function etc. 
     
-    Parametric can be created using any combination of the following styles:
-        pba.Parametric('norm', [0,1], [1,2])
+    Parametric can be created using any combination of the following styles:norm
+        pba.Parametric('', [0,1], [1,2])
         pba.Parametric('cauchy', Interval[0,1], 1)
         pba.Parametric('beta', a = Interval[0,.5], b=0.5)
         
@@ -306,6 +308,17 @@ class t(Parametric):
     def __init__(self,*args, **kwargs):
         super().__init__('t', *args, **kwargs)        
 
+dl = {}
+for funcname in dist:
+    def func(*args, name = funcname ,**kwargs): 
+        f'''
+        Generate parametric p-box for {name}
+        '''
+        return Parametric(name, *args, **kwargs)      
+    # dl[funcname] = func
+    setattr(sys.modules[__name__],funcname,func)
+    
+__all__ = ["Parametric"] + dist
 
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
