@@ -29,9 +29,9 @@ dist = read_json('/Users/dominiccalleja/pba-for-python/pba/data.json')['dists']
 class Bounds():
     STEPS=200
 
-    def __init__(self, shape, *args):
+    def __init__(self, shape, *args, n_subinterval=5):
         
-        self.bounds = get_distributions(self.shape, *args)
+        self.bounds = get_distributions(self.shape, *args, n_subinterval=n_subinterval)
         self.pbox = self._pba_constructor(*args)
 
     def _pba_constructor(self, *args):
@@ -109,7 +109,7 @@ class Parametric(Bounds):
     params = []
     __pbox__=True
 
-    def __init__(self, shape, *args, **kwargs):
+    def __init__(self, shape, *args, **kwargs, n_subinterval=5):
         self.params = list_parameters(shape)
         self.shape = shape
 
@@ -120,7 +120,7 @@ class Parametric(Bounds):
             self.set_parameters(**kwargs)
             args = [v for i, v in kwargs.items()]
         
-        super().__init__(self.shape,*args)
+        super().__init__(self.shape,*args, n_subinterval= n_subinterval)
         
 
     def get_parameter_values(self):
@@ -165,8 +165,6 @@ def args2int(*args):
             args[i] = Interval(a)
     return args
 
-
-
 def check_implimentation(distribution):
     if distribution in dist:
         return True
@@ -204,8 +202,13 @@ def list_parameters(distribution):
         parameters.insert(1,'scale')
     return parameters
 
-def get_distributions(distribution, *args):
+def get_distributions(distribution, *args, n_subinterval=5):
+    
+    args = list(args)
+    if n_subinterval:
+        args = [subintervalise(i, n_subinterval) for i in args]
     new_args = itertools.product(*args)
+
     bounds={}
     i=0
     for a in new_args:
@@ -251,6 +254,10 @@ def get_bounds(distribution, support=[1E-5, 1-1E-5], *args):
 
     return Left, Right, mean, var
 
+def subintervalise(interval, n):
+    xi = np.linspace(interval.left, interval.right, n)
+    x = np.hstack([xi[:-1],xi[1:]])
+    return x.T
 
 class Normal: 
     def __init__(self,*args, **kwargs):
