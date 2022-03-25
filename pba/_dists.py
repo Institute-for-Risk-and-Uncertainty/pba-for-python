@@ -299,6 +299,22 @@ if __name__ == '__main__':
     print('Time Saving : {}%'.format((dt1/dt0)))
 
     """
+    Sub intervalised check
+    """
+    PDF_n = []
+    n_check = [0,5,10,20, 40]
+    for n in n_check:
+        N = Parametric('norm', Interval(3, 5), Interval(1, 4), n_subinterval=n)
+        PDF_n.append(N.pdf(Xi))
+
+    for i in range(len(n_check)):
+        L, R = zip(*PDF_n[i])
+        plt.plot(Xi,L, c = 'C{}'.format(i), label='sub int - {}'.format(n_check[i]))
+        plt.plot(Xi,R, c = 'C{}'.format(i))
+    plt.legend()
+    plt.show()
+
+    """
     Outputs
     """
     L, R = zip(*pdf)
@@ -308,8 +324,7 @@ if __name__ == '__main__':
     plt.plot(Xi, R)
     plt.show()
 
-
-    cdf = [N.cdf(i) for i in Xi]
+    cdf = N.cdf(Xi)
     L, R = zip(*cdf)
 
     plt.figure()
@@ -321,7 +336,7 @@ if __name__ == '__main__':
     plt.legend()
     plt.show()
 
-    sf = [N.sf(i) for i in Xi]
+    sf = N.sf(Xi)
     L, R = zip(*sf)
 
     plt.figure()
@@ -330,7 +345,7 @@ if __name__ == '__main__':
     plt.plot(Xi, R)
     plt.show()
 
-    logcdf = [N.logcdf(i) for i in Xi]
+    logcdf = N.logcdf(Xi)
     L, R = zip(*logcdf)
 
     # Is this right?
@@ -340,7 +355,7 @@ if __name__ == '__main__':
     plt.plot(Xi, R)
     plt.show()
 
-    logpdf = [N.logpdf(i) for i in Xi]
+    logpdf = N.logpdf(Xi)
     L, R = zip(*logpdf)
 
     # Is this right?
