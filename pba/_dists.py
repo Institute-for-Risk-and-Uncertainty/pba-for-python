@@ -24,7 +24,7 @@ def read_json(file_name):
     data = json.load(f)
     return data
 
-dist = read_json('/Users/dominiccalleja/pba-for-python/pba/data.json')['dists']
+dist = read_json('data.json')['dists']
 
 class Bounds():
     STEPS=200
