@@ -331,13 +331,13 @@ def subintervalise(interval, n):
     x = np.hstack([xi[:-1],xi[1:]])
     return x.T
 
-class Normal(Parametric): 
-    def __init__(self,*args, **kwargs):
-        super().__init__('norm', *args, **kwargs)        
+# class Normal(Parametric): 
+#     def __init__(self,*args, **kwargs):
+#         super().__init__('norm', *args, **kwargs)        
 
-class t(Parametric): 
-    def __init__(self,*args, **kwargs):
-        super().__init__('t', *args, **kwargs)        
+# class t(Parametric): 
+#     def __init__(self,*args, **kwargs):
+#         super().__init__('t', *args, **kwargs)        
 
 
 def trapz(a, b, c, d, steps=200):
@@ -384,23 +384,26 @@ if __name__ == '__main__':
     # A.pdf(0)
 
 
-    # for d in dist:
-    #     print(f'{d} : \n\t {list_parameters(d)}' )
+    for d in dist:
+        print(f'{d} : \n\t {list_parameters(d)}' )
 
-    # B = Parametric('beta', a=Interval(2), b=Interval(2), support=[10,20], n_subinterval=5)
-    # xb = np.linspace(B.get_support()[0],B.get_support()[1],100)
-    # B_cdf = B.cdf(xb)
-    # L, R = zip(*B_cdf)
+    B = Parametric('beta', a=Interval(1,3), b=Interval(2), support=[10,20], n_subinterval=5)
+
+    B.plot()
+
+    xb = np.linspace(B.get_support()[0],B.get_support()[1],100)
+    B_cdf = B.cdf(xb)
+    L, R = zip(*B_cdf)
     
-    # plt.plot(xb, L)
-    # plt.plot(xb, R)
-    # plt.show()
+    plt.plot(xb, L)
+    plt.plot(xb, R)
+    plt.show()
 
-    # B = sps.beta(2,2)
-    # x = np.linspace(0,1,100)
-    # xx = np.linspace(10,20,100)
-    # plt.plot(xx,B.cdf(x))
-    # plt.show()
+    B = sps.beta(2,2)
+    x = np.linspace(0,1,100)
+    xx = np.linspace(10,20,100)
+    plt.plot(xx,B.cdf(x))
+    plt.show()
 
 
     # from pba import parametric
