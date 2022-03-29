@@ -57,45 +57,41 @@ class Bounds():
             var_right=var.right
         )
 
-    def __getattr__(self, name):
-        dist_methods = ['cdf', 'dist', 'entropy', 'expect', 'interval', 'isf',
-                        'kwds', 'logcdf', 'logpdf', 'logpmf', 'logsf', 'mean',
-                        'median', 'moment', 'pdf', 'pmf', 'ppf', 'random_state',
-                        'rvs', 'sf', 'stats', 'std', 'support', 'var']
-        try:
-            if name in dist_methods:
-                m = {}
-                for k, v in self.bounds.items():
-                    m[k] = getattr(v['dist'], name)
-                
-                if self.shape == 'beta':
-                    def F(x): return f_scaled(
-                        x, m, user_support=self.support)
-                else:
-                    F = lambda x: f(x,m)
-                return F
-            else:
-                return getattr(self.pbox, name)
-        except AttributeError:
-            raise AttributeError(
-                    "Bounds' object has no attribute '%s'" % name)
 
+def run_fun(m, *x):
+    if x:
+        x = x[0]
+        l = [g(x) for j, g in m.items()]
+    else:
+        l = [g() for j, g in m.items()]
+        mi, ma = np.min(l, axis=0), np.max(l, axis=0)
+        # I = zip(mi, ma)
+        # return [Interval(i) for i in I]
+        return Interval(min(mi), max(ma))
 
-def f(x, m):
-    l = [g(x) for j, g in m.items()]
     if isinstance(x, float):
         return Interval(min(l), max(l))
+
     if isinstance(x,list) or isinstance(x, np.ndarray):
         l = np.array(l)
         mi, ma = np.min(l, axis=0), np.max(l, axis=0)
         I = zip(mi, ma)
         return [Interval(i) for i in I] 
 
-def f_scaled(x, m, dist_support = [0, 1], user_support=[0,1]):
-    xi = Z_conv(x, mi = user_support[0], ma = user_support[1])
-    l = [g(xi) for j, g in m.items()]
+def run_fun_scaled(m, *x, dist_support = [0, 1], user_support=[0,1]):
+    if x:
+        x = x[0]
+        xi = Z_conv(x, mi = user_support[0], ma = user_support[1])
+        l = [g(xi) for j, g in m.items()]
+    else:
+        l = [g() for j, g in m.items()]
+        mi, ma = np.min(l, axis=0), np.max(l, axis=0)
+        I = zip(mi, ma)
+        return [Interval(i) for i in I]
+
     if isinstance(xi, float):
         return Interval(min(l), max(l))
+
     if isinstance(xi,list) or isinstance(xi, np.ndarray):
         l = np.array(l)
         mi, ma = np.min(l, axis=0), np.max(l, axis=0)
@@ -154,11 +150,14 @@ class Parametric(Bounds):
         
         super().__init__(self.shape,*args, n_subinterval= n_subinterval)
 
+    def __retter__(self):
+        return self
+
     def _set_support(self, **kwargs):
         v = [v for k, v in kwargs.items() if k == 'support']
         if v:
             del kwargs['support']
-        self.support = v[0]        
+        self.scale_support = v[0]
         return kwargs
 
     def get_parameter_values(self):
@@ -186,6 +185,38 @@ class Parametric(Bounds):
                     v = Interval(v)
                 setattr(self, k, v)
     
+    def get_support(self):
+        if hasattr(self, 'scale_support'):
+            print('Support Scaled')
+            return self.scale_support
+        else:
+            return self.__getattr__('support')()
+    
+    def _get_distributions_method(self, name):
+        m = {}
+        for k, v in self.bounds.items():
+            m[k] = getattr(v['dist'], name)
+        return m
+
+    def __getattr__(self, name):
+        dist_methods = ['cdf', 'dist', 'entropy', 'expect', 'interval', 'isf',
+                        'kwds', 'logcdf', 'logpdf', 'logpmf', 'logsf', 'mean',
+                        'median', 'moment', 'pdf', 'pmf', 'ppf', 'random_state',
+                        'rvs', 'sf', 'stats', 'std', 'support', 'var']
+        try:
+            if name in dist_methods:
+                m = self._get_distributions_method(name)
+                if hasattr(self, 'scale_support'):# self.shape == 'beta':
+                    def F(*x): return run_fun_scaled(
+                        m, *x, user_support=self.scale_support)
+                else:
+                    def F(*x): return run_fun(m, *x)
+                return F
+            else:
+                return getattr(self.pbox, name)
+        except AttributeError:
+            raise AttributeError(
+                    "Bounds' object has no attribute '%s'" % name)
     # def __getattr__(self, name):
     #     try:
     #         return getattr(self.pbox, name)
@@ -308,13 +339,38 @@ class t(Parametric):
     def __init__(self,*args, **kwargs):
         super().__init__('t', *args, **kwargs)        
 
+
+def trapz(a, b, c, d, steps=200):
+    if a.__class__.__name__ != 'Interval':
+        a = Interval(a)
+    if b.__class__.__name__ != 'Interval':
+        b = Interval(b)
+    if c.__class__.__name__ != 'Interval':
+        c = Interval(c)
+    if d.__class__.__name__ != 'Interval':
+        d = Interval(d)
+
+    x = np.linspace(0.0001, 0.9999, steps)
+    left = sps.trapz.ppf(
+        x, *sorted([b.lo()/d.lo(), c.lo()/d.lo(), a.lo(), d.lo()-a.lo()]))
+    right = sps.trapz.ppf(
+        x, *sorted([b.hi()/d.hi(), c.hi()/d.hi(), a.hi(), d.hi()-a.hi()]))
+
+    return Pbox(
+        left,
+        right,
+        steps=steps,
+        shape='trapz'
+    )
+
+
 dl = {}
 for funcname in dist:
     def func(*args, name = funcname ,**kwargs): 
         f'''
         Generate parametric p-box for {name}
         '''
-        return Parametric(name, *args, **kwargs)      
+        return Parametric(name, *args, **kwargs).__retter__()
     # dl[funcname] = func
     setattr(sys.modules[__name__],funcname,func)
     
@@ -324,18 +380,49 @@ if __name__ == '__main__':
     import matplotlib.pyplot as plt
     import time
 
-    # B = Parametric('beta', a=Interval(0.1,.5), b=Interval(.2,.5), support=[0,100], n_subinterval=5)
-    # xb = np.linspace(B.support[0],B.support[1],100)
-    # B_cdf = B.pdf(xb)
+    # A = norm(Interval(0,1),1)
+    # A.pdf(0)
+
+
+    # for d in dist:
+    #     print(f'{d} : \n\t {list_parameters(d)}' )
+
+    # B = Parametric('beta', a=Interval(2), b=Interval(2), support=[10,20], n_subinterval=5)
+    # xb = np.linspace(B.get_support()[0],B.get_support()[1],100)
+    # B_cdf = B.cdf(xb)
     # L, R = zip(*B_cdf)
     
-    # plt.plot(xb,L)
-    # plt.plot(xb,R)
+    # plt.plot(xb, L)
+    # plt.plot(xb, R)
     # plt.show()
 
-    
+    # B = sps.beta(2,2)
+    # x = np.linspace(0,1,100)
+    # xx = np.linspace(10,20,100)
+    # plt.plot(xx,B.cdf(x))
+    # plt.show()
+
+
+    # from pba import parametric
     N = Parametric('norm', Interval(3,5), Interval(1,4), n_subinterval=5)
     N.plot()
+
+    N.get_support()
+
+    A = alpha(20)
+    A.plot()
+    x = np.linspace(0.04,0.07,100)
+    plt.plot(x, sps.alpha(20).cdf(x))
+    plt.show()
+
+    list_parameters('chi')
+    C = chi([1,2])
+    C.plot()
+    x = np.linspace(0,5,100)
+    plt.plot(x, sps.chi(2).cdf(x))
+    plt.show()
+
+
 
     """
     Speed check 
