@@ -605,6 +605,11 @@ class Interval:
         hi = np.exp(self.right)
         return Interval(lo,hi)
     
+    def log(self):
+        lo = np.log(self.left)
+        hi = np.log(self.right)
+        return Interval(lo,hi)
+    
     def sqrt(self):
         if self.left >= 0:
             return Interval(np.sqrt(self.left),np.sqrt(self.right))
