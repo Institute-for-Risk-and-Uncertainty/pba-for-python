@@ -97,6 +97,25 @@ def run_fun_scaled(m, *x, dist_support = [0, 1], user_support=[0,1]):
         mi, ma = np.min(l, axis=0), np.max(l, axis=0)
         I = zip(mi, ma)
         return [Interval(i) for i in I]
+    
+def dist_fun(m, *n):
+    # TODO: This method can access rvs, not clear what the behaviour should be though. 
+    # Figure out what a random sample of the pbox should be and do that. 
+    # I think probably Intervals, so should use inverse transfrom. Maybe should overwrite RVS
+    if n:
+        n=n[0]
+        l = [g(n) for j, g in m.items()]
+
+    else:
+        l = [g() for j, g in m.items()]
+    
+    mi, ma = np.min(l, axis=0), np.max(l, axis=0)
+    if isinstance(mi, float):
+        return Interval(mi,ma)    
+    else:
+        I = zip(mi, ma)
+        return [Interval(i) for i in I]
+    
 
 class beta_scale(Bounds):
     def __init__(self, *args, **kwargs):
@@ -199,18 +218,25 @@ class Parametric(Bounds):
         return m
 
     def __getattr__(self, name):
-        dist_methods = ['cdf', 'dist', 'entropy', 'expect', 'interval', 'isf',
-                        'kwds', 'logcdf', 'logpdf', 'logpmf', 'logsf', 'mean',
-                        'median', 'moment', 'pdf', 'pmf', 'ppf', 'random_state',
-                        'rvs', 'sf', 'stats', 'std', 'support', 'var']
+        sample_methods = ['cdf', 'logcdf', 'logpdf',  'isf',
+                          'logpmf', 'logsf', 'sf', 'pdf', 'pmf', 'ppf']
+        
+        dist_methods = ['entropy', 'expect', 'interval', 'isf',
+                    'mean','median', 'moment', 'random_state',
+                    'rvs', 'stats', 'std', 'support', 'var']
         try:
-            if name in dist_methods:
+            if name in sample_methods:
                 m = self._get_distributions_method(name)
                 if hasattr(self, 'scale_support'):# self.shape == 'beta':
                     def F(*x): return run_fun_scaled(
                         m, *x, user_support=self.scale_support)
                 else:
                     def F(*x): return run_fun(m, *x)
+                return F
+
+            elif name in dist_methods:
+                m = self._get_distributions_method(name)
+                def F(*n): return dist_fun(m, *n)
                 return F
             else:
                 return getattr(self.pbox, name)
@@ -388,9 +414,19 @@ if __name__ == '__main__':
         print(f'{d} : \n\t {list_parameters(d)}' )
 
     B = Parametric('beta', a=Interval(1,3), b=Interval(2), support=[10,20], n_subinterval=5)
-
-    B.plot()
-
+    print('Expected Value : {}'.format(B.expect()))
+    print('Interval Value : {}'.format(B.interval(.95)))
+    print('Interval Value : {}'.format(B.isf(.1)))
+    print('Mean Value : {}'.format(B.mean()))
+    print('Median Value : {}'.format(B.median()))
+    print('Variance Value : {}'.format(B.var()))
+    print('STD Value : {}'.format(B.std()))
+    print('Entropy Value : {}'.format(B.entropy()))
+    print('Support Value : {}'.format(B.support()))
+    print('Stats Value : {}'.format(B.stats()))
+    
+    s = B.rvs(100)
+    
     xb = np.linspace(B.get_support()[0],B.get_support()[1],100)
     B_cdf = B.cdf(xb)
     L, R = zip(*B_cdf)
