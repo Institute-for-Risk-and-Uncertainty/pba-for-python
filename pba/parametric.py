@@ -58,63 +58,6 @@ class Bounds():
         )
 
 
-def run_fun(m, *x):
-    if x:
-        x = x[0]
-        l = [g(x) for j, g in m.items()]
-    else:
-        l = [g() for j, g in m.items()]
-        mi, ma = np.min(l, axis=0), np.max(l, axis=0)
-        # I = zip(mi, ma)
-        # return [Interval(i) for i in I]
-        return Interval(min(mi), max(ma))
-
-    if isinstance(x, float):
-        return Interval(min(l), max(l))
-
-    if isinstance(x,list) or isinstance(x, np.ndarray):
-        l = np.array(l)
-        mi, ma = np.min(l, axis=0), np.max(l, axis=0)
-        I = zip(mi, ma)
-        return [Interval(i) for i in I] 
-
-def run_fun_scaled(m, *x, dist_support = [0, 1], user_support=[0,1]):
-    if x:
-        x = x[0]
-        xi = Z_conv(x, mi = user_support[0], ma = user_support[1])
-        l = [g(xi) for j, g in m.items()]
-    else:
-        l = [g() for j, g in m.items()]
-        mi, ma = np.min(l, axis=0), np.max(l, axis=0)
-        I = zip(mi, ma)
-        return [Interval(i) for i in I]
-
-    if isinstance(xi, float):
-        return Interval(min(l), max(l))
-
-    if isinstance(xi,list) or isinstance(xi, np.ndarray):
-        l = np.array(l)
-        mi, ma = np.min(l, axis=0), np.max(l, axis=0)
-        I = zip(mi, ma)
-        return [Interval(i) for i in I]
-    
-def dist_fun(m, *n):
-    # TODO: This method can access rvs, not clear what the behaviour should be though. 
-    # Figure out what a random sample of the pbox should be and do that. 
-    # I think probably Intervals, so should use inverse transfrom. Maybe should overwrite RVS
-    if n:
-        n=n[0]
-        l = [g(n) for j, g in m.items()]
-
-    else:
-        l = [g() for j, g in m.items()]
-    
-    mi, ma = np.min(l, axis=0), np.max(l, axis=0)
-    if isinstance(mi, float):
-        return Interval(mi,ma)    
-    else:
-        I = zip(mi, ma)
-        return [Interval(i) for i in I]
     
 
 class beta_scale(Bounds):
@@ -357,6 +300,67 @@ def subintervalise(interval, n):
     x = np.hstack([xi[:-1],xi[1:]])
     return x.T
 
+
+def run_fun(m, *x):
+    if x:
+        x = x[0]
+        l = [g(x) for j, g in m.items()]
+    else:
+        l = [g() for j, g in m.items()]
+        mi, ma = np.min(l, axis=0), np.max(l, axis=0)
+        # I = zip(mi, ma)
+        # return [Interval(i) for i in I]
+        return Interval(min(mi), max(ma))
+
+    if isinstance(x, float):
+        return Interval(min(l), max(l))
+
+    if isinstance(x, list) or isinstance(x, np.ndarray):
+        l = np.array(l)
+        mi, ma = np.min(l, axis=0), np.max(l, axis=0)
+        I = zip(mi, ma)
+        return [Interval(i) for i in I]
+
+
+def run_fun_scaled(m, *x, dist_support=[0, 1], user_support=[0, 1]):
+    if x:
+        x = x[0]
+        xi = Z_conv(x, mi=user_support[0], ma=user_support[1])
+        l = [g(xi) for j, g in m.items()]
+    else:
+        l = [g() for j, g in m.items()]
+        mi, ma = np.min(l, axis=0), np.max(l, axis=0)
+        I = zip(mi, ma)
+        return [Interval(i) for i in I]
+
+    if isinstance(xi, float):
+        return Interval(min(l), max(l))
+
+    if isinstance(xi, list) or isinstance(xi, np.ndarray):
+        l = np.array(l)
+        mi, ma = np.min(l, axis=0), np.max(l, axis=0)
+        I = zip(mi, ma)
+        return [Interval(i) for i in I]
+
+
+def dist_fun(m, *n):
+    # TODO: This method can access rvs, not clear what the behaviour should be though.
+    # Figure out what a random sample of the pbox should be and do that.
+    # I think probably Intervals, so should use inverse transfrom. Maybe should overwrite RVS
+    if n:
+        n = n[0]
+        l = [g(n) for j, g in m.items()]
+
+    else:
+        l = [g() for j, g in m.items()]
+
+    mi, ma = np.min(l, axis=0), np.max(l, axis=0)
+    if isinstance(mi, float):
+        return Interval(mi, ma)
+    else:
+        I = zip(mi, ma)
+        return [Interval(i) for i in I]
+        
 # class Normal(Parametric): 
 #     def __init__(self,*args, **kwargs):
 #         super().__init__('norm', *args, **kwargs)        
