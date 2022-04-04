@@ -57,14 +57,11 @@ class Bounds():
             var_right=var.right
         )
 
+# class beta_scale(Bounds):
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
 
-    
 
-class beta_scale(Bounds):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-#TODO: Create a wrapper to allow instanciation with distribution name function wrappers.
 
 class Parametric(Bounds):
     """
@@ -559,13 +556,16 @@ if __name__ == '__main__':
 
     alpha = np.linspace(0,.99,200)
     CI=[N.interval(i) for i in alpha]
-    L, R=zip(*CI)
-
+    L, R = zip(*CI)
+    L0,L1 = zip(*L)
+    R0,R1 = zip(*R)
     # Is this right?
     plt.figure()
     plt.title('PBox CI Function')
-    plt.plot(L,alpha)
-    plt.plot(R,alpha)
+    plt.plot(L0,alpha,c='r')
+    # plt.plot(L1,alpha,c='r')
+    # plt.plot(R0,alpha,c='k')
+    plt.plot(R1,alpha,c='k')
     plt.show()
 
     print('Expected Value: {}'.format(N.expect(None)))
