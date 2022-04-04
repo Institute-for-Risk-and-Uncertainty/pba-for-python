@@ -330,7 +330,7 @@ def run_fun_scaled(m, *x, dist_support=[0, 1], user_support=[0, 1]):
         I = zip(mi, ma)
         return [Interval(i) for i in I]
 
-    if isinstance(xi, float):
+    if isinstance(xi, float) or isinstance(x, int):
         return Interval(min(l), max(l))
 
     if isinstance(xi, list) or isinstance(xi, np.ndarray):
