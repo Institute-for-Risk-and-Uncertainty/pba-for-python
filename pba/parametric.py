@@ -309,7 +309,7 @@ def run_fun(m, *x):
         # return [Interval(i) for i in I]
         return Interval(min(mi), max(ma))
 
-    if isinstance(x, float):
+    if isinstance(x, float) or isinstance(x, int):
         return Interval(min(l), max(l))
 
     if isinstance(x, list) or isinstance(x, np.ndarray):
