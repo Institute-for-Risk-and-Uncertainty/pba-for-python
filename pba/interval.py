@@ -214,7 +214,11 @@ class Interval:
 
                 lo = min(b1,b2,b3,b4)
                 hi = max(b1,b2,b3,b4)
+                
+        elif other.__class__.__name__ == "Pbox":
 
+            return other.__rtruediv__(self)
+        
         else:
             try:
                 lo = self.lo()/other
