@@ -16,6 +16,7 @@ I
       ~I.hi
       ~I.intersection
       ~I.lo
+      ~I.log
       ~I.midpoint
       ~I.oadd
       ~I.odiv
@@ -42,6 +43,7 @@ I
    .. automethod:: hi
    .. automethod:: intersection
    .. automethod:: lo
+   .. automethod:: log
    .. automethod:: midpoint
    .. automethod:: oadd
    .. automethod:: odiv

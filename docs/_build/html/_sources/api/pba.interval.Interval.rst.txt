@@ -16,6 +16,7 @@ Interval
       ~Interval.hi
       ~Interval.intersection
       ~Interval.lo
+      ~Interval.log
       ~Interval.midpoint
       ~Interval.oadd
       ~Interval.odiv
@@ -42,6 +43,7 @@ Interval
    .. automethod:: hi
    .. automethod:: intersection
    .. automethod:: lo
+   .. automethod:: log
    .. automethod:: midpoint
    .. automethod:: oadd
    .. automethod:: odiv
