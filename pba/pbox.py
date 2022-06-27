@@ -657,8 +657,13 @@ class Pbox:
                 steps   = self.steps
             )
 
-    def show(self,now = True, title = '', **kwargs):
+    def show(self,figax = None, now = True, title = '', **kwargs):
 
+        if figax is None:
+            fig, ax = plt.subplots()
+        else:
+            fig, ax = figax
+            
         # now respects discretization
         L = self.left
         R = self.right
@@ -671,14 +676,14 @@ class Pbox:
 
         ii.sort();  jj.sort();  LL.sort();  RR.sort()
 
-        plt.plot(LL,ii,'r-',**kwargs)               # can kwargs overwrite 'r-'?
-        plt.plot(RR,jj,'k-',**kwargs)                # can kwargs overwrite 'k-'?
-        if title != '' : plt.title(title,**kwargs)   # can kwargs tweak title?
+        ax.plot(LL,ii,'r-',**kwargs)               # can kwargs overwrite 'r-'?
+        ax.plot(RR,jj,'k-',**kwargs)                # can kwargs overwrite 'k-'?
+        if title != '' : ax.title(title,**kwargs)   # can kwargs tweak title?
 
         if now:
-            plt.show()
+            fig.show()
         else:
-            return plt
+            return fig, ax
 
     plot = show
 

@@ -627,6 +627,15 @@ class Interval:
     def tan(self):
         return Interval(np.tan(self.left),np.tan(self.right))
     
+    def sample(self, seed = None) -> float:
+        '''
+        Returns a random value from within the interval        
+        '''
+        
+        if seed is not None:
+            r.seed(seed)
+        return self.left + r.random()*self.width()
+    
 # Alias
 I = Interval
 
