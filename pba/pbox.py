@@ -1,3 +1,4 @@
+from decimal import DivisionByZero
 from typing import *
 from warnings import *
 
@@ -51,14 +52,14 @@ class Pbox:
         #     print("WARNING: The left and right arrays have the same length which is inconsistent with steps.")
 
         if len(left) != steps:
-            left = interpolate(left, interpolation=interpolation, left=False, steps=steps)
+            left = _interpolate(left, interpolation=interpolation, left=False, steps=steps)
 
         if len(right) != steps:
-            right = interpolate(right, interpolation=interpolation, left=True, steps=steps)
+            right = _interpolate(right, interpolation=interpolation, left=True, steps=steps)
 
-        self.left = left
-        self.right = right
-
+        l,r = zip(*[(min(i),max(i)) for i in zip(left,right)])
+        self.left = np.array(l)
+        self.right = np.array(r)
         self.steps = steps
         self.shape = shape
         self.mean_left = -np.inf
@@ -200,7 +201,7 @@ class Pbox:
 
             for J in np.array(range(self.steps)) - 1:
                 ud = [*self.left[j < J], *self.right[J <= j]]
-                v = sideVariance(ud)
+                v = _sideVariance(ud)
 
                 if V < v:
                     JJ = J
@@ -211,7 +212,7 @@ class Pbox:
     def _checkmoments(self):
 
         a = Interval(self.mean_left, self.mean_right) #mean(x)
-        b = dwMean(self)
+        b = _dwMean(self)
 
         self.mean_left = np.max([left(a), left(b)])
         self.mean_right = np.min([right(a), right(b)])
@@ -222,7 +223,7 @@ class Pbox:
             self.mean_right = right(b)
 
         a = Interval(self.var_left, self.var_right) #var(x)
-        b = dwVariance(self)
+        b = _dwMean(self)
 
         self.var_left = np.max([left(a), left(b)])
         self.var_right = np.min([right(a),right(b)])
@@ -286,8 +287,8 @@ class Pbox:
 
             elif method == 'o':
 
-                nleft  = self.left + np.flip(other.left)
-                nright = self.right + np.flip(other.right)
+                nleft  = self.left + np.flip(other.right)
+                nright = self.right + np.flip(other.left)
 
             elif method == 'i':
 
@@ -376,8 +377,8 @@ class Pbox:
 
             elif method == 'o':
 
-                nleft  = self.left * np.flip(other.left)
-                nright = self.right * np.flip(other.right)
+                nleft  = self.left * np.flip(other.right)
+                nright = self.right * np.flip(other.left)
 
             elif method == 'i':
 
@@ -470,8 +471,8 @@ class Pbox:
         if method not in ['f','p','o','i']:
             raise ArithmeticError("Calculation method unkown")
 
-        if other.__class__.__name__ == 'Interval':
-            other = Pbox(other, steps = self.steps)
+        if other.__class__.__name__ != 'Pbox':
+            other = box(other)
 
         if other.__class__.__name__ == 'Pbox':
 
@@ -487,12 +488,12 @@ class Pbox:
                     j = np.array(range(i, self.steps))
                     k = np.array(range(self.steps - 1, i-1, -1))
 
-                    nright[i] = np.minimum(self.right[j],other.right[k])
+                    nright[i] = min(list(self.right[j])+list(other.right[k]))
 
                     jj = np.array(range(0, i + 1))
                     kk = np.array(range(i, -1 , -1))
 
-                    nleft[i] = np.minimum(self.left[jj],other.left[kk])
+                    nleft[i] = min(list(self.left[jj])+list(other.left[kk]))
 
             elif method == 'p':
 
@@ -524,20 +525,7 @@ class Pbox:
                 steps   = self.steps
             )
 
-        else:
-            try:
-                # Try constant
-                nleft  = [i if i < other else other for i in self.left]
-                nright = [i if i < other else other for i in self.right]
 
-                return Pbox(
-                    left       = nleft,
-                    right      = nright,
-                    steps      = self.steps
-                )
-
-            except:
-                return NotImplemented
 
     def max(self, other, method = 'f'):
 
@@ -561,12 +549,12 @@ class Pbox:
                     j = np.array(range(i, self.steps))
                     k = np.array(range(self.steps - 1, i-1, -1))
 
-                    nright[i] = np.maximum(self.right[j],other.right[k])
+                    nright[i] = max(list(self.right[j])+list(other.right[k]))
 
                     jj = np.array(range(0, i + 1))
                     kk = np.array(range(i, -1 , -1))
 
-                    nleft[i] = np.maximum(self.left[jj],other.left[kk])
+                    nleft[i] = max(list(self.left[jj])+list(other.left[kk]))
 
             elif method == 'p':
 
@@ -575,8 +563,8 @@ class Pbox:
 
             elif method == 'o':
 
-                nleft  = np.maximum(self.left, np.flip(other.left))
-                nright = np.maximum(self.right, np.flip(other.right))
+                nleft  = np.maximum(self.left, np.flip(other.right))
+                nright = np.maximum(self.right, np.flip(other.left))
 
             elif method == 'i':
 
@@ -613,6 +601,12 @@ class Pbox:
             except:
                 return NotImplemented
 
+    def minmax(self, a, b, method = 'f'):
+        '''
+        Equivalent to self.min(a,method).max(b,method)
+        '''
+        return self.min(a,method=method).max(b,method=method)
+
     def logicaland(self, other, method = 'f'):   # conjunction
         if method=='i': 
             return(self.mul(other,method))  # independence a * b
@@ -642,12 +636,12 @@ class Pbox:
             return(env(self.max(other,method), min(self.add(other,method),1)))
 
     def env(self, other):
-        if other.__class__.__name__ == 'Interval':
-            other = Pbox(other, steps = self.steps)
         if other.__class__.__name__ == 'Pbox':
             if self.steps != other.steps:
                 raise ArithmeticError("Both Pboxes must have the same number of steps")
-
+        else:
+            other = box(other, steps = self.steps)
+            
         nleft  = np.minimum(self.left, other.left)
         nright = np.maximum(self.right, other.right)
 
@@ -676,9 +670,15 @@ class Pbox:
 
         ii.sort();  jj.sort();  LL.sort();  RR.sort()
 
-        ax.plot(LL,ii,'r-',**kwargs)               # can kwargs overwrite 'r-'?
-        ax.plot(RR,jj,'k-',**kwargs)                # can kwargs overwrite 'k-'?
-        if title != '' : ax.title(title,**kwargs)   # can kwargs tweak title?
+        if 'color' in kwargs.keys():
+            
+            ax.plot(LL,ii,**kwargs)              
+            ax.plot(RR,jj,**kwargs)   
+        else:
+            ax.plot(LL,ii,'r-',**kwargs)              
+            ax.plot(RR,jj,'k-',**kwargs)   
+              
+        if title != '' : ax.set_title(title,**kwargs)   
 
         if now:
             fig.show()
@@ -895,7 +895,7 @@ def interp_linear(V, steps=200):
 
     return np.array(u)
 
-def interpolate(u, interpolation='linear', left=True, steps=200):
+def _interpolate(u, interpolation='linear', left=True, steps=200):
     if interpolation == 'outer':
         return interp_outer(u, left, steps=steps)
     elif interpolation == 'spline':
@@ -905,28 +905,28 @@ def interpolate(u, interpolation='linear', left=True, steps=200):
     else:
         return interp_linear(u, steps=steps)
 
-def sideVariance(w, mu=None):
+def _sideVariance(w, mu=None):
     if not isinstance(w, np.ndarray): w = np.array(w)
     if mu is None: mu = np.mean(w)
     return max(0, np.mean((w - mu) ** 2))
 
-def dwMean(pbox):
+def _dwMean(pbox):
     return Interval(np.mean(pbox.right), np.mean(pbox.left))
 
-def dwVariance(pbox):
+def _dwMean(pbox):
     if np.any(np.isinf(pbox.left)) or np.any(np.isinf(pbox.right)):
         return Interval(0, np.inf)
 
     if np.all(pbox.right[0] == pbox.right) and np.all(pbox.left[0] == pbox.left):
         return Interval(0, (pbox.right[0] - pbox.left[0]) ** (2 / 4))
 
-    vr = sideVariance(pbox.left, np.mean(pbox.left))
+    vr = _sideVariance(pbox.left, np.mean(pbox.left))
     w = np.copy(pbox.left)
     n = len(pbox.left)
 
     for i in reversed(range(n)):
         w[i] = pbox.right[i]
-        v = sideVariance(w, np.mean(w))
+        v = _sideVariance(w, np.mean(w))
 
         if np.isnan(vr) or np.isnan(v):
             vr = np.inf
@@ -937,7 +937,7 @@ def dwVariance(pbox):
         vl = 0.0
     else:
         x = pbox.right
-        vl = sideVariance(w, np.mean(w))
+        vl = _sideVariance(w, np.mean(w))
 
         for i in reversed(range(n)):
             w[i] = pbox.left[i]
@@ -948,7 +948,7 @@ def dwVariance(pbox):
                     if w[i] < w[j]:
                         w[j] = here
 
-            v = sideVariance(w, np.mean(w))
+            v = _sideVariance(w, np.mean(w))
 
             if np.isnan(vl) or np.isnan(v):
                 vl = 0
@@ -957,7 +957,41 @@ def dwVariance(pbox):
 
     return Interval(vl, vr)
 
+def _DivByZeroCheck(bound):
+    if 0 not in bound:
+        return bound
+    
+    elif sum([b==0 for b in bound]) > 1:
+        # cant help 
+        raise DivisionByZero
+    
+    elif bound[0] == 0:
+        if bound[1] > 0:
+            e = 1e-3
+            while abs(e) >= abs(bound[1]):
+                e /= 10
+            bound[0] = e
+        else:
+            e = -1e-3
+            while abs(e) >= abs(bound[1]):
+                e /= 10
+            bound[0] = e
+            
+    elif bound[-1] == 0:
+        if bound[-2] > 0:
+            e = 1e-3
+            while abs(e) >= abs(bound[-2]):
+                e /= 10
+            bound[-1] = e
+        else:
+            e = -1e-3
+            while abs(e) >= abs(bound[-2]):
+                e /= 10
+            bound[-1] = e
 
+    return bound
+        
+    
 def mixture(
     *args: Union[Pbox,Interval,float,int],
     weights: List[Union[float,int]] = [], 
@@ -1063,8 +1097,8 @@ def mixture(
 ### None-Distribution Pboxes 
 
 def box(
-        a: Union[Interval,float,int] ,
-        b = None, 
+        a: Union[Interval,float,int],
+        b: Union[Interval,float,int] = None,
         steps = Pbox.STEPS
         ) -> Pbox:
     '''
@@ -1127,22 +1161,22 @@ def min_max_mean(
         maximum value of the variable
     mean : 
         mean value of the variable
-    stddev :
-        standard deviation of the variable 
     
     Returns
     ----------
     Pbox
     '''
+    print(steps)
     mid = (maximum-mean)/(maximum-minimum)
     ii = [i/steps for i in range(steps)]
     left = [minimum if i <= mid else ((mean-maximum)/i + maximum) for i in ii]
     jj = [j/steps for j in range(1,steps+1)]
     right = [maximum if mid <= j else (mean - minimum * j) / (1 - j) for j in jj]
-    
+    print(len(left))
     return Pbox(
         left = np.array(left),
-        right = np.array(right))
+        right = np.array(right),
+        steps = steps)
 
 def min_max_mean_std(
         minimum: Union[Interval,float,int], 
