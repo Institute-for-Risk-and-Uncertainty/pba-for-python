@@ -12,6 +12,9 @@ import scipy.stats as sps
 import numpy as np
 import itertools
 
+from typing import *
+from warnings import *
+
 dists = {
     'alpha' : sps.alpha,
     'anglit' : sps.anglit,
@@ -172,18 +175,48 @@ def __get_bounds(function_name = None,steps = 200,*args):
 
 
 def lognormal(mean, var, steps = 200):
-
-    x = np.linspace(0,1,steps)
+    '''
+    Creates a p-box for the lognormal distribution
+    
+    *Note: the parameters used are the mean and variance of the lognormal distribution not the mean and variance of the underlying normal*
+    See:
+    `[1]<https://en.wikipedia.org/wiki/Log-normal_distribution#Generation_and_parameters>`
+    `[2]<https://stackoverflow.com/questions/51906063/distribution-mean-and-standard-deviation-using-scipy-stats>`
+    
+    
+    Parameters
+    ----------
+    mean : 
+        mean of the lognormal distribution
+    var :
+        variance of the lognormal distribution
+    
+    Returns
+    ----------
+    Pbox
+        
+    '''
+    if steps > 1000:
+        x = np.linspace(1/steps,1-1/steps,steps)
+    else:
+        x = np.linspace(0.001,0.999,steps)
 
     if mean.__class__.__name__ != 'Interval':
         mean = Interval(mean,mean)
     if var.__class__.__name__ != 'Interval':
         var = Interval(var,var)
-
-    bound0 = sps.lognorm.ppf(x, mean.left, var.left)
-    bound1 = sps.lognorm.ppf(x, mean.right, var.left)
-    bound2 = sps.lognorm.ppf(x, mean.left, var.right)
-    bound3 = sps.lognorm.ppf(x, mean.right, var.right)
+    
+    def __lognorm(mean, var):
+    
+        sigma = np.sqrt(np.log1p(var/mean**2))
+        mu = np.log(mean) - 0.5*sigma*sigma
+    
+        return sps.lognorm(sigma, loc = 0,scale = np.exp(mu))
+        
+    bound0 = __lognorm(mean.left,var.left).ppf(x)
+    bound1 = __lognorm(mean.right,var.left).ppf(x)
+    bound2 = __lognorm(mean.left,var.right).ppf(x)
+    bound3 = __lognorm(mean.right,var.right).ppf(x)
 
     Left = [min(bound0[i],bound1[i],bound2[i],bound3[i]) for i in range(steps)]
     Right = [max(bound0[i],bound1[i],bound2[i],bound3[i]) for i in range(steps)]
@@ -194,11 +227,10 @@ def lognormal(mean, var, steps = 200):
         Left,
         Right,
         steps = steps,
-        shape='lognormal',
-        mean_left=mean.left,
-        mean_right=mean.right,
-        var_left=var.left,
-        var_right=var.right)
+        shape='lognormal'
+        )
+    
+    
 lognorm = lognormal
 
 def alpha(*args, steps = 200):
@@ -278,6 +310,9 @@ def argus(*args, steps = 200):
           )
 
 def beta(*args, steps = 200):
+    '''
+    Beta distribution
+    '''
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
@@ -2431,10 +2466,319 @@ def yulesimon(*args, steps = 200):
 
 ### Other distributions
 def KM(k,m,steps = 200):
-    return beta(Interval(k,k+1),Interval(m,m+1),steps = steps)
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        return beta(Interval(k,k+1),Interval(m,m+1),steps = steps)
 
 def KN(k,n,steps = 200):
     return KM(k,n-k,steps=steps)
+
+
+### None-Distribution Pboxes 
+
+def box(
+        a: Union[Interval,float,int],
+        b: Union[Interval,float,int] = None,
+        steps = Pbox.STEPS
+        ) -> Pbox:
+    '''
+    Returns Box interval
+    
+    
+    Parameters
+    ----------
+        a :
+            Left side of box
+        b:
+            Right side of box
+    
+    Returns
+    ----------
+        Pbox:
+            p-box
+        
+    '''
+    if b == None:
+        b = a
+    i = Interval(a,b)
+    return Pbox(
+        left = np.repeat(i.left,steps),
+        right = np.repeat(i.right,steps),
+        mean_left = i.left,
+        mean_right= i.right,
+        var_left = 0,
+        var_right=((i.right-i.left)**2)/4,
+        steps = steps
+    )
+
+min_max = box
+
+def min_mean(
+        minimum: Union[Interval,float,int], 
+        mean: Union[Interval,float,int], 
+        steps = Pbox.STEPS
+    ) -> Pbox:
+    jjj = [j/steps for j in range(1,steps-1)] + [1-1/steps]
+    right = [((mean-minimum)/(1-j) + minimum) for j in jjj]
+    return Pbox(
+        left = np.repeat(minimum,steps),
+        right = right
+    )
+def min_max_mean(    
+        minimum: Union[Interval,float,int], 
+        maximum: Union[Interval,float,int], 
+        mean: Union[Interval,float,int], 
+        steps: int = Pbox.STEPS
+    ) -> Pbox:
+    '''
+    Generates a distribution-free p-box based upon the minimum, maximum and mean of the variable
+ 
+    Parameters
+    ----------
+    minimum : 
+        minimum value of the variable
+    maximum : 
+        maximum value of the variable
+    mean : 
+        mean value of the variable
+    
+    Returns
+    ----------
+    Pbox
+    '''
+    print(steps)
+    mid = (maximum-mean)/(maximum-minimum)
+    ii = [i/steps for i in range(steps)]
+    left = [minimum if i <= mid else ((mean-maximum)/i + maximum) for i in ii]
+    jj = [j/steps for j in range(1,steps+1)]
+    right = [maximum if mid <= j else (mean - minimum * j) / (1 - j) for j in jj]
+    print(len(left))
+    return Pbox(
+        left = np.array(left),
+        right = np.array(right),
+        steps = steps)
+
+
+def min_max_mode(
+        minimum: Union[Interval,float,int], 
+        maximum: Union[Interval,float,int], 
+        mode: Union[Interval,float,int], 
+        steps: int = Pbox.STEPS
+        ) -> Pbox:
+    '''
+    Generates a distribution-free p-box based upon the minimum, maximum, and mode of the variable
+ 
+    Parameters
+    ----------
+    minimum : 
+        minimum value of the variable
+    maximum : 
+        maximum value of the variable
+    mode : 
+        mode value of the variable
+    
+    Returns
+    ----------
+    Pbox
+
+    '''
+    if minimum == maximum:
+        return box(minimum, maximum)
+
+    ii = np.array([i/steps for i in range(steps)])
+    jj = np.array([j/steps for j in range(1,steps+1)])
+    
+    return Pbox(
+        left = ii * (mode - minimum) + minimum,
+        right = jj * (maximum - mode) + mode,
+        mean_left = (minimum+mode)/2,
+        mean_right = (mode+maximum)/2,
+        var_left = 0,
+        var_right = (maximum-minimum)*(maximum-minimum)/12
+    )
+
+
+def min_max_median(
+        minimum: Union[Interval,float,int], 
+        maximum: Union[Interval,float,int], 
+        median: Union[Interval,float,int], 
+        steps: int = Pbox.STEPS
+        ) -> Pbox:
+    '''
+    Generates a distribution-free p-box based upon the minimum, maximum and median of the variable
+ 
+    Parameters
+    ----------
+    minimum : 
+        minimum value of the variable
+    maximum : 
+        maximum value of the variable
+    median : 
+        median value of the variable
+    
+    Returns
+    ----------
+    Pbox
+
+    '''
+    if minimum == maximum:
+        return box(minimum, maximum)
+
+    ii = np.array([i/steps for i in range(steps)])
+    jj = np.array([j/steps for j in range(1,steps+1)])
+    
+    
+    return Pbox(
+        left = np.array([p if p>0.5 else minimum for p in ii]),
+        right = np.array([p if p<=0.5 else minimum for p in jj]),
+        mean_left = (minimum+median)/2,
+        mean_right = (median+maximum)/2,
+        var_left = 0,
+        var_right = (maximum-minimum)*(maximum-minimum)/4
+    )
+
+
+def min_max_mean_std(
+        minimum: Union[Interval,float,int], 
+        maximum: Union[Interval,float,int], 
+        mean: Union[Interval,float,int], 
+        stddev: Union[Interval,float,int], 
+        steps: int = Pbox.STEPS
+        ) -> Pbox:
+    '''
+    Generates a distribution-free p-box based upon the minimum, maximum, mean and standard deviation of the variable
+ 
+    Parameters
+    ----------
+    minimum : 
+        minimum value of the variable
+    maximum : 
+        maximum value of the variable
+    mean : 
+        mean value of the variable
+    stddev :
+        standard deviation of the variable 
+    
+    Returns
+    ----------
+    Pbox
+
+    '''
+    if minimum == maximum:
+        return box(minimum, maximum)
+    def _left(x): 
+        if type(x) in [int,float]:
+            return x
+        if x.__class__.__name__ == "Interval":
+            return x.left
+        if x.__class__.__name__ == "Pbox":
+            return min(x.left)
+        
+    def _right(x): 
+        if type(x) in [int,float]:
+            return x
+        if x.__class__.__name__ == "Interval":
+            return x.right
+        if x.__class__.__name__ == "Pbox":
+            return max(x.right)           
+           
+    def _imp(a,b) : 
+        return Interval(max(_left(a),_left(b)),min(_right(a),_right(b)))
+    def _env(a,b) : 
+        return Interval(min(_left(a),_left(b)),max(_right(a),_right(b)))    
+    
+    def _constrain(a, b, msg):
+        if ((_right(a) < _left(b)) or (_right(b) < _left(a))) : 
+            print("Math Problem: impossible constraint", msg)
+        return _imp(a,b)
+    
+    zero = 0.0                          
+    one = 1.0
+    ran = maximum - minimum;
+    m = _constrain(mean, Interval(minimum,maximum), "(mean)");
+    s = _constrain(stddev, _env(Interval(0.0),(abs(ran*ran/4.0 - (maximum-mean-ran/2.0)**2))**0.5)," (dispersion)")
+    ml = (m.left-minimum)/ran
+    sl = s.left/ran
+    mr = (m.right-minimum)/ran
+    sr = s.right/ran
+    z = box(minimum, maximum)
+    n  = len(z.left)
+    L = [0.0] * n
+    R = [1.0] * n
+    for i in range(n) :
+        p = i / n
+        if (p <= zero) : 
+            x2 = zero
+        else : x2 = ml - sr * (one / p - one)**0.5
+        if (ml + p <= one) :
+            x3 = zero
+        else : 
+            x5 = p*p + sl*sl - p
+            if (x5 >= zero) :                  
+                      x4 = one - p + x5**0.5
+                      if (x4 < ml) : x4 = ml
+            else : x4 = ml
+            x3 = (p + sl*sl + x4*x4 - one) / (x4 + p - one)
+        if ((p <= zero) or (p <= (one - ml))) : x6 = zero
+        else : x6 = (ml - one) / p + one
+        L[i] = max(max(max(x2,x3),x6),zero) * ran + minimum;
+    
+        p = (i+1)/n
+        if (p >= one) : x2 = one
+        else : x2 = mr + sr * (one/(one/p - one))**0.5
+        if (mr + p >= one) : x3 = one
+        else :
+               x5 = p*p + sl*sl - p
+               if (x5 >= zero) :                  
+                      x4 = one - p - x5**0.5
+                      if (x4 > mr) : x4 = mr                  
+               else : x4 = mr 
+               x3 = (p + sl*sl + x4*x4 - one) / (x4 + p - one) - one
+             
+        if (((one - mr) <= p) or (one <= p)) : x6 = one
+        else : x6 = mr / (one - p)
+        R[i] = min(min(min(x2,x3),x6),one) * ran + minimum
+  
+    v = s**2
+    return Pbox(
+        left = np.array(L),
+        right = np.array(R),
+        mean_left = _left(m),
+        mean_right = _right(m),
+        var_left = _left(v),
+        var_right = _right(v),
+        steps = steps)
+
+def min_max_mean_var(
+        minimum: Union[Interval,float,int], 
+        maximum: Union[Interval,float,int], 
+        mean: Union[Interval,float,int], 
+        var: Union[Interval,float,int], 
+        steps: int = Pbox.STEPS
+        ) -> Pbox:
+    '''
+    Generates a distribution-free p-box based upon the minimum, maximum, mean and standard deviation of the variable
+ 
+    Parameters
+    ----------
+    minimum : 
+        minimum value of the variable
+    maximum : 
+        maximum value of the variable
+    mean : 
+        mean value of the variable
+    var :
+        variance of the variable 
+    
+    Returns
+    ----------
+    Pbox
+
+    '''
+    return min_max_mean_std(minimum,maximum,mean,np.sqrt(var))
+
+def mmms(*args):
+    raise Exception('Depreciated use: min_max_mean_std(*args)')
 
 
 ### Alternate names
@@ -2442,3 +2786,30 @@ normal = norm
 N = normal
 unif = uniform
 U = uniform
+
+### ML-ME
+def MLnorm(data): 
+    return norm(np.mean(data),np.std(data))
+
+def ME_min_max_mean_std(
+        minimum: Union[Interval,float,int], 
+        maximum: Union[Interval,float,int], 
+        mean: Union[Interval,float,int], 
+        stddev: Union[Interval,float,int], 
+        steps: int = Pbox.STEPS
+        ) -> Pbox:
+    
+    μ = ((mean- minimum) / (maximum - minimum))
+    
+    σ = (stddev/(maximum - minimum) )
+    
+    a = ((1-μ)/(σ**2) - 1/μ)*μ**2
+    b = a*(1/μ - 1)
+    
+    return beta(a,b,steps=steps)* (maximum - minimum) + minimum
+
+def betapert(minimum, maximum, mode):
+    mu = (minimum + maximum + 4*mode)/6
+    alpha1 = (mu - minimum)*(2*mode - minimum - maximum)/((mode - mu)*(maximum - minimum))
+    alpha2 = alpha1*(maximum - mu)/(mu - minimum)
+    return minimum + (maximum - minimum) * beta(alpha1, alpha2)

@@ -42,6 +42,7 @@ Pbox
       ~Pbox.straddles
       ~Pbox.straddles_zero
       ~Pbox.sub
+      ~Pbox.summary
       ~Pbox.support
 
    .. rubric:: Attributes Documentation
@@ -76,4 +77,5 @@ Pbox
    .. automethod:: straddles
    .. automethod:: straddles_zero
    .. automethod:: sub
+   .. automethod:: summary
    .. automethod:: support

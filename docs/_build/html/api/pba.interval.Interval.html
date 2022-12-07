@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Interval &mdash; PBA for Python 0.11.1 documentation</title>
+  <title>Interval &mdash; PBA for Python 0.12 beta documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
@@ -89,13 +89,12 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pba.interval.</span></span><span class="sig-name descname"><span class="pre">Interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>An interval is an uncertain number for which only the endpoints are known, for example if <span class="math notranslate nohighlight">\(x=[a,b]\)</span>
-then this can be interpreted as <span class="math notranslate nohighlight">\(x\)</span> being between <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> but with no more information about the value of <span class="math notranslate nohighlight">\(x\)</span>
-.
-Intervals can be created using:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pba</span><span class="o">.</span><span class="n">I</span><span class="p">(</span><span class="n">left</span><span class="p">,</span><span class="n">right</span><span class="p">)</span>
-<span class="n">pba</span><span class="o">.</span><span class="n">Interval</span><span class="p">(</span><span class="n">left</span><span class="p">,</span><span class="n">right</span><span class="p">)</span>
-</pre></div>
-</div>
+then this can be interpreted as <span class="math notranslate nohighlight">\(x\)</span> being between <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> but with no more information about the value of <span class="math notranslate nohighlight">\(x\)</span>.</p>
+<dl class="simple">
+<dt>Intervals can be created using::</dt><dd><p>pba.I(left,right)
+pba.Interval(left,right)</p>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -117,20 +116,26 @@ Intervals can be created using:</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pba.interval.Interval.equiv" title="pba.interval.Interval.equiv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">equiv</span></code></a>(other)</p></td>
-<td><p>Checks whether two intervals are equivalent.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pba.interval.Interval.exp" title="pba.interval.Interval.exp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exp</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pba.interval.Interval.cos" title="pba.interval.Interval.cos"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cos</span></code></a>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pba.interval.Interval.hi" title="pba.interval.Interval.hi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hi</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pba.interval.Interval.equiv" title="pba.interval.Interval.equiv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">equiv</span></code></a>(other)</p></td>
+<td><p>Checks whether two intervals are equivalent.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pba.interval.Interval.exp" title="pba.interval.Interval.exp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exp</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pba.interval.Interval.hi" title="pba.interval.Interval.hi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hi</span></code></a>()</p></td>
 <td><p>Returns the right side of the interval</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pba.interval.Interval.intersection" title="pba.interval.Interval.intersection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">intersection</span></code></a>(other)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pba.interval.Interval.intersection" title="pba.interval.Interval.intersection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">intersection</span></code></a>(other)</p></td>
 <td><p>Calculates the intersection between two intervals</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pba.interval.Interval.lo" title="pba.interval.Interval.lo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lo</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pba.interval.Interval.lo" title="pba.interval.Interval.lo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lo</span></code></a>()</p></td>
 <td><p>Returns the left side of the interval</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pba.interval.Interval.log" title="pba.interval.Interval.log"><code class="xref py py-obj docutils literal notranslate"><span class="pre">log</span></code></a>()</p></td>
+<td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pba.interval.Interval.midpoint" title="pba.interval.Interval.midpoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">midpoint</span></code></a>()</p></td>
 <td><p>Returns midpoint of interval (self.left+self.right)/2</p></td>
@@ -162,10 +167,13 @@ Intervals can be created using:</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pba.interval.Interval.recip" title="pba.interval.Interval.recip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">recip</span></code></a>()</p></td>
 <td><p>Calculates the reciprocle of the interval.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pba.interval.Interval.sqrt" title="pba.interval.Interval.sqrt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sqrt</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pba.interval.Interval.sin" title="pba.interval.Interval.sin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sin</span></code></a>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pba.interval.Interval.straddles" title="pba.interval.Interval.straddles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">straddles</span></code></a>(N[, endpoints])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pba.interval.Interval.sqrt" title="pba.interval.Interval.sqrt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sqrt</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pba.interval.Interval.straddles" title="pba.interval.Interval.straddles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">straddles</span></code></a>(N[, endpoints])</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -175,8 +183,11 @@ Intervals can be created using:</p>
 </dl>
 </p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pba.interval.Interval.straddles_zero" title="pba.interval.Interval.straddles_zero"><code class="xref py py-obj docutils literal notranslate"><span class="pre">straddles_zero</span></code></a>([endpoints])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pba.interval.Interval.straddles_zero" title="pba.interval.Interval.straddles_zero"><code class="xref py py-obj docutils literal notranslate"><span class="pre">straddles_zero</span></code></a>([endpoints])</p></td>
 <td><p>Checks whether <span class="math notranslate nohighlight">\(0\)</span> is within the interval</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pba.interval.Interval.tan" title="pba.interval.Interval.tan"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tan</span></code></a>()</p></td>
+<td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pba.interval.Interval.to_logical" title="pba.interval.Interval.to_logical"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_logical</span></code></a>()</p></td>
 <td><p>Turns the interval into a logical interval, this is done by chacking the truth value of the ends of the interval</p></td>
@@ -187,6 +198,11 @@ Intervals can be created using:</p>
 </tbody>
 </table>
 <p class="rubric">Methods Documentation</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pba.interval.Interval.cos">
+<span class="sig-name descname"><span class="pre">cos</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.cos" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.equiv">
 <span class="sig-name descname"><span class="pre">equiv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.equiv" title="Permalink to this definition"></a></dt>
@@ -216,6 +232,11 @@ True if self.left == other.right and self.right == other.right</p>
 <span class="sig-name descname"><span class="pre">lo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.lo" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the left side of the interval</p>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pba.interval.Interval.log">
+<span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.log" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.midpoint">
@@ -288,6 +309,11 @@ If <span class="math notranslate nohighlight">\(0 \in [a,b]\)</span> it returns 
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="pba.interval.Interval.sin">
+<span class="sig-name descname"><span class="pre">sin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.sin" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.sqrt">
 <span class="sig-name descname"><span class="pre">sqrt</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.sqrt" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -317,6 +343,11 @@ If <span class="math notranslate nohighlight">\(0 \in [a,b]\)</span> it returns 
 <span class="sig-name descname"><span class="pre">straddles_zero</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endpoints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.straddles_zero" title="Permalink to this definition"></a></dt>
 <dd><p>Checks whether <span class="math notranslate nohighlight">\(0\)</span> is within the interval</p>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pba.interval.Interval.tan">
+<span class="sig-name descname"><span class="pre">tan</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.tan" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.to_logical">

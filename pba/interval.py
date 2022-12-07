@@ -9,8 +9,8 @@ __all__ = ['Interval','I','Logical']
 class Interval:
     """
     An interval is an uncertain number for which only the endpoints are known, for example if :math:`x=[a,b]`
-    then this can be interpreted as :math:`x` being between :math:`a` and :math:`b` but with no more information about the value of :math:`x`
-    .
+    then this can be interpreted as :math:`x` being between :math:`a` and :math:`b` but with no more information about the value of :math:`x`.
+    
     Intervals can be created using::
         pba.I(left,right)
         pba.Interval(left,right)
@@ -214,7 +214,6 @@ class Interval:
 
                 lo = min(b1,b2,b3,b4)
                 hi = max(b1,b2,b3,b4)
-                
         elif other.__class__.__name__ == "Pbox":
 
             return other.__rtruediv__(self)
@@ -268,7 +267,7 @@ class Interval:
             powUp = max(pow1,pow2,pow3,pow4)
             powLow = min(pow1,pow2,pow3,pow4)
 
-        elif left.__class__.__name__ in ("int", "float"):
+        else:
             pow1 = left ** self.left
             pow2 = left ** self.right
             powUp = max(pow1,pow2)
@@ -609,20 +608,34 @@ class Interval:
         hi = np.exp(self.right)
         return Interval(lo,hi)
     
+    def log(self):
+        lo = np.log(self.left)
+        hi = np.log(self.right)
+        return Interval(lo,hi)
+    
     def sqrt(self):
         if self.left >= 0:
             return Interval(np.sqrt(self.left),np.sqrt(self.right))
         else:
             print("RuntimeWarning: invalid value encountered in sqrt")
             return Interval(np.nan,np.sqrt(self.right))
-# a = Interval(1,2)
-# b = Interval(3,4)
-# c = Interval(-2,5)
-# d = Interval(-7,-4)
-
-##.sort() function to sort numbers for median
-##list1.count(x) function to help with mode
-
+        
+    def sin(self):
+        return Interval(np.sin(self.left),np.sin(self.right))
+    def cos(self):
+        return Interval(np.cos(self.left),np.cos(self.right))
+    def tan(self):
+        return Interval(np.tan(self.left),np.tan(self.right))
+    
+    def sample(self, seed = None) -> float:
+        '''
+        Returns a random value from within the interval        
+        '''
+        
+        if seed is not None:
+            r.seed(seed)
+        return self.left + r.random()*self.width()
+    
 # Alias
 I = Interval
 
@@ -646,21 +659,16 @@ class Logical(Interval):
     '''
     def __init__(self, left: bool ,right: bool = None):
 
-        if right is None:
-            right = left
-            
-        if left < right:
-            self.left = left
-            self.right = right
-        else:
-            self.left = left
-            self.right = right
+        super().__init__(left, right)
 
     def __bool__(self):
 
         if self.left == 0 and self.right == 0:
             return False
+        if self.left == 1 and self.right == 1:
+            return True
         else:
+            print('WARNING: Truth value of Logical is ambiguous, use pba.sometime or pba.always')
             return True
 
     def __repr__(self):
