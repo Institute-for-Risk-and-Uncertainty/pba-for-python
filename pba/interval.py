@@ -267,7 +267,7 @@ class Interval:
             powUp = max(pow1,pow2,pow3,pow4)
             powLow = min(pow1,pow2,pow3,pow4)
 
-        elif left.__class__.__name__ in ("int", "float"):
+        else:
             pow1 = left ** self.left
             pow2 = left ** self.right
             powUp = max(pow1,pow2)

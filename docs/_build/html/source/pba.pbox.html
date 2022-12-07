@@ -44,12 +44,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-pba.pbox">pba.pbox Module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#functions">Functions</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../api/pba.pbox.mixture.html">mixture</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/pba.pbox.box.html">box</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/pba.pbox.mmms.html">mmms</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/pba.pbox.min_max_mean.html">min_max_mean</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/pba.pbox.min_max.html">min_max</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/pba.pbox.min_mean.html">min_mean</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/pba.pbox.min_max_mean_std.html">min_max_mean_std</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pba.pbox.truncate.html">truncate</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#classes">Classes</a><ul>
@@ -105,23 +100,8 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.pbox.mixture.html#pba.pbox.mixture" title="pba.pbox.mixture"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mixture</span></code></a>(*args[, weights, steps])</p></td>
 <td><p>Returns Box interval :Parameters: * <strong>*args</strong> -- Number of p-boxes or objects that can be tran              * <strong>weights</strong> -- Right side of box</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.pbox.box.html#pba.pbox.box" title="pba.pbox.box"><code class="xref py py-obj docutils literal notranslate"><span class="pre">box</span></code></a>(a[, b, steps])</p></td>
-<td><p>Returns Box interval</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.pbox.mmms.html#pba.pbox.mmms" title="pba.pbox.mmms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mmms</span></code></a>(*args)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.pbox.truncate.html#pba.pbox.truncate" title="pba.pbox.truncate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">truncate</span></code></a>(pbox, min, max)</p></td>
 <td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.pbox.min_max_mean.html#pba.pbox.min_max_mean" title="pba.pbox.min_max_mean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">min_max_mean</span></code></a>(minimum, maximum, mean[, steps])</p></td>
-<td><p>Generates a distribution-free p-box based upon the minimum, maximum and mean of the variable</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.pbox.min_max.html#pba.pbox.min_max" title="pba.pbox.min_max"><code class="xref py py-obj docutils literal notranslate"><span class="pre">min_max</span></code></a>(a[, b, steps])</p></td>
-<td><p>Returns Box interval</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../api/pba.pbox.min_mean.html#pba.pbox.min_mean" title="pba.pbox.min_mean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">min_mean</span></code></a>(minimum, mean[, steps])</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../api/pba.pbox.min_max_mean_std.html#pba.pbox.min_max_mean_std" title="pba.pbox.min_max_mean_std"><code class="xref py py-obj docutils literal notranslate"><span class="pre">min_max_mean_std</span></code></a>(minimum, maximum, mean, stddev)</p></td>
-<td><p>Generates a distribution-free p-box based upon the minimum, maximum, mean and standard deviation of the variable</p></td>
 </tr>
 </tbody>
 </table>

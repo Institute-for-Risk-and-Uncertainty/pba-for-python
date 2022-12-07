@@ -3,7 +3,7 @@ if __name__ is not None and "." in __name__:
     from .interval import *
 else:
     from interval import Logical, Interval
-
+import numpy as np
 
 def env(x,y):
     if x.__class__.__name__ == 'Pbox':
@@ -132,3 +132,15 @@ def mul(*args, method = None):
             n *= arg
     return n
                 
+def sqrt(a):
+    if a.__class__.__name__ == 'Interval':
+        return Interval(np.sqrt(a.left),np.sqrt(a.right))
+    elif a.__class__.__name__ == 'PBox':
+        return Pbox(
+            left = np.sqrt(a.left),
+            right = np.sqrt(a.right),
+        )
+    else: 
+
+       return np.sqrt(a)
+        
