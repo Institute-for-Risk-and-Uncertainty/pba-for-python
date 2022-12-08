@@ -2159,6 +2159,17 @@ def weibull_max(*args, steps = 200):
           var_right  = var.right
           )
 
+def weibull(*args, steps = 200):
+    
+    
+    wm = weibull_max(*args)
+    wl = weibull_min(*args)
+    
+    return Pbox(
+        left = wl.left,
+        right = wm.right
+    )
+
 def wrapcauchy(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
