@@ -21,6 +21,15 @@ __all__ = [
     'truncate'
 ]
 
+def _interval_list_to_array(l, left = True):
+    if left:
+        f = lambda x: x.left if isinstance(x, Interval) else x
+    else: # must be right
+        f = lambda x: x.right if isinstance(x, Interval) else x
+    
+    return np.array([f(i) for i in l])
+        
+
 class Pbox:
 
     STEPS = 200
@@ -38,15 +47,19 @@ class Pbox:
 
         if isinstance(left, Interval):
             left = np.array([left.left]*steps)
+        elif isinstance(left, list):
+            left = _interval_list_to_array(left)
         elif not isinstance(left, np.ndarray):
             left = np.array(left)
 
 
         if isinstance(right, Interval):
             right = np.array([right.right]*steps)
+        elif isinstance(right, list):
+            right = _interval_list_to_array(right)
         elif not isinstance(right, np.ndarray):
             right = np.array(right)
-        
+
         # if len(left) == len(right) and len(left) != steps:
         #     print("WARNING: The left and right arrays have the same length which is inconsistent with steps.")
 

@@ -4,3 +4,5 @@ from .dists import *
 from .pbox import *
 from .copula import *
 from .core import *
+
+from .pboxes.non_parametric import *
