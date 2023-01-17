@@ -1,10 +1,113 @@
-from ..pbox import Pbox
+from ..pbox import Pbox, imposition
 from ..interval import Interval
 
 from typing import *
 import numpy as np
 
 
+
+def what_I_know(
+        minimum: Optional[Union[Interval,float,int]] = None,
+        maximum: Optional[Union[Interval,float,int]] = None,
+        mean: Optional[Union[Interval,float,int]] = None,
+        median: Optional[Union[Interval,float,int]] = None,
+        mode: Optional[Union[Interval,float,int]] = None,
+        std: Optional[Union[Interval,float,int]] = None,
+        var: Optional[Union[Interval,float,int]] = None,
+        cv: Optional[Union[Interval,float,int]] = None,
+        # percentiles: Optional[Union[Interval,float,int]] = None,
+        # coverages: Optional[Union[Interval,float,int]] = None,
+        # shape: Optional[Literal['unimodal', 'symmetric', 'positive', 'nonnegative', 'concave', 'convex', 'increasinghazard', 'decreasinghazard', 'discrete', 'integervalued', 'continuous', '', 'normal', 'lognormal']] = None,
+        # data: Optional[list] = None,
+        # confidence: Optional[float] = 0.95,
+        debug: bool = False,
+        steps: int = Pbox.STEPS
+        ) -> Pbox:
+    '''
+    Generates a distribution free p-box based upon the information given. This function works by calculating every possible non-parametric p-box that can be generated using the information provided. The returned p-box is the imposition of these p-boxes.
+    
+    Parameters
+    ----------
+        minimum
+        maximum
+        mean
+        median
+        mode
+        std
+        var
+        cv
+        percentiles
+        coverages
+        shape
+        data
+        confidence
+        debug
+        steps
+        
+    Returns
+    ----------
+        Pbox:
+            Imposition of possible p-boxes
+    
+    '''
+    
+    def _print_debug(skk): print("\033[93m {}\033[00m" .format(skk),end=' ')
+    
+    def _get_pbox(func,*args,steps = steps,debug=False): 
+        if debug: _print_debug(func.__name__)
+        try: 
+            return func(*args,steps=steps)
+        except:
+            raise Exception(f'Unable to generate {func.__name__} pbox')
+    
+    # if 'positive' in shape:
+    #     if minimum is None:
+    #         minimum = 0
+    #     else:
+    #         minimum = max(0,minimum)
+            
+    #     if debug: _print_debug("Shape is positive")
+        
+    # if 'negative' in shape:
+    #     if maximum is None:
+    #         maximum = 0
+    #     else:
+    #         maximum = min(0,maximum)
+
+    #     if debug: _print_debug("Shape is negative")
+        
+    imp = []
+    
+    if minimum is not None and maximum is not None: imp += _get_pbox(min_max,minimum,maximum,debug=debug)
+        
+    if minimum is not None and mean is not None: imp += _get_pbox(min_mean,minimum,mean,debug=debug)
+    
+    if maximum is not None and mean is not None: imp += _get_pbox(max_mean,maximum,mean,debug=debug)
+    
+    if minimum is not None and maximum is not None and mean is not None: imp += _get_pbox(min_max_mean,minimum,maximum,mean,debug=debug)
+    
+    if minimum is not None and maximum is not None and mode is not None: imp += _get_pbox(min_max_mode,minimum,maximum,mode,debug=debug)
+    
+    if minimum is not None and maximum is not None and median is not None: imp += _get_pbox(min_max_median,minimum,maximum,median,debug=debug)
+    
+    if minimum is not None and mean is not None and std is not None: imp += minimum+_get_pbox(pos_mean_std,mean-minimum,std,debug=debug)
+    
+    if maximum is not None and mean is not None and std is not None: imp += _get_pbox(pos_mean_std,maximum-mean,std,debug=debug) - maximum
+    
+    if minimum is not None and maximum is not None and mean is not None and std is not None: imp += _get_pbox(min_max_mean_std,minimum,maximum,mean,std,debug=debug) 
+    
+    if minimum is not None and maximum is not None and mean is not None and var is not None: imp += _get_pbox(min_max_mean_var,minimum,maximum,mean,var,debug=debug) 
+    
+    if mean is not None and std is not None: imp += _get_pbox(mean_std,mean,std,debug=debug) 
+    
+    if mean is not None and var is not None: imp += _get_pbox(mean_var,mean,var,debug=debug) 
+    
+    if mean is not None and cv is not None: imp += _get_pbox(mean_std,mean,cv*mean,debug=debug) 
+
+    if len(imp) == 0:
+        raise Exception("No valid p-boxes found")
+    return imposition(imp)
+    
 def box(
         a: Union[Interval,float,int],
         b: Union[Interval,float,int] = None,
@@ -346,8 +449,8 @@ def min_max_meadian_is_mode(
 def min_max_percentile(
         minimum: Union[Interval,float,int], 
         maximum: Union[Interval,float,int], 
-        fraction: Union[Interval,float,int], 
-        percentile: Union[float,int],
+        fraction: Union[list,float,int], 
+        percentile: Union[list,float],
         steps: int = Pbox.STEPS
         ) -> Pbox:
     '''
@@ -360,33 +463,41 @@ def min_max_percentile(
     maximum : 
         maximum value of the variable
     fraction : 
-        fraction that percentile is at
+        fraction that the percentile(s) is/are at
     percentile :
-        the percentile at fraction
+        the percentile(s) at fraction
     
     Returns
     ----------
     Pbox
 
     '''
-    ii = np.array([i/steps for i in range(steps)])
+    ii = [i/steps for i in range(steps)]
     jjj = [j/steps for j in range(1,steps-1)] + [1-1/steps]
     
-    u = [minimum if p <= fraction else percentile for p in ii]
-    d = [maximum if p > fraction else percentile for p in jjj]
+    if hasattr(fraction,'__iter__'):
+        
+        if len(fraction) != len(percentile):
+            raise Exception('fraction and percentile must be the same length')
+
+        fraction = np.array([0] + list(fraction) + [1])
+        percentile = np.array([minimum] + list(percentile) + [maximum])
+        
+        u = [percentile[fraction<=x][-1] for x in ii]
+        d = [percentile[fraction>=x][0] for x in jjj]
+        
+    else:
+        u = [minimum if x <= fraction else percentile for x in ii]
+        d = [maximum if x > fraction else percentile for x in jjj]
     
     return Pbox(
         left = u,
-        right = d,
-        mean_left=fraction*minimum+(1-fraction)*percentile,
-        mean_right=fraction*percentile+(1-fraction)*maximum,
-        var_left=0,
-        var_right=(maximum - minimum)*(maximum - minimum)/4,
+        right = d
     )
 
 def symmetric_mean_std(
         mean: Union[Interval,float,int], 
-        stddev: Union[Interval,float,int], 
+        std: Union[Interval,float,int], 
         steps: int = Pbox.STEPS
         ) -> Pbox:
     '''
@@ -396,7 +507,7 @@ def symmetric_mean_std(
     ----------
     mean : 
         mean value of the variable
-    stddev :
+    std :
         standard deviation of the variable 
     
     Returns
@@ -406,16 +517,16 @@ def symmetric_mean_std(
     iii = [1/steps] + [i/steps for i in range(1,steps-1)]
     jjj = [j/steps for j in range(1,steps-1)] + [1-1/steps]
     
-    u = [mean - stddev / np.sqrt(2 * p) if p <= 0.5 else mean for p in iii]
-    d = [mean + stddev / np.sqrt(2 * (1 - p)) if p > 0.5 else mean for p in jjj]
+    u = [mean - std / np.sqrt(2 * p) if p <= 0.5 else mean for p in iii]
+    d = [mean + std / np.sqrt(2 * (1 - p)) if p > 0.5 else mean for p in jjj]
     
     return Pbox(
         left = u,
         right = d,
         mean_left=mean,
         mean_right=mean,
-        var_left=stddev**2,
-        var_right=stddev**2
+        var_left=std**2,
+        var_right=std**2
     )
     
 
@@ -424,7 +535,7 @@ def min_max_mean_std(
         minimum: Union[Interval,float,int], 
         maximum: Union[Interval,float,int], 
         mean: Union[Interval,float,int], 
-        stddev: Union[Interval,float,int], 
+        std: Union[Interval,float,int], 
         steps: int = Pbox.STEPS
         ) -> Pbox:
     '''
@@ -438,7 +549,7 @@ def min_max_mean_std(
         maximum value of the variable
     mean : 
         mean value of the variable
-    stddev :
+    std :
         standard deviation of the variable 
     
     Returns
@@ -478,7 +589,7 @@ def min_max_mean_std(
     one = 1.0
     ran = maximum - minimum;
     m = _constrain(mean, Interval(minimum,maximum), "(mean)");
-    s = _constrain(stddev, _env(Interval(0.0),(abs(ran*ran/4.0 - (maximum-mean-ran/2.0)**2))**0.5)," (dispersion)")
+    s = _constrain(std, _env(Interval(0.0),(abs(ran*ran/4.0 - (maximum-mean-ran/2.0)**2))**0.5)," (dispersion)")
     ml = (m.left-minimum)/ran
     sl = s.left/ran
     mr = (m.right-minimum)/ran
@@ -560,24 +671,3 @@ def min_max_mean_var(
 
     '''
     return min_max_mean_std(minimum,maximum,mean,np.sqrt(var))
-
-def what_I_know(
-        minimin: Optional[Union[Interval,float,int]] = None,
-        maximum: Optional[Union[Interval,float,int]] = None,
-        mean: Optional[Union[Interval,float,int]] = None,
-        median: Optional[Union[Interval,float,int]] = None,
-        mode: Optional[Union[Interval,float,int]] = None,
-        stddev: Optional[Union[Interval,float,int]] = None,
-        var: Optional[Union[Interval,float,int]] = None,
-        cv: Optional[Union[Interval,float,int]] = None,
-        percentiles: Optional[Union[Interval,float,int]] = None,
-        coverages: Optional[Union[Interval,float,int]] = None,
-        shape: Optional[Literal['unimodal', 'symmetric', 'positive', 'nonnegative', 'concave', 'convex', 'increasinghazard', 'decreasinghazard', 'discrete', 'integervalued', 'continuous', '', 'normal', 'lognormal']] = None,
-        data: Optional[list] = None,
-        confidence: Optional[float] = 0.95,
-        debug: bool = False,
-        steps: int = Pbox.STEPS
-        ) -> Pbox:
-    
-    
-    pass

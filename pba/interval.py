@@ -32,10 +32,6 @@ class Interval:
     """
     def __init__(self,left = None, right = None):
 
-
-        # kill complex nums
-        assert not isinstance(left, np.complex) or not isinstance(right, np.complex), "Inputs must be real numbers"
-
         # assume vaccous if no inputs
         if left is None and right is None:
             right = np.inf

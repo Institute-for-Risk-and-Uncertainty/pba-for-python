@@ -18,7 +18,8 @@ __all__ = [
     # import class
     'Pbox',
     'mixture',
-    'truncate'
+    'truncate',
+    'imposition'
 ]
 
 def _interval_list_to_array(l, left = True):
@@ -915,6 +916,34 @@ class Pbox:
         """
         return self.straddles(0,endpoints)
 
+    def imp(self, other):
+        '''
+        Returns the imposition of self with other
+        '''
+        if other.__class__.__name__ != 'Pbox':
+            try:
+                pbox = Pbox(pbox)
+            except:
+                raise TypeError("Unable to convert %s object (%s) to Pbox" %(type(pbox),pbox))
+        
+        u = []
+        d = []
+        
+        assert self.steps == other.steps
+        
+        for sL,sR,oL,oR in zip(self.left,self.right,other.left,other.right):
+            
+            if max(sL,oL) > min(sR,oR):
+                raise Exception("Imposition does not exist")
+            
+            u.append(max(sL,oL))
+            d.append(min(sR,oR))
+        
+        return Pbox(
+            left = u,
+            right = d
+        )
+
 # Functions
 def env_int(*args):
     left = min([min(i) if hasattr(i,"__iter__") else i for i in args])
@@ -1115,17 +1144,46 @@ def _DivByZeroCheck(bound):
 def truncate(pbox,min,max):
     return pbox.truncate(min,max)
 
+def imposition(*args: Union[Pbox,Interval,float,int]):
+    '''
+    Returns the imposition of the p-boxes in *args
+    
+    Parameters
+    ----------
+    *args :
+        Number of p-boxes or objects to be mixed
+    
+    Returns
+    ----------
+    Pbox    
+    '''
+    x = []
+    for pbox in args:
+        if pbox.__class__.__name__ != 'Pbox':
+            try:
+                pbox = Pbox(pbox)
+            except:
+                raise TypeError("Unable to convert %s object (%s) to Pbox" %(type(pbox),pbox))
+        x.append(pbox)
+
+    p = x[0]
+    
+    for i in range(1,len(x)):
+        p.imp(x[i])
+        
+    return p
+        
 def mixture(
     *args: Union[Pbox,Interval,float,int],
     weights: List[Union[float,int]] = [], 
     steps: int = Pbox.STEPS
     ) -> Pbox:
     '''
-    Returns Box interval
+    Mixes the pboxes in *args
     Parameters
     ----------
     *args :
-        Number of p-boxes or objects that can be tran
+        Number of p-boxes or objects to be mixed
     weights:
         Right side of box
     
@@ -1139,10 +1197,7 @@ def mixture(
     for pbox in args:
         if pbox.__class__.__name__ != 'Pbox':
             try:
-                try:
-                    pbox = box(pbox)
-                except:
-                    pbox = Pbox(pbox)
+                pbox = Pbox(pbox)
             except:
                 raise TypeError("Unable to convert %s object (%s) to Pbox" %(type(pbox),pbox))
         x.append(pbox)
