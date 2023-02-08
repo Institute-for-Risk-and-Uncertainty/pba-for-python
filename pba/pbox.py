@@ -726,24 +726,24 @@ class Pbox:
     def logicaland(self, other, method = 'f'):   # conjunction
         if method=='i': 
             return(self.mul(other,method))  # independence a * b
-        # elif method=='p': 
-        #     return(self.min(other,method))  # perfect min(a, b)
-        # elif method=='o': 
-        #     return(max(self.add(other,method)-1, 0))  # opposite max(a + b – 1, 0)
-        # elif method=='+': 
-        #     return(self.min(other,method))  # positive env(a * b, min(a, b))
-        # elif method=='-': 
-        #     return(self.min(other,method))  # negative env(max(a + b – 1, 0), a * b)
+        elif method=='p': 
+            return(self.min(other,method))  # perfect min(a, b)
+        elif method=='o': 
+            return(max(self.add(other,method)-1, 0))  # opposite max(a + b – 1, 0)
+        elif method=='+': 
+            return(self.min(other,method))  # positive env(a * b, min(a, b))
+        elif method=='-': 
+            return(self.min(other,method))  # negative env(max(a + b – 1, 0), a * b)
         else:
             return(env(max(0, self.add(other,method) - 1),  self.min(other,method)))
 
     def logicalor(self, other, method = 'f'):    # disjunction
         if method=='i':
             return(1 - (1-self) * (1-other))  # independent 1 – (1 – a) * (1 – b)
-        # elif method=='p':
-        #    return(self.max(other,method))  # perfect max(a, b)
-        # elif method=='o':
-        #    return(min(self.add(other,method),1)) # opposite min(1, a + b)
+        elif method=='p':
+           return(self.max(other,method))  # perfect max(a, b)
+        elif method=='o':
+           return(min(self.add(other,method),1)) # opposite min(1, a + b)
         # elif method=='+':
         #    return(env(,min(self.add(other,method),1))  # positive env(max(a, b), 1 – (1 – a) * (1 – b))
         # elif method=='-':
@@ -756,7 +756,7 @@ class Pbox:
             if self.steps != other.steps:
                 raise ArithmeticError("Both Pboxes must have the same number of steps")
         else:
-            other = box(other, steps = self.steps)
+            other = Pbox(other, steps = self.steps)
             
         nleft  = np.minimum(self.left, other.left)
         nright = np.maximum(self.right, other.right)
@@ -977,17 +977,6 @@ def right_list(implist, verbose=False):
         return np.array(implist)
 
     return np.array([right(imp) for imp in implist])
-
-def qleftquantiles(pp, x, p): # if first p is not zero, the left tail will be -Inf
-    return [max(left_list(x)[right_list(p) <= P]) for P in pp]
-
-def qrightquantiles(pp, x, p):  # if last p is not one, the right tail will be Inf
-    return [min(right_list(x)[P <= left_list(p)]) for P in pp]
-
-def quantiles(x, p, steps=200):
-    left = qleftquantiles(ii(steps=steps), x, p)
-    right = qrightquantiles(jj(steps=steps), x, p)
-    return Pbox(left=left, right=right)  # quantiles are in x and the associated cumulative probabilities are in p
 
 def interp_step(u, steps=200):
     u = np.sort(u)

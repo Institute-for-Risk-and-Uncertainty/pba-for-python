@@ -26,17 +26,21 @@ Pbox
       ~Pbox.get_x
       ~Pbox.get_y
       ~Pbox.gt
+      ~Pbox.imp
       ~Pbox.le
+      ~Pbox.leftmost
       ~Pbox.logicaland
       ~Pbox.logicalor
       ~Pbox.lt
       ~Pbox.max
       ~Pbox.mean
+      ~Pbox.median
       ~Pbox.min
       ~Pbox.mul
       ~Pbox.plot
       ~Pbox.pow
       ~Pbox.recip
+      ~Pbox.rightmost
       ~Pbox.show
       ~Pbox.sqrt
       ~Pbox.straddles
@@ -44,6 +48,7 @@ Pbox
       ~Pbox.sub
       ~Pbox.summary
       ~Pbox.support
+      ~Pbox.truncate
 
    .. rubric:: Attributes Documentation
 
@@ -61,17 +66,21 @@ Pbox
    .. automethod:: get_x
    .. automethod:: get_y
    .. automethod:: gt
+   .. automethod:: imp
    .. automethod:: le
+   .. automethod:: leftmost
    .. automethod:: logicaland
    .. automethod:: logicalor
    .. automethod:: lt
    .. automethod:: max
    .. automethod:: mean
+   .. automethod:: median
    .. automethod:: min
    .. automethod:: mul
    .. automethod:: plot
    .. automethod:: pow
    .. automethod:: recip
+   .. automethod:: rightmost
    .. automethod:: show
    .. automethod:: sqrt
    .. automethod:: straddles
@@ -79,3 +88,4 @@ Pbox
    .. automethod:: sub
    .. automethod:: summary
    .. automethod:: support
+   .. automethod:: truncate

@@ -1,9 +1,9 @@
 Intervals
 =========
+.. autoclass:: pba.Interval
+   :members:
+   :undoc-members:
+   
+.. autoclass:: pba.I
 
-.. toctree::
-   :maxdepth: 3
-   :caption: Contents:
-
-.. automodapi:: pba.interval
-   :no-inheritance-diagram:
+.. autoclass:: pba.Logical

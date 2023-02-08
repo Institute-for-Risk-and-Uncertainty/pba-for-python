@@ -14,7 +14,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -38,8 +40,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="source/pba.interval.html">Intervals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="source/pba.pbox.html">P-Boxes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="source/pba.dists.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source/pba.pboxes.html">Probability boxes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="source/pba.copula.html">Copulas</a></li>
 </ul>
 
@@ -56,8 +57,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Index</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Index</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -133,7 +134,7 @@
 </li>
       <li><a href="api/pba.dists.boltzmann.html#pba.dists.boltzmann">boltzmann() (in module pba.dists)</a>
 </li>
-      <li><a href="api/pba.dists.box.html#pba.dists.box">box() (in module pba.dists)</a>
+      <li><a href="api/pba.non_parametric.box.html#pba.non_parametric.box">box() (in module pba.non_parametric)</a>
 </li>
       <li><a href="api/pba.dists.bradford.html#pba.dists.bradford">bradford() (in module pba.dists)</a>
 </li>
@@ -165,7 +166,7 @@
 </li>
       <li><a href="api/pba.copula.Copula.html#pba.copula.Copula">Copula (class in pba.copula)</a>
 </li>
-      <li><a href="api/pba.interval.Interval.html#pba.interval.Interval.cos">cos() (pba.interval.Interval method)</a>
+      <li><a href="source/pba.interval.html#pba.Interval.cos">cos() (pba.Interval method)</a>
 </li>
       <li><a href="api/pba.dists.cosine.html#pba.dists.cosine">cosine() (in module pba.dists)</a>
 </li>
@@ -195,11 +196,11 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/pba.pbox.Pbox.html#pba.pbox.Pbox.env">env() (pba.pbox.Pbox method)</a>
 </li>
-      <li><a href="api/pba.interval.Interval.html#pba.interval.Interval.equiv">equiv() (pba.interval.Interval method)</a>
+      <li><a href="source/pba.interval.html#pba.Interval.equiv">equiv() (pba.Interval method)</a>
 </li>
       <li><a href="api/pba.dists.erlang.html#pba.dists.erlang">erlang() (in module pba.dists)</a>
 </li>
-      <li><a href="api/pba.interval.Interval.html#pba.interval.Interval.exp">exp() (pba.interval.Interval method)</a>
+      <li><a href="source/pba.interval.html#pba.Interval.exp">exp() (pba.Interval method)</a>
 
       <ul>
         <li><a href="api/pba.pbox.Pbox.html#pba.pbox.Pbox.exp">(pba.pbox.Pbox method)</a>
@@ -315,7 +316,7 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/pba.dists.halfnorm.html#pba.dists.halfnorm">halfnorm() (in module pba.dists)</a>
 </li>
-      <li><a href="api/pba.interval.Interval.html#pba.interval.Interval.hi">hi() (pba.interval.Interval method)</a>
+      <li><a href="source/pba.interval.html#pba.Interval.hi">hi() (pba.Interval method)</a>
 </li>
       <li><a href="api/pba.dists.hypergeom.html#pba.dists.hypergeom">hypergeom() (in module pba.dists)</a>
 </li>
@@ -327,15 +328,19 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pba.interval.I.html#pba.interval.I">I (in module pba.interval)</a>
+      <li><a href="source/pba.interval.html#pba.I">I (in module pba)</a>
+</li>
+      <li><a href="api/pba.pbox.Pbox.html#pba.pbox.Pbox.imp">imp() (pba.pbox.Pbox method)</a>
+</li>
+      <li><a href="api/pba.pbox.imposition.html#pba.pbox.imposition">imposition() (in module pba.pbox)</a>
 </li>
       <li><a href="api/pba.copula.indep.html#pba.copula.indep">indep() (in module pba.copula)</a>
 </li>
-      <li><a href="api/pba.interval.Interval.html#pba.interval.Interval.intersection">intersection() (pba.interval.Interval method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pba.interval.Interval.html#pba.interval.Interval">Interval (class in pba.interval)</a>
+      <li><a href="source/pba.interval.html#pba.Interval.intersection">intersection() (pba.Interval method)</a>
+</li>
+      <li><a href="source/pba.interval.html#pba.Interval">Interval (class in pba)</a>
 </li>
       <li><a href="api/pba.dists.invgamma.html#pba.dists.invgamma">invgamma() (in module pba.dists)</a>
 </li>
@@ -385,19 +390,21 @@
 </li>
       <li><a href="api/pba.pbox.Pbox.html#pba.pbox.Pbox.le">le() (pba.pbox.Pbox method)</a>
 </li>
+      <li><a href="api/pba.pbox.Pbox.html#pba.pbox.Pbox.leftmost">leftmost() (pba.pbox.Pbox method)</a>
+</li>
       <li><a href="api/pba.dists.levy.html#pba.dists.levy">levy() (in module pba.dists)</a>
 </li>
       <li><a href="api/pba.dists.levy_l.html#pba.dists.levy_l">levy_l() (in module pba.dists)</a>
 </li>
       <li><a href="api/pba.dists.levy_stable.html#pba.dists.levy_stable">levy_stable() (in module pba.dists)</a>
 </li>
-      <li><a href="api/pba.interval.Interval.html#pba.interval.Interval.lo">lo() (pba.interval.Interval method)</a>
+      <li><a href="source/pba.interval.html#pba.Interval.lo">lo() (pba.Interval method)</a>
 </li>
-      <li><a href="api/pba.interval.Interval.html#pba.interval.Interval.log">log() (pba.interval.Interval method)</a>
+      <li><a href="source/pba.interval.html#pba.Interval.log">log() (pba.Interval method)</a>
 </li>
       <li><a href="api/pba.dists.loggamma.html#pba.dists.loggamma">loggamma() (in module pba.dists)</a>
 </li>
-      <li><a href="api/pba.interval.Logical.html#pba.interval.Logical">Logical (class in pba.interval)</a>
+      <li><a href="source/pba.interval.html#pba.Logical">Logical (class in pba)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -433,37 +440,39 @@
 </li>
       <li><a href="api/pba.dists.maxwell.html#pba.dists.maxwell">maxwell() (in module pba.dists)</a>
 </li>
-      <li><a href="api/pba.dists.ME_min_max_mean_std.html#pba.dists.ME_min_max_mean_std">ME_min_max_mean_std() (in module pba.dists)</a>
-</li>
       <li><a href="api/pba.pbox.Pbox.html#pba.pbox.Pbox.mean">mean() (pba.pbox.Pbox method)</a>
 </li>
-      <li><a href="api/pba.interval.Interval.html#pba.interval.Interval.midpoint">midpoint() (pba.interval.Interval method)</a>
+      <li><a href="api/pba.non_parametric.mean_std.html#pba.non_parametric.mean_std">mean_std() (in module pba.non_parametric)</a>
+</li>
+      <li><a href="api/pba.non_parametric.mean_var.html#pba.non_parametric.mean_var">mean_var() (in module pba.non_parametric)</a>
+</li>
+      <li><a href="api/pba.pbox.Pbox.html#pba.pbox.Pbox.median">median() (pba.pbox.Pbox method)</a>
+</li>
+      <li><a href="source/pba.interval.html#pba.Interval.midpoint">midpoint() (pba.Interval method)</a>
 </li>
       <li><a href="api/pba.dists.mielke.html#pba.dists.mielke">mielke() (in module pba.dists)</a>
 </li>
       <li><a href="api/pba.pbox.Pbox.html#pba.pbox.Pbox.min">min() (pba.pbox.Pbox method)</a>
 </li>
-      <li><a href="api/pba.dists.min_max.html#pba.dists.min_max">min_max() (in module pba.dists)</a>
+      <li><a href="api/pba.non_parametric.min_max.html#pba.non_parametric.min_max">min_max() (in module pba.non_parametric)</a>
 </li>
-      <li><a href="api/pba.dists.min_max_mean.html#pba.dists.min_max_mean">min_max_mean() (in module pba.dists)</a>
+      <li><a href="api/pba.non_parametric.min_max_mean.html#pba.non_parametric.min_max_mean">min_max_mean() (in module pba.non_parametric)</a>
 </li>
-      <li><a href="api/pba.dists.min_max_mean_std.html#pba.dists.min_max_mean_std">min_max_mean_std() (in module pba.dists)</a>
-</li>
-      <li><a href="api/pba.dists.min_max_mean_var.html#pba.dists.min_max_mean_var">min_max_mean_var() (in module pba.dists)</a>
+      <li><a href="api/pba.non_parametric.min_max_mean_std.html#pba.non_parametric.min_max_mean_std">min_max_mean_std() (in module pba.non_parametric)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pba.dists.min_max_median.html#pba.dists.min_max_median">min_max_median() (in module pba.dists)</a>
+      <li><a href="api/pba.non_parametric.min_max_mean_var.html#pba.non_parametric.min_max_mean_var">min_max_mean_var() (in module pba.non_parametric)</a>
 </li>
-      <li><a href="api/pba.dists.min_max_mode.html#pba.dists.min_max_mode">min_max_mode() (in module pba.dists)</a>
+      <li><a href="api/pba.non_parametric.min_max_median.html#pba.non_parametric.min_max_median">min_max_median() (in module pba.non_parametric)</a>
 </li>
-      <li><a href="api/pba.dists.min_mean.html#pba.dists.min_mean">min_mean() (in module pba.dists)</a>
+      <li><a href="api/pba.non_parametric.min_max_median_is_mode.html#pba.non_parametric.min_max_median_is_mode">min_max_median_is_mode() (in module pba.non_parametric)</a>
+</li>
+      <li><a href="api/pba.non_parametric.min_max_mode.html#pba.non_parametric.min_max_mode">min_max_mode() (in module pba.non_parametric)</a>
+</li>
+      <li><a href="api/pba.non_parametric.min_max_percentile.html#pba.non_parametric.min_max_percentile">min_max_percentile() (in module pba.non_parametric)</a>
 </li>
       <li><a href="api/pba.pbox.mixture.html#pba.pbox.mixture">mixture() (in module pba.pbox)</a>
-</li>
-      <li><a href="api/pba.dists.MLnorm.html#pba.dists.MLnorm">MLnorm() (in module pba.dists)</a>
-</li>
-      <li><a href="api/pba.dists.mmms.html#pba.dists.mmms">mmms() (in module pba.dists)</a>
 </li>
       <li>
     module
@@ -471,11 +480,11 @@
       <ul>
         <li><a href="source/pba.copula.html#module-pba.copula">pba.copula</a>
 </li>
-        <li><a href="source/pba.dists.html#module-pba.dists">pba.dists</a>
+        <li><a href="source/pba.pboxes.html#module-pba.dists">pba.dists</a>
 </li>
-        <li><a href="source/pba.interval.html#module-pba.interval">pba.interval</a>
+        <li><a href="source/pba.pboxes.html#module-pba.non_parametric">pba.non_parametric</a>
 </li>
-        <li><a href="source/pba.pbox.html#module-pba.pbox">pba.pbox</a>
+        <li><a href="source/pba.pboxes.html#module-pba.pbox">pba.pbox</a>
 </li>
       </ul></li>
       <li><a href="api/pba.dists.moyal.html#pba.dists.moyal">moyal() (in module pba.dists)</a>
@@ -514,17 +523,17 @@
 <h2 id="O">O</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pba.interval.Interval.html#pba.interval.Interval.oadd">oadd() (pba.interval.Interval method)</a>
+      <li><a href="source/pba.interval.html#pba.Interval.oadd">oadd() (pba.Interval method)</a>
 </li>
-      <li><a href="api/pba.interval.Interval.html#pba.interval.Interval.odiv">odiv() (pba.interval.Interval method)</a>
+      <li><a href="source/pba.interval.html#pba.Interval.odiv">odiv() (pba.Interval method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pba.interval.Interval.html#pba.interval.Interval.omul">omul() (pba.interval.Interval method)</a>
+      <li><a href="source/pba.interval.html#pba.Interval.omul">omul() (pba.Interval method)</a>
 </li>
       <li><a href="api/pba.copula.opp.html#pba.copula.opp">opp() (in module pba.copula)</a>
 </li>
-      <li><a href="api/pba.interval.Interval.html#pba.interval.Interval.osub">osub() (pba.interval.Interval method)</a>
+      <li><a href="source/pba.interval.html#pba.Interval.osub">osub() (pba.Interval method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -532,7 +541,7 @@
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pba.interval.Interval.html#pba.interval.Interval.padd">padd() (pba.interval.Interval method)</a>
+      <li><a href="source/pba.interval.html#pba.Interval.padd">padd() (pba.Interval method)</a>
 </li>
       <li><a href="api/pba.dists.pareto.html#pba.dists.pareto">pareto() (in module pba.dists)</a>
 </li>
@@ -547,26 +556,26 @@
     pba.dists
 
       <ul>
-        <li><a href="source/pba.dists.html#module-pba.dists">module</a>
+        <li><a href="source/pba.pboxes.html#module-pba.dists">module</a>
 </li>
       </ul></li>
       <li>
-    pba.interval
+    pba.non_parametric
 
       <ul>
-        <li><a href="source/pba.interval.html#module-pba.interval">module</a>
+        <li><a href="source/pba.pboxes.html#module-pba.non_parametric">module</a>
 </li>
       </ul></li>
       <li>
     pba.pbox
 
       <ul>
-        <li><a href="source/pba.pbox.html#module-pba.pbox">module</a>
+        <li><a href="source/pba.pboxes.html#module-pba.pbox">module</a>
 </li>
       </ul></li>
       <li><a href="api/pba.pbox.Pbox.html#pba.pbox.Pbox">Pbox (class in pba.pbox)</a>
 </li>
-      <li><a href="api/pba.interval.Interval.html#pba.interval.Interval.pdiv">pdiv() (pba.interval.Interval method)</a>
+      <li><a href="source/pba.interval.html#pba.Interval.pdiv">pdiv() (pba.Interval method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -580,9 +589,11 @@
 </li>
       <li><a href="api/pba.pbox.Pbox.html#pba.pbox.Pbox.plot">plot() (pba.pbox.Pbox method)</a>
 </li>
-      <li><a href="api/pba.interval.Interval.html#pba.interval.Interval.pmul">pmul() (pba.interval.Interval method)</a>
+      <li><a href="source/pba.interval.html#pba.Interval.pmul">pmul() (pba.Interval method)</a>
 </li>
       <li><a href="api/pba.dists.poisson.html#pba.dists.poisson">poisson() (in module pba.dists)</a>
+</li>
+      <li><a href="api/pba.non_parametric.pos_mean_std.html#pba.non_parametric.pos_mean_std">pos_mean_std() (in module pba.non_parametric)</a>
 </li>
       <li><a href="api/pba.pbox.Pbox.html#pba.pbox.Pbox.pow">pow() (pba.pbox.Pbox method)</a>
 </li>
@@ -592,7 +603,7 @@
 </li>
       <li><a href="api/pba.dists.powernorm.html#pba.dists.powernorm">powernorm() (in module pba.dists)</a>
 </li>
-      <li><a href="api/pba.interval.Interval.html#pba.interval.Interval.psub">psub() (pba.interval.Interval method)</a>
+      <li><a href="source/pba.interval.html#pba.Interval.psub">psub() (pba.Interval method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -606,17 +617,19 @@
 </li>
       <li><a href="api/pba.dists.rdist.html#pba.dists.rdist">rdist() (in module pba.dists)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pba.interval.Interval.html#pba.interval.Interval.recip">recip() (pba.interval.Interval method)</a>
+      <li><a href="source/pba.interval.html#pba.Interval.recip">recip() (pba.Interval method)</a>
 
       <ul>
         <li><a href="api/pba.pbox.Pbox.html#pba.pbox.Pbox.recip">(pba.pbox.Pbox method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/pba.dists.recipinvgauss.html#pba.dists.recipinvgauss">recipinvgauss() (in module pba.dists)</a>
 </li>
       <li><a href="api/pba.dists.rice.html#pba.dists.rice">rice() (in module pba.dists)</a>
+</li>
+      <li><a href="api/pba.pbox.Pbox.html#pba.pbox.Pbox.rightmost">rightmost() (pba.pbox.Pbox method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -624,6 +637,8 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/pba.interval.html#pba.Interval.sample">sample() (pba.Interval method)</a>
+</li>
       <li><a href="api/pba.dists.semicircular.html#pba.dists.semicircular">semicircular() (in module pba.dists)</a>
 </li>
       <li><a href="api/pba.copula.Copula.html#pba.copula.Copula.show">show() (pba.copula.Copula method)</a>
@@ -634,13 +649,13 @@
       </ul></li>
       <li><a href="api/pba.copula.Copula.html#pba.copula.Copula.showContour">showContour() (pba.copula.Copula method)</a>
 </li>
-      <li><a href="api/pba.interval.Interval.html#pba.interval.Interval.sin">sin() (pba.interval.Interval method)</a>
+      <li><a href="source/pba.interval.html#pba.Interval.sin">sin() (pba.Interval method)</a>
 </li>
       <li><a href="api/pba.dists.skellam.html#pba.dists.skellam">skellam() (in module pba.dists)</a>
 </li>
       <li><a href="api/pba.dists.skewnorm.html#pba.dists.skewnorm">skewnorm() (in module pba.dists)</a>
 </li>
-      <li><a href="api/pba.interval.Interval.html#pba.interval.Interval.sqrt">sqrt() (pba.interval.Interval method)</a>
+      <li><a href="source/pba.interval.html#pba.Interval.sqrt">sqrt() (pba.Interval method)</a>
 
       <ul>
         <li><a href="api/pba.pbox.Pbox.html#pba.pbox.Pbox.sqrt">(pba.pbox.Pbox method)</a>
@@ -650,13 +665,13 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/pba.pbox.Pbox.html#pba.pbox.Pbox.STEPS">STEPS (pba.pbox.Pbox attribute)</a>
 </li>
-      <li><a href="api/pba.interval.Interval.html#pba.interval.Interval.straddles">straddles() (pba.interval.Interval method)</a>
+      <li><a href="source/pba.interval.html#pba.Interval.straddles">straddles() (pba.Interval method)</a>
 
       <ul>
         <li><a href="api/pba.pbox.Pbox.html#pba.pbox.Pbox.straddles">(pba.pbox.Pbox method)</a>
 </li>
       </ul></li>
-      <li><a href="api/pba.interval.Interval.html#pba.interval.Interval.straddles_zero">straddles_zero() (pba.interval.Interval method)</a>
+      <li><a href="source/pba.interval.html#pba.Interval.straddles_zero">straddles_zero() (pba.Interval method)</a>
 
       <ul>
         <li><a href="api/pba.pbox.Pbox.html#pba.pbox.Pbox.straddles_zero">(pba.pbox.Pbox method)</a>
@@ -668,6 +683,8 @@
 </li>
       <li><a href="api/pba.pbox.Pbox.html#pba.pbox.Pbox.support">support() (pba.pbox.Pbox method)</a>
 </li>
+      <li><a href="api/pba.non_parametric.symmetric_mean_std.html#pba.non_parametric.symmetric_mean_std">symmetric_mean_std() (in module pba.non_parametric)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -676,18 +693,22 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/pba.dists.t.html#pba.dists.t">t() (in module pba.dists)</a>
 </li>
-      <li><a href="api/pba.interval.Interval.html#pba.interval.Interval.tan">tan() (pba.interval.Interval method)</a>
+      <li><a href="source/pba.interval.html#pba.Interval.tan">tan() (pba.Interval method)</a>
 </li>
-      <li><a href="api/pba.interval.Interval.html#pba.interval.Interval.to_logical">to_logical() (pba.interval.Interval method)</a>
+      <li><a href="source/pba.interval.html#pba.Interval.to_logical">to_logical() (pba.Interval method)</a>
 </li>
       <li><a href="api/pba.dists.trapz.html#pba.dists.trapz">trapz() (in module pba.dists)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/pba.dists.triang.html#pba.dists.triang">triang() (in module pba.dists)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/pba.pbox.truncate.html#pba.pbox.truncate">truncate() (in module pba.pbox)</a>
+
+      <ul>
+        <li><a href="api/pba.pbox.Pbox.html#pba.pbox.Pbox.truncate">(pba.pbox.Pbox method)</a>
 </li>
+      </ul></li>
       <li><a href="api/pba.dists.truncexpon.html#pba.dists.truncexpon">truncexpon() (in module pba.dists)</a>
 </li>
       <li><a href="api/pba.dists.truncnorm.html#pba.dists.truncnorm">truncnorm() (in module pba.dists)</a>
@@ -730,13 +751,17 @@
 </li>
       <li><a href="api/pba.dists.wald.html#pba.dists.wald">wald() (in module pba.dists)</a>
 </li>
+      <li><a href="api/pba.dists.weibull.html#pba.dists.weibull">weibull() (in module pba.dists)</a>
+</li>
       <li><a href="api/pba.dists.weibull_max.html#pba.dists.weibull_max">weibull_max() (in module pba.dists)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/pba.dists.weibull_min.html#pba.dists.weibull_min">weibull_min() (in module pba.dists)</a>
 </li>
-      <li><a href="api/pba.interval.Interval.html#pba.interval.Interval.width">width() (pba.interval.Interval method)</a>
+      <li><a href="api/pba.non_parametric.what_I_know.html#pba.non_parametric.what_I_know">what_I_know() (in module pba.non_parametric)</a>
+</li>
+      <li><a href="source/pba.interval.html#pba.Interval.width">width() (pba.Interval method)</a>
 </li>
       <li><a href="api/pba.dists.wrapcauchy.html#pba.dists.wrapcauchy">wrapcauchy() (in module pba.dists)</a>
 </li>

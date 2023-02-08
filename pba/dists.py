@@ -1,3 +1,137 @@
+'''
+Distribution based p-boxes
+--------------------------
+'''
+
+__all__ = [
+    'KM', 
+    'KN',
+    'N', 
+    'U', 
+    'alpha',
+    'anglit',
+    'arcsine',
+    'argus',
+    'bernoulli',
+    'beta',
+    'betabinom',
+    'betapert',
+    'betaprime',
+    'binom', 
+    'boltzmann', 
+    'bradford', 
+    'burr', 
+    'burr12',
+    'cauchy',
+    'chi',
+    'chi2',
+    'cosine',
+    'crystalball',
+    'dgamma',
+    'dists',
+    'dlaplace',
+    'dweibull',
+    'erlang',
+    'expon',
+    'exponnorm',
+    'exponpow',
+    'exponweib',
+    'f',
+    'fatiguelife',
+    'fisk',
+    'foldcauchy',
+    'foldnorm',
+    'gamma',
+    'gausshyper',
+    'genexpon',
+    'genextreme',
+    'gengamma',
+    'genhalflogistic',
+    'geninvgauss',
+    'genlogistic',
+    'gennorm',
+    'genpareto',
+    'geom',
+    'gilbrat',
+    'gompertz',
+    'gumbel_l',
+    'gumbel_r',
+    'halfcauchy', 
+    'halfgennorm',
+    'halflogistic',
+    'halfnorm',
+    'hypergeom',
+    'hypsecant',
+    'invgamma',
+    'invgauss',
+    'invweibull',
+    'itertools',
+    'johnsonsb',
+    'johnsonsu',
+    'kappa3',
+    'kappa4',
+    'ksone',
+    'kstwobign',
+    'laplace',
+    'levy',
+    'levy_l',
+    'levy_stable',
+    'loggamma',
+    'logistic',
+    'loglaplace',
+    'lognorm',
+    'lognormal',
+    'logser',
+    'loguniform',
+    'lomax',
+    'maxwell',
+    'mielke',
+    'moyal',
+    'nakagami',
+    'nbinom',
+    'ncf',
+    'nct',
+    'ncx2',
+    'norm',
+    'normal',
+    'norminvgauss',
+    'np',
+    'pareto',
+    'pearson3',
+    'planck',
+    'poisson',
+    'powerlaw',
+    'powerlognorm',
+    'powernorm',
+    'randint',
+    'rayleigh',
+    'rdist',
+    'recipinvgauss',
+    'rice',
+    'semicircular',
+    'skellam',
+    'skewnorm',
+    'sps',
+    't',
+    'trapz',
+    'triang',
+    'truncexpon',
+    'truncnorm',
+    'tukeylambda',
+    'unif',
+    'uniform',
+    'vonmises',
+    'vonmises_line',
+    'wald',
+    'weibull',
+    'weibull_max',
+    'weibull_min',
+    'wrapcauchy',
+    'yulesimon',
+    'zipf'
+]
+
+
 if __name__ is not None and "." in __name__:
     from .interval import Interval
 else:
@@ -2490,26 +2624,7 @@ N = normal
 unif = uniform
 U = uniform
 
-### ML-ME
-def MLnorm(data): 
-    return norm(np.mean(data),np.std(data))
 
-def ME_min_max_mean_std(
-        minimum: Union[Interval,float,int], 
-        maximum: Union[Interval,float,int], 
-        mean: Union[Interval,float,int], 
-        stddev: Union[Interval,float,int], 
-        steps: int = Pbox.STEPS
-        ) -> Pbox:
-    
-    μ = ((mean- minimum) / (maximum - minimum))
-    
-    σ = (stddev/(maximum - minimum) )
-    
-    a = ((1-μ)/(σ**2) - 1/μ)*μ**2
-    b = a*(1/μ - 1)
-    
-    return beta(a,b,steps=steps)* (maximum - minimum) + minimum
 
 def betapert(minimum, maximum, mode):
     mu = (minimum + maximum + 4*mode)/6

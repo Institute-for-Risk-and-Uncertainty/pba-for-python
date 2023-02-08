@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>triang &mdash; PBA for Python 0.12 beta documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +15,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -40,14 +43,14 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../source/pba.interval.html">Intervals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../source/pba.pbox.html">P-Boxes</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../source/pba.dists.html">Distributions</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../source/pba.dists.html#module-pba.dists">pba.dists Module</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="../source/pba.dists.html#functions">Functions</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../source/pba.pboxes.html">Probability boxes</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../source/pba.pboxes.html#module-pba.pbox">pba.pbox Module</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../source/pba.pboxes.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/pba.pboxes.html#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/pba.pboxes.html#id3">Functions</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../source/pba.pboxes.html#id4">Functions</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="pba.dists.KM.html">KM</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pba.dists.KN.html">KN</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pba.dists.ME_min_max_mean_std.html">ME_min_max_mean_std</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pba.dists.MLnorm.html">MLnorm</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pba.dists.N.html">N</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pba.dists.U.html">U</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pba.dists.alpha.html">alpha</a></li>
@@ -61,7 +64,6 @@
 <li class="toctree-l4"><a class="reference internal" href="pba.dists.betaprime.html">betaprime</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pba.dists.binom.html">binom</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pba.dists.boltzmann.html">boltzmann</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pba.dists.box.html">box</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pba.dists.bradford.html">bradford</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pba.dists.burr.html">burr</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pba.dists.burr12.html">burr12</a></li>
@@ -127,14 +129,6 @@
 <li class="toctree-l4"><a class="reference internal" href="pba.dists.lomax.html">lomax</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pba.dists.maxwell.html">maxwell</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pba.dists.mielke.html">mielke</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pba.dists.min_max.html">min_max</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pba.dists.min_max_mean.html">min_max_mean</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pba.dists.min_max_mean_std.html">min_max_mean_std</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pba.dists.min_max_mean_var.html">min_max_mean_var</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pba.dists.min_max_median.html">min_max_median</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pba.dists.min_max_mode.html">min_max_mode</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pba.dists.min_mean.html">min_mean</a></li>
-<li class="toctree-l4"><a class="reference internal" href="pba.dists.mmms.html">mmms</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pba.dists.moyal.html">moyal</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pba.dists.nakagami.html">nakagami</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pba.dists.nbinom.html">nbinom</a></li>
@@ -170,6 +164,7 @@
 <li class="toctree-l4"><a class="reference internal" href="pba.dists.vonmises.html">vonmises</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pba.dists.vonmises_line.html">vonmises_line</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pba.dists.wald.html">wald</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pba.dists.weibull.html">weibull</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pba.dists.weibull_max.html">weibull_max</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pba.dists.weibull_min.html">weibull_min</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pba.dists.wrapcauchy.html">wrapcauchy</a></li>
@@ -197,9 +192,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../source/pba.dists.html">Distributions</a> &raquo;</li>
-      <li>triang</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../source/pba.pboxes.html">Probability boxes</a></li>
+      <li class="breadcrumb-item active">triang</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/pba.dists.triang.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -209,14 +204,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="triang">
-<h1>triang<a class="headerlink" href="#triang" title="Permalink to this headline"></a></h1>
+  <section id="triang">
+<h1>triang<a class="headerlink" href="#triang" title="Permalink to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="pba.dists.triang">
 <span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">triang</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.triang" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
-</div>
+</section>
 
 
            </div>

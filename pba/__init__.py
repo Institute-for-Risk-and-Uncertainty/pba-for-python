@@ -1,8 +1,8 @@
 from .interval import *
-from .dists import *
 # from .parametric import *
 from .pbox import *
 from .copula import *
 from .core import *
 
-from .pboxes.non_parametric import *
+from .dists import *
+from .non_parametric import *
