@@ -2,7 +2,7 @@
 
 import numpy as np
 import random as r
-
+import itertools
 
 __all__ = ['Interval','I','Logical']
 
@@ -45,21 +45,19 @@ class Interval:
 
         # if iterable, find endpoints
         if hasattr(left, '__iter__') and hasattr(right, '__iter__'):
+            
+            vals = [i for i in itertools.chain(left,right)]
 
-            LL = min(left)
-            UL = min(right)
-            LU = max(left)
-            UU = max(right)
-
-            left = min(LL,LU)
-            right = max(LU,UU)
+            left = min(vals)
+            right = max(vals)
 
         elif hasattr(left, '__iter__'):
 
             LL = min(left)
             LU = max(left)
 
-            left = min(LL,LU)
+            left = min(LL,LU,right)
+            right = max(LL,LU,right)
 
 
         elif hasattr(right, '__iter__'):
@@ -67,7 +65,8 @@ class Interval:
             UL = min(right)
             UU = max(right)
 
-            right = max(UL,UU)
+            left = min(UL,UU,left)
+            right = max(UL,UU,left)
 
 
         if left > right:
@@ -79,7 +78,7 @@ class Interval:
         self.right = right
 
     def __repr__(self) -> str: # return
-        return "Interval [%g, %g]"%(self.left,self.right)
+        return "Interval [%g, %g]"%(self.lefst,self.right)
 
     def __str__(self) -> str: # print
         return "Interval [%g, %g]"%(self.left,self.right)
