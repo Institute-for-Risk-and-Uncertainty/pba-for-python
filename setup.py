@@ -2,13 +2,13 @@ from distutils.core import setup
 
 setup(
     name='pba',
-    version='1.beta',
+    version='1.beta2',
     packages=['pba',],
     license='MIT License',
     long_description=open('README.rst').read(),
     install_requires=[
-        'numpy>=1.21.1',
-        'scipy>=1.7.0',
+        'numpy>=1.25.2',
+        'scipy>=1.11.2',
         'matplotlib>=3.3.2'],
     python_requires='>=3.8',
     package_data={'':['pba/data.json']},

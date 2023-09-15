@@ -33,7 +33,7 @@ matplotlib==3.6.3
 matplotlib-inline==0.1.6
 more-itertools==9.0.0
 nest-asyncio==1.5.6
-numpy==1.24.1
+numpy==1.25.2
 packaging==23.0
 parso==0.8.3
 pexpect==4.8.0
@@ -55,7 +55,7 @@ requests==2.28.2
 requests-toolbelt==0.10.1
 rfc3986==2.0.0
 rich==13.1.0
-scipy==1.10.0
+scipy==1.11.2
 six==1.16.0
 snowballstemmer==2.2.0
 Sphinx==5.3.0

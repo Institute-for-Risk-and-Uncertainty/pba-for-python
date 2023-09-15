@@ -43,30 +43,15 @@ class Interval:
         elif left is not None and right is None:
             right = left
 
-        # if iterable, find endpoints
-        if hasattr(left, '__iter__') and hasattr(right, '__iter__'):
-            
-            vals = [i for i in itertools.chain(left,right)]
-
-            left = min(vals)
-            right = max(vals)
-
-        elif hasattr(left, '__iter__'):
-
-            LL = min(left)
-            LU = max(left)
-
-            left = min(LL,LU,right)
-            right = max(LL,LU,right)
-
-
-        elif hasattr(right, '__iter__'):
-
-            UL = min(right)
-            UU = max(right)
-
-            left = min(UL,UU,left)
-            right = max(UL,UU,left)
+        if hasattr(left, '__iter__') and not isinstance(left, Interval):
+            left = Interval(min(left),max(left))
+        if hasattr(right, '__iter__') and not isinstance(right, Interval):
+            right = Interval(min(right),max(right))
+        
+        if isinstance(left, Interval):
+            left = left.left
+        if isinstance(right, Interval):
+            right = right.right
 
 
         if left > right:
@@ -77,8 +62,11 @@ class Interval:
         self.left = left
         self.right = right
 
+    def pm(a,b):
+        return Interval(a-b,a+b)
+
     def __repr__(self) -> str: # return
-        return "Interval [%g, %g]"%(self.lefst,self.right)
+        return "Interval [%g, %g]"%(self.left,self.right)
 
     def __str__(self) -> str: # print
         return "Interval [%g, %g]"%(self.left,self.right)

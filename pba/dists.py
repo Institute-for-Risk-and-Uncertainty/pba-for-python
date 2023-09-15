@@ -52,7 +52,7 @@ __all__ = [
     'gennorm',
     'genpareto',
     'geom',
-    'gilbrat',
+    'gibrat',
     'gompertz',
     'gumbel_l',
     'gumbel_r',
@@ -188,7 +188,7 @@ dists = {
     'gengamma' : sps.gengamma,
     'genhalflogistic' : sps.genhalflogistic,
     'geninvgauss' : sps.geninvgauss,
-    'gilbrat' : sps.gilbrat,
+    'gibrat' : sps.gibrat,
     'gompertz' : sps.gompertz,
     'gumbel_r' : sps.gumbel_r,
     'gumbel_l' : sps.gumbel_l,
@@ -1135,19 +1135,19 @@ def geninvgauss(*args, steps = 200):
           var_right  = var.right
           )
 
-def gilbrat(*args, steps = 200):
+def gibrat(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):
         if args[i].__class__.__name__ != 'Interval':
             args[i] = Interval(args[i])
 
-    Left, Right, mean, var = __get_bounds('gilbrat',steps,*args)
+    Left, Right, mean, var = __get_bounds('gibrat',steps,*args)
 
     return Pbox(
           Left,
           Right,
           steps      = steps,
-          shape      = 'gilbrat',
+          shape      = 'gibrat',
           mean_left  = mean.left,
           mean_right = mean.right,
           var_left   = var.left,
