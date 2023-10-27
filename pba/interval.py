@@ -2,7 +2,7 @@
 
 import numpy as np
 import random as r
-
+import itertools
 
 __all__ = ['Interval','I','Logical']
 
@@ -32,10 +32,6 @@ class Interval:
     """
     def __init__(self,left = None, right = None):
 
-
-        # kill complex nums
-        assert not isinstance(left, np.complex) or not isinstance(right, np.complex), "Inputs must be real numbers"
-
         # assume vaccous if no inputs
         if left is None and right is None:
             right = np.inf
@@ -47,31 +43,15 @@ class Interval:
         elif left is not None and right is None:
             right = left
 
-        # if iterable, find endpoints
-        if hasattr(left, '__iter__') and hasattr(right, '__iter__'):
-
-            LL = min(left)
-            UL = min(right)
-            LU = max(left)
-            UU = max(right)
-
-            left = min(LL,LU)
-            right = max(LU,UU)
-
-        elif hasattr(left, '__iter__'):
-
-            LL = min(left)
-            LU = max(left)
-
-            left = min(LL,LU)
-
-
-        elif hasattr(right, '__iter__'):
-
-            UL = min(right)
-            UU = max(right)
-
-            right = max(UL,UU)
+        if hasattr(left, '__iter__') and not isinstance(left, Interval):
+            left = Interval(min(left),max(left))
+        if hasattr(right, '__iter__') and not isinstance(right, Interval):
+            right = Interval(min(right),max(right))
+        
+        if isinstance(left, Interval):
+            left = left.left
+        if isinstance(right, Interval):
+            right = right.right
 
 
         if left > right:
@@ -81,6 +61,9 @@ class Interval:
 
         self.left = left
         self.right = right
+
+    def pm(a,b):
+        return Interval(a-b,a+b)
 
     def __repr__(self) -> str: # return
         return "Interval [%g, %g]"%(self.left,self.right)

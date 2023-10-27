@@ -32,7 +32,6 @@ release = '0.12 beta'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-
     'sphinx.ext.napoleon',
     'sphinx.ext.mathjax',
     'sphinx_automodapi.automodapi'

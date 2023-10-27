@@ -6,5 +6,6 @@ pba/copula.py
 pba/core.py
 pba/dists.py
 pba/interval.py
+pba/non_parametric.py
 pba/parametric.py
 pba/pbox.py

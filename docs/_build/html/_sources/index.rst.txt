@@ -10,8 +10,7 @@
    :caption: Contents:
 
    source/pba.interval.rst
-   source/pba.pbox.rst
-   source/pba.dists.rst
+   source/pba.pboxes.rst
    source/pba.copula.rst
 
 Indices and tables

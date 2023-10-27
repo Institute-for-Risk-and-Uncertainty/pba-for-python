@@ -18,8 +18,18 @@ __all__ = [
     # import class
     'Pbox',
     'mixture',
-    'truncate'
+    'truncate',
+    'imposition'
 ]
+
+def _interval_list_to_array(l, left = True):
+    if left:
+        f = lambda x: x.left if isinstance(x, Interval) else x
+    else: # must be right
+        f = lambda x: x.right if isinstance(x, Interval) else x
+    
+    return np.array([f(i) for i in l])
+        
 
 class Pbox:
 
@@ -38,15 +48,19 @@ class Pbox:
 
         if isinstance(left, Interval):
             left = np.array([left.left]*steps)
+        elif isinstance(left, list):
+            left = _interval_list_to_array(left)
         elif not isinstance(left, np.ndarray):
             left = np.array(left)
 
 
         if isinstance(right, Interval):
             right = np.array([right.right]*steps)
+        elif isinstance(right, list):
+            right = _interval_list_to_array(right)
         elif not isinstance(right, np.ndarray):
             right = np.array(right)
-        
+
         # if len(left) == len(right) and len(left) != steps:
         #     print("WARNING: The left and right arrays have the same length which is inconsistent with steps.")
 
@@ -712,24 +726,24 @@ class Pbox:
     def logicaland(self, other, method = 'f'):   # conjunction
         if method=='i': 
             return(self.mul(other,method))  # independence a * b
-        # elif method=='p': 
-        #     return(self.min(other,method))  # perfect min(a, b)
-        # elif method=='o': 
-        #     return(max(self.add(other,method)-1, 0))  # opposite max(a + b – 1, 0)
-        # elif method=='+': 
-        #     return(self.min(other,method))  # positive env(a * b, min(a, b))
-        # elif method=='-': 
-        #     return(self.min(other,method))  # negative env(max(a + b – 1, 0), a * b)
+        elif method=='p': 
+            return(self.min(other,method))  # perfect min(a, b)
+        elif method=='o': 
+            return(max(self.add(other,method)-1, 0))  # opposite max(a + b – 1, 0)
+        elif method=='+': 
+            return(self.min(other,method))  # positive env(a * b, min(a, b))
+        elif method=='-': 
+            return(self.min(other,method))  # negative env(max(a + b – 1, 0), a * b)
         else:
             return(env(max(0, self.add(other,method) - 1),  self.min(other,method)))
 
     def logicalor(self, other, method = 'f'):    # disjunction
         if method=='i':
             return(1 - (1-self) * (1-other))  # independent 1 – (1 – a) * (1 – b)
-        # elif method=='p':
-        #    return(self.max(other,method))  # perfect max(a, b)
-        # elif method=='o':
-        #    return(min(self.add(other,method),1)) # opposite min(1, a + b)
+        elif method=='p':
+           return(self.max(other,method))  # perfect max(a, b)
+        elif method=='o':
+           return(min(self.add(other,method),1)) # opposite min(1, a + b)
         # elif method=='+':
         #    return(env(,min(self.add(other,method),1))  # positive env(max(a, b), 1 – (1 – a) * (1 – b))
         # elif method=='-':
@@ -742,7 +756,7 @@ class Pbox:
             if self.steps != other.steps:
                 raise ArithmeticError("Both Pboxes must have the same number of steps")
         else:
-            other = box(other, steps = self.steps)
+            other = Pbox(other, steps = self.steps)
             
         nleft  = np.minimum(self.left, other.left)
         nright = np.maximum(self.right, other.right)
@@ -902,6 +916,34 @@ class Pbox:
         """
         return self.straddles(0,endpoints)
 
+    def imp(self, other):
+        '''
+        Returns the imposition of self with other
+        '''
+        if other.__class__.__name__ != 'Pbox':
+            try:
+                pbox = Pbox(pbox)
+            except:
+                raise TypeError("Unable to convert %s object (%s) to Pbox" %(type(pbox),pbox))
+        
+        u = []
+        d = []
+        
+        assert self.steps == other.steps
+        
+        for sL,sR,oL,oR in zip(self.left,self.right,other.left,other.right):
+            
+            if max(sL,oL) > min(sR,oR):
+                raise Exception("Imposition does not exist")
+            
+            u.append(max(sL,oL))
+            d.append(min(sR,oR))
+        
+        return Pbox(
+            left = u,
+            right = d
+        )
+
 # Functions
 def env_int(*args):
     left = min([min(i) if hasattr(i,"__iter__") else i for i in args])
@@ -935,17 +977,6 @@ def right_list(implist, verbose=False):
         return np.array(implist)
 
     return np.array([right(imp) for imp in implist])
-
-def qleftquantiles(pp, x, p): # if first p is not zero, the left tail will be -Inf
-    return [max(left_list(x)[right_list(p) <= P]) for P in pp]
-
-def qrightquantiles(pp, x, p):  # if last p is not one, the right tail will be Inf
-    return [min(right_list(x)[P <= left_list(p)]) for P in pp]
-
-def quantiles(x, p, steps=200):
-    left = qleftquantiles(ii(steps=steps), x, p)
-    right = qrightquantiles(jj(steps=steps), x, p)
-    return Pbox(left=left, right=right)  # quantiles are in x and the associated cumulative probabilities are in p
 
 def interp_step(u, steps=200):
     u = np.sort(u)
@@ -1102,17 +1133,46 @@ def _DivByZeroCheck(bound):
 def truncate(pbox,min,max):
     return pbox.truncate(min,max)
 
+def imposition(*args: Union[Pbox,Interval,float,int]):
+    '''
+    Returns the imposition of the p-boxes in *args
+    
+    Parameters
+    ----------
+    *args :
+        Number of p-boxes or objects to be mixed
+    
+    Returns
+    ----------
+    Pbox    
+    '''
+    x = []
+    for pbox in args:
+        if pbox.__class__.__name__ != 'Pbox':
+            try:
+                pbox = Pbox(pbox)
+            except:
+                raise TypeError("Unable to convert %s object (%s) to Pbox" %(type(pbox),pbox))
+        x.append(pbox)
+
+    p = x[0]
+    
+    for i in range(1,len(x)):
+        p.imp(x[i])
+        
+    return p
+        
 def mixture(
     *args: Union[Pbox,Interval,float,int],
     weights: List[Union[float,int]] = [], 
     steps: int = Pbox.STEPS
     ) -> Pbox:
     '''
-    Returns Box interval
+    Mixes the pboxes in *args
     Parameters
     ----------
     *args :
-        Number of p-boxes or objects that can be tran
+        Number of p-boxes or objects to be mixed
     weights:
         Right side of box
     
@@ -1126,10 +1186,7 @@ def mixture(
     for pbox in args:
         if pbox.__class__.__name__ != 'Pbox':
             try:
-                try:
-                    pbox = box(pbox)
-                except:
-                    pbox = Pbox(pbox)
+                pbox = Pbox(pbox)
             except:
                 raise TypeError("Unable to convert %s object (%s) to Pbox" %(type(pbox),pbox))
         x.append(pbox)
