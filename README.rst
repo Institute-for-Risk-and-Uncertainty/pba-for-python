@@ -14,7 +14,7 @@ Features
 Installation
 -------------
 
-Install pba by running
+Install pba from pypi.org by running:
 
     pip install pba
 
@@ -28,3 +28,37 @@ License
 --------
 
 The project is licensed under the MIT License.
+
+Development
+-----------
+
+Clone the repo at https://github.com/Institute-for-Risk-and-Uncertainty/pba-for-python.
+
+Install
+~~~~~~~
+
+From the repo root:
+
+    python -m pip install --upgrade pip setuptools
+    python -m pip install -e .[dev,docs]
+
+Build
+~~~~~
+
+From the repo root:
+
+    python -m build
+
+Check Manifest
+~~~~~~~~~~~~~~
+
+From the repo root:
+
+    python -m check_manifest
+
+Build Documentation
+~~~~~~~~~~~~~~~~~~~
+
+From the docs directory:
+
+    make html

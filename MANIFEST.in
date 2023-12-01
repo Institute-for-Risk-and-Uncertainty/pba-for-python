@@ -1,0 +1,20 @@
+include *.ipynb
+include *.yaml
+recursive-include docs *.buildinfo
+recursive-include docs *.css
+recursive-include docs *.doctree
+recursive-include docs *.eot
+recursive-include docs *.html
+recursive-include docs *.inv
+recursive-include docs *.js
+recursive-include docs *.pickle
+recursive-include docs *.png
+recursive-include docs *.py
+recursive-include docs *.rst
+recursive-include docs *.svg
+recursive-include docs *.ttf
+recursive-include docs *.txt
+recursive-include docs *.woff
+recursive-include docs *.woff2
+recursive-include docs Makefile
+recursive-include pba *.json
