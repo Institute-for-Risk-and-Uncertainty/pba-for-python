@@ -1,6 +1,7 @@
 from .interval import *
 # from .parametric import *
 from .pbox import *
+from .cbox import Cbox
 from .copula import *
 from .core import *
 

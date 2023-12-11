@@ -288,7 +288,7 @@ class Pbox:
         if other.__class__.__name__ == 'Interval': 
             other = Pbox(other, steps = self.steps)
 
-        if other.__class__.__name__ == 'Pbox':
+        if isinstance(other, Pbox):
 
             if self.steps != other.steps:
                 raise ArithmeticError("Both Pboxes must have the same number of steps")
@@ -378,7 +378,7 @@ class Pbox:
         if other.__class__.__name__ == 'Interval': 
             other = Pbox(other, steps = self.steps)
 
-        if other.__class__.__name__ == 'Pbox':
+        if isinstance(other, Pbox):
 
             if self.steps != other.steps:
                 raise ArithmeticError("Both Pboxes must have the same number of steps")
@@ -468,7 +468,7 @@ class Pbox:
         if other.__class__.__name__ == 'Interval':
             other = Pbox(other, steps = self.steps)
 
-        if other.__class__.__name__ == 'Pbox':
+        if isinstance(other, Pbox):
 
             if self.steps != other.steps:
                 raise ArithmeticError("Both Pboxes must have the same number of steps")
@@ -590,7 +590,7 @@ class Pbox:
         if other.__class__.__name__ != 'Pbox':
             other = box(other)
 
-        if other.__class__.__name__ == 'Pbox':
+        if isinstance(other, Pbox):
 
             # if self.steps != other.steps:
             #     raise ArithmeticError("Both Pboxes must have the same number of steps")
@@ -651,7 +651,7 @@ class Pbox:
         if other.__class__.__name__ == 'Interval':
             other = Pbox(other, steps = self.steps)
 
-        if other.__class__.__name__ == 'Pbox':
+        if isinstance(other, Pbox):
 
             # if self.steps != other.steps:
             #     raise ArithmeticError("Both Pboxes must have the same number of steps")
@@ -752,7 +752,7 @@ class Pbox:
             return(env(self.max(other,method), min(self.add(other,method),1)))
 
     def env(self, other):
-        if other.__class__.__name__ == 'Pbox':
+        if isinstance(other, Pbox):
             if self.steps != other.steps:
                 raise ArithmeticError("Both Pboxes must have the same number of steps")
         else:

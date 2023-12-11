@@ -134,13 +134,12 @@ __all__ = [
 
 if __name__ is not None and "." in __name__:
     from .interval import Interval
+    from .pbox import Pbox
+    from .cbox import Cbox
 else:
     from interval import Interval
-
-if __name__ is not None and "." in __name__:
-    from .pbox import Pbox
-else:
     from pbox import Pbox
+    from cbox import Cbox
 
 import scipy.stats as sps
 import numpy as np
@@ -2613,7 +2612,7 @@ def yulesimon(*args, steps = 200):
 def KM(k,m,steps = 200):
     with catch_warnings():
         simplefilter("ignore")
-        return beta(Interval(k,k+1),Interval(m,m+1),steps = steps)
+        return Cbox(**vars(beta(Interval(k,k+1),Interval(m,m+1),steps = steps)))
 
 def KN(k,n,steps = 200):
     return KM(k,n-k,steps=steps)
