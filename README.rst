@@ -1,4 +1,6 @@
-[![Documentation Status](https://readthedocs.org/projects/pba-for-python/badge/?version=latest)](https://pba-for-python.readthedocs.io/en/latest/?badge=latest)
+.. image:: https://readthedocs.org/projects/pba-for-python/badge/?version=latest
+    :target: https://pba-for-python.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
 
 
 PBA
