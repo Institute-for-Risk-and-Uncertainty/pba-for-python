@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='pba',
-    version='0.16',
+    version='0.16.1',
     packages=['pba',],
     license='MIT License',
     long_description=open('README.rst').read(),
@@ -14,7 +14,7 @@ setup(
     package_data={'':['pba/data.json']},
     url='https://github.com/Institute-for-Risk-and-Uncertainty/pba-for-python',
     author='Nick Gray',
-    author_email = 'nickgray@liv.ac.uk'
+    author_email = 'ngg@liv.ac.uk'
 )
 # RUN THIS CODE
 '''
