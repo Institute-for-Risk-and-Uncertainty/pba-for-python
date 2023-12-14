@@ -1,3 +1,6 @@
+[![Documentation Status](https://readthedocs.org/projects/pba-for-python/badge/?version=latest)](https://pba-for-python.readthedocs.io/en/latest/?badge=latest)
+
+
 PBA
 ========
 
@@ -22,7 +25,7 @@ Contribute & Support
 --------------------
 
 If you are having issues or would like to help with development or have intersting use cases, please let us know.
-You can email nickgray@liv.ac.uk.
+You can email ngg@liv.ac.uk.
 
 License
 --------
