@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import numpy as np
 import random as r
 import itertools
@@ -63,6 +62,7 @@ class Interval:
         self.right = right
 
     def pm(a,b):
+        assert b >= 0
         return Interval(a-b,a+b)
 
     def __repr__(self) -> str: # return
@@ -603,12 +603,12 @@ class Interval:
             print("RuntimeWarning: invalid value encountered in sqrt")
             return Interval(np.nan,np.sqrt(self.right))
         
-    def sin(self):
-        return Interval(np.sin(self.left),np.sin(self.right))
-    def cos(self):
-        return Interval(np.cos(self.left),np.cos(self.right))
-    def tan(self):
-        return Interval(np.tan(self.left),np.tan(self.right))
+    # def sin(self):
+    #     return Interval(np.sin(self.left),np.sin(self.right))
+    # def cos(self):
+    #     return Interval(np.cos(self.left),np.cos(self.right))
+    # def tan(self):
+    #     return Interval(np.tan(self.left),np.tan(self.right))
     
     def sample(self, seed = None) -> float:
         '''
