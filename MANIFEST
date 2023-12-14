@@ -2,6 +2,7 @@
 README.rst
 setup.py
 pba/__init__.py
+pba/cbox.py
 pba/copula.py
 pba/core.py
 pba/dists.py

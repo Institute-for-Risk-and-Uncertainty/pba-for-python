@@ -21,10 +21,11 @@ class Cbox(Pbox):
     
     def __init__(self,*args,**kwargs):
         if len(args) == 1 and isinstance(args[0],Pbox):
-                print(1)
+            
                 super().__init__(**vars(args[0]))
                 
         else:
+            
             super().__init__(*args,**kwargs)
         
     def __repr__(self):
