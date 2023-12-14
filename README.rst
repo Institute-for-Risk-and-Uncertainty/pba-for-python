@@ -8,7 +8,7 @@ PBA
 
 PBA is a probability bound analysis library for Python that allows one to create and calculate with probability distributions, intervals, and probability boxes (p-boxes) within Python.
 
-Probability distributions can be specified using ``pba.distname(**args)`` where *distname* is any of the named distributions that scipy.stats supports.  For instance,   pba.laplace(2,1) specifies a Laplace distribution with mean and variance 2. P-boxes can be created by using interval arguments for these distributions.  Intervals can be created using ``pba.I(lo, hi)`` where *lo* and *hi* are expressions for the lower and upper limits of the interval.
+Probability distributions can be specified using ``pba.distname(**args)`` where *distname* is any of the named distributions that scipy.stats supports.  For instance,   pba.N(0,1) specifies a Normal distribution with mean 0 and variance 1. P-boxes can be created by using interval arguments for these distributions.  Intervals can be created using ``pba.I(left, right)`` where *left* and *right* are expressions for the lower and upper limits of the interval.
 
 Features
 --------
