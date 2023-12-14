@@ -10,6 +10,15 @@ import numpy as np
 __all__ = ['Cbox']
 
 class Cbox(Pbox):
+    """
+    Confidence boxes (c-boxes) are imprecise generalisations of traditional confidence distributions
+
+    They have a different interpretation to p-boxes but rely on the same underlying mathematics. As such in pba-for-python c-boxes inhert most of their methods from Pbox. 
+
+    Args:
+        Pbox (_type_): _description_
+    """
+    
     def __init__(self,*args,**kwargs):
         if len(args) == 1 and isinstance(args[0],Pbox):
                 print(1)
@@ -115,3 +124,10 @@ class Cbox(Pbox):
 
     def div(self,other, method = 'f'):
         return Cbox(super().div(other, method = method))
+
+    def __neg__(self):
+        return Cbox(super().__neg__())
+    
+    def recip(self):
+        return Cbox(super().recip())
+    
