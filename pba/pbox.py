@@ -5,15 +5,9 @@ from warnings import *
 import numpy as np
 from matplotlib import pyplot as plt
 
-if __name__ is not None and "." in __name__:
-    from .interval import Interval, Logical
-    from .copula import Copula
-    from .core import env
-else:
-    from interval import Interval, Logical
-    from copula import Copula
-    from core import env
-    
+from .interval import Interval
+from .copula import Copula
+
 __all__ = [
     # import class
     'Pbox',
@@ -30,7 +24,6 @@ def _interval_list_to_array(l, left = True):
     
     return np.array([f(i) for i in l])
         
-
 class Pbox:
 
     STEPS = 200
@@ -263,8 +256,9 @@ class Pbox:
             self.var_right = right(b)
 
     def _unary(self, *args, function = lambda x: x):
-        print(args)
+        
         ints = [function(Interval(l,r),*args) for l,r in zip(self.left,self.right)]
+        print(ints)
         return Pbox(
             left = np.array([i.left for i in ints]),
             right = np.array([i.right for i in ints])
@@ -566,21 +560,21 @@ class Pbox:
 
     def lt(self, other, method = 'f'):
         b = self.add(-other, method)
-        return Logical(b.get_probability(0))      # return (self.add(-other, method)).get_probability(0)
+        return b.get_probability(0)      # return (self.add(-other, method)).get_probability(0)
 
     def le(self, other, method = 'f'):
         b = self.add(-other, method)
-        return Logical(b.get_probability(0))      # how is the "or equal to" affecting the calculation?
+        return b.get_probability(0)      # how is the "or equal to" affecting the calculation?
 
     def gt(self, other, method = 'f'):
         self = - self
         b = self.add(other, method)
-        return Logical(b.get_probability(0))      # maybe 1-prob ?
+        return b.get_probability(0)      # maybe 1-prob ?
 
     def ge(self, other, method = 'f'):
         self = - self
         b = self.add(other, method)
-        return Logical(b.get_probability(0))
+        return b.get_probability(0)
 
     def min(self, other, method = 'f'):
 

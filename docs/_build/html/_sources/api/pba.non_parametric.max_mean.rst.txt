@@ -1,6 +1,0 @@
-max_mean
-========
-
-.. currentmodule:: pba.non_parametric
-
-.. autofunction:: max_mean

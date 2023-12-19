@@ -1,8 +1,9 @@
 from typing import *
-if __name__ is not None and "." in __name__:
-    from .interval import *
-else:
-    from interval import Logical, Interval
+
+from .interval import *
+from .pbox import Pbox
+# from .cbox import *
+
 import numpy as np
 
 def env(x,y):
@@ -28,42 +29,6 @@ def max(x,y):
         return y.max(x)
     else:
         raise NotImplementedError('At least one argument needs to be a Pbox')
-
-def always(logical: Logical) -> bool:
-
-    if logical.__class__.__name__ != 'Logical':
-        return logical
-    if logical.left == 1 and logical.right == 1:
-        return True
-    else:
-        return False
-
-
-def sometimes(logical: Logical) -> bool:
-
-    if logical.__class__.__name__ != 'Logical':
-        return logical
-
-    elif logical.left == 1 or logical.right == 1:
-        return True
-    else:
-        return False
-
-def xtimes(logical: Logical) -> bool:
-    '''
-    exclusive sometimes
-    
-    Returns true if the logical function is sometimes True but not always true
-    If the input is not a Logical class then function will always return false
-    '''
-
-    if logical.__class__.__name__ != 'Logical':
-        return False
-
-    elif logical.left ^ logical.right:
-        return True
-    else:
-        return False
 
 def sum(l: Union[list,tuple] ,method = 'f'):
     '''
@@ -143,4 +108,3 @@ def sqrt(a):
     else: 
 
        return np.sqrt(a)
-        

@@ -3,7 +3,7 @@ import numpy as np
 import random as r
 import itertools
 
-__all__ = ['Interval','I','Logical']
+__all__ = ['Interval','I',]
 
 class Interval:
     """
@@ -621,46 +621,3 @@ class Interval:
     
 # Alias
 I = Interval
-
-class Logical(Interval):
-    '''
-    Imprecise Boolean object
-    
-    Parameters
-    ----------
-    left : bool
-        left side of interval
-    right : bool
-        right side of interval
-    Attributes
-    ----------
-    left : bool
-        left side of interval
-    right : bool
-        right side of interval
-        
-    '''
-    def __init__(self, left: bool ,right: bool = None):
-
-        super().__init__(left, right)
-
-    def __bool__(self):
-
-        if self.left == 0 and self.right == 0:
-            return False
-        if self.left == 1 and self.right == 1:
-            return True
-        else:
-            print('WARNING: Truth value of Logical is ambiguous, use pba.sometime or pba.always')
-            return True
-
-    def __repr__(self):
-
-        if self.left == 0 and self.right == 0:
-            return 'False'
-        elif self.left == 1 and self.right == 1:
-            return 'True'
-        else:
-            return "[%g, %g]"%(self.left,self.right)
-
-    __str__ = __repr__

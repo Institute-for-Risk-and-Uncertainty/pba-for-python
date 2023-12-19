@@ -1,6 +1,6 @@
-MLnorm
+gibrat
 ======
 
 .. currentmodule:: pba.dists
 
-.. autofunction:: MLnorm
+.. autofunction:: gibrat

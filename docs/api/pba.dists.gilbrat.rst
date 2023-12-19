@@ -1,6 +1,6 @@
-weibull
+gilbrat
 =======
 
 .. currentmodule:: pba.dists
 
-.. autofunction:: weibull
+.. autofunction:: gilbrat
