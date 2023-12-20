@@ -14,7 +14,7 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('..'))
 
-# import sphinx_rtd_theme
+
 
 # -- Project information -----------------------------------------------------
 
@@ -33,8 +33,7 @@ release = 'v0.16.2'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.mathjax',
-    'sphinx_rtd_theme',
+    'sphinx.ext.mathjax'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
