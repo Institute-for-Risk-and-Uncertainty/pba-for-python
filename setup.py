@@ -10,8 +10,6 @@ setup(
         'numpy>=1.25.2',
         'scipy>=1.11.2',
         'matplotlib>=3.3.2'],
-    python_requires='>=3.8',
-    package_data={'':['pba/data.json']},
     url='https://github.com/Institute-for-Risk-and-Uncertainty/pba-for-python',
     author='Nick Gray',
     author_email = 'ngg@liv.ac.uk'
