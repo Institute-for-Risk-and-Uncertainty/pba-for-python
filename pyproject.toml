@@ -3,6 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
+name = "PBA-for-python"
 dynamic = ["version"]
 dependencies = [
         'numpy>=1.26.2',
@@ -12,6 +13,9 @@ dependencies = [
 authors = [
     {name = "Nick Gray", email = "ngg@liv.ac.uk"}
 ]
-maintainers = [
-    {name = "Nick Gray", email = "ngg@liv.ac.uk"}
-]
+description = "Probability Bounds Analysis in Python"
+readme = "README.rst"
+license = {file = "LICENSE"}
+[project.urls]
+Documentation = "https://pba-for-python.readthedocs.io/en/latest/"
+Repository = "https://github.com/Institute-for-Risk-and-Uncertainty/pba-for-python"
