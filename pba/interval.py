@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 import numpy as np
 import random as r
@@ -7,13 +8,7 @@ __all__ = ['Interval','I',]
 
 class Interval:
     """
-    An interval is an uncertain number for which only the endpoints are known, for example if :math:`x=[a,b]`
-    then this can be interpreted as :math:`x` being between :math:`a` and :math:`b` but with no more information about the value of :math:`x`.
-    
-    Intervals can be created using::
-        pba.I(left,right)
-        pba.Interval(left,right)
-        
+
     Parameters
     ----------
     left : numeric

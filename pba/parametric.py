@@ -1,3 +1,7 @@
+"""
+Hello world
+"""
+
 if __name__ is not None and "." in __name__:
     from .interval import Interval
     from .pbox import Pbox
@@ -11,8 +15,6 @@ import numpy as np
 import itertools
 import sys
 from pathlib import Path
-
-
 
 extra = {
     'lognorm': sps.lognorm,

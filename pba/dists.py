@@ -1610,25 +1610,6 @@ def loglaplace(*args, steps = 200):
           var_right  = var.right
           )
 
-def lognorm(*args, steps = 200):
-    args = list(args)
-    for i in range(0,len(args)):
-        if args[i].__class__.__name__ != 'Interval':
-            args[i] = Interval(args[i])
-
-    Left, Right, mean, var = __get_bounds('lognorm',steps,*args)
-
-    return Pbox(
-          Left,
-          Right,
-          steps      = steps,
-          shape      = 'lognorm',
-          mean_left  = mean.left,
-          mean_right = mean.right,
-          var_left   = var.left,
-          var_right  = var.right
-          )
-
 def loguniform(*args, steps = 200):
     args = list(args)
     for i in range(0,len(args)):

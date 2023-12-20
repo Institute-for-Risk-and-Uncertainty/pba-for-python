@@ -12,18 +12,18 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('.'))
-sys.path.insert(0, os.path.abspath('../'))
+sys.path.insert(0, os.path.abspath('..'))
 
+# import sphinx_rtd_theme
 
 # -- Project information -----------------------------------------------------
 
-project = 'PBA for Python'
-copyright = '2021, Nick Gray'
+project = 'PBA-for-python'
+copyright = '2023, Nick Gray'
 author = 'Nick Gray'
 
 # The full version, including alpha/beta/rc tags
-release = '0.12 beta'
+release = 'v0.16.2'
 
 
 # -- General configuration ---------------------------------------------------
@@ -32,14 +32,10 @@ release = '0.12 beta'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.napoleon',
+    'sphinx.ext.autodoc',
     'sphinx.ext.mathjax',
-    'sphinx_automodapi.automodapi'
+    'sphinx_rtd_theme',
 ]
- 
-napoleon_google_docstring = False
-napoleon_use_param = False
-napoleon_use_ivar = True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -55,8 +51,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-extensions.append("sphinxjp.themes.basicstrap")
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'furo'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

@@ -5,9 +5,9 @@ build-backend = "hatchling.build"
 [project]
 dynamic = ["version"]
 dependencies = [
-        'numpy>=1.25.2',
-        'scipy>=1.11.2',
-        'matplotlib>=3.3.2'
+        'numpy>=1.26.2',
+        'scipy>=1.11.4',
+        'matplotlib>=3.8.2'
         ]
 authors = [
     {name = "Nick Gray", email = "ngg@liv.ac.uk"}

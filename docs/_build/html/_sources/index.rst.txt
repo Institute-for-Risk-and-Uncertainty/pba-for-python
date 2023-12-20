@@ -1,21 +1,11 @@
-.. PBA for Python documentation master file, created by
-   sphinx-quickstart on Mon Sep 21 12:27:47 2020.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-.. include:: ../README.rst
+PBA for Python
+==========================================
 
 .. toctree::
-   :maxdepth: 3
-   :caption: Contents:
+   :maxdepth: 2
 
-   source/pba.interval.rst
-   source/pba.pboxes.rst
-   source/pba.copula.rst
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   interval.rst
+   pbox.rst
+   distributions.rst
+   logical.rst
