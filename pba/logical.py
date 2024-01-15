@@ -25,6 +25,7 @@ class Logical(Interval):
         right side of interval
         
     Can be either [False, False], [False, True] and [True, True]
+    
     '''
     def __init__(self, left: bool ,right: bool = None):
 
@@ -72,6 +73,7 @@ def is_same_as(a: Union['Pbox', 'Interval'], b: Union['Pbox', 'Interval'], deep 
 
     Returns:
     - bool: True if the objects have identical parameters. For Intervals this means that left and right are the same for both a and b. For p-boxes 
+    
     """
     if not isinstance(a,(Interval, Pbox)) or not isinstance(b,(Interval, Pbox)):
         return a == b
@@ -197,6 +199,7 @@ def never(logical: Logical) -> bool:
     
     >>> never(a < c)
     True
+    
     """
     
     if isinstance(logical,Logical):
@@ -317,6 +320,7 @@ def xtimes(logical: Logical) -> bool:
     False
     >>> pba.xtimes(c < b)
     True
+    
     """
     
     if isinstance(logical,Logical):
@@ -345,17 +349,4 @@ def xtimes(logical: Logical) -> bool:
         
     else:
         raise TypeError("Input must be a Logical, Interval or a numeric value.")
-    '''
-    exclusive sometimes
-    
-    Returns true if the logical function is sometimes True but not always true
-    If the input is not a Logical class then function will always return false
-    '''
 
-    if logical.__class__.__name__ != 'Logical':
-        return False
-
-    elif logical.left ^ logical.right:
-        return True
-    else:
-        return False

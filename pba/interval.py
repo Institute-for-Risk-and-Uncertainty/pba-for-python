@@ -316,7 +316,18 @@ class Interval:
     
 
     def __ge__(self,other):
+        if not isinstance(other, Interval):
+            try:
+                other = Interval(other)
+            except:
+                raise TypeError(f"'>=' not supported between instances of Interval and {type(other)}")
         
+        if self.right <= other.left:
+            return Interval(1,1).to_logical()
+        elif self.left > other.right:
+            return Interval(0,0).to_logical()
+        else:
+            return Interval(0,1).to_logical()
 
     def __bool__(self):
 

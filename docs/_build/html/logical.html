@@ -253,6 +253,22 @@ ValueError: If the input float is not between 0 and 1 or the interval contains v
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="pba.logical.is_same_as">
+<span class="sig-prename descclassname"><span class="pre">pba.logical.</span></span><span class="sig-name descname"><span class="pre">is_same_as</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pbox.html#pba.pbox.Pbox" title="pba.pbox.Pbox"><span class="pre">Pbox</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="interval.html#pba.interval.Interval" title="pba.interval.Interval"><span class="pre">Interval</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="pbox.html#pba.pbox.Pbox" title="pba.pbox.Pbox"><span class="pre">Pbox</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="interval.html#pba.interval.Interval" title="pba.interval.Interval"><span class="pre">Interval</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.logical.is_same_as" title="Link to this definition">#</a></dt>
+<dd><p>Check if two objects of type ‘Pbox’ or ‘Interval’ are equal.</p>
+<p>Parameters:
+- a (Union[‘Pbox’, ‘Interval’]): The first object to be compared.
+- b (Union[‘Pbox’, ‘Interval’]): The second object to be compared.
+- deep (bool, optional): If True, performs a deep comparison, considering object identity.</p>
+<blockquote>
+<div><p>If False, performs a shallow comparison based on object attributes.
+Defaults to False.</p>
+</div></blockquote>
+<p>Returns:
+- bool: True if the objects have identical parameters. For Intervals this means that left and right are the same for both a and b. For p-boxes</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="pba.logical.never">
 <span class="sig-prename descclassname"><span class="pre">pba.logical.</span></span><span class="sig-name descname"><span class="pre">never</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logical</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pba.logical.Logical" title="pba.logical.Logical"><span class="pre">Logical</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#pba.logical.never" title="Link to this definition">#</a></dt>
 <dd><p>Checks whether the logical value is always true. i.e. Every value from one interval or p-box is always less than any other values from another.</p>
@@ -397,6 +413,7 @@ ValueError: If the input float is not between 0 and 1 or the interval contains v
 <li><a class="reference internal" href="#">Logical</a><ul>
 <li><a class="reference internal" href="#pba.logical.Logical"><code class="docutils literal notranslate"><span class="pre">Logical</span></code></a></li>
 <li><a class="reference internal" href="#pba.logical.always"><code class="docutils literal notranslate"><span class="pre">always()</span></code></a></li>
+<li><a class="reference internal" href="#pba.logical.is_same_as"><code class="docutils literal notranslate"><span class="pre">is_same_as()</span></code></a></li>
 <li><a class="reference internal" href="#pba.logical.never"><code class="docutils literal notranslate"><span class="pre">never()</span></code></a></li>
 <li><a class="reference internal" href="#pba.logical.sometimes"><code class="docutils literal notranslate"><span class="pre">sometimes()</span></code></a></li>
 <li><a class="reference internal" href="#pba.logical.xtimes"><code class="docutils literal notranslate"><span class="pre">xtimes()</span></code></a></li>

@@ -198,12 +198,17 @@
 <p>An interval is an uncertain number for which only the endpoints are known, <span class="math notranslate nohighlight">\(x=[a,b]\)</span>.
 This is interpreted as $x$ being between <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> but with no more information about the value of <span class="math notranslate nohighlight">\(x\)</span>.
 Intervals embody epistemic uncertainty within PBA.</p>
-<p>Intervals can be created using:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pba</span>
-<span class="n">pba</span><span class="o">.</span><span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">pba</span><span class="o">.</span><span class="n">I</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<p>Intervals can be created using either of the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pba</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pba</span><span class="o">.</span><span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">Interval [0,1]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pba</span><span class="o">.</span><span class="n">I</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">Interval [2,3]</span>
 </pre></div>
 </div>
+<section id="arithmetic">
+<h2>Arithmetic<a class="headerlink" href="#arithmetic" title="Link to this heading">#</a></h2>
+</section>
 <section id="class-documentation">
 <h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Link to this heading">#</a></h2>
 <dl class="py class">
@@ -425,6 +430,7 @@ self.right - self.left</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Intervals</a><ul>
+<li><a class="reference internal" href="#arithmetic">Arithmetic</a></li>
 <li><a class="reference internal" href="#class-documentation">Class Documentation</a><ul>
 <li><a class="reference internal" href="#pba.interval.Interval"><code class="docutils literal notranslate"><span class="pre">Interval</span></code></a><ul>
 <li><a class="reference internal" href="#pba.interval.Interval.equiv"><code class="docutils literal notranslate"><span class="pre">Interval.equiv()</span></code></a></li>
