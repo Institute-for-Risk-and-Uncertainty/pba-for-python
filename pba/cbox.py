@@ -1,8 +1,6 @@
 if __name__ is not None and "." in __name__:
-    from .interval import Interval, Logical
     from .pbox import Pbox
 else:
-    from interval import Interval, Logical
     from pbox import Pbox
     
 import numpy as np
@@ -46,7 +44,7 @@ class Cbox(Pbox):
         else:
             shape_text = f' {self.shape}' # space to start; see below lacking space
 
-        return f'Cbox: ~{shape_text}(range={range_text}, mean={mean_text}, var={var_text})'
+        return f'Cbox: ~ {shape_text} (range={range_text}, mean={mean_text}, var={var_text})'
 
     __str__ = __repr__
 
