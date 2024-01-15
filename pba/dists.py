@@ -15,7 +15,7 @@ __all__ = [
     'bernoulli',
     'beta',
     'betabinom',
-    'betapert',
+    # 'betapert',
     'betaprime',
     'binom', 
     'boltzmann', 
@@ -1134,25 +1134,6 @@ def geninvgauss(*args, steps = 200):
           var_left   = var.left,
           var_right  = var.right
           )
-
-# def gibrat(*args, steps = 200):
-#     args = list(args)
-#     for i in range(0,len(args)):
-#         if args[i].__class__.__name__ != 'Interval':
-#             args[i] = Interval(args[i])
-
-#     Left, Right, mean, var = __get_bounds('gibrat',steps,*args)
-
-#     return Pbox(
-#           Left,
-#           Right,
-#           steps      = steps,
-#           shape      = 'gibrat',
-#           mean_left  = mean.left,
-#           mean_right = mean.right,
-#           var_left   = var.left,
-#           var_right  = var.right
-#           )
 
 def gompertz(*args, steps = 200):
     args = list(args)
@@ -2607,8 +2588,8 @@ U = uniform
 
 
 
-def betapert(minimum, maximum, mode):
-    mu = (minimum + maximum + 4*mode)/6
-    alpha1 = (mu - minimum)*(2*mode - minimum - maximum)/((mode - mu)*(maximum - minimum))
-    alpha2 = alpha1*(maximum - mu)/(mu - minimum)
-    return minimum + (maximum - minimum) * beta(alpha1, alpha2)
+# def betapert(minimum, maximum, mode):
+#     mu = (minimum + maximum + 4*mode)/6
+#     alpha1 = (mu - minimum)*(2*mode - minimum - maximum)/((mode - mu)*(maximum - minimum))
+#     alpha2 = alpha1*(maximum - mu)/(mu - minimum)
+#     return minimum + (maximum - minimum) * beta(alpha1, alpha2)

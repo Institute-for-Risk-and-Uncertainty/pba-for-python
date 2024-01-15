@@ -154,11 +154,11 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+  <ul class="current">
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Intervals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pbox.html">Probability Boxes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributions.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logical.html">Logical</a></li>
 </ul>
 
 </div>
@@ -194,140 +194,139 @@
         </div>
         <article role="main">
           <section id="intervals">
-<h1>Intervals<a class="headerlink" href="#intervals" title="Link to this heading"></a></h1>
-<p>An interval is an uncertain number for which only the endpoints are known, for example if <span class="math notranslate nohighlight">\(x=[a,b]\)</span>
-then this can be interpreted as <span class="math notranslate nohighlight">\(x\)</span> being between <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> but with no more information about the value of <span class="math notranslate nohighlight">\(x\)</span>.</p>
-<dl class="simple">
-<dt>Intervals can be created using::</dt><dd><p>pba.I(left,right)
-pba.Interval(left,right)</p>
-</dd>
-</dl>
+<h1>Intervals<a class="headerlink" href="#intervals" title="Link to this heading">#</a></h1>
+<p>An interval is an uncertain number for which only the endpoints are known, <span class="math notranslate nohighlight">\(x=[a,b]\)</span>.
+This is interpreted as $x$ being between <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> but with no more information about the value of <span class="math notranslate nohighlight">\(x\)</span>.
+Intervals embody epistemic uncertainty within PBA.</p>
+<p>Intervals can be created using:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pba</span>
+<span class="n">pba</span><span class="o">.</span><span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">pba</span><span class="o">.</span><span class="n">I</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pba.interval.Interval">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pba.interval.</span></span><span class="sig-name descname"><span class="pre">Interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval" title="Link to this definition"></a></dt>
-<dd><section id="parameters">
-<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
-<dl class="simple">
-<dt>left<span class="classifier">numeric</span></dt><dd><p>left side of interval</p>
-</dd>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pba.interval.</span></span><span class="sig-name descname"><span class="pre">Interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval" title="Link to this definition">#</a></dt>
+<dd><p>Parameters:
+- left : numeric</p>
+<blockquote>
+<div><p>left side of interval</p>
+</div></blockquote>
+<ul class="simple">
+<li><dl class="simple">
 <dt>right<span class="classifier">numeric</span></dt><dd><p>right side of interval</p>
 </dd>
 </dl>
-</section>
-<section id="attributes">
-<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
-<dl class="simple">
-<dt>left<span class="classifier">numeric</span></dt><dd><p>left side of interval</p>
-</dd>
-<dt>right<span class="classifier">numeric</span></dt><dd><p>right side of interval</p>
-</dd>
-</dl>
+</li>
+</ul>
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.equiv">
-<span class="sig-name descname"><span class="pre">equiv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.equiv" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">equiv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.equiv" title="Link to this definition">#</a></dt>
 <dd><p>Checks whether two intervals are equivalent. 
 True if self.left == other.right and self.right == other.right</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.hi">
-<span class="sig-name descname"><span class="pre">hi</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.hi" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">hi</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.hi" title="Link to this definition">#</a></dt>
 <dd><p>Returns the right side of the interval</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.intersection">
-<span class="sig-name descname"><span class="pre">intersection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.intersection" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">intersection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.intersection" title="Link to this definition">#</a></dt>
 <dd><p>Calculates the intersection between two intervals</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.lo">
-<span class="sig-name descname"><span class="pre">lo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.lo" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">lo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.lo" title="Link to this definition">#</a></dt>
 <dd><p>Returns the left side of the interval</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.midpoint">
-<span class="sig-name descname"><span class="pre">midpoint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.midpoint" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">midpoint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.midpoint" title="Link to this definition">#</a></dt>
 <dd><p>Returns midpoint of interval
 (self.left+self.right)/2</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.oadd">
-<span class="sig-name descname"><span class="pre">oadd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.oadd" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">oadd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.oadd" title="Link to this definition">#</a></dt>
 <dd><p>Returns addition using opposite arithmetic</p>
 <p>a+b = [a.left + b.right, a.right + b.left]</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.odiv">
-<span class="sig-name descname"><span class="pre">odiv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.odiv" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">odiv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.odiv" title="Link to this definition">#</a></dt>
 <dd><p>Returns division using opposite arithmetic</p>
 <p>a/b = [a.left / b.right, a.right / b.left]</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.omul">
-<span class="sig-name descname"><span class="pre">omul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.omul" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">omul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.omul" title="Link to this definition">#</a></dt>
 <dd><p>Returns multiplication using opposite arithmetic</p>
 <p>a*b = [a.left * b.right, a.right * b.left]</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.osub">
-<span class="sig-name descname"><span class="pre">osub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.osub" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">osub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.osub" title="Link to this definition">#</a></dt>
 <dd><p>Returns subtraction using opposite arithmetic</p>
 <p>a+b = [a.left - b.right, a.right - b.left]</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.padd">
-<span class="sig-name descname"><span class="pre">padd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.padd" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">padd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.padd" title="Link to this definition">#</a></dt>
 <dd><p>Returns addition using perfect arithmetic</p>
 <p>a+b = [a.left + b.left, a.right + b.right]</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.pdiv">
-<span class="sig-name descname"><span class="pre">pdiv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.pdiv" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">pdiv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.pdiv" title="Link to this definition">#</a></dt>
 <dd><p>Returns division using opposite arithmetic</p>
 <p>a/b = [a.left / b.left, a.right / b.right]</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.pmul">
-<span class="sig-name descname"><span class="pre">pmul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.pmul" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">pmul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.pmul" title="Link to this definition">#</a></dt>
 <dd><p>Returns multiplication using opposite arithmetic</p>
 <p>a*b = [a.left * b.left, a.right * b.right]</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.psub">
-<span class="sig-name descname"><span class="pre">psub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.psub" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">psub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.psub" title="Link to this definition">#</a></dt>
 <dd><p>Returns subtraction using perfect arithmetic</p>
 <p>a+b = [a.left - b.left, a.right - b.right]</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.recip">
-<span class="sig-name descname"><span class="pre">recip</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.recip" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">recip</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.recip" title="Link to this definition">#</a></dt>
 <dd><p>Calculates the reciprocle of the interval.
 If <span class="math notranslate nohighlight">\(0 \in [a,b]\)</span> it returns a division by zero error</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.sample">
-<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#pba.interval.Interval.sample" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#pba.interval.Interval.sample" title="Link to this definition">#</a></dt>
 <dd><p>Returns a random value from within the interval</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.straddles">
-<span class="sig-name descname"><span class="pre">straddles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.straddles" title="Link to this definition"></a></dt>
-<dd><section id="id1">
-<h3>Parameters<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<span class="sig-name descname"><span class="pre">straddles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.straddles" title="Link to this definition">#</a></dt>
+<dd><section id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">#</a></h3>
 <dl class="simple">
 <dt>N<span class="classifier">numeric</span></dt><dd><p>Number to check</p>
 </dd>
@@ -336,7 +335,7 @@ If <span class="math notranslate nohighlight">\(0 \in [a,b]\)</span> it returns 
 </dl>
 </section>
 <section id="returns">
-<h3>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h3>
+<h3>Returns<a class="headerlink" href="#returns" title="Link to this heading">#</a></h3>
 <dl class="simple">
 <dt>True</dt><dd><p>If <span class="math notranslate nohighlight">\(\mathrm{left} \leq N \leq \mathrm{right}\)</span> (Assuming <cite>endpoints=True</cite>)</p>
 </dd>
@@ -348,26 +347,26 @@ If <span class="math notranslate nohighlight">\(0 \in [a,b]\)</span> it returns 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.straddles_zero">
-<span class="sig-name descname"><span class="pre">straddles_zero</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endpoints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.straddles_zero" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">straddles_zero</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endpoints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.straddles_zero" title="Link to this definition">#</a></dt>
 <dd><p>Checks whether <span class="math notranslate nohighlight">\(0\)</span> is within the interval</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.to_logical">
-<span class="sig-name descname"><span class="pre">to_logical</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.to_logical" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">to_logical</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.to_logical" title="Link to this definition">#</a></dt>
 <dd><p>Turns the interval into a logical interval, this is done by chacking the truth value of the ends of the interval</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.width">
-<span class="sig-name descname"><span class="pre">width</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.width" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">width</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.width" title="Link to this definition">#</a></dt>
 <dd><p>Returns the width of the interval
 self.right - self.left</p>
 </dd></dl>
 
-</section>
 </dd></dl>
 
+</section>
 </section>
 
         </article>
@@ -426,6 +425,7 @@ self.right - self.left</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Intervals</a><ul>
+<li><a class="reference internal" href="#class-documentation">Class Documentation</a><ul>
 <li><a class="reference internal" href="#pba.interval.Interval"><code class="docutils literal notranslate"><span class="pre">Interval</span></code></a><ul>
 <li><a class="reference internal" href="#pba.interval.Interval.equiv"><code class="docutils literal notranslate"><span class="pre">Interval.equiv()</span></code></a></li>
 <li><a class="reference internal" href="#pba.interval.Interval.hi"><code class="docutils literal notranslate"><span class="pre">Interval.hi()</span></code></a></li>
@@ -451,6 +451,8 @@ self.right - self.left</p>
 </ul>
 </li>
 </ul>
+</li>
+</ul>
 
           </div>
         </div>
@@ -459,9 +461,7 @@ self.right - self.left</p>
       
     </aside>
   </div>
-</div><script src="_static/jquery.js?v=5d32c60e"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="_static/documentation_options.js?v=45421911"></script>
+</div><script src="_static/documentation_options.js?v=45421911"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>

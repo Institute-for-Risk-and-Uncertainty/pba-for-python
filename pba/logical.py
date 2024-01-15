@@ -50,10 +50,29 @@ class Logical(Interval):
             return "[%g, %g]"%(self.left,self.right)
 
     __str__ = __repr__
-          
+    
+    def __invert__(self):
+        if self.left == 0 and self.right == 0:
+            return Logical(True, True)
+        if self.left == 1 and self.right == 1:
+            return Logical(False, False)
+        else:
+            return self
 
 def is_same_as(a: Union['Pbox', 'Interval'], b: Union['Pbox', 'Interval'], deep = False):
+    """
+    Check if two objects of type 'Pbox' or 'Interval' are equal.
 
+    Parameters:
+    - a (Union['Pbox', 'Interval']): The first object to be compared.
+    - b (Union['Pbox', 'Interval']): The second object to be compared.
+    - deep (bool, optional): If True, performs a deep comparison, considering object identity.
+                             If False, performs a shallow comparison based on object attributes.
+                             Defaults to False.
+
+    Returns:
+    - bool: True if the objects have identical parameters. For Intervals this means that left and right are the same for both a and b. For p-boxes 
+    """
     if not isinstance(a,(Interval, Pbox)) or not isinstance(b,(Interval, Pbox)):
         return a == b
     
@@ -206,7 +225,6 @@ def never(logical: Logical) -> bool:
     else:
         raise TypeError("Input must be a Logical, Interval or a numeric value.")
 
-
 def sometimes(logical: Logical) -> bool:
     """
     Checks whether the logical value is sometimes true. i.e. There exists one value from one interval or p-box is less than a values from another.
@@ -218,7 +236,7 @@ def sometimes(logical: Logical) -> bool:
 
     Parameters:
     - logical (Union[Logical, Interval , Number]): An object representing a logical condition with 'left' and 'right' attributes,
-      or a number between 0 and 1.
+    or a number between 0 and 1.
 
     Returns:
     bool: True if both sides of the logical condition are True or if the float value is equal to 0, False otherwise.
@@ -228,18 +246,17 @@ def sometimes(logical: Logical) -> bool:
     ValueError: If the input float is not between 0 and 1 or the interval contains values outside of [0,1]
     
     Examples:
-    >>> a = Interval(0, 2)
-    >>> b = Interval(1, 4)
-    >>> c = Interval(3, 5)
-    
-    >>> sometimes(a < b)
-    True
-    
-    >>> sometimes(a < c)
-    True
-    
-    >>> sometimes(c < b)
-    True
+    .. code:: python
+        import pba
+        a = pba.Interval(0, 2)
+        b = pba.Interval(1, 4)
+        c = pba.Interval(3, 5)
+        pba.sometimes(a < b) # returns True
+        pba.sometimes(a < c)
+        True
+        pba.sometimes(c < b)
+        True
+        
     """
     
     if isinstance(logical,Logical):
@@ -279,7 +296,7 @@ def xtimes(logical: Logical) -> bool:
 
     Parameters:
     - logical (Union[Logical, Interval , Number]): An object representing a logical condition with 'left' and 'right' attributes,
-      or a number between 0 and 1.
+    or a number between 0 and 1.
 
     Returns:
     bool: True if both sides of the logical condition are True or if the float value is equal to 0, False otherwise.
@@ -289,17 +306,16 @@ def xtimes(logical: Logical) -> bool:
     ValueError: If the input float is not between 0 and 1 or the interval contains values outside of [0,1]
     
     Examples:
-    >>> a = Interval(0, 2)
-    >>> b = Interval(2, 4)
-    >>> c = Interval(2.5,3.5)
     
-    >>> xtimes(a < b)
+    >>> import pba
+    >>> a = pba.Interval(0, 2)
+    >>> b = pba.Interval(2, 4)
+    >>> c = pba.Interval(2.5,3.5)
+    >>> pba.xtimes(a < b)
     False
-    
-    >>> xtimes(a < c)
+    >>> pba.xtimes(a < c)
     False
-    
-    >>> xtimes(c < b)
+    >>> pba.xtimes(c < b)
     True
     """
     

@@ -4,28 +4,25 @@ import numpy as np
 import random as r
 import itertools
 
+
+
 __all__ = ['Interval','I',]
 
 class Interval:
     """
-
-    Parameters
-    ----------
-    left : numeric
+    Parameters:
+    - left : numeric
         left side of interval
-    right : numeric
+    - right : numeric
         right side of interval
         
-    Attributes
-    ----------
-    left : numeric
-        left side of interval
-    right : numeric
-        right side of interval
-
     """
     def __init__(self,left = None, right = None):
 
+        # disallow p-boxes
+        if left.__class__.__name__ == 'Pbox' or right.__class__.__name__ == 'Pbox':
+            raise ValueError("left and right must not be P-boxes ")
+        
         # assume vaccous if no inputs
         if left is None and right is None:
             right = np.inf
@@ -206,7 +203,6 @@ class Interval:
 
         return Interval(lo,hi)
 
-
     def __rtruediv__(self,other):
         
         if self.straddles_zero():
@@ -217,7 +213,6 @@ class Interval:
             return other * self.recip()
         except:
             return NotImplemented
-
 
     def __pow__(self,other):
         if other.__class__.__name__ == "Interval":
@@ -253,134 +248,75 @@ class Interval:
 
         return Interval(powLow,powUp)
 
-
     def __lt__(self,other):
         # <
-        if other.__class__.__name__ == 'Interval':
-            if self.right < other.left:
-                return Logical(1,1)
-            elif self.left > other.right:
-                return Logical(0,0)
-            elif self.straddles(other.left,endpoints = False) or self.straddles(other.right,endpoints = False):
-                return Logical(0,1)
-            else:
-                return Logical(0,0)
-        else:
+        if not isinstance(other, Interval):
             try:
-                if self.right < other:
-                    return Logical(1,1)
-                elif self.straddles(other,endpoints = False):
-                    return Logical(0,1)
-                else:
-                    return Logical(0,0)
-            except Exception as e:
-                raise ValueError
+                other = Interval(other)
+            except:
+                raise TypeError(f"'<' not supported between instances of Interval and {type(other)}")
+        
+        if self.right < other.left:
+            return Interval(1,1).to_logical()
+        elif self.left > other.right:
+            return Interval(0,0).to_logical()
+        else:
+            return Interval(0,1).to_logical()
 
+    def __rgt__(self, other):
+        return self < other
+        
     def __eq__(self,other):
         # ==
-        if other.__class__.__name__ == 'Interval':
-            if self.straddles(other.left) or self.straddles(other.right):
-                return Logical(0,1)
-            else:
-                return Logical(0,0)
-        elif other is None:
-            try:
-                self is None
-            except:
-                raise ValueError
-        else:
-            try:
-                if self.straddles(other):
-                    return Logical(0,1)
-                else:
-                    return Logical(0,0)
-            except:
-                raise ValueError
 
+        if not isinstance(other, Interval):
+            try:
+                other = Interval(other)
+            except:
+                raise TypeError(f"'==' not supported between instances of Interval and {type(other)}")
+            
+        if self.straddles(other.left) or self.straddles(other.right):
+            return Interval(0,1).to_logical()
+        else:
+            return Interval(0,0).to_logical()
 
     def __gt__(self,other):
         # >
-        if other.__class__.__name__ == 'Interval':
-            if self.right < other.left:
-                return Logical(0,0)
-            elif self.left > other.right:
-                return Logical(1,1)
-            elif self.straddles(other.left,endpoints = False) or self.straddles(other.right,endpoints = False):
-                return Logical(0,1)
-            else:
-                return Logical(0,0)
-        else:
-            try:
-                if self.left > other:
-                    return Logical(1,1)
-                elif self.straddles(other,endpoints = False):
-                    return Logical(0,1)
-                else:
-                    return Logical(0,0)
-            except Exception as e:
-                raise ValueError
+        try:
+            lt = self < other
+        except:
+            raise TypeError(f"'>' not supported between instances of Interval and {type(other)}")
+        return ~lt
 
+    def __rlt__(self, other):
+        return self > other
+    
     def __ne__(self,other):
         # !=
-        if other.__class__.__name__ == 'Interval':
-            if self.straddles(other.left) or self.straddles(other.right):
-                return Logical(0,1)
-            else:
-                return Logical(1,1)
-        else:
-            try:
-                if self.straddles(other):
-                    return Logical(0,1)
-                else:
-                    return Logical(1,1)
-            except:
-                try:
-                    return not self is other
-                except:
-                    raise ValueError
-
+        try:
+            eq = self == other
+        except:
+            raise TypeError(f"'!=' not supported between instances of Interval and {type(other)}")
+        return ~eq
+    
     def __le__(self,other):
         # <=
-        if other.__class__.__name__ == 'Interval':
-            if self.right <= other.left:
-                return Logical(1,1)
-            elif self.left >= other.right:
-                return Logical(0,0)
-            elif self.straddles(other.left,endpoints = True) or self.straddles(other.right,endpoints = True):
-                return Logical(0,1)
-            else:
-                return Logical(0,0)
-        else:
+        if not isinstance(other, Interval):
             try:
-                if self.right <= other:
-                    return Logical(1,1)
-                elif self.straddles(other,endpoints = True):
-                    return Logical(0,1)
-                else:
-                    return Logical(0,0)
-            except Exception as e:
-                raise ValueError
+                other = Interval(other)
+            except:
+                raise TypeError(f"'<=' not supported between instances of Interval and {type(other)}")
+        
+        if self.right <= other.left:
+            return Interval(1,1).to_logical()
+        elif self.left > other.right:
+            return Interval(0,0).to_logical()
+        else:
+            return Interval(0,1).to_logical()
+    
 
     def __ge__(self,other):
-        if other.__class__.__name__ == 'Interval':
-            if self.right <= other.left:
-                return Logical(0,0)
-            elif self.left >= other.right:
-                return Logical(1,1)
-            elif self.straddles(other.left,endpoints = True) or self.straddles(other.right,endpoints = True):
-                return Logical(0,1)
-            else:
-                return Logical(0,0)
-        else:
-            try:
-                if self.left > other:
-                    return Logical(1,1)
-                elif self.straddles(other,endpoints = True):
-                    return Logical(0,1)
-                else:
-                    return Logical(0,0)
-            except Exception as e:
-                raise ValueError
+        
 
     def __bool__(self):
 
@@ -510,7 +446,7 @@ class Interval:
             right = True
         else:
             right = False
-        
+        from .logical import Logical
         return Logical(left,right)
     
         
@@ -526,7 +462,7 @@ class Interval:
         Returns
         -------
         True
-            If :math:`\\mathrm{left} \\leq N \\leq \mathrm{right}` (Assuming `endpoints=True`)
+            If :math:`\mathrm{left} \leq N \leq \mathrm{right}` (Assuming `endpoints=True`)
         False
             Otherwise
         """

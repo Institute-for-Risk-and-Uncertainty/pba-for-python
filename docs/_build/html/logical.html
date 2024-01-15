@@ -194,13 +194,13 @@
         </div>
         <article role="main">
           <section id="module-pba.logical">
-<span id="logical"></span><h1>Logical<a class="headerlink" href="#module-pba.logical" title="Link to this heading"></a></h1>
+<span id="logical"></span><h1>Logical<a class="headerlink" href="#module-pba.logical" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="pba.logical.Logical">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pba.logical.</span></span><span class="sig-name descname"><span class="pre">Logical</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.logical.Logical" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pba.logical.</span></span><span class="sig-name descname"><span class="pre">Logical</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.logical.Logical" title="Link to this definition">#</a></dt>
 <dd><p>Imprecise Boolean object</p>
 <section id="parameters">
-<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">#</a></h2>
 <dl class="simple">
 <dt>left<span class="classifier">bool</span></dt><dd><p>left side of interval</p>
 </dd>
@@ -209,7 +209,7 @@
 </dl>
 </section>
 <section id="attributes">
-<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">#</a></h2>
 <dl class="simple">
 <dt>left<span class="classifier">bool</span></dt><dd><p>left side of interval</p>
 </dd>
@@ -222,7 +222,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pba.logical.always">
-<span class="sig-prename descclassname"><span class="pre">pba.logical.</span></span><span class="sig-name descname"><span class="pre">always</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logical</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pba.logical.Logical" title="pba.logical.Logical"><span class="pre">Logical</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="interval.html#pba.interval.Interval" title="pba.interval.Interval"><span class="pre">Interval</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Number</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#pba.logical.always" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pba.logical.</span></span><span class="sig-name descname"><span class="pre">always</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logical</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pba.logical.Logical" title="pba.logical.Logical"><span class="pre">Logical</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="interval.html#pba.interval.Interval" title="pba.interval.Interval"><span class="pre">Interval</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Number</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#pba.logical.always" title="Link to this definition">#</a></dt>
 <dd><p>Checks whether the logical value is always true. i.e. Every value from one interval or p-box is always greater than any other values from another.</p>
 <p>This function takes either a Logical object, an interval or a float as input and checks if
 both the left and right attributes of the Logical object are True.
@@ -254,7 +254,7 @@ ValueError: If the input float is not between 0 and 1 or the interval contains v
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pba.logical.never">
-<span class="sig-prename descclassname"><span class="pre">pba.logical.</span></span><span class="sig-name descname"><span class="pre">never</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logical</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pba.logical.Logical" title="pba.logical.Logical"><span class="pre">Logical</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#pba.logical.never" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pba.logical.</span></span><span class="sig-name descname"><span class="pre">never</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logical</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pba.logical.Logical" title="pba.logical.Logical"><span class="pre">Logical</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#pba.logical.never" title="Link to this definition">#</a></dt>
 <dd><p>Checks whether the logical value is always true. i.e. Every value from one interval or p-box is always less than any other values from another.</p>
 <p>This function takes either a Logical object, an interval or a float as input and checks if
 both the left and right attributes of the Logical object are False.
@@ -286,70 +286,60 @@ ValueError: If the input float is not between 0 and 1 or the interval contains v
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pba.logical.sometimes">
-<span class="sig-prename descclassname"><span class="pre">pba.logical.</span></span><span class="sig-name descname"><span class="pre">sometimes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logical</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pba.logical.Logical" title="pba.logical.Logical"><span class="pre">Logical</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#pba.logical.sometimes" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pba.logical.</span></span><span class="sig-name descname"><span class="pre">sometimes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logical</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pba.logical.Logical" title="pba.logical.Logical"><span class="pre">Logical</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#pba.logical.sometimes" title="Link to this definition">#</a></dt>
 <dd><p>Checks whether the logical value is sometimes true. i.e. There exists one value from one interval or p-box is less than a values from another.</p>
 <p>This function takes either a Logical object, an interval or a float as input and checks if
 either the left and right attributes of the Logical object are True.
 If an interval is provided, it that both endpoints are not 0.
 If a numeric value is provided, it checks if the is not equal to 0.</p>
 <p>Parameters:
-- logical (Union[Logical, Interval , Number]): An object representing a logical condition with ‘left’ and ‘right’ attributes,</p>
-<blockquote>
-<div><p>or a number between 0 and 1.</p>
-</div></blockquote>
+- logical (Union[Logical, Interval , Number]): An object representing a logical condition with ‘left’ and ‘right’ attributes,
+or a number between 0 and 1.</p>
 <p>Returns:
 bool: True if both sides of the logical condition are True or if the float value is equal to 0, False otherwise.</p>
 <p>Raises:
 TypeError: If the input is not an instance of Interval, Logical or a numeric value.
 ValueError: If the input float is not between 0 and 1 or the interval contains values outside of [0,1]</p>
 <p>Examples:
-&gt;&gt;&gt; a = Interval(0, 2)
-&gt;&gt;&gt; b = Interval(1, 4)
-&gt;&gt;&gt; c = Interval(3, 5)</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sometimes</span><span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">)</span>
-<span class="go">True</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sometimes</span><span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="n">c</span><span class="p">)</span>
-<span class="go">True</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sometimes</span><span class="p">(</span><span class="n">c</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">)</span>
-<span class="go">True</span>
-</pre></div>
-</div>
+.. code:: python</p>
+<blockquote>
+<div><p>import pba
+a = pba.Interval(0, 2)
+b = pba.Interval(1, 4)
+c = pba.Interval(3, 5)
+pba.sometimes(a &lt; b) # returns True
+pba.sometimes(a &lt; c)
+True
+pba.sometimes(c &lt; b)
+True</p>
+</div></blockquote>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pba.logical.xtimes">
-<span class="sig-prename descclassname"><span class="pre">pba.logical.</span></span><span class="sig-name descname"><span class="pre">xtimes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logical</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pba.logical.Logical" title="pba.logical.Logical"><span class="pre">Logical</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#pba.logical.xtimes" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pba.logical.</span></span><span class="sig-name descname"><span class="pre">xtimes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logical</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pba.logical.Logical" title="pba.logical.Logical"><span class="pre">Logical</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#pba.logical.xtimes" title="Link to this definition">#</a></dt>
 <dd><p>Checks whether the logical value is exclusively sometimes true. i.e. There exists one value from one interval or p-box is less than a values from another but it is not always the case.</p>
 <p>This function takes either a Logical object, an interval or a float as input and checks that the left value is False and the right value is True
 If an interval is provided, it that both endpoints are not 0 or 1.
 If a numeric value is provided, it checks if the is not equal to 0 or 1.</p>
 <p>Parameters:
-- logical (Union[Logical, Interval , Number]): An object representing a logical condition with ‘left’ and ‘right’ attributes,</p>
-<blockquote>
-<div><p>or a number between 0 and 1.</p>
-</div></blockquote>
+- logical (Union[Logical, Interval , Number]): An object representing a logical condition with ‘left’ and ‘right’ attributes,
+or a number between 0 and 1.</p>
 <p>Returns:
 bool: True if both sides of the logical condition are True or if the float value is equal to 0, False otherwise.</p>
 <p>Raises:
 TypeError: If the input is not an instance of Interval, Logical or a numeric value.
 ValueError: If the input float is not between 0 and 1 or the interval contains values outside of [0,1]</p>
-<p>Examples:
-&gt;&gt;&gt; a = Interval(0, 2)
-&gt;&gt;&gt; b = Interval(2, 4)
-&gt;&gt;&gt; c = Interval(2.5,3.5)</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">xtimes</span><span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">)</span>
+<p>Examples:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pba</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">pba</span><span class="o">.</span><span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">pba</span><span class="o">.</span><span class="n">Interval</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">pba</span><span class="o">.</span><span class="n">Interval</span><span class="p">(</span><span class="mf">2.5</span><span class="p">,</span><span class="mf">3.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pba</span><span class="o">.</span><span class="n">xtimes</span><span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">)</span>
 <span class="go">False</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">xtimes</span><span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pba</span><span class="o">.</span><span class="n">xtimes</span><span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="n">c</span><span class="p">)</span>
 <span class="go">False</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">xtimes</span><span class="p">(</span><span class="n">c</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pba</span><span class="o">.</span><span class="n">xtimes</span><span class="p">(</span><span class="n">c</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">)</span>
 <span class="go">True</span>
 </pre></div>
 </div>
@@ -421,9 +411,7 @@ ValueError: If the input float is not between 0 and 1 or the interval contains v
       
     </aside>
   </div>
-</div><script src="_static/jquery.js?v=5d32c60e"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="_static/documentation_options.js?v=45421911"></script>
+</div><script src="_static/documentation_options.js?v=45421911"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>

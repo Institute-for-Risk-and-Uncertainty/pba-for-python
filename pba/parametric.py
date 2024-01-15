@@ -59,11 +59,6 @@ class Bounds():
             var_right=var.right
         )
 
-# class beta_scale(Bounds):
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-
-
 
 class Parametric(Bounds):
     """

@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="Probability Boxes" href="pbox.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Logical" href="logical.html" /><link rel="prev" title="Probability Boxes" href="pbox.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
         <title>Distributions - PBA-for-python v0.16.2 documentation</title>
@@ -154,11 +154,11 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+  <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="interval.html">Intervals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pbox.html">Probability Boxes</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logical.html">Logical</a></li>
 </ul>
 
 </div>
@@ -194,26 +194,26 @@
         </div>
         <article role="main">
           <section id="module-pba.dists">
-<span id="distributions"></span><h1>Distributions<a class="headerlink" href="#module-pba.dists" title="Link to this heading"></a></h1>
+<span id="distributions"></span><h1>Distributions<a class="headerlink" href="#module-pba.dists" title="Link to this heading">#</a></h1>
 <section id="distribution-based-p-boxes">
-<h2>Distribution based p-boxes<a class="headerlink" href="#distribution-based-p-boxes" title="Link to this heading"></a></h2>
+<h2>Distribution based p-boxes<a class="headerlink" href="#distribution-based-p-boxes" title="Link to this heading">#</a></h2>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="pba.dists.beta">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">beta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.beta" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">beta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.beta" title="Link to this definition">#</a></dt>
 <dd><p>Beta distribution</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pba.dists.lognorm">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">lognorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.lognorm" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">lognorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.lognorm" title="Link to this definition">#</a></dt>
 <dd><p>Creates a p-box for the lognormal distribution</p>
 <p><em>Note: the parameters used are the mean and variance of the lognormal distribution not the mean and variance of the underlying normal</em>
 See:
 <cite>[1]&lt;https://en.wikipedia.org/wiki/Log-normal_distribution#Generation_and_parameters&gt;</cite>
 <cite>[2]&lt;https://stackoverflow.com/questions/51906063/distribution-mean-and-standard-deviation-using-scipy-stats&gt;</cite></p>
 <section id="parameters">
-<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">#</a></h2>
 <dl class="simple">
 <dt>mean<span class="classifier"></span></dt><dd><p>mean of the lognormal distribution</p>
 </dd>
@@ -222,21 +222,21 @@ See:
 </dl>
 </section>
 <section id="returns">
-<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading">#</a></h2>
 <p>Pbox</p>
 </section>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pba.dists.lognormal">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">lognormal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.lognormal" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">lognormal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.lognormal" title="Link to this definition">#</a></dt>
 <dd><p>Creates a p-box for the lognormal distribution</p>
 <p><em>Note: the parameters used are the mean and variance of the lognormal distribution not the mean and variance of the underlying normal</em>
 See:
 <cite>[1]&lt;https://en.wikipedia.org/wiki/Log-normal_distribution#Generation_and_parameters&gt;</cite>
 <cite>[2]&lt;https://stackoverflow.com/questions/51906063/distribution-mean-and-standard-deviation-using-scipy-stats&gt;</cite></p>
 <section id="id1">
-<h2>Parameters<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<h2>Parameters<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <dl class="simple">
 <dt>mean<span class="classifier"></span></dt><dd><p>mean of the lognormal distribution</p>
 </dd>
@@ -245,7 +245,7 @@ See:
 </dl>
 </section>
 <section id="id2">
-<h2>Returns<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<h2>Returns<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
 <p>Pbox</p>
 </section>
 </dd></dl>
@@ -257,7 +257,15 @@ See:
       <footer>
         
         <div class="related-pages">
-          
+          <a class="next-page" href="logical.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Logical</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
           <a class="prev-page" href="pbox.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
@@ -315,9 +323,7 @@ See:
       
     </aside>
   </div>
-</div><script src="_static/jquery.js?v=5d32c60e"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="_static/documentation_options.js?v=45421911"></script>
+</div><script src="_static/documentation_options.js?v=45421911"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>

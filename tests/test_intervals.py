@@ -1,6 +1,7 @@
 import pytest
 
-from pba import Interval
+from pba import Interval, is_same_as, Logical
+
 from numpy.random import default_rng
 
 rng = default_rng()
@@ -45,3 +46,73 @@ def test_Interval_div0():
     
     with pytest.raises(ZeroDivisionError):
         a / b
+        
+def test_Interval_lt():
+    a = Interval(0,1)
+    b = Interval(2,3)
+    c = Interval(0.5,2.5)
+    d = Interval(1,2)
+    
+    assert a < b
+    assert not b < a
+    assert is_same_as(c < a, Logical(0,1))
+    assert is_same_as(c < b, Logical(0,1))
+    assert is_same_as(a < d, Logical(0,1))
+    assert a < 1.1
+    assert not a < -0.1
+    assert is_same_as(a < 0.5, Logical(0,1))
+    assert is_same_as(a < 1, Logical(0,1))
+    # Also test __rgt__
+    assert 1.1 > a
+    assert not -0.1 > a
+    assert is_same_as(0.5 > a, Logical(0,1))
+    assert is_same_as(1 > a, Logical(0,1))
+    
+    with pytest.raises(TypeError):
+        a < 'a' 
+        
+def test_Interval_gt():
+    a = Interval(0,1)
+    b = Interval(2,3)
+    c = Interval(0.5,2.5)
+    d = Interval(1,2)
+    
+    assert not a > b
+    assert b > a
+    assert is_same_as(c > a, Logical(0,1))
+    assert is_same_as(c > b, Logical(0,1))
+    assert is_same_as(a > d, Logical(0,1))
+    assert not a > 1.1
+    assert a > -0.1
+    assert is_same_as(a > 0.5, Logical(0,1))
+    assert is_same_as(a > 1, Logical(0,1))
+    # Also test __rlt__
+    assert 1.1 > a
+    assert not -0.1 > a
+    assert is_same_as(0.5 > a, Logical(0,1))
+    assert is_same_as(1 > a, Logical(0,1))
+    
+    with pytest.raises(TypeError):
+        a < 'a' 
+        
+def test_Interval_eq():
+    a = Interval(0,1)
+    b = Interval(1,2)
+    c = Interval(1.5,2.5)
+
+    assert is_same_as(a == b, Logical(0,1))
+    assert is_same_as(b == c, Logical(0,1))
+    assert not a == c
+
+    assert is_same_as(1 == a, Logical(0,1))
+    
+def test_Interval_neq():
+    a = Interval(0,1)
+    b = Interval(1,2)
+    c = Interval(1.5,2.5)
+
+    assert is_same_as(a == b, Logical(0,1))
+    assert is_same_as(b == c, Logical(0,1))
+    assert not a == c
+
+    assert is_same_as(1 == a, Logical(0,1))
