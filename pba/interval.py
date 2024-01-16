@@ -9,14 +9,15 @@ import itertools
 __all__ = ['Interval','I',]
 
 class Interval:
-    """
-    Parameters:
-    - left : numeric
-        left side of interval
-    - right : numeric
-        right side of interval
-        
-    """
+    '''
+    Attributes
+    ----------
+    left : float
+        The left boundary of the interval. It can be -inf if no value is provided.
+    right : float
+        The right boundary of the interval. It can be inf if no value is provided.
+
+    '''
     def __init__(self,left = None, right = None):
 
         # disallow p-boxes

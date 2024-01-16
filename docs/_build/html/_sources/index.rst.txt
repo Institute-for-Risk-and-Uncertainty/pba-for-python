@@ -9,3 +9,4 @@ PBA for Python
    pbox.rst
    distributions.rst
    logical.rst
+   cbox.rst

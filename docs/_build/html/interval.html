@@ -159,6 +159,7 @@
 <li class="toctree-l1"><a class="reference internal" href="pbox.html">Probability Boxes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributions.html">Distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="logical.html">Logical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cbox.html">Confidence Boxes</a></li>
 </ul>
 
 </div>
@@ -214,18 +215,14 @@ Intervals embody epistemic uncertainty within PBA.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="pba.interval.Interval">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pba.interval.</span></span><span class="sig-name descname"><span class="pre">Interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval" title="Link to this definition">#</a></dt>
-<dd><p>Parameters:
-- left : numeric</p>
-<blockquote>
-<div><p>left side of interval</p>
-</div></blockquote>
-<ul class="simple">
-<li><dl class="simple">
-<dt>right<span class="classifier">numeric</span></dt><dd><p>right side of interval</p>
+<dd><section id="attributes">
+<h3>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>left<span class="classifier">float</span></dt><dd><p>The left boundary of the interval. It can be -inf if no value is provided.</p>
+</dd>
+<dt>right<span class="classifier">float</span></dt><dd><p>The right boundary of the interval. It can be inf if no value is provided.</p>
 </dd>
 </dl>
-</li>
-</ul>
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.equiv">
 <span class="sig-name descname"><span class="pre">equiv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.equiv" title="Link to this definition">#</a></dt>
@@ -331,7 +328,7 @@ If <span class="math notranslate nohighlight">\(0 \in [a,b]\)</span> it returns 
 <dt class="sig sig-object py" id="pba.interval.Interval.straddles">
 <span class="sig-name descname"><span class="pre">straddles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.straddles" title="Link to this definition">#</a></dt>
 <dd><section id="parameters">
-<h3>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">#</a></h3>
+<h4>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">#</a></h4>
 <dl class="simple">
 <dt>N<span class="classifier">numeric</span></dt><dd><p>Number to check</p>
 </dd>
@@ -340,7 +337,7 @@ If <span class="math notranslate nohighlight">\(0 \in [a,b]\)</span> it returns 
 </dl>
 </section>
 <section id="returns">
-<h3>Returns<a class="headerlink" href="#returns" title="Link to this heading">#</a></h3>
+<h4>Returns<a class="headerlink" href="#returns" title="Link to this heading">#</a></h4>
 <dl class="simple">
 <dt>True</dt><dd><p>If <span class="math notranslate nohighlight">\(\mathrm{left} \leq N \leq \mathrm{right}\)</span> (Assuming <cite>endpoints=True</cite>)</p>
 </dd>
@@ -369,6 +366,7 @@ If <span class="math notranslate nohighlight">\(0 \in [a,b]\)</span> it returns 
 self.right - self.left</p>
 </dd></dl>
 
+</section>
 </dd></dl>
 
 </section>
