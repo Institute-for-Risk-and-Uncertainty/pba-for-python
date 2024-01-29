@@ -160,6 +160,7 @@
 <li class="toctree-l1"><a class="reference internal" href="distributions.html">Distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="logical.html">Logical</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cbox.html">Confidence Boxes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a></li>
 </ul>
 
 </div>
@@ -217,6 +218,24 @@
 <dd class="field-odd"><p><a class="reference internal" href="#pba.pbox.Pbox" title="pba.pbox.Pbox">Pbox</a></p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pba.pbox.Pbox.env">
+<span class="sig-name descname"><span class="pre">env</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox.Pbox.env" title="Link to this definition">#</a></dt>
+<dd><p id="interval-env">Computes the envelope of two Pboxes.</p>
+<p>Parameters:
+- other: Pbox or numeric value</p>
+<blockquote>
+<div><p>The other Pbox or numeric value to compute the envelope with.</p>
+</div></blockquote>
+<p>Returns:
+- Pbox</p>
+<blockquote>
+<div><p>The envelope Pbox.</p>
+</div></blockquote>
+<p>Raises:
+- ArithmeticError: If both Pboxes have different number of steps.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -378,6 +397,7 @@
 <li><a class="reference internal" href="#">Probability Boxes</a><ul>
 <li><a class="reference internal" href="#pba.pbox.Pbox"><code class="docutils literal notranslate"><span class="pre">Pbox</span></code></a><ul>
 <li><a class="reference internal" href="#pba.pbox.Pbox.add"><code class="docutils literal notranslate"><span class="pre">Pbox.add()</span></code></a></li>
+<li><a class="reference internal" href="#pba.pbox.Pbox.env"><code class="docutils literal notranslate"><span class="pre">Pbox.env()</span></code></a></li>
 <li><a class="reference internal" href="#pba.pbox.Pbox.get_x"><code class="docutils literal notranslate"><span class="pre">Pbox.get_x()</span></code></a></li>
 <li><a class="reference internal" href="#pba.pbox.Pbox.get_y"><code class="docutils literal notranslate"><span class="pre">Pbox.get_y()</span></code></a></li>
 <li><a class="reference internal" href="#pba.pbox.Pbox.imp"><code class="docutils literal notranslate"><span class="pre">Pbox.imp()</span></code></a></li>

@@ -15,6 +15,10 @@ def test_Interval_creation():
     else:
         assert a.left == r and a.right == l
         
+    # test creation with Interval.pm
+    a = Interval.pm(10,1)
+    assert a.left == 9 and a.right == 11
+        
     
 def test_Interval_add():
     a = Interval(10,30)

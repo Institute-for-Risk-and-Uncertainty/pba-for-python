@@ -1,9 +1,48 @@
+"""
 
-# -*- coding: utf-8 -*-
+An interval is an uncertain number for which only the endpoints are known, {math}`x=[a,b]`.
+This is interpreted as {math}`x` being between {math}`a` and {math}`b` but with no more information about the value of {math}`x`.
+
+Intervals embody epistemic uncertainty within PBA.
+
+Intervals can be created using either of the following:
+
+>>> import pba
+>>> pba.Interval(0,1)
+Interval [0,1]
+>>> pba.I(2,3)
+Interval [2,3]
+
+
+Arithmetic
+-----------
+
+For two intervals [a,b] and [c,d] the following arithmetic operations are defined:
+
+**Addition**
+
+:math:`[a,b] + [c,d] = [a+c,b+d]`
+
+**Subtraction**
+
+:math:`[a,b] - [c,d] = [a-d,b-c]`
+
+**Multiplication**
+
+:math:`[a,b] * [c,d] = [min(ac,ad,bc,bd),max(ac,ad,bc,bd)]`
+
+**Division**
+
+:math:`[a,b] / [c,d] = [a,b] * \frac{1}{[c,d]} \equiv [min(a/c,a/d,b/c,b/d),max(a/c,a/d,b/c,b/d)]`
+
+Alternative arithmetic methods are described in `interval.add`_, `interval.sub`_, `interval.mul`_, `interval.div`_.
+
+
+"""
 import numpy as np
 import random as r
 import itertools
-
+import warnings
 
 
 __all__ = ['Interval','I',]
@@ -22,7 +61,7 @@ class Interval:
 
         # disallow p-boxes
         if left.__class__.__name__ == 'Pbox' or right.__class__.__name__ == 'Pbox':
-            raise ValueError("left and right must not be P-boxes ")
+            raise ValueError("left and right must not be P-boxes. Use Pbox methods instead.")
         
         # assume vaccous if no inputs
         if left is None and right is None:
@@ -54,9 +93,30 @@ class Interval:
         self.left = left
         self.right = right
 
-    def pm(a,b):
-        assert b >= 0
-        return Interval(a-b,a+b)
+    def pm(x, hw):
+        """
+        Create an interval centered around x with a half-width of hw.
+
+        Args:
+            x (float): The center value of the interval.
+            hw (float): The half-width of the interval.
+
+        Returns:
+            Interval: An interval object with lower bound x-hw and upper bound x+hw.
+
+        Raises:
+            ValueError: If hw is less than 0.
+            
+        Example:
+        >>> Interval.pm(0, 1)
+        Interval [-1, 1]
+        
+        """
+        if hw < 0:
+            raise ValueError("hw must be greater than or equal to 0")
+        
+        return Interval(x - hw, x + hw)
+
 
     def __repr__(self) -> str: # return
         return "Interval [%g, %g]"%(self.left,self.right)
@@ -76,23 +136,6 @@ class Interval:
 
     def __len__(self):
         return 2
-
-    def __add__(self,other):
-
-        if other.__class__.__name__ == 'Interval':
-            lo = self.left + other.left
-            hi = self.right + other.right
-        elif other.__class__.__name__ == 'Pbox':
-            # Perform Pbox addition assuming independance
-            return other.add(self, method = 'i')
-        else:
-            try:
-                lo = self.left + other
-                hi  = self.right + other
-            except:
-                return NotImplemented
-
-        return Interval(lo,hi)
 
     def __radd__(self,left):
         return self.__add__(left)
@@ -190,6 +233,7 @@ class Interval:
 
                 lo = min(b1,b2,b3,b4)
                 hi = max(b1,b2,b3,b4)
+                
         elif other.__class__.__name__ == "Pbox":
 
             return other.__rtruediv__(self)
@@ -346,61 +390,238 @@ class Interval:
         else:
             return Interval(abs(self.left),abs(self.right))
 
-    def padd(self,other):
+    def __contains__(self,other):
+        return self.straddles(other, endpoints = True)
+
+    def add(self,other,method = None):
         """
-        Returns addition using perfect arithmetic
+        .. _interval.add:
         
-        a+b = [a.left + b.left, a.right + b.right]
+        Adds the interval and another object together.
+        
+
+        Args:
+            other (Interval or numeric): The interval or numeric value to be added. This value must be transformable into an Interval object. If a Pbox or Cbox object is provided, then Pbox.add() is called.
+            method (str, optional): The addition method to use.
+            
+        Methods:
+            p - perfect arithmetic :math:`[a,b]+[c,d] = [a + c, b + d]`
+            
+            o - opposite arithmetic :math:`[a,b]+[c,d] = [a + d, b + c]`
+            
+            None, i, f - Standard interval arithmetic is used.
+
+        Returns:
+            Interval: The result of the addition.
+
         """
-        return Interval(self.left + other.left, self.right + other.right)
-  
+        if not isinstance(other, Interval):
+            if other.__class__.__name__ in ['Pbox','Cbox']:
+                if method is None:
+                    method = 'f'
+                return other.add(self, method = method)
+            try:
+                other = Interval(other)
+            except:
+                raise TypeError(f"addition not supported between instances of Interval and {type(other)}")
+            
+        if method == 'p':
+            Interval(self.left + other.left, self.right + other.right)
+        elif method == 'o':
+            Interval(self.left + other.right, self.right + other.left)
+        else:
+            return self.__add__(other)
+        
+    def __add__(self,other):
+
+        if other.__class__.__name__ == 'Interval':
+            lo = self.left + other.left
+            hi = self.right + other.right
+        elif other.__class__.__name__ == 'Pbox':
+            # Perform Pbox addition assuming independance
+            return other.add(self, method = 'i')
+        else:
+            try:
+                lo = self.left + other
+                hi  = self.right + other
+            except:
+                return NotImplemented
+
+        return Interval(lo,hi)
+    
+    def padd(self, other):
+        """
+        Adds the given interval to the current interval using the 'p' method.
+        
+        This method is deprecated. Use add(other, method='p') instead.
+        """
+        warnings.warn("padd() is deprecated. Use add(other, method='p') instead.", DeprecationWarning)
+        return self.add(other, method='p')
+        
+    def oadd(self,other):
+        """
+        Adds the given interval to the current interval using the 'o' method.
+        
+        This method is deprecated. Use add(other, method='o') instead.
+        """
+        warnings.warn("oadd() is deprecated. Use add(other, method = 'o') instead.", DeprecationWarning)
+        return self.add(other, method='o')
+
+    def sub(self, other, method = None):
+        """
+        .. _interval.sub:
+        
+        Subtracts other from self.
+        
+        Args:
+            other (Interval or numeric): The interval or numeric value to be subracted. This value must be transformable into an Interval object. If a Pbox or Cbox object is provided, then Pbox.add() is called.
+            method (str, optional): The addition method to use.
+            
+        Methods:
+            p - perfect arithmetic $a+b = [a.left - b.left, a.right - b.right]$
+            o - opposite arithmetic $a+b = [a.left - b.right, a.right - b.left]$
+            None, i, f - Standard interval arithmetic is used.
+
+        Returns:
+            Interval: The result of the subtraction.
+
+        """
+        if not isinstance(other, Interval):
+            if other.__class__.__name__ in ['Pbox','Cbox']:
+                if method is None:
+                    method = 'f'
+                return other.rsub(self, method = method)
+            try:
+                other = Interval(other)
+            except:
+                raise TypeError(f"Subtraction not supported between instances of Interval and {type(other)}")
+            
+        if method == 'p':
+            Interval(self.left - other.left, self.right - other.right)
+        elif method == 'o':
+            Interval(self.left - other.right, self.right - other.left)
+        else:
+            return self.__sub__(other)
+
     def psub(self,other):
         """
-        Returns subtraction using perfect arithmetic
-        
-        a+b = [a.left - b.left, a.right - b.right]
+        Depreciated use self.sub(other, method = 'p') instead
         """
+        warnings.warn("psub() is deprecated. Use sub(other, method = 'p') instead.", DeprecationWarning)
         return Interval(self.left - other.left, self.right - other.right)
+
+    def osub(self,other):
+        """
+        Depreciated use self.sub(other, method = 'o') instead
+        """
+        warnings.warn("osub() is deprecated. Use sub(other, method = 'o') instead.", DeprecationWarning)
+        return Interval(self.left - other.right, self.right - other.left)
+
+    def mul(self, other, method=None):
+        """
+        .. _interval.mul:
+        
+        Multiplies self by other.
+
+        Args:
+            other (Interval or numeric): The interval or numeric value to be multiplied. This value must be transformable into an Interval object.
+            method (str, optional): The multiplication method to use.
+
+        Methods:
+            p - perfect arithmetic :math:`[a,b],[c,d] = [a * c, b * d]`
+            
+            o - opposite arithmetic :math:`[a,b],[c,d] = [a * d, b * c]`
+            
+            None, i, f - Standard interval arithmetic is used.
+
+        Returns:
+            Interval: The result of the multiplication.
+        """
+        if not isinstance(other, Interval):
+            if other.__class__.__name__ in ['Pbox','Cbox']:
+                if method is None:
+                    method = 'f'
+                return other.mul(self, method = method)
+            try:
+                other = Interval(other)
+            except:
+                raise TypeError(f"Multiplication not supported between instances of Interval and {type(other)}")
+
+        if method == 'p':
+            return Interval(self.left * other.left, self.right * other.right)
+        elif method == 'o':
+            return Interval(self.left * other.right, self.right * other.left)
+        else:
+            return self.__mul__(other)
 
     def pmul(self,other):
         """
-        Returns multiplication using opposite arithmetic
-        
-        a*b = [a.left * b.left, a.right * b.right]
+        Depreciated use self.mul(other, method = 'p') instead
         """
+        warnings.warn("pmul() is deprecated. Use mul(other, method = 'p') instead.", DeprecationWarning)
         return Interval(self.left * other.left, self.right * other.right)
 
+    
+        
+    def omul(self,other):
+        """ 
+        Depreciated use self.mul(other, method = 'o') instead
+        """
+        warnings.warn("omul() is deprecated. Use mul(other, method = 'o') instead.", DeprecationWarning)
+        return Interval(self.left * other.right, self.right * other.left)
+    
+    def div(self, other, method=None):
+        '''
+        .. _interval.div:
+        
+        Divides self by other
+        
+        
+        If :math:`0 \\in other` it returns a division by zero error
+        Implemented as:
+        
+        >>> self * 1/other
+        
+        Args:
+            other (Interval or numeric): The interval or numeric value to be multiplied. This value must be transformable into an Interval object.
+            method (str, optional): The multiplication method to use.
+
+        Methods:
+            p - perfect arithmetic :math:`[a,b],[c,d] = [a * 1/c, b * 1/d]`
+            
+            o - opposite arithmetic :math:`[a,b],[c,d] = [a * 1/d, b * 1/c]`
+            
+            None, i, f - Standard interval arithmetic is used.
+        
+        '''
+        if not isinstance(other, Interval):
+            if other.__class__.__name__ in ['Pbox','Cbox']:
+                if method is None:
+                    return other.recip().mul(self, method = 'f')
+                elif method == 'o':
+                    return other.recip().mul(self, method = 'p')
+                elif method == 'p':
+                    return other.recip().mul(self, method = 'o')
+                else: 
+                    return other.recip().mul(self, method = method)
+            try:
+                other = Interval(other)
+            except:
+                raise TypeError(f"Division not supported between instances of Interval and {type(other)}")
+            
+        if method == 'o':
+            return Interval(self.left / other.right, self.right / other.left)
+        elif method == 'p':
+            return Interval(self.left / other.left, self.right / other.right)
+            
+        return self.mul(1/other, method=method)
+    
     def pdiv(self,other):
         """
-        Returns division using opposite arithmetic
-        
-        a/b = [a.left / b.left, a.right / b.right]
+        Depreciated use self.div(other, method = 'p') instead
         """
+        warnings.warn("pdiv() is deprecated. Use div(other, method = 'p') instead.", DeprecationWarning)
         return Interval(self.left / other.left, self.right / other.right)    
-    
-    def oadd(self,other):
-        """
-        Returns addition using opposite arithmetic
-        
-        a+b = [a.left + b.right, a.right + b.left]
-        """
-        return Interval(self.left + other.right, self.right + other.left)
-  
-    def osub(self,other):
-        """
-        Returns subtraction using opposite arithmetic
-        
-        a+b = [a.left - b.right, a.right - b.left]
-        """
-        return Interval(self.left - other.right, self.right - other.left)
-    
-    def omul(self,other):
-        """
-        Returns multiplication using opposite arithmetic
-        
-        a*b = [a.left * b.right, a.right * b.left]
-        """
-        return Interval(self.left * other.right, self.right * other.left)
 
     def odiv(self,other):
         """
@@ -461,7 +682,44 @@ class Interval:
         from .logical import Logical
         return Logical(left,right)
     
+
+    def env(self, other):
+        '''
+        Calculates the envelope between two intervals
         
+        Parameters
+        ----------
+        other : Interval, Pbox or list
+            The interval or pbox to envelope with self
+            If other is a list then the envelope of all elements in the list is calculated recursively. In this case envelope() might be more efficient.
+        
+        Returns
+        -------
+        Interval or Pbox
+            The envelope of self and other
+            
+        Note
+        ~~~~
+        If other is a Pbox then Pbox.env() is called
+        '''
+        if isinstance(other, list):
+            e = self
+            for o in other:
+                e = e.env(o)
+            return e
+        
+        if not isinstance(other,Interval):
+            if other.__class__.__name__ in ['Pbox','Cbox']:
+                return other.env(self)
+            else:
+                try:
+                    other = Interval(other)
+                except:
+                    raise TypeError(f"env() not supported between instances of Interval and {type(other)}")
+                    
+        return Interval(min(self.left,other.left),max(self.right,other.right))
+        
+            
     def straddles(self,N, endpoints = True):
         """
         Parameters
@@ -553,14 +811,19 @@ class Interval:
     # def tan(self):
     #     return Interval(np.tan(self.left),np.tan(self.right))
     
-    def sample(self, seed = None) -> float:
-        '''
-        Returns a random value from within the interval        
-        '''
-        
+    def sample(self, seed=None) -> float:
+        """
+        Generate a random sample within the interval.
+
+        Args:
+            seed (int, optional): Seed value for random number generation. Defaults to None.
+
+        Returns:
+            float: Random sample within the interval.
+        """
         if seed is not None:
             r.seed(seed)
-        return self.left + r.random()*self.width()
+        return self.left + r.random() * self.width()
     
 # Alias
 I = Interval

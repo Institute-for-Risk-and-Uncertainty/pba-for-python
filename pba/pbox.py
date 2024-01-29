@@ -30,21 +30,27 @@ class Pbox:
 
     def __init__(self, left=None, right=None, steps=None, shape=None, mean_left=None, mean_right=None, var_left=None, var_right=None, interpolation='linear'):
 
+        if isinstance(left, np.ndarray) and isinstance(right, np.ndarray):
+            if len(left) != len(right):
+                raise Exception("Left and right arrays must be the same length")
+            else:
+                steps = len(left)
+                
         if steps is None: steps = Pbox.STEPS
 
         if (left is not None) and (right is None):
             right = left
 
         if left is None and right is None:
-            left = np.array((-np.inf))
-            right = np.array((np.inf))
+            left = np.array([-np.inf]*steps)
+            right = np.array([np.inf]*steps)
 
         if isinstance(left, Interval):
             left = np.array([left.left]*steps)
         elif isinstance(left, list):
             left = _interval_list_to_array(left)
         elif not isinstance(left, np.ndarray):
-            left = np.array(left)
+            left = np.array([left]*steps)
 
 
         if isinstance(right, Interval):
@@ -52,7 +58,7 @@ class Pbox:
         elif isinstance(right, list):
             right = _interval_list_to_array(right)
         elif not isinstance(right, np.ndarray):
-            right = np.array(right)
+            right = np.array([right]*steps)
 
         # if len(left) == len(right) and len(left) != steps:
         #     print("WARNING: The left and right arrays have the same length which is inconsistent with steps.")
@@ -115,8 +121,9 @@ class Pbox:
             s = ''
 
         return Pbox(
-            left = -np.flip(self.right),
-            right = -np.flip(self.left),
+            left = sorted(-np.flip(self.right)),
+            right = sorted(-np.flip(self.left)),
+            steps = len(self.left),
             shape = s,
             mean_left = -self.mean_right,
             mean_right = -self.mean_left,
@@ -268,12 +275,7 @@ class Pbox:
     def add(self, other: Union["Pbox",Interval,float,int], method  = 'f') -> "Pbox":
         '''
         Adds to Pbox to other using the defined dependency method
-        
-        :param other: Pbox, Interval or numeric type
-        :param method: 
 
-        :return: Pbox
-        :rtype: Pbox
         
         '''
         if method not in ['f','p','o','i']:
@@ -576,13 +578,23 @@ class Pbox:
         b = self.add(other, method)
         return b.get_probability(0)
 
-    def min(self, other, method = 'f'):
+    def min(self, other, method='f'):
+        """
+        Returns a new Pbox object that represents the element-wise minimum of two Pboxes.
 
+        Parameters:
+            - other: Another Pbox object or a numeric value.
+            - method: Calculation method to determine the minimum. Can be one of 'f', 'p', 'o', 'i'.
+
+        Returns:
+            Pbox
+        """
+        
         if method not in ['f','p','o','i']:
             raise ArithmeticError("Calculation method unkown")
 
         if other.__class__.__name__ != 'Pbox':
-            other = box(other)
+            other = Pbox(other)
 
         if other.__class__.__name__ == 'Pbox':
 
@@ -743,9 +755,26 @@ class Pbox:
         # elif method=='-':
         #    return()  # negative env(1 – (1 – a) * (1 – b), min(1, a + b))
         else:
-            return(env(self.max(other,method), min(self.add(other,method),1)))
+            return(self.env(self.max(other,method), min(self.add(other,method),1)))
 
     def env(self, other):
+        """
+        .. _interval.env:
+        
+        Computes the envelope of two Pboxes.
+
+        Parameters:
+        - other: Pbox or numeric value
+            The other Pbox or numeric value to compute the envelope with.
+
+        Returns:
+        - Pbox
+            The envelope Pbox.
+
+        Raises:
+        - ArithmeticError: If both Pboxes have different number of steps.
+        """
+
         if other.__class__.__name__ == 'Pbox':
             if self.steps != other.steps:
                 raise ArithmeticError("Both Pboxes must have the same number of steps")

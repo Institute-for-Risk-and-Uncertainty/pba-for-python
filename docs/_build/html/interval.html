@@ -160,6 +160,7 @@
 <li class="toctree-l1"><a class="reference internal" href="distributions.html">Distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="logical.html">Logical</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cbox.html">Confidence Boxes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a></li>
 </ul>
 
 </div>
@@ -194,13 +195,13 @@
           </label>
         </div>
         <article role="main">
-          <section id="intervals">
-<h1>Intervals<a class="headerlink" href="#intervals" title="Link to this heading">#</a></h1>
-<p>An interval is an uncertain number for which only the endpoints are known, <span class="math notranslate nohighlight">\(x=[a,b]\)</span>.
-This is interpreted as $x$ being between <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> but with no more information about the value of <span class="math notranslate nohighlight">\(x\)</span>.
-Intervals embody epistemic uncertainty within PBA.</p>
+          <section id="module-pba.interval">
+<span id="intervals"></span><h1>Intervals<a class="headerlink" href="#module-pba.interval" title="Link to this heading">#</a></h1>
+<p>An interval is an uncertain number for which only the endpoints are known, {math}`x=[a,b]`.
+This is interpreted as {math}`x` being between {math}`a` and {math}`b` but with no more information about the value of {math}`x`.</p>
+<p>Intervals embody epistemic uncertainty within PBA.</p>
 <p>Intervals can be created using either of the following:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pba</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pba</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pba</span><span class="o">.</span><span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 <span class="go">Interval [0,1]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pba</span><span class="o">.</span><span class="n">I</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
@@ -209,14 +210,24 @@ Intervals embody epistemic uncertainty within PBA.</p>
 </div>
 <section id="arithmetic">
 <h2>Arithmetic<a class="headerlink" href="#arithmetic" title="Link to this heading">#</a></h2>
+<p>For two intervals [a,b] and [c,d] the following arithmetic operations are defined:</p>
+<p><strong>Addition</strong></p>
+<p><span class="math notranslate nohighlight">\([a,b] + [c,d] = [a+c,b+d]\)</span></p>
+<p><strong>Subtraction</strong></p>
+<p><span class="math notranslate nohighlight">\([a,b] - [c,d] = [a-d,b-c]\)</span></p>
+<p><strong>Multiplication</strong></p>
+<p><span class="math notranslate nohighlight">\([a,b] * [c,d] = [min(ac,ad,bc,bd),max(ac,ad,bc,bd)]\)</span></p>
+<p><strong>Division</strong></p>
+<p><span class="math notranslate nohighlight">\([a,b] / [c,d] = [a,b] * 
+rac{1}{[c,d]} \equiv [min(a/c,a/d,b/c,b/d),max(a/c,a/d,b/c,b/d)]\)</span></p>
+<p>Alternative arithmetic methods are described in <a class="reference internal" href="#interval-add">interval.add</a>, <a class="reference internal" href="#interval-sub">interval.sub</a>, <a class="reference internal" href="#interval-mul">interval.mul</a>, <a class="reference internal" href="#interval-div">interval.div</a>.</p>
 </section>
-<section id="class-documentation">
-<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Link to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pba.interval.Interval">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pba.interval.</span></span><span class="sig-name descname"><span class="pre">Interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval" title="Link to this definition">#</a></dt>
-<dd><section id="attributes">
-<h3>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">#</a></h3>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">#</a></h2>
 <dl class="simple">
 <dt>left<span class="classifier">float</span></dt><dd><p>The left boundary of the interval. It can be -inf if no value is provided.</p>
 </dd>
@@ -224,42 +235,136 @@ Intervals embody epistemic uncertainty within PBA.</p>
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.equiv">
-<span class="sig-name descname"><span class="pre">equiv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.equiv" title="Link to this definition">#</a></dt>
-<dd><p>Checks whether two intervals are equivalent. 
-True if self.left == other.right and self.right == other.right</p>
+<dt class="sig sig-object py" id="pba.interval.Interval.pm">
+<span class="sig-name descname"><span class="pre">pm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.pm" title="Link to this definition">#</a></dt>
+<dd><p>Create an interval centered around x with a half-width of hw.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>x (float): The center value of the interval.
+hw (float): The half-width of the interval.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Interval: An interval object with lower bound x-hw and upper bound x+hw.</p>
+</dd>
+<dt>Raises:</dt><dd><p>ValueError: If hw is less than 0.</p>
+</dd>
+</dl>
+<p>Example:
+&gt;&gt;&gt; Interval.pm(0, 1)
+Interval [-1, 1]</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.hi">
-<span class="sig-name descname"><span class="pre">hi</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.hi" title="Link to this definition">#</a></dt>
-<dd><p>Returns the right side of the interval</p>
+<dt class="sig sig-object py" id="pba.interval.Interval.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.add" title="Link to this definition">#</a></dt>
+<dd><p id="interval-add">Adds the interval and another object together.</p>
+<dl>
+<dt>Args:</dt><dd><p>other (Interval or numeric): The interval or numeric value to be added. This value must be transformable into an Interval object. If a Pbox or Cbox object is provided, then Pbox.add() is called.
+method (str, optional): The addition method to use.</p>
+</dd>
+<dt>Methods:</dt><dd><p>p - perfect arithmetic <span class="math notranslate nohighlight">\([a,b]+[c,d] = [a + c, b + d]\)</span></p>
+<p>o - opposite arithmetic <span class="math notranslate nohighlight">\([a,b]+[c,d] = [a + d, b + c]\)</span></p>
+<p>None, i, f - Standard interval arithmetic is used.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Interval: The result of the addition.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.intersection">
-<span class="sig-name descname"><span class="pre">intersection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.intersection" title="Link to this definition">#</a></dt>
-<dd><p>Calculates the intersection between two intervals</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.lo">
-<span class="sig-name descname"><span class="pre">lo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.lo" title="Link to this definition">#</a></dt>
-<dd><p>Returns the left side of the interval</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.midpoint">
-<span class="sig-name descname"><span class="pre">midpoint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.midpoint" title="Link to this definition">#</a></dt>
-<dd><p>Returns midpoint of interval
-(self.left+self.right)/2</p>
+<dt class="sig sig-object py" id="pba.interval.Interval.padd">
+<span class="sig-name descname"><span class="pre">padd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.padd" title="Link to this definition">#</a></dt>
+<dd><p>Adds the given interval to the current interval using the ‘p’ method.</p>
+<p>This method is deprecated. Use add(other, method=’p’) instead.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.oadd">
 <span class="sig-name descname"><span class="pre">oadd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.oadd" title="Link to this definition">#</a></dt>
-<dd><p>Returns addition using opposite arithmetic</p>
-<p>a+b = [a.left + b.right, a.right + b.left]</p>
+<dd><p>Adds the given interval to the current interval using the ‘o’ method.</p>
+<p>This method is deprecated. Use add(other, method=’o’) instead.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pba.interval.Interval.sub">
+<span class="sig-name descname"><span class="pre">sub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.sub" title="Link to this definition">#</a></dt>
+<dd><p id="interval-sub">Subtracts other from self.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>other (Interval or numeric): The interval or numeric value to be subracted. This value must be transformable into an Interval object. If a Pbox or Cbox object is provided, then Pbox.add() is called.
+method (str, optional): The addition method to use.</p>
+</dd>
+<dt>Methods:</dt><dd><p>p - perfect arithmetic $a+b = [a.left - b.left, a.right - b.right]$
+o - opposite arithmetic $a+b = [a.left - b.right, a.right - b.left]$
+None, i, f - Standard interval arithmetic is used.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Interval: The result of the subtraction.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pba.interval.Interval.psub">
+<span class="sig-name descname"><span class="pre">psub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.psub" title="Link to this definition">#</a></dt>
+<dd><p>Depreciated use self.sub(other, method = ‘p’) instead</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pba.interval.Interval.osub">
+<span class="sig-name descname"><span class="pre">osub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.osub" title="Link to this definition">#</a></dt>
+<dd><p>Depreciated use self.sub(other, method = ‘o’) instead</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pba.interval.Interval.mul">
+<span class="sig-name descname"><span class="pre">mul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.mul" title="Link to this definition">#</a></dt>
+<dd><p id="interval-mul">Multiplies self by other.</p>
+<dl>
+<dt>Args:</dt><dd><p>other (Interval or numeric): The interval or numeric value to be multiplied. This value must be transformable into an Interval object.
+method (str, optional): The multiplication method to use.</p>
+</dd>
+<dt>Methods:</dt><dd><p>p - perfect arithmetic <span class="math notranslate nohighlight">\([a,b],[c,d] = [a * c, b * d]\)</span></p>
+<p>o - opposite arithmetic <span class="math notranslate nohighlight">\([a,b],[c,d] = [a * d, b * c]\)</span></p>
+<p>None, i, f - Standard interval arithmetic is used.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Interval: The result of the multiplication.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pba.interval.Interval.pmul">
+<span class="sig-name descname"><span class="pre">pmul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.pmul" title="Link to this definition">#</a></dt>
+<dd><p>Depreciated use self.mul(other, method = ‘p’) instead</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pba.interval.Interval.omul">
+<span class="sig-name descname"><span class="pre">omul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.omul" title="Link to this definition">#</a></dt>
+<dd><p>Depreciated use self.mul(other, method = ‘o’) instead</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pba.interval.Interval.div">
+<span class="sig-name descname"><span class="pre">div</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.div" title="Link to this definition">#</a></dt>
+<dd><p id="interval-div">Divides self by other</p>
+<p>If <span class="math notranslate nohighlight">\(0 \in other\)</span> it returns a division by zero error
+Implemented as:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="bp">self</span> <span class="o">*</span> <span class="mi">1</span><span class="o">/</span><span class="n">other</span>
+</pre></div>
+</div>
+<dl>
+<dt>Args:</dt><dd><p>other (Interval or numeric): The interval or numeric value to be multiplied. This value must be transformable into an Interval object.
+method (str, optional): The multiplication method to use.</p>
+</dd>
+<dt>Methods:</dt><dd><p>p - perfect arithmetic <span class="math notranslate nohighlight">\([a,b],[c,d] = [a * 1/c, b * 1/d]\)</span></p>
+<p>o - opposite arithmetic <span class="math notranslate nohighlight">\([a,b],[c,d] = [a * 1/d, b * 1/c]\)</span></p>
+<p>None, i, f - Standard interval arithmetic is used.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pba.interval.Interval.pdiv">
+<span class="sig-name descname"><span class="pre">pdiv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.pdiv" title="Link to this definition">#</a></dt>
+<dd><p>Depreciated use self.div(other, method = ‘p’) instead</p>
 </dd></dl>
 
 <dl class="py method">
@@ -270,65 +375,83 @@ True if self.left == other.right and self.right == other.right</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.omul">
-<span class="sig-name descname"><span class="pre">omul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.omul" title="Link to this definition">#</a></dt>
-<dd><p>Returns multiplication using opposite arithmetic</p>
-<p>a*b = [a.left * b.right, a.right * b.left]</p>
+<dt class="sig sig-object py" id="pba.interval.Interval.equiv">
+<span class="sig-name descname"><span class="pre">equiv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.equiv" title="Link to this definition">#</a></dt>
+<dd><p>Checks whether two intervals are equivalent. 
+True if self.left == other.right and self.right == other.right</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.osub">
-<span class="sig-name descname"><span class="pre">osub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.osub" title="Link to this definition">#</a></dt>
-<dd><p>Returns subtraction using opposite arithmetic</p>
-<p>a+b = [a.left - b.right, a.right - b.left]</p>
+<dt class="sig sig-object py" id="pba.interval.Interval.lo">
+<span class="sig-name descname"><span class="pre">lo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.lo" title="Link to this definition">#</a></dt>
+<dd><p>Returns the left side of the interval</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.padd">
-<span class="sig-name descname"><span class="pre">padd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.padd" title="Link to this definition">#</a></dt>
-<dd><p>Returns addition using perfect arithmetic</p>
-<p>a+b = [a.left + b.left, a.right + b.right]</p>
+<dt class="sig sig-object py" id="pba.interval.Interval.hi">
+<span class="sig-name descname"><span class="pre">hi</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.hi" title="Link to this definition">#</a></dt>
+<dd><p>Returns the right side of the interval</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.pdiv">
-<span class="sig-name descname"><span class="pre">pdiv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.pdiv" title="Link to this definition">#</a></dt>
-<dd><p>Returns division using opposite arithmetic</p>
-<p>a/b = [a.left / b.left, a.right / b.right]</p>
+<dt class="sig sig-object py" id="pba.interval.Interval.width">
+<span class="sig-name descname"><span class="pre">width</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.width" title="Link to this definition">#</a></dt>
+<dd><p>Returns the width of the interval
+self.right - self.left</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.pmul">
-<span class="sig-name descname"><span class="pre">pmul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.pmul" title="Link to this definition">#</a></dt>
-<dd><p>Returns multiplication using opposite arithmetic</p>
-<p>a*b = [a.left * b.left, a.right * b.right]</p>
+<dt class="sig sig-object py" id="pba.interval.Interval.midpoint">
+<span class="sig-name descname"><span class="pre">midpoint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.midpoint" title="Link to this definition">#</a></dt>
+<dd><p>Returns midpoint of interval
+(self.left+self.right)/2</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.psub">
-<span class="sig-name descname"><span class="pre">psub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.psub" title="Link to this definition">#</a></dt>
-<dd><p>Returns subtraction using perfect arithmetic</p>
-<p>a+b = [a.left - b.left, a.right - b.right]</p>
+<dt class="sig sig-object py" id="pba.interval.Interval.to_logical">
+<span class="sig-name descname"><span class="pre">to_logical</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.to_logical" title="Link to this definition">#</a></dt>
+<dd><p>Turns the interval into a logical interval, this is done by chacking the truth value of the ends of the interval</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.recip">
-<span class="sig-name descname"><span class="pre">recip</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.recip" title="Link to this definition">#</a></dt>
-<dd><p>Calculates the reciprocle of the interval.
-If <span class="math notranslate nohighlight">\(0 \in [a,b]\)</span> it returns a division by zero error</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.sample">
-<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#pba.interval.Interval.sample" title="Link to this definition">#</a></dt>
-<dd><p>Returns a random value from within the interval</p>
+<dt class="sig sig-object py" id="pba.interval.Interval.env">
+<span class="sig-name descname"><span class="pre">env</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">others</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.env" title="Link to this definition">#</a></dt>
+<dd><p id="interval-env">Returns the envelope of the interval and other intervals. This is equivalent to the interval [l,r] where l is the minimum of all lefts and r is the maximum of all rights.</p>
+<section id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>others<span class="classifier">list of intervals</span></dt><dd><p>Other intervals to be included in the envelope</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h3>Returns<a class="headerlink" href="#returns" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>Interval</dt><dd><p>The envelope of the interval and other intervals.</p>
+</dd>
+</dl>
+</section>
+<section id="see-also">
+<h3>See also<a class="headerlink" href="#see-also" title="Link to this heading">#</a></h3>
+<p>Pbox.env(): Calculate the envelope of a Pbox object.</p>
+</section>
+<section id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h3>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">interval1</span> <span class="o">=</span> <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">interval2</span> <span class="o">=</span> <span class="n">Interval</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">interval3</span> <span class="o">=</span> <span class="n">Interval</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">interval1</span><span class="o">.</span><span class="n">env</span><span class="p">(</span><span class="n">interval2</span><span class="p">,</span> <span class="n">interval3</span><span class="p">)</span>
+<span class="go">Interval(1, 7)</span>
+</pre></div>
+</div>
+</section>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.straddles">
 <span class="sig-name descname"><span class="pre">straddles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.straddles" title="Link to this definition">#</a></dt>
-<dd><section id="parameters">
-<h4>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">#</a></h4>
+<dd><section id="id1">
+<h3>Parameters<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <dl class="simple">
 <dt>N<span class="classifier">numeric</span></dt><dd><p>Number to check</p>
 </dd>
@@ -336,8 +459,8 @@ If <span class="math notranslate nohighlight">\(0 \in [a,b]\)</span> it returns 
 </dd>
 </dl>
 </section>
-<section id="returns">
-<h4>Returns<a class="headerlink" href="#returns" title="Link to this heading">#</a></h4>
+<section id="id2">
+<h3>Returns<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <dl class="simple">
 <dt>True</dt><dd><p>If <span class="math notranslate nohighlight">\(\mathrm{left} \leq N \leq \mathrm{right}\)</span> (Assuming <cite>endpoints=True</cite>)</p>
 </dd>
@@ -354,22 +477,54 @@ If <span class="math notranslate nohighlight">\(0 \in [a,b]\)</span> it returns 
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.to_logical">
-<span class="sig-name descname"><span class="pre">to_logical</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.to_logical" title="Link to this definition">#</a></dt>
-<dd><p>Turns the interval into a logical interval, this is done by chacking the truth value of the ends of the interval</p>
+<dt class="sig sig-object py" id="pba.interval.Interval.recip">
+<span class="sig-name descname"><span class="pre">recip</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.recip" title="Link to this definition">#</a></dt>
+<dd><p>Calculates the reciprocle of the interval.
+If <span class="math notranslate nohighlight">\(0 \in [a,b]\)</span> it returns a division by zero error</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.width">
-<span class="sig-name descname"><span class="pre">width</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.width" title="Link to this definition">#</a></dt>
-<dd><p>Returns the width of the interval
-self.right - self.left</p>
+<dt class="sig sig-object py" id="pba.interval.Interval.intersection">
+<span class="sig-name descname"><span class="pre">intersection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.intersection" title="Link to this definition">#</a></dt>
+<dd><p>Calculates the intersection between two intervals</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pba.interval.Interval.exp">
+<span class="sig-name descname"><span class="pre">exp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.exp" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pba.interval.Interval.log">
+<span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.log" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pba.interval.Interval.sqrt">
+<span class="sig-name descname"><span class="pre">sqrt</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.sqrt" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pba.interval.Interval.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#pba.interval.Interval.sample" title="Link to this definition">#</a></dt>
+<dd><p>Generate a random sample within the interval.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>seed (int, optional): Seed value for random number generation. Defaults to None.</p>
+</dd>
+<dt>Returns:</dt><dd><p>float: Random sample within the interval.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
 </dd></dl>
 
-</section>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pba.interval.I">
+<span class="sig-prename descclassname"><span class="pre">pba.interval.</span></span><span class="sig-name descname"><span class="pre">I</span></span><a class="headerlink" href="#pba.interval.I" title="Link to this definition">#</a></dt>
+<dd><p>alias of <a class="reference internal" href="#pba.interval.Interval" title="pba.interval.Interval"><code class="xref py py-class docutils literal notranslate"><span class="pre">Interval</span></code></a></p>
+</dd></dl>
+
 </section>
 
         </article>
@@ -429,31 +584,38 @@ self.right - self.left</p>
             <ul>
 <li><a class="reference internal" href="#">Intervals</a><ul>
 <li><a class="reference internal" href="#arithmetic">Arithmetic</a></li>
-<li><a class="reference internal" href="#class-documentation">Class Documentation</a><ul>
 <li><a class="reference internal" href="#pba.interval.Interval"><code class="docutils literal notranslate"><span class="pre">Interval</span></code></a><ul>
-<li><a class="reference internal" href="#pba.interval.Interval.equiv"><code class="docutils literal notranslate"><span class="pre">Interval.equiv()</span></code></a></li>
-<li><a class="reference internal" href="#pba.interval.Interval.hi"><code class="docutils literal notranslate"><span class="pre">Interval.hi()</span></code></a></li>
-<li><a class="reference internal" href="#pba.interval.Interval.intersection"><code class="docutils literal notranslate"><span class="pre">Interval.intersection()</span></code></a></li>
-<li><a class="reference internal" href="#pba.interval.Interval.lo"><code class="docutils literal notranslate"><span class="pre">Interval.lo()</span></code></a></li>
-<li><a class="reference internal" href="#pba.interval.Interval.midpoint"><code class="docutils literal notranslate"><span class="pre">Interval.midpoint()</span></code></a></li>
-<li><a class="reference internal" href="#pba.interval.Interval.oadd"><code class="docutils literal notranslate"><span class="pre">Interval.oadd()</span></code></a></li>
-<li><a class="reference internal" href="#pba.interval.Interval.odiv"><code class="docutils literal notranslate"><span class="pre">Interval.odiv()</span></code></a></li>
-<li><a class="reference internal" href="#pba.interval.Interval.omul"><code class="docutils literal notranslate"><span class="pre">Interval.omul()</span></code></a></li>
-<li><a class="reference internal" href="#pba.interval.Interval.osub"><code class="docutils literal notranslate"><span class="pre">Interval.osub()</span></code></a></li>
+<li><a class="reference internal" href="#pba.interval.Interval.pm"><code class="docutils literal notranslate"><span class="pre">Interval.pm()</span></code></a></li>
+<li><a class="reference internal" href="#pba.interval.Interval.add"><code class="docutils literal notranslate"><span class="pre">Interval.add()</span></code></a></li>
 <li><a class="reference internal" href="#pba.interval.Interval.padd"><code class="docutils literal notranslate"><span class="pre">Interval.padd()</span></code></a></li>
-<li><a class="reference internal" href="#pba.interval.Interval.pdiv"><code class="docutils literal notranslate"><span class="pre">Interval.pdiv()</span></code></a></li>
-<li><a class="reference internal" href="#pba.interval.Interval.pmul"><code class="docutils literal notranslate"><span class="pre">Interval.pmul()</span></code></a></li>
+<li><a class="reference internal" href="#pba.interval.Interval.oadd"><code class="docutils literal notranslate"><span class="pre">Interval.oadd()</span></code></a></li>
+<li><a class="reference internal" href="#pba.interval.Interval.sub"><code class="docutils literal notranslate"><span class="pre">Interval.sub()</span></code></a></li>
 <li><a class="reference internal" href="#pba.interval.Interval.psub"><code class="docutils literal notranslate"><span class="pre">Interval.psub()</span></code></a></li>
-<li><a class="reference internal" href="#pba.interval.Interval.recip"><code class="docutils literal notranslate"><span class="pre">Interval.recip()</span></code></a></li>
-<li><a class="reference internal" href="#pba.interval.Interval.sample"><code class="docutils literal notranslate"><span class="pre">Interval.sample()</span></code></a></li>
+<li><a class="reference internal" href="#pba.interval.Interval.osub"><code class="docutils literal notranslate"><span class="pre">Interval.osub()</span></code></a></li>
+<li><a class="reference internal" href="#pba.interval.Interval.mul"><code class="docutils literal notranslate"><span class="pre">Interval.mul()</span></code></a></li>
+<li><a class="reference internal" href="#pba.interval.Interval.pmul"><code class="docutils literal notranslate"><span class="pre">Interval.pmul()</span></code></a></li>
+<li><a class="reference internal" href="#pba.interval.Interval.omul"><code class="docutils literal notranslate"><span class="pre">Interval.omul()</span></code></a></li>
+<li><a class="reference internal" href="#pba.interval.Interval.div"><code class="docutils literal notranslate"><span class="pre">Interval.div()</span></code></a></li>
+<li><a class="reference internal" href="#pba.interval.Interval.pdiv"><code class="docutils literal notranslate"><span class="pre">Interval.pdiv()</span></code></a></li>
+<li><a class="reference internal" href="#pba.interval.Interval.odiv"><code class="docutils literal notranslate"><span class="pre">Interval.odiv()</span></code></a></li>
+<li><a class="reference internal" href="#pba.interval.Interval.equiv"><code class="docutils literal notranslate"><span class="pre">Interval.equiv()</span></code></a></li>
+<li><a class="reference internal" href="#pba.interval.Interval.lo"><code class="docutils literal notranslate"><span class="pre">Interval.lo()</span></code></a></li>
+<li><a class="reference internal" href="#pba.interval.Interval.hi"><code class="docutils literal notranslate"><span class="pre">Interval.hi()</span></code></a></li>
+<li><a class="reference internal" href="#pba.interval.Interval.width"><code class="docutils literal notranslate"><span class="pre">Interval.width()</span></code></a></li>
+<li><a class="reference internal" href="#pba.interval.Interval.midpoint"><code class="docutils literal notranslate"><span class="pre">Interval.midpoint()</span></code></a></li>
+<li><a class="reference internal" href="#pba.interval.Interval.to_logical"><code class="docutils literal notranslate"><span class="pre">Interval.to_logical()</span></code></a></li>
+<li><a class="reference internal" href="#pba.interval.Interval.env"><code class="docutils literal notranslate"><span class="pre">Interval.env()</span></code></a></li>
 <li><a class="reference internal" href="#pba.interval.Interval.straddles"><code class="docutils literal notranslate"><span class="pre">Interval.straddles()</span></code></a></li>
 <li><a class="reference internal" href="#pba.interval.Interval.straddles_zero"><code class="docutils literal notranslate"><span class="pre">Interval.straddles_zero()</span></code></a></li>
-<li><a class="reference internal" href="#pba.interval.Interval.to_logical"><code class="docutils literal notranslate"><span class="pre">Interval.to_logical()</span></code></a></li>
-<li><a class="reference internal" href="#pba.interval.Interval.width"><code class="docutils literal notranslate"><span class="pre">Interval.width()</span></code></a></li>
+<li><a class="reference internal" href="#pba.interval.Interval.recip"><code class="docutils literal notranslate"><span class="pre">Interval.recip()</span></code></a></li>
+<li><a class="reference internal" href="#pba.interval.Interval.intersection"><code class="docutils literal notranslate"><span class="pre">Interval.intersection()</span></code></a></li>
+<li><a class="reference internal" href="#pba.interval.Interval.exp"><code class="docutils literal notranslate"><span class="pre">Interval.exp()</span></code></a></li>
+<li><a class="reference internal" href="#pba.interval.Interval.log"><code class="docutils literal notranslate"><span class="pre">Interval.log()</span></code></a></li>
+<li><a class="reference internal" href="#pba.interval.Interval.sqrt"><code class="docutils literal notranslate"><span class="pre">Interval.sqrt()</span></code></a></li>
+<li><a class="reference internal" href="#pba.interval.Interval.sample"><code class="docutils literal notranslate"><span class="pre">Interval.sample()</span></code></a></li>
 </ul>
 </li>
-</ul>
-</li>
+<li><a class="reference internal" href="#pba.interval.I"><code class="docutils literal notranslate"><span class="pre">I</span></code></a></li>
 </ul>
 </li>
 </ul>
