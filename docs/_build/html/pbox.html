@@ -158,9 +158,11 @@
 <li class="toctree-l1"><a class="reference internal" href="interval.html">Intervals</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Probability Boxes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributions.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nppbox.html">Non-parametric p-boxes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="logical.html">Logical</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cbox.html">Confidence Boxes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core.html">Useful Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependency Arithmetic</a></li>
 </ul>
 
 </div>
@@ -204,20 +206,6 @@
 <dt class="sig sig-object py" id="pba.pbox.Pbox.add">
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pba.pbox.Pbox" title="pba.pbox.Pbox"><span class="pre">Pbox</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="interval.html#pba.interval.Interval" title="pba.interval.Interval"><span class="pre">Interval</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'f'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#pba.pbox.Pbox" title="pba.pbox.Pbox"><span class="pre">Pbox</span></a></span></span><a class="headerlink" href="#pba.pbox.Pbox.add" title="Link to this definition">#</a></dt>
 <dd><p>Adds to Pbox to other using the defined dependency method</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>other</strong> – Pbox, Interval or numeric type</p></li>
-<li><p><strong>method</strong> – </p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Pbox</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#pba.pbox.Pbox" title="pba.pbox.Pbox">Pbox</a></p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -251,14 +239,20 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="pba.pbox.Pbox.hi">
+<span class="sig-name descname"><span class="pre">hi</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox.Pbox.hi" title="Link to this definition">#</a></dt>
+<dd><p>Returns the right-most value in the interval</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pba.pbox.Pbox.imp">
 <span class="sig-name descname"><span class="pre">imp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox.Pbox.imp" title="Link to this definition">#</a></dt>
 <dd><p>Returns the imposition of self with other</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="pba.pbox.Pbox.leftmost">
-<span class="sig-name descname"><span class="pre">leftmost</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox.Pbox.leftmost" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="pba.pbox.Pbox.lo">
+<span class="sig-name descname"><span class="pre">lo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox.Pbox.lo" title="Link to this definition">#</a></dt>
 <dd><p>Returns the left-most value in the interval</p>
 </dd></dl>
 
@@ -272,6 +266,21 @@
 <dt class="sig sig-object py" id="pba.pbox.Pbox.median">
 <span class="sig-name descname"><span class="pre">median</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="interval.html#pba.interval.Interval" title="pba.interval.Interval"><span class="pre">Interval</span></a></span></span><a class="headerlink" href="#pba.pbox.Pbox.median" title="Link to this definition">#</a></dt>
 <dd><p>Returns the median of the distribution</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pba.pbox.Pbox.min">
+<span class="sig-name descname"><span class="pre">min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'f'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox.Pbox.min" title="Link to this definition">#</a></dt>
+<dd><p>Returns a new Pbox object that represents the element-wise minimum of two Pboxes.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li><p>other: Another Pbox object or a numeric value.</p></li>
+<li><p>method: Calculation method to determine the minimum. Can be one of ‘f’, ‘p’, ‘o’, ‘i’.</p></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><p>Pbox</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -292,12 +301,6 @@
 <dd class="field-odd"><p><a class="reference internal" href="#pba.pbox.Pbox" title="pba.pbox.Pbox">Pbox</a></p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pba.pbox.Pbox.rightmost">
-<span class="sig-name descname"><span class="pre">rightmost</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox.Pbox.rightmost" title="Link to this definition">#</a></dt>
-<dd><p>Returns the right-most value in the interval</p>
 </dd></dl>
 
 <dl class="py method">
@@ -400,12 +403,13 @@
 <li><a class="reference internal" href="#pba.pbox.Pbox.env"><code class="docutils literal notranslate"><span class="pre">Pbox.env()</span></code></a></li>
 <li><a class="reference internal" href="#pba.pbox.Pbox.get_x"><code class="docutils literal notranslate"><span class="pre">Pbox.get_x()</span></code></a></li>
 <li><a class="reference internal" href="#pba.pbox.Pbox.get_y"><code class="docutils literal notranslate"><span class="pre">Pbox.get_y()</span></code></a></li>
+<li><a class="reference internal" href="#pba.pbox.Pbox.hi"><code class="docutils literal notranslate"><span class="pre">Pbox.hi()</span></code></a></li>
 <li><a class="reference internal" href="#pba.pbox.Pbox.imp"><code class="docutils literal notranslate"><span class="pre">Pbox.imp()</span></code></a></li>
-<li><a class="reference internal" href="#pba.pbox.Pbox.leftmost"><code class="docutils literal notranslate"><span class="pre">Pbox.leftmost()</span></code></a></li>
+<li><a class="reference internal" href="#pba.pbox.Pbox.lo"><code class="docutils literal notranslate"><span class="pre">Pbox.lo()</span></code></a></li>
 <li><a class="reference internal" href="#pba.pbox.Pbox.mean"><code class="docutils literal notranslate"><span class="pre">Pbox.mean()</span></code></a></li>
 <li><a class="reference internal" href="#pba.pbox.Pbox.median"><code class="docutils literal notranslate"><span class="pre">Pbox.median()</span></code></a></li>
+<li><a class="reference internal" href="#pba.pbox.Pbox.min"><code class="docutils literal notranslate"><span class="pre">Pbox.min()</span></code></a></li>
 <li><a class="reference internal" href="#pba.pbox.Pbox.pow"><code class="docutils literal notranslate"><span class="pre">Pbox.pow()</span></code></a></li>
-<li><a class="reference internal" href="#pba.pbox.Pbox.rightmost"><code class="docutils literal notranslate"><span class="pre">Pbox.rightmost()</span></code></a></li>
 <li><a class="reference internal" href="#pba.pbox.Pbox.straddles"><code class="docutils literal notranslate"><span class="pre">Pbox.straddles()</span></code></a></li>
 <li><a class="reference internal" href="#pba.pbox.Pbox.straddles_zero"><code class="docutils literal notranslate"><span class="pre">Pbox.straddles_zero()</span></code></a></li>
 <li><a class="reference internal" href="#pba.pbox.Pbox.truncate"><code class="docutils literal notranslate"><span class="pre">Pbox.truncate()</span></code></a></li>

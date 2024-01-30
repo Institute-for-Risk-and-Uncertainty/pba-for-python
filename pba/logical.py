@@ -13,9 +13,11 @@ class Logical(Interval):
 
     Inherits from the Interval class.
 
-    Attributes:
-        left (bool): The left endpoint of the logical value.
-        right (bool): The right endpoint of the logical value.
+    **Attributes**:
+    
+        ``left`` (``bool``): The left endpoint of the logical value.
+        
+        ``right`` (``bool``): The right endpoint of the logical value.
 
     '''
     def __init__(self, left: bool ,right: bool = None):
@@ -48,18 +50,51 @@ class Logical(Interval):
         else:
             return self
 
-def is_same_as(a: Union['Pbox', 'Interval'], b: Union['Pbox', 'Interval'], deep = False):
+def is_same_as(a: Union['Pbox', 'Interval'], b: Union['Pbox', 'Interval'], deep = False, exact_pbox = True):
     """
     Check if two objects of type 'Pbox' or 'Interval' are equal.
 
-    Parameters:
-    - a (Union['Pbox', 'Interval']): The first object to be compared.
-    - b (Union['Pbox', 'Interval']): The second object to be compared.
-    - deep (bool, optional): If True, performs a deep comparison, considering object identity. If False, performs a shallow comparison based on object attributes. Defaults to False.
-
-    Returns:
-    - bool: True if the objects have identical parameters. For Intervals this means that left and right are the same for both a and b. For p-boxes 
+    **Parameters**:
     
+        ``a``: The first object to be compared.
+        
+        ``b``: The second object to be compared.
+        
+        ``deep``: If True, performs a deep comparison, considering object identity. If False, performs a shallow comparison based on object attributes. Defaults to False.
+        
+        ``exact_pbox``: If True, performs a deep comparison of p-boxes, considering all attributes. If False, performs a shallow comparison of p-boxes, considering only the left and right attributes. Defaults to True.
+
+    **Returns** ``True`` **if**:
+    
+        ``bool``: True if the objects have identical parameters. For Intervals this means that left and right are the same for both a and b. For p-boxes checks whether all p-box attributes are the same. If deep is True, checks whether the objects have the same id.
+    
+    **Examples**:
+    
+        >>> a = Interval(0, 2)
+        >>> b = Interval(0, 2)
+        >>> c = Interval(1, 3)
+        >>> is_same_as(a, b)
+        True
+        >>> is_same_as(a, c)
+        False
+        
+    For p-boxes:
+    
+        >>> a = pba.N([0,1],1)
+        >>> b = pba.N([0,1],1)
+        >>> c = pba.N([0,1],2)
+        >>> is_same_as(a, b)
+        True
+        >>> is_same_as(a, c)
+        False
+        >>> e = pba.box(0,1,steps=2)
+        >>> f = Pbox(left = [0,0],right=[1,1],steps=2)
+        >>> is_same_as(e, f, exact_pbox = True)
+        False
+        >>> is_same_as(e, f, exact_pbox = False)
+        True
+        
+        
     """
     if not isinstance(a,(Interval, Pbox)) or not isinstance(b,(Interval, Pbox)):
         return a == b
@@ -73,6 +108,16 @@ def is_same_as(a: Union['Pbox', 'Interval'], b: Union['Pbox', 'Interval'], deep 
         if a.__class__.__name__ != b.__class__.__name__:
             return False
         elif isinstance(a,Pbox):
+            
+            if exact_pbox:
+                if (
+                    np.array_equal(a.left, b.left) and
+                    np.array_equal(a.right, b.right)
+                    ):
+                    return True
+                else:
+                    return False
+                
             if (
                 np.array_equal(a.left , b.left ) and
                 np.array_equal(a.right, b.right) and
@@ -105,27 +150,27 @@ def always(logical: Union[Logical, Interval , Number, bool]) -> bool:
     If an interval is provided, it checks that both the left and right attributes of the Logical object are 1.
     If a numeric value is provided, it checks if the is equal to 1.
 
-    Parameters:
-    - logical (Union[Logical, Interval , Number]): An object representing a logical condition with 'left' and 'right' attributes, or a number between 0 and 1.
+    **Parameters**:
+        ``logical`` (``Logical``, ``Interval`` , ``Number``): An object representing a logical condition with 'left' and 'right' attributes, or a number between 0 and 1.
 
-    Returns:
-    bool: True if both sides of the logical condition are True or if the float value is equal to 1, False otherwise.
+    **Returns**:
+        ``bool``: True if both sides of the logical condition are True or if the float value is equal to 1, False otherwise.
 
-    Raises:
-    TypeError: If the input is not an instance of Interval, Logical or a numeric value.
-    ValueError: If the input float is not between 0 and 1 or the interval contains values outside of [0,1]
+    .. error::
     
-    Examples:
-    >>> a = Interval(0, 2)
-    >>> b = Interval(1, 3)
-    >>> c = Interval(4, 5)
-    
-    >>> always(a < b)
-    False
-    
-    >>> always(a < c)
-    True
-    
+        ``TypeError``: If the input is not an instance of Interval, Logical or a numeric value.
+        
+        ``ValueError``: If the input float is not between 0 and 1 or the interval contains values outside of [0,1]
+        
+    **Examples**:
+        >>> a = Interval(0, 2)
+        >>> b = Interval(1, 3)
+        >>> c = Interval(4, 5)
+        >>> always(a < b)
+        False
+        >>> always(a < c)
+        True
+        
     """
     
     if isinstance(logical,Logical):
@@ -163,25 +208,29 @@ def never(logical: Logical) -> bool:
     If an interval is provided, it checks that both the left and right attributes of the Logical object are 0.
     If a numeric value is provided, it checks if the is equal to 0.
 
-    Parameters:
-    - logical (Union[Logical, Interval , Number]): An object representing a logical condition with 'left' and 'right' attributes, or a number between 0 and 1.
-
-    Returns:
-    bool: True if both sides of the logical condition are True or if the float value is equal to 0, False otherwise.
-
-    Raises:
-    TypeError: If the input is not an instance of Interval, Logical or a numeric value.
-    ValueError: If the input float is not between 0 and 1 or the interval contains values outside of [0,1]
+    **Parameters**:
     
-    Examples:
+        ``logical`` (``Logical``, ``Interval`` , ``Number``): An object representing a logical condition with 'left' and 'right' attributes, or a number between 0 and 1.
+
+    **Returns**:
     
-    >>> a = Interval(0, 2)
-    >>> b = Interval(1, 3)
-    >>> c = Interval(4, 5)
-    >>> never(a < b)
-    False
-    >>> never(a < c)
-    True
+        ``bool``: True if both sides of the logical condition are True or if the float value is equal to 0, False otherwise.
+
+    .. error::
+    
+        ``TypeError``: If the input is not an instance of Interval, Logical or a numeric value.
+        
+        ``ValueError``: If the input float is not between 0 and 1 or the interval contains values outside of [0,1]
+    
+    **Examples**:
+    
+        >>> a = Interval(0, 2)
+        >>> b = Interval(1, 3)
+        >>> c = Interval(4, 5)
+        >>> never(a < b)
+        False
+        >>> never(a < c)
+        True
     
     """
     
@@ -220,27 +269,31 @@ def sometimes(logical: Logical) -> bool:
     If an interval is provided, it that both endpoints are not 0.
     If a numeric value is provided, it checks if the is not equal to 0.
 
-    Parameters:
-    - logical (Union[Logical, Interval , Number]): An object representing a logical condition with 'left' and 'right' attributes, or a number between 0 and 1.
-
-    Returns:
-    bool: True if both sides of the logical condition are True or if the float value is equal to 0, False otherwise.
-
-    Raises:
-    TypeError: If the input is not an instance of Interval, Logical or a numeric value.
-    ValueError: If the input float is not between 0 and 1 or the interval contains values outside of [0,1]
+    **Parameters**:
     
-    Examples:
+        ``logical`` (``Logical``, ``Interval`` , ``Number``): An object representing a logical condition with 'left' and 'right' attributes, or a number between 0 and 1.
+
+    **Returns**:
     
-    >>> a = pba.Interval(0, 2)
-    >>> b = pba.Interval(1, 4)
-    >>> c = pba.Interval(3, 5)
-    >>> pba.sometimes(a < b)
-    True
-    >>> pba.sometimes(a < c)
-    True
-    >>> pba.sometimes(c < b)
-    True
+        ``bool``: True if both sides of the logical condition are True or if the float value is equal to 0, False otherwise.
+
+    .. error::
+    
+        ``TypeError``: If the input is not an instance of Interval, Logical or a numeric value.
+        
+        ``ValueError``: If the input float is not between 0 and 1 or the interval contains values outside of [0,1]
+    
+    **Examples**:
+    
+        >>> a = pba.Interval(0, 2)
+        >>> b = pba.Interval(1, 4)
+        >>> c = pba.Interval(3, 5)
+        >>> pba.sometimes(a < b)
+        True
+        >>> pba.sometimes(a < c)
+        True
+        >>> pba.sometimes(c < b)
+        True
         
     """
     
@@ -279,27 +332,31 @@ def xtimes(logical: Logical) -> bool:
     If an interval is provided, it that both endpoints are not 0 or 1.
     If a numeric value is provided, it checks if the is not equal to 0 or 1.
 
-    Parameters:
-    - logical (Union[Logical, Interval , Number]): An object representing a logical condition with 'left' and 'right' attributes, or a number between 0 and 1.
-
-    Returns:
-    bool: True if both sides of the logical condition are True or if the float value is equal to 0, False otherwise.
-
-    Raises:
-    TypeError: If the input is not an instance of Interval, Logical or a numeric value.
-    ValueError: If the input float is not between 0 and 1 or the interval contains values outside of [0,1]
+    **Parameters**:
     
-    Examples:
+        ``logical`` (``Logical``, ``Interval`` , ``Number``): An object representing a logical condition with 'left' and 'right' attributes, or a number between 0 and 1.
+
+    **Returns**:
     
-    >>> a = pba.Interval(0, 2)
-    >>> b = pba.Interval(2, 4)
-    >>> c = pba.Interval(2.5,3.5)
-    >>> pba.xtimes(a < b)
-    False
-    >>> pba.xtimes(a < c)
-    False
-    >>> pba.xtimes(c < b)
-    True
+        ``bool``: True if both sides of the logical condition are True or if the float value is equal to 0, False otherwise.
+
+    .. error::
+    
+        ``TypeError``: If the input is not an instance of Interval, Logical or a numeric value.
+        
+        ``ValueError``: If the input float is not between 0 and 1 or the interval contains values outside of [0,1]
+    
+    **Examples**:
+    
+        >>> a = pba.Interval(0, 2)
+        >>> b = pba.Interval(2, 4)
+        >>> c = pba.Interval(2.5,3.5)
+        >>> pba.xtimes(a < b)
+        False
+        >>> pba.xtimes(a < c)
+        False
+        >>> pba.xtimes(c < b)
+        True
     
     """
     

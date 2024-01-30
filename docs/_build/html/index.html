@@ -158,9 +158,11 @@
 <li class="toctree-l1"><a class="reference internal" href="interval.html">Intervals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pbox.html">Probability Boxes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributions.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nppbox.html">Non-parametric p-boxes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="logical.html">Logical</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cbox.html">Confidence Boxes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core.html">Useful Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependency Arithmetic</a></li>
 </ul>
 
 </div>
@@ -216,6 +218,23 @@
 <li class="toctree-l2"><a class="reference internal" href="distributions.html#pba.dists.lognormal"><code class="docutils literal notranslate"><span class="pre">lognormal()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="nppbox.html">Non-parametric p-boxes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nppbox.html#pba.non_parametric.what_I_know"><code class="docutils literal notranslate"><span class="pre">what_I_know()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="nppbox.html#pba.non_parametric.box"><code class="docutils literal notranslate"><span class="pre">box()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="nppbox.html#pba.non_parametric.min_max"><code class="docutils literal notranslate"><span class="pre">min_max()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="nppbox.html#pba.non_parametric.min_max_mean"><code class="docutils literal notranslate"><span class="pre">min_max_mean()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="nppbox.html#pba.non_parametric.min_max_mean_std"><code class="docutils literal notranslate"><span class="pre">min_max_mean_std()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="nppbox.html#pba.non_parametric.min_max_mean_var"><code class="docutils literal notranslate"><span class="pre">min_max_mean_var()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="nppbox.html#pba.non_parametric.min_max_mode"><code class="docutils literal notranslate"><span class="pre">min_max_mode()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="nppbox.html#pba.non_parametric.min_max_median"><code class="docutils literal notranslate"><span class="pre">min_max_median()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="nppbox.html#pba.non_parametric.min_max_median_is_mode"><code class="docutils literal notranslate"><span class="pre">min_max_median_is_mode()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="nppbox.html#pba.non_parametric.mean_std"><code class="docutils literal notranslate"><span class="pre">mean_std()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="nppbox.html#pba.non_parametric.mean_var"><code class="docutils literal notranslate"><span class="pre">mean_var()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="nppbox.html#pba.non_parametric.pos_mean_std"><code class="docutils literal notranslate"><span class="pre">pos_mean_std()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="nppbox.html#pba.non_parametric.symmetric_mean_std"><code class="docutils literal notranslate"><span class="pre">symmetric_mean_std()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="nppbox.html#pba.non_parametric.from_percentiles"><code class="docutils literal notranslate"><span class="pre">from_percentiles()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="logical.html">Logical</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="logical.html#pba.logical.Logical"><code class="docutils literal notranslate"><span class="pre">Logical</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="logical.html#pba.logical.always"><code class="docutils literal notranslate"><span class="pre">always()</span></code></a></li>
@@ -229,7 +248,16 @@
 <li class="toctree-l2"><a class="reference internal" href="cbox.html#pba.cbox.Cbox"><code class="docutils literal notranslate"><span class="pre">Cbox</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core.html">Useful Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="core.html#pba.core.env"><code class="docutils literal notranslate"><span class="pre">env()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#pba.core.envelope"><code class="docutils literal notranslate"><span class="pre">envelope()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#pba.core.mean"><code class="docutils literal notranslate"><span class="pre">mean()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#pba.core.mul"><code class="docutils literal notranslate"><span class="pre">mul()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#pba.core.sqrt"><code class="docutils literal notranslate"><span class="pre">sqrt()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#pba.core.sum"><code class="docutils literal notranslate"><span class="pre">sum()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependency Arithmetic</a></li>
 </ul>
 </div>
 </section>

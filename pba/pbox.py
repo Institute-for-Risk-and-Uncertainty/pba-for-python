@@ -13,8 +13,17 @@ __all__ = [
     'Pbox',
     'mixture',
     'truncate',
-    'imposition'
+    'imposition',
+    'NotIncreasingError'
 ]
+
+
+
+def check_increasing(arr):
+    return np.all(np.diff(arr) >= 0)
+
+class NotIncreasingError(Exception):
+    pass
 
 def _interval_list_to_array(l, left = True):
     if left:
@@ -36,7 +45,13 @@ class Pbox:
             else:
                 steps = len(left)
                 
-        if steps is None: steps = Pbox.STEPS
+        if steps is None: 
+            if hasattr(left, '__len__'):
+                steps = len(left)
+            elif hasattr(right, '__len__'):
+                steps = len(right)
+            else:
+                steps = Pbox.STEPS
 
         if (left is not None) and (right is None):
             right = left
@@ -56,7 +71,7 @@ class Pbox:
         if isinstance(right, Interval):
             right = np.array([right.right]*steps)
         elif isinstance(right, list):
-            right = _interval_list_to_array(right)
+            right = _interval_list_to_array(right, left = False)
         elif not isinstance(right, np.ndarray):
             right = np.array([right]*steps)
 
@@ -69,6 +84,9 @@ class Pbox:
         if len(right) != steps:
             right = _interpolate(right, interpolation=interpolation, left=True, steps=steps)
 
+        if not check_increasing(left) or not check_increasing(right):
+            raise NotIncreasingError("Left and right arrays must be increasing")
+        
         l,r = zip(*[(min(i),max(i)) for i in zip(left,right)])
         self.left = np.array(l)
         self.right = np.array(r)
@@ -207,13 +225,13 @@ class Pbox:
         except:
             return NotImplemented
     
-    def leftmost(self): 
+    def lo(self): 
         '''
         Returns the left-most value in the interval
         '''
         return self.left[0]
   
-    def rightmost(self): 
+    def hi(self): 
         '''
         Returns the right-most value in the interval
         '''
@@ -790,7 +808,7 @@ class Pbox:
                 steps   = self.steps
             )
 
-    def show(self,figax = None, now = True, title = '', **kwargs):
+    def show(self,figax = None, now = True, title = '', x_axis_label = 'x', **kwargs):
 
         if figax is None:
             fig, ax = plt.subplots()
@@ -819,6 +837,9 @@ class Pbox:
               
         if title != '' : ax.set_title(title,**kwargs)   
 
+        ax.set_xlabel(x_axis_label)
+        ax.set_ylabel(r'$\Pr(x \leq X)$')
+        
         if now:
             fig.show()
         else:

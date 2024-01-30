@@ -1,6 +1,5 @@
 '''
-Non-parametric p-box generators
--------------------------------
+Functions that can be used to generate non-parametric p-boxes. These functions are used to generate p-boxes based upon the minimum, maximum, mean, median, mode, standard deviation, variance, and coefficient of variation of the variable.
 '''
 __all__ = [
     'what_I_know',
@@ -15,14 +14,19 @@ __all__ = [
     'mean_std',
     'mean_var',
     'pos_mean_std',
-    'min_max_percentile',
-    'symmetric_mean_std'
+    'symmetric_mean_std',
+    'from_percentiles'
     ]
 
-from .pbox import Pbox, imposition
+from .pbox import Pbox, imposition, NotIncreasingError
 from .interval import Interval
 from .dists import *
+from .core import *
+from .logical import *
+
+import itertools as it
 from typing import *
+from warnings import warn
 import numpy as np
 
 def what_I_know(
@@ -34,7 +38,7 @@ def what_I_know(
         std: Optional[Union[Interval,float,int]] = None,
         var: Optional[Union[Interval,float,int]] = None,
         cv: Optional[Union[Interval,float,int]] = None,
-        # percentiles: Optional[Union[Interval,float,int]] = None,
+        percentiles: Optional[dict[Union[Interval,float,int]]] = None,
         # coverages: Optional[Union[Interval,float,int]] = None,
         # shape: Optional[Literal['unimodal', 'symmetric', 'positive', 'nonnegative', 'concave', 'convex', 'increasinghazard', 'decreasinghazard', 'discrete', 'integervalued', 'continuous', '', 'normal', 'lognormal']] = None,
         # data: Optional[list] = None,
@@ -43,24 +47,28 @@ def what_I_know(
         steps: int = Pbox.STEPS
         ) -> Pbox:
     '''
-    Generates a distribution free p-box based upon the information given. This function works by calculating every possible non-parametric p-box that can be generated using the information provided. The returned p-box is the imposition of these p-boxes.
+    Generates a distribution free p-box based upon the information given. This function works by calculating every possible non-parametric p-box that can be generated using the information provided. The returned p-box is the intersection of these p-boxes.
     
-    Parameters
-    ----------
-        minimum
-        maximum
-        mean
-        median
-        mode
-        std
-        var
-        cv
-        percentiles
-        
-    Returns
-    ----------
-        Pbox:
-            Imposition of possible p-boxes
+    **Parameters**:
+    
+        ``minimum``: Minimum value of the variable
+        ``maximum``: Maximum value of the variable
+        ``mean``: Mean value of the variable
+        ``median``: Median value of the variable
+        ``mode``: Mode value of the variable
+        ``std``: Standard deviation of the variable
+        ``var``: Variance of the variable
+        ``cv``: Coefficient of variation of the variable
+        ``percentiles``: Dictionary of percentiles and their values (e.g. {0.1: 1, 0.5: 2, 0.9: Interval(3,4)})
+        ``steps``: Number of steps to use in the p-box
+       
+    .. error::
+    
+        ``ValueError``: If any of the arguments are not consistent with each other. (i.e. if ``std`` and ``var`` are both given, but ``std != sqrt(var)``)
+         
+    **Returns**:
+    
+        ``Pbox``: Imposition of possible p-boxes
     
     '''
     
@@ -88,6 +96,10 @@ def what_I_know(
     #         maximum = min(0,maximum)
 
     #     if debug: _print_debug("Shape is negative")
+        
+    if std is not None and var is not None:
+        if std != np.sqrt(var):
+            raise ValueError("std and var are not consistent")
         
     imp = []
     
@@ -124,23 +136,21 @@ def what_I_know(
 def box(
         a: Union[Interval,float,int],
         b: Union[Interval,float,int] = None,
-        steps = Pbox.STEPS
+        steps = Pbox.STEPS,
+        shape = 'box'
         ) -> Pbox:
     '''
-    Returns Box Pbox
+    Returns a box shaped Pbox. This is equivalent to an Interval expressed as a Pbox.
+    
+    **Parameters**:
+
+        ``a`` : Left side of box
+        ``b``: Right side of box
     
     
-    Parameters
-    ----------
-        a :
-            Left side of box
-        b:
-            Right side of box
-    
-    Returns
-    ----------
-        Pbox:
-            p-box
+    **Returns**:
+
+        ``Pbox``
         
     '''
     if b == None:
@@ -153,11 +163,11 @@ def box(
         mean_right= i.right,
         var_left = 0,
         var_right=((i.right-i.left)**2)/4,
-        steps = steps
+        steps = steps,
+        shape=shape
     )
 
 min_max = box
-
 
 def min_max_mean(    
         minimum: Union[Interval,float,int], 
@@ -168,18 +178,18 @@ def min_max_mean(
     '''
     Generates a distribution-free p-box based upon the minimum, maximum and mean of the variable
  
-    Parameters
-    ----------
-    minimum : 
-        minimum value of the variable
-    maximum : 
-        maximum value of the variable
-    mean : 
-        mean value of the variable
+    **Parameters**:
+
+        ``minimum`` : minimum value of the variable
+
+        ``maximum`` : maximum value of the variable
+
+        ``mean`` : mean value of the variable
+
     
-    Returns
-    ----------
-    Pbox
+    **Returns**:
+
+        ``Pbox``
     '''
     mid = (maximum-mean)/(maximum-minimum)
     ii = [i/steps for i in range(steps)]
@@ -200,16 +210,16 @@ def min_mean(
     '''
     Generates a distribution-free p-box based upon the minimum and mean of the variable
  
-    Parameters
-    ----------
-    minimum : 
-        minimum value of the variable
-    mean : 
-        mean value of the variable
+    **Parameters**:
+
+        ``minimum`` : minimum value of the variable
+
+        ``mean`` : mean value of the variable
+
     
-    Returns
-    ----------
-    Pbox
+    **Returns**:
+
+        ``Pbox``
     '''
     jjj = np.array([j/steps for j in range(1,steps-1)] + [1-1/steps])
 
@@ -230,16 +240,16 @@ def max_mean(
     '''
     Generates a distribution-free p-box based upon the minimum and mean of the variable
  
-    Parameters
-    ----------
-    minimum : 
-        minimum value of the variable
-    mean : 
-        mean value of the variable
+    **Parameters**:
+
+        ``minimum`` : minimum value of the variable
+
+        ``mean`` : mean value of the variable
+
     
-    Returns
-    ----------
-    Pbox
+    **Returns**:
+
+        ``Pbox``
     '''
     return min_mean(-maximum,-mean).__neg__()
     
@@ -253,16 +263,16 @@ def mean_std(
     '''
     Generates a distribution-free p-box based upon the mean and standard deviation of the variable
  
-    Parameters
-    ----------
-    mean : 
-        mean of the variable
-    std : 
-        standard deviation of the variable
+    **Parameters**:
+
+        ``mean`` : mean of the variable
+
+        ``std`` : standard deviation of the variable
+
     
-    Returns
-    ----------
-    Pbox
+    **Returns**:
+
+        ``Pbox``
 
     '''
     iii = [1/steps] + [i/steps for i in range(1,steps-1)]
@@ -291,16 +301,16 @@ def mean_var(
     
     Equivalent to `mean_std(mean,np.sqrt(var))`
  
-    Parameters
-    ----------
-    mean : 
-        mean of the variable
-    var : 
-        variance of the variable
+    **Parameters**:
+
+        ``mean`` : mean of the variable
+
+        ``var`` : variance of the variable
+
     
-    Returns
-    ----------
-    Pbox
+    **Returns**:
+
+        ``Pbox``
 
     '''
     return mean_std(mean,np.sqrt(var),steps)
@@ -313,16 +323,16 @@ def pos_mean_std(
     '''
     Generates a positive distribution-free p-box based upon the mean and standard deviation of the variable
  
-    Parameters
-    ----------
-    mean : 
-        mean of the variable
-    std : 
-        standard deviation of the variable
+    **Parameters**:
+
+        ``mean`` : mean of the variable
+
+        ``std`` : standard deviation of the variable
+
     
-    Returns
-    ----------
-    Pbox
+    **Returns**:
+
+        ``Pbox``
 
     '''
     iii = [1/steps] + [i/steps for i in range(1,steps-1)]
@@ -350,18 +360,18 @@ def min_max_mode(
     '''
     Generates a distribution-free p-box based upon the minimum, maximum, and mode of the variable
  
-    Parameters
-    ----------
-    minimum : 
-        minimum value of the variable
-    maximum : 
-        maximum value of the variable
-    mode : 
-        mode value of the variable
+    **Parameters**:
+
+        ``minimum`` : minimum value of the variable
+
+        ``maximum`` : maximum value of the variable
+
+        ``mode`` : mode value of the variable
+
     
-    Returns
-    ----------
-    Pbox
+    **Returns**:
+
+        ``Pbox``
 
     '''
     if minimum == maximum:
@@ -389,18 +399,18 @@ def min_max_median(
     '''
     Generates a distribution-free p-box based upon the minimum, maximum and median of the variable
  
-    Parameters
-    ----------
-    minimum : 
-        minimum value of the variable
-    maximum : 
-        maximum value of the variable
-    median : 
-        median value of the variable
+    **Parameters**:
+
+        ``minimum`` : minimum value of the variable
+
+        ``maximum`` : maximum value of the variable
+
+        ``median`` : median value of the variable
+
     
-    Returns
-    ----------
-    Pbox
+    **Returns**:
+
+        ``Pbox``
 
     '''
     if minimum == maximum:
@@ -428,18 +438,18 @@ def min_max_median_is_mode(
     '''
     Generates a distribution-free p-box based upon the minimum, maximum and median/mode of the variable when median = mode.
  
-    Parameters
-    ----------
-    minimum : 
-        minimum value of the variable
-    maximum : 
-        maximum value of the variable
-    m : 
-        m = median = mode value of the variable
+    **Parameters**:
+
+        ``minimum`` : minimum value of the variable
+
+        ``maximum`` : maximum value of the variable
+
+        ``m`` : m = median = mode value of the variable
+
     
-    Returns
-    ----------
-    Pbox
+    **Returns**:
+
+        ``Pbox``
 
     '''
     ii = np.array([i/steps for i in range(steps)])
@@ -459,55 +469,6 @@ def min_max_median_is_mode(
         var_right=(maximum - minimum)*(maximum - minimum)/4,
     )
 
-def min_max_percentile(
-        minimum: Union[Interval,float,int], 
-        maximum: Union[Interval,float,int], 
-        fraction: Union[list,float,int], 
-        percentile: Union[list,float],
-        steps: int = Pbox.STEPS
-        ) -> Pbox:
-    '''
-    Generates a distribution-free p-box based upon the minimum, maximum and a percentile of the distribution.
- 
-    Parameters
-    ----------
-    minimum : 
-        minimum value of the variable
-    maximum : 
-        maximum value of the variable
-    fraction : 
-        fraction that the percentile(s) is/are at
-    percentile :
-        the percentile(s) at fraction
-    
-    Returns
-    ----------
-    Pbox
-
-    '''
-    ii = [i/steps for i in range(steps)]
-    jjj = [j/steps for j in range(1,steps-1)] + [1-1/steps]
-    
-    if hasattr(fraction,'__iter__'):
-        
-        if len(fraction) != len(percentile):
-            raise Exception('fraction and percentile must be the same length')
-
-        fraction = np.array([0] + list(fraction) + [1])
-        percentile = np.array([minimum] + list(percentile) + [maximum])
-        
-        u = [percentile[fraction<=x][-1] for x in ii]
-        d = [percentile[fraction>=x][0] for x in jjj]
-        
-    else:
-        u = [minimum if x <= fraction else percentile for x in ii]
-        d = [maximum if x > fraction else percentile for x in jjj]
-    
-    return Pbox(
-        left = u,
-        right = d
-    )
-
 def symmetric_mean_std(
         mean: Union[Interval,float,int], 
         std: Union[Interval,float,int], 
@@ -516,16 +477,15 @@ def symmetric_mean_std(
     '''
     Generates a symmetrix distribution-free p-box based upon the mean and standard deviation of the variable
  
-    Parameters
-    ----------
-    mean : 
-        mean value of the variable
-    std :
-        standard deviation of the variable 
+    **Parameters**:
+
+    ``mean`` :  mean value of the variable
+    ``std`` : standard deviation of the variable 
     
-    Returns
-    ----------
-    Pbox
+    **Returns**
+
+        ``Pbox``    
+        
     '''
     iii = [1/steps] + [i/steps for i in range(1,steps-1)]
     jjj = [j/steps for j in range(1,steps-1)] + [1-1/steps]
@@ -554,21 +514,21 @@ def min_max_mean_std(
     '''
     Generates a distribution-free p-box based upon the minimum, maximum, mean and standard deviation of the variable
  
-    Parameters
-    ----------
-    minimum : 
-        minimum value of the variable
-    maximum : 
-        maximum value of the variable
-    mean : 
-        mean value of the variable
-    std :
-        standard deviation of the variable 
-    
-    Returns
-    ----------
-    Pbox
+    **Parameters**
 
+        ``minimum`` : minimum value of the variable
+        ``maximum`` : maximum value of the variable
+        ``mean`` : mean value of the variable
+        ``std`` :standard deviation of the variable 
+    
+    **Returns**
+
+        ``Pbox``
+
+    .. seealso::
+            
+        :func:`min_max_mean_var`
+        
     '''
     if minimum == maximum:
         return box(minimum, maximum)
@@ -664,28 +624,133 @@ def min_max_mean_var(
         ) -> Pbox:
     '''
     Generates a distribution-free p-box based upon the minimum, maximum, mean and standard deviation of the variable
-    
-    Equivalent to min_max_mean_std(minimum,maximum,mean,np.sqrt(var))
  
-    Parameters
-    ----------
-    minimum : 
-        minimum value of the variable
-    maximum : 
-        maximum value of the variable
-    mean : 
-        mean value of the variable
-    var :
-        variance of the variable 
+    **Parameters**
     
-    Returns
-    ----------
-    Pbox
+        ``minimum`` : minimum value of the variable
+        ``maximum`` : maximum value of the variable
+        ``mean`` : mean value of the variable
+        ``var`` :variance of the variable 
+    
+    **Returns**
+
+        ``Pbox``
+
+
+    .. admonition:: Implementation
+    
+        Equivalent to ``min_max_mean_std(minimum,maximum,mean,np.sqrt(var))``
+        
+    .. seealso:: 
+        
+        :func:`min_max_mean_std`
 
     '''
     return min_max_mean_std(minimum,maximum,mean,np.sqrt(var))
 
+def from_percentiles(percentiles: dict, steps: int = Pbox.STEPS) -> Pbox:
+    '''
+    Generates a distribution-free p-box based upon percentiles of the variable
+ 
+    **Parameters**
+
+        ``percentiles`` : dictionary of percentiles and their values (e.g. {0: 0, 0.1: 1, 0.5: 2, 0.9: Interval(3,4), 1:5})
+        
+        ``steps`` : number of steps to use in the p-box
+    
+    .. important::
+        
+        The percentiles dictionary is of the form {percentile: value}. Where value can either be a number or an Interval. If value is a number, the percentile is assumed to be a point percentile. If value is an Interval, the percentile is assumed to be an interval percentile.
+    
+    .. warning::
+    
+        If no keys for 0 and 1 are given, ``-np.inf`` and ``np.inf`` are used respectively. This will result in a p-box that is not bounded and raise a warning.
+        
+        If the percentiles are not increasing, the percentiles will be intersected. This may not be desired behaviour.
+    
+    .. error::
+    
+        ``ValueError``: If any of the percentiles are not between 0 and 1.
+    
+    **Returns**
+    
+        ``Pbox``
+
+    
+    **Example**:
+    
+    .. code-block:: python
+    
+        pba.from_percentiles(
+            {0: 0,
+            0.25: 0.5,
+            0.5: pba.I(1,2),
+            0.75: pba.I(1.5,2.5),
+            1: 3}
+        ).show()
+
+    ..image:: _images/from_percentiles.png
+    
+    '''
+    # check if 0 and 1 are in the dictionary
+    if 0 not in percentiles.keys():
+        percentiles[0] = -np.inf
+        warn("No value given for 0 percentile. Using -np.inf")
+    if 1 not in percentiles.keys():
+        percentiles[1] = np.inf
+        warn("No value given for 1 percentile. Using np.inf")
+        
+    # sort the dictionary by percentile
+    percentiles = dict(sorted(percentiles.items()))
+    
+    # transform values to intervals
+    for k,v in percentiles.items():
+        if not isinstance(v,Interval):
+            percentiles[k] = Interval(v)
+    
+    if any([p<0 or p>1 for p in percentiles.keys()]):
+        raise ValueError("Percentiles must be between 0 and 1")
+    
+    left = []
+    right = []
+    for i in np.linspace(0,1,steps):
+        smallest_key =  min(key for key in percentiles.keys() if key >= i)
+        largest_key =  max(key for key in percentiles.keys() if key <= i)
+        left.append(percentiles[largest_key].left)
+        right.append(percentiles[smallest_key].right)
+    
+    try:
+        return Pbox(left,right,steps=steps, interpolation='outer')
+    except NotIncreasingError:
+        warn("Percentiles are not increasing. Will take intersection of percentiles.")
+        
+        left = []
+        right = []
+        p = list(percentiles.keys())
+        for i,j,k in zip(p,p[1:],p[2:]):
+            if sometimes(percentiles[j] < percentiles[i]):
+                percentiles[j] = Interval(percentiles[i].right,percentiles[j].right)
+            if sometimes(percentiles[j] > percentiles[k]):
+                percentiles[j] = Interval(percentiles[j].left,percentiles[k].left)
+                
+        left = []
+        right = []
+        for i in np.linspace(0,1,steps):
+            smallest_key =  min(key for key in percentiles.keys() if key >= i)
+            left.append(percentiles[smallest_key].left)
+            right.append(percentiles[smallest_key].right)
+        
+        return Pbox(left,right,steps=steps, interpolation='outer')
+    except:
+        raise Exception("Unable to generate p-box")
+
 ### ML-ME
+'''
+Maximum Likelihood methods
+__________________________
+
+Maximum likelihood estimation (MLE) is a method of estimating the parameters of a probability distribution by maximizing a likelihood function, so that under the assumed statistical model the observed data is most probable. The point in the parameter space that maximizes the likelihood function is called the maximum likelihood estimate. The logic of maximum likelihood is both intuitive and flexible, and as such the method has become a dominant means of statistical inference.
+'''
 def MLnorm(data): 
     return norm(np.mean(data),np.std(data))
 

@@ -6,13 +6,14 @@ py:class
     pba.logical.Logical                                                              : logical.html#pba.logical.Logical
     pba.pbox.Pbox                                                                    : pbox.html#pba.pbox.Pbox
 py:function
-    pba.core.env                                                                     : utilities.html#pba.core.env
-    pba.core.max                                                                     : utilities.html#pba.core.max
-    pba.core.mean                                                                    : utilities.html#pba.core.mean
-    pba.core.min                                                                     : utilities.html#pba.core.min
-    pba.core.mul                                                                     : utilities.html#pba.core.mul
-    pba.core.sqrt                                                                    : utilities.html#pba.core.sqrt
-    pba.core.sum                                                                     : utilities.html#pba.core.sum
+    pba.core.env                                                                     : core.html#pba.core.env
+    pba.core.envelope                                                                : core.html#pba.core.envelope
+    pba.core.max                                                                     : core.html#pba.core.max
+    pba.core.mean                                                                    : core.html#pba.core.mean
+    pba.core.min                                                                     : core.html#pba.core.min
+    pba.core.mul                                                                     : core.html#pba.core.mul
+    pba.core.sqrt                                                                    : core.html#pba.core.sqrt
+    pba.core.sum                                                                     : core.html#pba.core.sum
     pba.dists.beta                                                                   : distributions.html#pba.dists.beta
     pba.dists.lognorm                                                                : distributions.html#pba.dists.lognorm
     pba.dists.lognormal                                                              : distributions.html#pba.dists.lognormal
@@ -52,37 +53,58 @@ py:method
     pba.interval.Interval.to_logical                                                 : interval.html#pba.interval.Interval.to_logical
     pba.interval.Interval.width                                                      : interval.html#pba.interval.Interval.width
     pba.pbox.Pbox.add                                                                : pbox.html#pba.pbox.Pbox.add
+    pba.pbox.Pbox.env                                                                : pbox.html#pba.pbox.Pbox.env
     pba.pbox.Pbox.get_x                                                              : pbox.html#pba.pbox.Pbox.get_x
     pba.pbox.Pbox.get_y                                                              : pbox.html#pba.pbox.Pbox.get_y
     pba.pbox.Pbox.imp                                                                : pbox.html#pba.pbox.Pbox.imp
     pba.pbox.Pbox.leftmost                                                           : pbox.html#pba.pbox.Pbox.leftmost
     pba.pbox.Pbox.mean                                                               : pbox.html#pba.pbox.Pbox.mean
     pba.pbox.Pbox.median                                                             : pbox.html#pba.pbox.Pbox.median
+    pba.pbox.Pbox.min                                                                : pbox.html#pba.pbox.Pbox.min
     pba.pbox.Pbox.pow                                                                : pbox.html#pba.pbox.Pbox.pow
     pba.pbox.Pbox.rightmost                                                          : pbox.html#pba.pbox.Pbox.rightmost
     pba.pbox.Pbox.straddles                                                          : pbox.html#pba.pbox.Pbox.straddles
     pba.pbox.Pbox.straddles_zero                                                     : pbox.html#pba.pbox.Pbox.straddles_zero
     pba.pbox.Pbox.truncate                                                           : pbox.html#pba.pbox.Pbox.truncate
 py:module
-    pba.core                                                                         : utilities.html#module-pba.core
+    pba.core                                                                         : core.html#module-pba.core
     pba.dists                                                                        : distributions.html#module-pba.dists
     pba.interval                                                                     : interval.html#module-pba.interval
     pba.logical                                                                      : logical.html#module-pba.logical
 std:doc
     cbox                                     Confidence Boxes                        : cbox.html
+    core                                     Usefull Functions                       : core.html
+    dependencies                             Dependency Arithmetic                   : dependencies.html
     distributions                            Distributions                           : distributions.html
     index                                    PBA for Python                          : index.html
     interval                                 Intervals                               : interval.html
     logical                                  Logical                                 : logical.html
     pbox                                     Probability Boxes                       : pbox.html
-    utilities                                Utilities                               : utilities.html
 std:label
+    cbox:confidence boxes                    Confidence Boxes                        : cbox.html#confidence-boxes
+    core.envelope                                                                    : core.html#core-envelope
+    core:output                              Output                                  : core.html#id2
+    core:parameters                          Parameters                              : core.html#id1
+    core:usefull functions                   Usefull Functions                       : core.html#usefull-functions
+    dependencies:dependency arithmetic       Dependency Arithmetic                   : dependencies.html#dependency-arithmetic
+    distributions:distribution based p-boxes Distribution based p-boxes              : distributions.html#distribution-based-p-boxes
+    distributions:distributions              Distributions                           : distributions.html#module-pba.dists
+    distributions:parameters                 Parameters                              : distributions.html#id1
+    distributions:returns                    Returns                                 : distributions.html#id2
     genindex                                 Index                                   : genindex.html
+    index:pba for python                     PBA for Python                          : index.html#pba-for-python
     interval.add                                                                     : interval.html#interval-add
     interval.div                                                                     : interval.html#interval-div
-    interval.env                                                                     : interval.html#interval-env
+    interval.env                                                                     : pbox.html#interval-env
     interval.mul                                                                     : interval.html#interval-mul
+    interval.straddles                                                               : interval.html#interval-straddles
     interval.sub                                                                     : interval.html#interval-sub
+    interval:arithmetic                      Arithmetic                              : interval.html#arithmetic
+    interval:intervals                       Intervals                               : interval.html#module-pba.interval
+    logical:logical                          Logical                                 : logical.html#module-pba.logical
     modindex                                 Module Index                            : py-modindex.html
+    pbox:parameters                          Parameters                              : pbox.html#parameters
+    pbox:probability boxes                   Probability Boxes                       : pbox.html#probability-boxes
+    pbox:returns                             Returns                                 : pbox.html#returns
     py-modindex                              Python Module Index                     : py-modindex.html
     search                                   Search Page                             : search.html

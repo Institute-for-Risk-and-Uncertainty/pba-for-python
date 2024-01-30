@@ -9,6 +9,11 @@ def test_pbox_creation():
         steps = 3
     )
     
+    b = Pbox(
+        [Interval(0,1),Interval(1,2),Interval(2,3),Interval(2,4)],
+    )
+    assert is_same_as(b,Pbox(left = [0,1,2,2],right=[1,2,3,4],steps=4))
+    
 def test_pbox_add():
     a = Pbox(
         left = [0,1,2],

@@ -8,6 +8,8 @@ PBA for Python
    interval.rst
    pbox.rst
    distributions.rst
+   nppbox.rst
    logical.rst
    cbox.rst
-   utilities.rst
+   core.rst
+   dependencies.rst

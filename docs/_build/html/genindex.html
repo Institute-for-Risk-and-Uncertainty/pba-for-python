@@ -156,9 +156,11 @@
 <li class="toctree-l1"><a class="reference internal" href="interval.html">Intervals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pbox.html">Probability Boxes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributions.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nppbox.html">Non-parametric p-boxes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="logical.html">Logical</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cbox.html">Confidence Boxes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core.html">Useful Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependency Arithmetic</a></li>
 </ul>
 
 </div>
@@ -195,7 +197,7 @@
           
 <section class="genindex-section">
   <h1 id="index">Index</h1>
-  <div class="genindex-jumpbox"><a href="#A"><strong>A</strong></a> | <a href="#B"><strong>B</strong></a> | <a href="#C"><strong>C</strong></a> | <a href="#D"><strong>D</strong></a> | <a href="#E"><strong>E</strong></a> | <a href="#G"><strong>G</strong></a> | <a href="#H"><strong>H</strong></a> | <a href="#I"><strong>I</strong></a> | <a href="#L"><strong>L</strong></a> | <a href="#M"><strong>M</strong></a> | <a href="#N"><strong>N</strong></a> | <a href="#O"><strong>O</strong></a> | <a href="#P"><strong>P</strong></a> | <a href="#R"><strong>R</strong></a> | <a href="#S"><strong>S</strong></a> | <a href="#T"><strong>T</strong></a> | <a href="#W"><strong>W</strong></a> | <a href="#X"><strong>X</strong></a></div>
+  <div class="genindex-jumpbox"><a href="#A"><strong>A</strong></a> | <a href="#B"><strong>B</strong></a> | <a href="#C"><strong>C</strong></a> | <a href="#D"><strong>D</strong></a> | <a href="#E"><strong>E</strong></a> | <a href="#F"><strong>F</strong></a> | <a href="#G"><strong>G</strong></a> | <a href="#H"><strong>H</strong></a> | <a href="#I"><strong>I</strong></a> | <a href="#L"><strong>L</strong></a> | <a href="#M"><strong>M</strong></a> | <a href="#N"><strong>N</strong></a> | <a href="#O"><strong>O</strong></a> | <a href="#P"><strong>P</strong></a> | <a href="#R"><strong>R</strong></a> | <a href="#S"><strong>S</strong></a> | <a href="#T"><strong>T</strong></a> | <a href="#W"><strong>W</strong></a> | <a href="#X"><strong>X</strong></a></div>
 </section>
 <section id="A" class="genindex-section">
   <h2>A</h2>
@@ -222,6 +224,10 @@
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="distributions.html#pba.dists.beta">beta() (in module pba.dists)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="nppbox.html#pba.non_parametric.box">box() (in module pba.non_parametric)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -251,17 +257,31 @@
   <h2>E</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="interval.html#pba.interval.Interval.env">env() (pba.interval.Interval method)</a>
+        <li><a href="core.html#pba.core.env">env() (in module pba.core)</a>
 
         <ul>
+          <li><a href="interval.html#pba.interval.Interval.env">(pba.interval.Interval method)</a>
+</li>
           <li><a href="pbox.html#pba.pbox.Pbox.env">(pba.pbox.Pbox method)</a>
 </li>
         </ul></li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="core.html#pba.core.envelope">envelope() (in module pba.core)</a>
+</li>
         <li><a href="interval.html#pba.interval.Interval.equiv">equiv() (pba.interval.Interval method)</a>
 </li>
         <li><a href="interval.html#pba.interval.Interval.exp">exp() (pba.interval.Interval method)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="F" class="genindex-section">
+  <h2>F</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="nppbox.html#pba.non_parametric.from_percentiles">from_percentiles() (in module pba.non_parametric)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -286,7 +306,11 @@
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="interval.html#pba.interval.Interval.hi">hi() (pba.interval.Interval method)</a>
+
+        <ul>
+          <li><a href="pbox.html#pba.pbox.Pbox.hi">(pba.pbox.Pbox method)</a>
 </li>
+        </ul></li>
     </ul></td>
   </tr></table>
 </section>
@@ -315,10 +339,12 @@
   <h2>L</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="pbox.html#pba.pbox.Pbox.leftmost">leftmost() (pba.pbox.Pbox method)</a>
-</li>
         <li><a href="interval.html#pba.interval.Interval.lo">lo() (pba.interval.Interval method)</a>
+
+        <ul>
+          <li><a href="pbox.html#pba.pbox.Pbox.lo">(pba.pbox.Pbox method)</a>
 </li>
+        </ul></li>
         <li><a href="interval.html#pba.interval.Interval.log">log() (pba.interval.Interval method)</a>
 </li>
     </ul></td>
@@ -337,27 +363,59 @@
   <h2>M</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="pbox.html#pba.pbox.Pbox.mean">mean() (pba.pbox.Pbox method)</a>
+        <li><a href="core.html#pba.core.mean">mean() (in module pba.core)</a>
+
+        <ul>
+          <li><a href="pbox.html#pba.pbox.Pbox.mean">(pba.pbox.Pbox method)</a>
+</li>
+        </ul></li>
+        <li><a href="nppbox.html#pba.non_parametric.mean_std">mean_std() (in module pba.non_parametric)</a>
+</li>
+        <li><a href="nppbox.html#pba.non_parametric.mean_var">mean_var() (in module pba.non_parametric)</a>
 </li>
         <li><a href="pbox.html#pba.pbox.Pbox.median">median() (pba.pbox.Pbox method)</a>
 </li>
         <li><a href="interval.html#pba.interval.Interval.midpoint">midpoint() (pba.interval.Interval method)</a>
 </li>
+        <li><a href="pbox.html#pba.pbox.Pbox.min">min() (pba.pbox.Pbox method)</a>
+</li>
+        <li><a href="nppbox.html#pba.non_parametric.min_max">min_max() (in module pba.non_parametric)</a>
+</li>
+        <li><a href="nppbox.html#pba.non_parametric.min_max_mean">min_max_mean() (in module pba.non_parametric)</a>
+</li>
+        <li><a href="nppbox.html#pba.non_parametric.min_max_mean_std">min_max_mean_std() (in module pba.non_parametric)</a>
+</li>
+        <li><a href="nppbox.html#pba.non_parametric.min_max_mean_var">min_max_mean_var() (in module pba.non_parametric)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="nppbox.html#pba.non_parametric.min_max_median">min_max_median() (in module pba.non_parametric)</a>
+</li>
+        <li><a href="nppbox.html#pba.non_parametric.min_max_median_is_mode">min_max_median_is_mode() (in module pba.non_parametric)</a>
+</li>
+        <li><a href="nppbox.html#pba.non_parametric.min_max_mode">min_max_mode() (in module pba.non_parametric)</a>
+</li>
         <li>
     module
 
         <ul>
+          <li><a href="core.html#module-pba.core">pba.core</a>
+</li>
           <li><a href="distributions.html#module-pba.dists">pba.dists</a>
 </li>
           <li><a href="interval.html#module-pba.interval">pba.interval</a>
 </li>
           <li><a href="logical.html#module-pba.logical">pba.logical</a>
 </li>
-        </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="interval.html#pba.interval.Interval.mul">mul() (pba.interval.Interval method)</a>
+          <li><a href="nppbox.html#module-pba.non_parametric">pba.non_parametric</a>
 </li>
+        </ul></li>
+        <li><a href="core.html#pba.core.mul">mul() (in module pba.core)</a>
+
+        <ul>
+          <li><a href="interval.html#pba.interval.Interval.mul">(pba.interval.Interval method)</a>
+</li>
+        </ul></li>
     </ul></td>
   </tr></table>
 </section>
@@ -397,6 +455,13 @@
         <li><a href="interval.html#pba.interval.Interval.padd">padd() (pba.interval.Interval method)</a>
 </li>
         <li>
+    pba.core
+
+        <ul>
+          <li><a href="core.html#module-pba.core">module</a>
+</li>
+        </ul></li>
+        <li>
     pba.dists
 
         <ul>
@@ -419,6 +484,13 @@
         </ul></li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li>
+    pba.non_parametric
+
+        <ul>
+          <li><a href="nppbox.html#module-pba.non_parametric">module</a>
+</li>
+        </ul></li>
         <li><a href="pbox.html#pba.pbox.Pbox">Pbox (class in pba.pbox)</a>
 </li>
         <li><a href="interval.html#pba.interval.Interval.pdiv">pdiv() (pba.interval.Interval method)</a>
@@ -426,6 +498,8 @@
         <li><a href="interval.html#pba.interval.Interval.pm">pm() (pba.interval.Interval method)</a>
 </li>
         <li><a href="interval.html#pba.interval.Interval.pmul">pmul() (pba.interval.Interval method)</a>
+</li>
+        <li><a href="nppbox.html#pba.non_parametric.pos_mean_std">pos_mean_std() (in module pba.non_parametric)</a>
 </li>
         <li><a href="pbox.html#pba.pbox.Pbox.pow">pow() (pba.pbox.Pbox method)</a>
 </li>
@@ -442,10 +516,6 @@
         <li><a href="interval.html#pba.interval.Interval.recip">recip() (pba.interval.Interval method)</a>
 </li>
     </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="pbox.html#pba.pbox.Pbox.rightmost">rightmost() (pba.pbox.Pbox method)</a>
-</li>
-    </ul></td>
   </tr></table>
 </section>
 
@@ -457,8 +527,12 @@
 </li>
         <li><a href="logical.html#pba.logical.sometimes">sometimes() (in module pba.logical)</a>
 </li>
-        <li><a href="interval.html#pba.interval.Interval.sqrt">sqrt() (pba.interval.Interval method)</a>
+        <li><a href="core.html#pba.core.sqrt">sqrt() (in module pba.core)</a>
+
+        <ul>
+          <li><a href="interval.html#pba.interval.Interval.sqrt">(pba.interval.Interval method)</a>
 </li>
+        </ul></li>
         <li><a href="interval.html#pba.interval.Interval.straddles">straddles() (pba.interval.Interval method)</a>
 
         <ul>
@@ -474,6 +548,10 @@
 </li>
         </ul></li>
         <li><a href="interval.html#pba.interval.Interval.sub">sub() (pba.interval.Interval method)</a>
+</li>
+        <li><a href="core.html#pba.core.sum">sum() (in module pba.core)</a>
+</li>
+        <li><a href="nppbox.html#pba.non_parametric.symmetric_mean_std">symmetric_mean_std() (in module pba.non_parametric)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -496,6 +574,10 @@
 <section id="W" class="genindex-section">
   <h2>W</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="nppbox.html#pba.non_parametric.what_I_know">what_I_know() (in module pba.non_parametric)</a>
+</li>
+    </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="interval.html#pba.interval.Interval.width">width() (pba.interval.Interval method)</a>
 </li>
