@@ -689,7 +689,7 @@ def from_percentiles(percentiles: dict, steps: int = Pbox.STEPS) -> Pbox:
             1: 3}
         ).show()
 
-    ..image:: _images/from_percentiles.png
+    ..image:: _docs/images/from_percentiles.png
     
     '''
     # check if 0 and 1 are in the dictionary

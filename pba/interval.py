@@ -1,46 +1,5 @@
 r"""
 
-An interval is an uncertain number for which only the endpoints are known, {math}`x=[a,b]`.
-This is interpreted as {math}`x` being between {math}`a` and {math}`b` but with no more information about the value of {math}`x`.
-
-Intervals embody epistemic uncertainty within PBA.
-
-Intervals can be created using either of the following:
-
->>> pba.Interval(0,1)
-Interval [0,1]
->>> pba.I(2,3)
-Interval [2,3]
-
-.. tip::
-    
-    The shorthand ``I`` is an alias for ``Interval``
-        
-
-Arithmetic
------------
-
-For two intervals [a,b] and [c,d] the following arithmetic operations are defined:
-
-**Addition**
-
-:math:`[a,b] + [c,d] = [a+c,b+d]`
-
-**Subtraction**
-
-:math:`[a,b] - [c,d] = [a-d,b-c]`
-
-**Multiplication**
-
-:math:`[a,b] * [c,d] = [\min(ac,ad,bc,bd),\max(ac,ad,bc,bd)]`
-
-**Division**
-
-:math:`[a,b] / [c,d] = [a,b] * \frac{1}{[c,d]} \equiv [\min(a/c,a/d,b/c,b/d),\max(a/c,a/d,b/c,b/d)]`
-
-Alternative arithmetic methods are described in `interval.add`_, `interval.sub`_, `interval.mul`_, `interval.div`_.
-
-
 """
 from typing import Union
 import numpy as np
@@ -49,26 +8,78 @@ import itertools
 import warnings
 
 
-__all__ = ['Interval','I',]
+__all__ = ['Interval','I','PM']
 
 class Interval:
-    '''
+    r'''
+
+    An interval is an uncertain number for which only the endpoints are known, :math:`x=[a,b]`.
+    This is interpreted as :math:`x` being between :math:`a` and :math:`b` but with no more information about the value of :math:`x`.
+
+    Intervals embody epistemic uncertainty within PBA.
+
+    Creation
+    ________
     
-    **Attributes**:
-    
-        ``left``: The left boundary of the interval.
+    Intervals can be created using either of the following:
+
+    .. code-block:: python
+
+        >>> pba.Interval(0,1)
+        Interval [0,1]
+        >>> pba.I(2,3)
+        Interval [2,3]
+
+    .. tip::
         
-        ``right``: The right boundary of the interval.
-            
-    .. admonition:: Default values
-    
-        If only 1 argument is given then the interval is assumed to be zero width around this value.
-        
-        If no arguments are given then the interval is assumed to be vaccous (i.e. :math:`[-\infty,\infty]`). This is implemented as ``Interval(-np.inf,np.inf)``.
+        The shorthand ``I`` is an alias for ``Interval``
+
+    Intervals can also be created from a single value ± half-width:
+
+    >>> pba.PM(0,1)
+    Interval [-1,1]
+
+    By default intervals are displayed as ``Interval [a,b]`` where ``a`` and ``b`` are the left and right endpoints respectively. This can be changed using the `interval.pm_repr`_ and `interval.lr_repr`_ functions.
+
+    Arithmetic
+    __________
+
+    For two intervals [a,b] and [c,d] the following arithmetic operations are defined:
+
+    **Addition**
+
+    :math:`[a,b] + [c,d] = [a+c,b+d]`
+
+    **Subtraction**
+
+    :math:`[a,b] - [c,d] = [a-d,b-c]`
+
+    **Multiplication**
+
+    :math:`[a,b] * [c,d] = [\min(ac,ad,bc,bd),\max(ac,ad,bc,bd)]`
+
+    **Division**
+
+    :math:`[a,b] / [c,d] = [a,b] * \frac{1}{[c,d]} \equiv [\min(a/c,a/d,b/c,b/d),\max(a/c,a/d,b/c,b/d)]`
+
+    Alternative arithmetic methods are described in `interval.add`_, `interval.sub`_, `interval.mul`_, `interval.div`_.
 
     '''
     def __init__(self,left = None, right = None):
 
+        '''        
+        **Attributes**:
+        
+            ``left``: The left boundary of the interval.
+            
+            ``right``: The right boundary of the interval.
+                
+        .. admonition:: Default values
+        
+            If only 1 argument is given then the interval is assumed to be zero width around this value.
+            
+            If no arguments are given then the interval is assumed to be vaccous (i.e. :math:`[-\infty,\infty]`). This is implemented as ``Interval(-np.inf,np.inf)``.
+        '''        
         # disallow p-boxes
         if left.__class__.__name__ == 'Pbox' or right.__class__.__name__ == 'Pbox':
             raise ValueError("left and right must not be P-boxes. Use Pbox methods instead.")
@@ -102,35 +113,6 @@ class Interval:
 
         self.left = left
         self.right = right
-
-    def pm(self, x, hw):
-        """
-        Create an interval centered around x with a half-width of hw.
-
-        **Parameters**:
-        
-            ``x`` (float): The center value of the interval.
-            
-            ``hw`` (float): The half-width of the interval.
-
-        **Returns**:
-        
-            ``Interval``: An interval object with lower bound x-hw and upper bound x+hw.
-
-        .. error::
-        
-            ``ValueError``: If hw is less than 0.
-            
-        Example:
-            >>> pba.Interval.pm(0, 1)
-            Interval [-1, 1]
-        
-        """
-        if hw < 0:
-            raise ValueError("hw must be greater than or equal to 0")
-        
-        return Interval(x - hw, x + hw)
-
 
     def __repr__(self) -> str: # return
         return "Interval [%g, %g]"%(self.left,self.right)
@@ -764,6 +746,23 @@ class Interval:
         """
         return self.right - self.left
 
+    def halfwidth(self) -> float:
+        """
+        **Returns**:
+        
+            ``float``: The half-width of the interval, :math:`(\mathrm{right} - \mathrm{left})/2`
+        
+        **Example**:
+        
+            >>> pba.Interval(0,3).halfwidth()
+            1.5
+            
+        .. admonition:: Implementation
+        
+            >>> self.width()/2
+            
+        """
+        return self.width()/2
     
     def midpoint(self) -> float:
         """
@@ -1009,3 +1008,92 @@ class Interval:
     
 # Alias
 I = Interval
+
+def PM(x, hw):
+    """
+    Create an interval centered around x with a half-width of hw.
+
+    **Parameters**:
+    
+        ``x`` (float): The center value of the interval.
+        
+        ``hw`` (float): The half-width of the interval.
+
+    **Returns**:
+    
+        ``Interval``: An interval object with lower bound x-hw and upper bound x+hw.
+
+    .. error::
+    
+        ``ValueError``: If hw is less than 0.
+        
+    Example:
+        >>> pba.pm(0, 1)
+        Interval [-1, 1]
+    
+    """
+    if hw < 0:
+        raise ValueError("hw must be greater than or equal to 0")
+    
+    return Interval(x - hw, x + hw)
+
+def pm_repr():
+    '''
+    .. _interval.pm_repr:
+    
+    Modifies the interval class to display the interval in [midpoint ± half-width] format.
+    
+    **Example**:
+    
+    .. code-block:: python
+    
+        >>> import pba
+        >>> pba.interval.pm_repr()
+        >>> a = pba.Interval(0,1) # defined using left and right. This cannot be overriden.
+        >>> b = pba.PM(0,1) # defined using midpoint and half-width
+        >>> print(a)
+        Interval [0.5 ± 0.5]
+        >>> print(b)
+        Interval [0 ± 1]
+        
+    .. seealso::
+        :func:`~pba.lr_interval_repr`
+        
+    '''
+    
+    def new__repr__(self):
+        return f'Interval [{self.midpoint():g} ± {self.halfwidth():g}]'
+    
+    Interval.__repr__ = new__repr__
+    Interval.__str__ = new__repr__
+
+def lr_repr():
+    '''
+    .. _interval.lr_repr:
+    
+    Modifies the interval class to display the interval in [left, right] format.
+    
+    .. note::
+        This function primarily exists to undo the effects of ``pm_interval_repr()``. By default the interval class displays in this format.
+    
+    **Example**:
+    
+    .. code-block:: python
+    
+        >>> import pba
+        >>> pba.interval.pm_repr()
+        >>> a = pba.Interval(0,1) # defined using left and right, this cannot be overriden.
+        >>> print(a)
+        Interval [0.5±0.5]
+        >>> pba.interval.lr_repr()
+        >>> b = pba.PM(0,1) # defined using midpoint and half-width
+        >>> print(b)
+        Interval [-1,1]
+    
+    '''
+    
+    def new__repr__(self):
+        return f'Interval [{self.left:g}, {self.right:g}]'
+    
+    Interval.__repr__ = new__repr__
+    Interval.__str__ = new__repr__

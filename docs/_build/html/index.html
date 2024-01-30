@@ -197,18 +197,70 @@
           </label>
         </div>
         <article role="main">
-          <section id="pba-for-python">
-<h1>PBA for Python<a class="headerlink" href="#pba-for-python" title="Link to this heading">#</a></h1>
+          <section id="probability-bounds-analysis-for-python">
+<h1>Probability Bounds Analysis for Python<a class="headerlink" href="#probability-bounds-analysis-for-python" title="Link to this heading">#</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="interval.html">Intervals</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="interval.html#arithmetic">Arithmetic</a></li>
-<li class="toctree-l2"><a class="reference internal" href="interval.html#pba.interval.Interval"><code class="docutils literal notranslate"><span class="pre">Interval</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="interval.html#pba.interval.I"><code class="docutils literal notranslate"><span class="pre">I</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="interval.html#pba.interval.Interval"><code class="docutils literal notranslate"><span class="pre">Interval</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.__init__"><code class="docutils literal notranslate"><span class="pre">Interval.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.add"><code class="docutils literal notranslate"><span class="pre">Interval.add()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.padd"><code class="docutils literal notranslate"><span class="pre">Interval.padd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.oadd"><code class="docutils literal notranslate"><span class="pre">Interval.oadd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.sub"><code class="docutils literal notranslate"><span class="pre">Interval.sub()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.psub"><code class="docutils literal notranslate"><span class="pre">Interval.psub()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.osub"><code class="docutils literal notranslate"><span class="pre">Interval.osub()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.mul"><code class="docutils literal notranslate"><span class="pre">Interval.mul()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.pmul"><code class="docutils literal notranslate"><span class="pre">Interval.pmul()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.omul"><code class="docutils literal notranslate"><span class="pre">Interval.omul()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.div"><code class="docutils literal notranslate"><span class="pre">Interval.div()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.pdiv"><code class="docutils literal notranslate"><span class="pre">Interval.pdiv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.odiv"><code class="docutils literal notranslate"><span class="pre">Interval.odiv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.recip"><code class="docutils literal notranslate"><span class="pre">Interval.recip()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.equiv"><code class="docutils literal notranslate"><span class="pre">Interval.equiv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.lo"><code class="docutils literal notranslate"><span class="pre">Interval.lo()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.hi"><code class="docutils literal notranslate"><span class="pre">Interval.hi()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.width"><code class="docutils literal notranslate"><span class="pre">Interval.width()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.halfwidth"><code class="docutils literal notranslate"><span class="pre">Interval.halfwidth()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.midpoint"><code class="docutils literal notranslate"><span class="pre">Interval.midpoint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.to_logical"><code class="docutils literal notranslate"><span class="pre">Interval.to_logical()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.env"><code class="docutils literal notranslate"><span class="pre">Interval.env()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.straddles"><code class="docutils literal notranslate"><span class="pre">Interval.straddles()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.straddles_zero"><code class="docutils literal notranslate"><span class="pre">Interval.straddles_zero()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.intersection"><code class="docutils literal notranslate"><span class="pre">Interval.intersection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.exp"><code class="docutils literal notranslate"><span class="pre">Interval.exp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.log"><code class="docutils literal notranslate"><span class="pre">Interval.log()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.sqrt"><code class="docutils literal notranslate"><span class="pre">Interval.sqrt()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.Interval.sample"><code class="docutils literal notranslate"><span class="pre">Interval.sample()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="interval.html#plus-minus-intervals">Plus-Minus Intervals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.PM"><code class="docutils literal notranslate"><span class="pre">PM()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.pm_repr"><code class="docutils literal notranslate"><span class="pre">pm_repr()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="interval.html#pba.interval.lr_repr"><code class="docutils literal notranslate"><span class="pre">lr_repr()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pbox.html">Probability Boxes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pbox.html#pba.pbox.Pbox"><code class="docutils literal notranslate"><span class="pre">Pbox</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pbox.html#pba.pbox.Pbox"><code class="docutils literal notranslate"><span class="pre">Pbox</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pbox.html#pba.pbox.Pbox.__init__"><code class="docutils literal notranslate"><span class="pre">Pbox.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbox.html#pba.pbox.Pbox.add"><code class="docutils literal notranslate"><span class="pre">Pbox.add()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbox.html#pba.pbox.Pbox.env"><code class="docutils literal notranslate"><span class="pre">Pbox.env()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbox.html#pba.pbox.Pbox.get_x"><code class="docutils literal notranslate"><span class="pre">Pbox.get_x()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbox.html#pba.pbox.Pbox.get_y"><code class="docutils literal notranslate"><span class="pre">Pbox.get_y()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbox.html#pba.pbox.Pbox.hi"><code class="docutils literal notranslate"><span class="pre">Pbox.hi()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbox.html#pba.pbox.Pbox.imp"><code class="docutils literal notranslate"><span class="pre">Pbox.imp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbox.html#pba.pbox.Pbox.lo"><code class="docutils literal notranslate"><span class="pre">Pbox.lo()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbox.html#pba.pbox.Pbox.mean"><code class="docutils literal notranslate"><span class="pre">Pbox.mean()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbox.html#pba.pbox.Pbox.median"><code class="docutils literal notranslate"><span class="pre">Pbox.median()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbox.html#pba.pbox.Pbox.min"><code class="docutils literal notranslate"><span class="pre">Pbox.min()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbox.html#pba.pbox.Pbox.pow"><code class="docutils literal notranslate"><span class="pre">Pbox.pow()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbox.html#pba.pbox.Pbox.straddles"><code class="docutils literal notranslate"><span class="pre">Pbox.straddles()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbox.html#pba.pbox.Pbox.straddles_zero"><code class="docutils literal notranslate"><span class="pre">Pbox.straddles_zero()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pbox.html#pba.pbox.Pbox.truncate"><code class="docutils literal notranslate"><span class="pre">Pbox.truncate()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="distributions.html">Distributions</a><ul>
@@ -236,7 +288,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="logical.html">Logical</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="logical.html#pba.logical.Logical"><code class="docutils literal notranslate"><span class="pre">Logical</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="logical.html#pba.logical.Logical"><code class="docutils literal notranslate"><span class="pre">Logical</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="logical.html#pba.logical.Logical.__init__"><code class="docutils literal notranslate"><span class="pre">Logical.__init__()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="logical.html#pba.logical.always"><code class="docutils literal notranslate"><span class="pre">always()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="logical.html#pba.logical.is_same_as"><code class="docutils literal notranslate"><span class="pre">is_same_as()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="logical.html#pba.logical.never"><code class="docutils literal notranslate"><span class="pre">never()</span></code></a></li>
@@ -245,7 +300,11 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cbox.html">Confidence Boxes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cbox.html#pba.cbox.Cbox"><code class="docutils literal notranslate"><span class="pre">Cbox</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="cbox.html#pba.cbox.Cbox"><code class="docutils literal notranslate"><span class="pre">Cbox</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cbox.html#pba.cbox.Cbox.__init__"><code class="docutils literal notranslate"><span class="pre">Cbox.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cbox.html#pba.cbox.Cbox.add"><code class="docutils literal notranslate"><span class="pre">Cbox.add()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="core.html">Useful Functions</a><ul>

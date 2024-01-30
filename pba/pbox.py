@@ -34,11 +34,32 @@ def _interval_list_to_array(l, left = True):
     return np.array([f(i) for i in l])
         
 class Pbox:
+    r'''
+    A probability distribution is a mathematical function that gives the probabilities of occurrence for diﬀerent possible values of a variable. Probability boxes (p-boxes) represent interval bounds on probability distributions. The simplest kind of p-box can be expressed mathematically as
+    
+    .. math::
+    
+        \mathcal{F}(x) = [\underline{F}(x),\overline{F}(x)], \ \underline{F}(x)\geq \overline{F}(x)\ \forall x \in \mathbb{R}
 
+
+    where :math:`\underline{F}(x)` is the function that defines the left bound of the p-box and :math:`\overline{F}(x)` defines the right bound of the p-box. In PBA the left and right bounds are each stored as a NumPy array containing the percent point function (the inverse of the cumulative distribution function) for `steps` evenly spaced values between 0 and 1. P-boxes can be defined using all the probability distributions that are available through SciPy's statistics library, 
+
+    Naturally, precise probability distributions can be defined in PBA by defining a p-box with precise inputs. This means that within probability bounds analysis probability distributions are considered a special case of a p-box with zero width. Resultantly, all methodology that applies to p-boxes can also be applied to probability distributions. 
+
+    Distribution-free p-boxes can also be generated when the underlying distribution is unknown but parameters such as the mean, variance or minimum/maximum bounds are known. Such p-boxes make no assumption about the shape of the distribution and instead return bounds expressing all possible distributions that are valid given the known information. Such p-boxes can be constructed making use of Chebyshev, Markov and Cantelli inequalities from probability theory.
+    
+    '''
     STEPS = 200
 
     def __init__(self, left=None, right=None, steps=None, shape=None, mean_left=None, mean_right=None, var_left=None, var_right=None, interpolation='linear'):
-
+        '''
+        .. attention::
+        
+            It is usually better to define p-boxes using distributions or non-parametric methods (see ). This constructor is provided for completeness and for the construction of p-boxes with precise inputs.
+        
+        :arg left: Left bound of the p-box. Can be a list, NumPy array, Interval or numeric type. If left is None, the left bound is set to -inf.
+        
+        '''
         if isinstance(left, np.ndarray) and isinstance(right, np.ndarray):
             if len(left) != len(right):
                 raise Exception("Left and right arrays must be the same length")

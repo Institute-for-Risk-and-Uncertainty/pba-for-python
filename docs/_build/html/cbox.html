@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Usefull Functions" href="core.html" /><link rel="prev" title="Logical" href="logical.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Useful Functions" href="core.html" /><link rel="prev" title="Logical" href="logical.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
         <title>Confidence Boxes - PBA-for-python v0.16.2 documentation</title>
@@ -158,9 +158,10 @@
 <li class="toctree-l1"><a class="reference internal" href="interval.html">Intervals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pbox.html">Probability Boxes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributions.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nppbox.html">Non-parametric p-boxes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="logical.html">Logical</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Confidence Boxes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="core.html">Usefull Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core.html">Useful Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependency Arithmetic</a></li>
 </ul>
 
@@ -200,13 +201,28 @@
 <h1>Confidence Boxes<a class="headerlink" href="#confidence-boxes" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="pba.cbox.Cbox">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pba.cbox.</span></span><span class="sig-name descname"><span class="pre">Cbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.cbox.Cbox" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pba.cbox.</span></span><span class="sig-name descname"><span class="pre">Cbox</span></span><a class="headerlink" href="#pba.cbox.Cbox" title="Link to this definition">#</a></dt>
 <dd><p>Confidence boxes (c-boxes) are imprecise generalisations of traditional confidence distributions</p>
 <p>They have a different interpretation to p-boxes but rely on the same underlying mathematics. As such in pba-for-python c-boxes inhert most of their methods from Pbox.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>Pbox (_type_): _description_</p>
 </dd>
 </dl>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>It is usually better to define p-boxes using distributions or non-parametric methods (see ). This constructor is provided for completeness and for the construction of p-boxes with precise inputs.</p>
+</div>
+<p><strong>Parameters:</strong></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pba.cbox.Cbox.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.cbox.Cbox.__init__" title="Link to this definition">#</a></dt>
+<dd><div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>It is usually better to define p-boxes using distributions or non-parametric methods (see ). This constructor is provided for completeness and for the construction of p-boxes with precise inputs.</p>
+</div>
+<p><strong>Parameters:</strong></p>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.cbox.Cbox.add">
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'f'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.cbox.Cbox.add" title="Link to this definition">#</a></dt>
@@ -227,7 +243,7 @@
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Usefull Functions</div>
+                <div class="title">Useful Functions</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -274,6 +290,7 @@
             <ul>
 <li><a class="reference internal" href="#">Confidence Boxes</a><ul>
 <li><a class="reference internal" href="#pba.cbox.Cbox"><code class="docutils literal notranslate"><span class="pre">Cbox</span></code></a><ul>
+<li><a class="reference internal" href="#pba.cbox.Cbox.__init__"><code class="docutils literal notranslate"><span class="pre">Cbox.__init__()</span></code></a></li>
 <li><a class="reference internal" href="#pba.cbox.Cbox.add"><code class="docutils literal notranslate"><span class="pre">Cbox.add()</span></code></a></li>
 </ul>
 </li>

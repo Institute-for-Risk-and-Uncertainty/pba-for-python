@@ -1,6 +1,6 @@
 import pytest
 
-from pba import Interval, is_same_as, Logical
+from pba import Interval, is_same_as, Logical, PM
 
 from numpy.random import default_rng
 
@@ -16,7 +16,7 @@ def test_Interval_creation():
         assert a.left == r and a.right == l
         
     # test creation with Interval.pm
-    a = Interval.pm(10,1)
+    a = PM(10,1)
     assert a.left == 9 and a.right == 11
         
     
@@ -120,3 +120,15 @@ def test_Interval_neq():
     assert not a == c
 
     assert is_same_as(1 == a, Logical(0,1))
+    
+def test_repr():
+    import pba
+    a = Interval(0,1)
+    b = PM(0,1)
+    pba.interval.pm_repr()
+    assert a.__repr__() == 'Interval [0.5 ± 0.5]'
+    assert b.__repr__() == 'Interval [0 ± 1]'
+    pba.interval.lr_repr()
+    assert a.__repr__() == 'Interval [0, 1]'
+    assert b.__repr__() == 'Interval [-1, 1]'
+    

@@ -201,7 +201,7 @@
 <span id="logical"></span><h1>Logical<a class="headerlink" href="#module-pba.logical" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="pba.logical.Logical">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pba.logical.</span></span><span class="sig-name descname"><span class="pre">Logical</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.logical.Logical" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pba.logical.</span></span><span class="sig-name descname"><span class="pre">Logical</span></span><a class="headerlink" href="#pba.logical.Logical" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="interval.html#pba.interval.Interval" title="pba.interval.Interval"><code class="xref py py-class docutils literal notranslate"><span class="pre">Interval</span></code></a></p>
 <p>Represents a logical value that can be either True or False or dunno ([False,True]).</p>
 <p>Inherits from the Interval class.</p>
@@ -210,6 +210,31 @@
 <div><p><code class="docutils literal notranslate"><span class="pre">left</span></code> (<code class="docutils literal notranslate"><span class="pre">bool</span></code>): The left endpoint of the logical value.</p>
 <p><code class="docutils literal notranslate"><span class="pre">right</span></code> (<code class="docutils literal notranslate"><span class="pre">bool</span></code>): The right endpoint of the logical value.</p>
 </div></blockquote>
+<p><strong>Attributes</strong>:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">left</span></code>: The left boundary of the interval.</p>
+<p><code class="docutils literal notranslate"><span class="pre">right</span></code>: The right boundary of the interval.</p>
+</div></blockquote>
+<div class="admonition-default-values admonition">
+<p class="admonition-title">Default values</p>
+<p>If only 1 argument is given then the interval is assumed to be zero width around this value.</p>
+<p>If no arguments are given then the interval is assumed to be vaccous (i.e. <span class="math notranslate nohighlight">\([-\infty,\infty]\)</span>). This is implemented as <code class="docutils literal notranslate"><span class="pre">Interval(-np.inf,np.inf)</span></code>.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="pba.logical.Logical.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.logical.Logical.__init__" title="Link to this definition">#</a></dt>
+<dd><p><strong>Attributes</strong>:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">left</span></code>: The left boundary of the interval.</p>
+<p><code class="docutils literal notranslate"><span class="pre">right</span></code>: The right boundary of the interval.</p>
+</div></blockquote>
+<div class="admonition-default-values admonition">
+<p class="admonition-title">Default values</p>
+<p>If only 1 argument is given then the interval is assumed to be zero width around this value.</p>
+<p>If no arguments are given then the interval is assumed to be vaccous (i.e. <span class="math notranslate nohighlight">\([-\infty,\infty]\)</span>). This is implemented as <code class="docutils literal notranslate"><span class="pre">Interval(-np.inf,np.inf)</span></code>.</p>
+</div>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py function">
@@ -448,7 +473,10 @@ If a numeric value is provided, it checks if the is not equal to 0 or 1.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Logical</a><ul>
-<li><a class="reference internal" href="#pba.logical.Logical"><code class="docutils literal notranslate"><span class="pre">Logical</span></code></a></li>
+<li><a class="reference internal" href="#pba.logical.Logical"><code class="docutils literal notranslate"><span class="pre">Logical</span></code></a><ul>
+<li><a class="reference internal" href="#pba.logical.Logical.__init__"><code class="docutils literal notranslate"><span class="pre">Logical.__init__()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#pba.logical.always"><code class="docutils literal notranslate"><span class="pre">always()</span></code></a></li>
 <li><a class="reference internal" href="#pba.logical.is_same_as"><code class="docutils literal notranslate"><span class="pre">is_same_as()</span></code></a></li>
 <li><a class="reference internal" href="#pba.logical.never"><code class="docutils literal notranslate"><span class="pre">never()</span></code></a></li>
@@ -469,5 +497,6 @@ If a numeric value is provided, it checks if the is not equal to 0 or 1.</p>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     </body>
 </html>

@@ -38,7 +38,7 @@ class Logical(Interval):
         elif self.left == 1 and self.right == 1:
             return 'True'
         else:
-            return "[%g, %g]"%(self.left,self.right)
+            return 'Dunno [False,True]'
 
     __str__ = __repr__
     

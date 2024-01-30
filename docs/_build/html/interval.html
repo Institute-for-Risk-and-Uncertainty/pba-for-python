@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Probability Boxes" href="pbox.html" /><link rel="prev" title="PBA for Python" href="index.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Probability Boxes" href="pbox.html" /><link rel="prev" title="Probability Bounds Analysis for Python" href="index.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
         <title>Intervals - PBA-for-python v0.16.2 documentation</title>
@@ -197,13 +197,18 @@
           </label>
         </div>
         <article role="main">
-          <section id="module-pba.interval">
-<span id="intervals"></span><h1>Intervals<a class="headerlink" href="#module-pba.interval" title="Link to this heading">#</a></h1>
-<p>An interval is an uncertain number for which only the endpoints are known, {math}`x=[a,b]`.
-This is interpreted as {math}`x` being between {math}`a` and {math}`b` but with no more information about the value of {math}`x`.</p>
+          <section id="intervals">
+<h1>Intervals<a class="headerlink" href="#intervals" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pba.interval.Interval">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pba.interval.</span></span><span class="sig-name descname"><span class="pre">Interval</span></span><a class="headerlink" href="#pba.interval.Interval" title="Link to this definition">#</a></dt>
+<dd><p>An interval is an uncertain number for which only the endpoints are known, <span class="math notranslate nohighlight">\(x=[a,b]\)</span>.
+This is interpreted as <span class="math notranslate nohighlight">\(x\)</span> being between <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> but with no more information about the value of <span class="math notranslate nohighlight">\(x\)</span>.</p>
 <p>Intervals embody epistemic uncertainty within PBA.</p>
+<section id="creation">
+<h2>Creation<a class="headerlink" href="#creation" title="Link to this heading">#</a></h2>
 <p>Intervals can be created using either of the following:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pba</span><span class="o">.</span><span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pba</span><span class="o">.</span><span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 <span class="go">Interval [0,1]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pba</span><span class="o">.</span><span class="n">I</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
 <span class="go">Interval [2,3]</span>
@@ -213,6 +218,13 @@ This is interpreted as {math}`x` being between {math}`a` and {math}`b` but with 
 <p class="admonition-title">Tip</p>
 <p>The shorthand <code class="docutils literal notranslate"><span class="pre">I</span></code> is an alias for <code class="docutils literal notranslate"><span class="pre">Interval</span></code></p>
 </div>
+<p>Intervals can also be created from a single value ± half-width:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pba</span><span class="o">.</span><span class="n">PM</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">Interval [-1,1]</span>
+</pre></div>
+</div>
+<p>By default intervals are displayed as <code class="docutils literal notranslate"><span class="pre">Interval</span> <span class="pre">[a,b]</span></code> where <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> are the left and right endpoints respectively. This can be changed using the <a class="reference internal" href="#interval-pm-repr">interval.pm_repr</a> and <a class="reference internal" href="#interval-lr-repr">interval.lr_repr</a> functions.</p>
+</section>
 <section id="arithmetic">
 <h2>Arithmetic<a class="headerlink" href="#arithmetic" title="Link to this heading">#</a></h2>
 <p>For two intervals [a,b] and [c,d] the following arithmetic operations are defined:</p>
@@ -225,11 +237,7 @@ This is interpreted as {math}`x` being between {math}`a` and {math}`b` but with 
 <p><strong>Division</strong></p>
 <p><span class="math notranslate nohighlight">\([a,b] / [c,d] = [a,b] * \frac{1}{[c,d]} \equiv [\min(a/c,a/d,b/c,b/d),\max(a/c,a/d,b/c,b/d)]\)</span></p>
 <p>Alternative arithmetic methods are described in <a class="reference internal" href="#interval-add">interval.add</a>, <a class="reference internal" href="#interval-sub">interval.sub</a>, <a class="reference internal" href="#interval-mul">interval.mul</a>, <a class="reference internal" href="#interval-div">interval.div</a>.</p>
-</section>
-<dl class="py class">
-<dt class="sig sig-object py" id="pba.interval.Interval">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pba.interval.</span></span><span class="sig-name descname"><span class="pre">Interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval" title="Link to this definition">#</a></dt>
-<dd><p><strong>Attributes</strong>:</p>
+<p><strong>Attributes</strong>:</p>
 <blockquote>
 <div><p><code class="docutils literal notranslate"><span class="pre">left</span></code>: The left boundary of the interval.</p>
 <p><code class="docutils literal notranslate"><span class="pre">right</span></code>: The right boundary of the interval.</p>
@@ -240,29 +248,18 @@ This is interpreted as {math}`x` being between {math}`a` and {math}`b` but with 
 <p>If no arguments are given then the interval is assumed to be vaccous (i.e. <span class="math notranslate nohighlight">\([-\infty,\infty]\)</span>). This is implemented as <code class="docutils literal notranslate"><span class="pre">Interval(-np.inf,np.inf)</span></code>.</p>
 </div>
 <dl class="py method">
-<dt class="sig sig-object py" id="pba.interval.Interval.pm">
-<span class="sig-name descname"><span class="pre">pm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.pm" title="Link to this definition">#</a></dt>
-<dd><p>Create an interval centered around x with a half-width of hw.</p>
-<p><strong>Parameters</strong>:</p>
+<dt class="sig sig-object py" id="pba.interval.Interval.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.Interval.__init__" title="Link to this definition">#</a></dt>
+<dd><p><strong>Attributes</strong>:</p>
 <blockquote>
-<div><p><code class="docutils literal notranslate"><span class="pre">x</span></code> (float): The center value of the interval.</p>
-<p><code class="docutils literal notranslate"><span class="pre">hw</span></code> (float): The half-width of the interval.</p>
+<div><p><code class="docutils literal notranslate"><span class="pre">left</span></code>: The left boundary of the interval.</p>
+<p><code class="docutils literal notranslate"><span class="pre">right</span></code>: The right boundary of the interval.</p>
 </div></blockquote>
-<p><strong>Returns</strong>:</p>
-<blockquote>
-<div><p><code class="docutils literal notranslate"><span class="pre">Interval</span></code>: An interval object with lower bound x-hw and upper bound x+hw.</p>
-</div></blockquote>
-<div class="admonition error">
-<p class="admonition-title">Error</p>
-<p><code class="docutils literal notranslate"><span class="pre">ValueError</span></code>: If hw is less than 0.</p>
+<div class="admonition-default-values admonition">
+<p class="admonition-title">Default values</p>
+<p>If only 1 argument is given then the interval is assumed to be zero width around this value.</p>
+<p>If no arguments are given then the interval is assumed to be vaccous (i.e. <span class="math notranslate nohighlight">\([-\infty,\infty]\)</span>). This is implemented as <code class="docutils literal notranslate"><span class="pre">Interval(-np.inf,np.inf)</span></code>.</p>
 </div>
-<dl>
-<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pba</span><span class="o">.</span><span class="n">Interval</span><span class="o">.</span><span class="n">pm</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="go">Interval [-1, 1]</span>
-</pre></div>
-</div>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -515,6 +512,26 @@ This is interpreted as {math}`x` being between {math}`a` and {math}`b` but with 
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="pba.interval.Interval.halfwidth">
+<span class="sig-name descname"><span class="pre">halfwidth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#pba.interval.Interval.halfwidth" title="Link to this definition">#</a></dt>
+<dd><p><strong>Returns</strong>:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">float</span></code>: The half-width of the interval, <span class="math notranslate nohighlight">\((\mathrm{right} - \mathrm{left})/2\)</span></p>
+</div></blockquote>
+<p><strong>Example</strong>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pba</span><span class="o">.</span><span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">halfwidth</span><span class="p">()</span>
+<span class="go">1.5</span>
+</pre></div>
+</div>
+<div class="admonition-implementation admonition">
+<p class="admonition-title">Implementation</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">()</span><span class="o">/</span><span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pba.interval.Interval.midpoint">
 <span class="sig-name descname"><span class="pre">midpoint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#pba.interval.Interval.midpoint" title="Link to this definition">#</a></dt>
 <dd><p><strong>Returns</strong>:</p>
@@ -685,14 +702,81 @@ This is interpreted as {math}`x` being between {math}`a` and {math}`b` but with 
 </div>
 </dd></dl>
 
+</section>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pba.interval.I">
-<span class="sig-prename descclassname"><span class="pre">pba.interval.</span></span><span class="sig-name descname"><span class="pre">I</span></span><a class="headerlink" href="#pba.interval.I" title="Link to this definition">#</a></dt>
-<dd><p>alias of <a class="reference internal" href="#pba.interval.Interval" title="pba.interval.Interval"><code class="xref py py-class docutils literal notranslate"><span class="pre">Interval</span></code></a></p>
+<section id="plus-minus-intervals">
+<h2>Plus-Minus Intervals<a class="headerlink" href="#plus-minus-intervals" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pba.interval.PM">
+<span class="sig-prename descclassname"><span class="pre">pba.interval.</span></span><span class="sig-name descname"><span class="pre">PM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.PM" title="Link to this definition">#</a></dt>
+<dd><p>Create an interval centered around x with a half-width of hw.</p>
+<p><strong>Parameters</strong>:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">x</span></code> (float): The center value of the interval.</p>
+<p><code class="docutils literal notranslate"><span class="pre">hw</span></code> (float): The half-width of the interval.</p>
+</div></blockquote>
+<p><strong>Returns</strong>:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">Interval</span></code>: An interval object with lower bound x-hw and upper bound x+hw.</p>
+</div></blockquote>
+<div class="admonition error">
+<p class="admonition-title">Error</p>
+<p><code class="docutils literal notranslate"><span class="pre">ValueError</span></code>: If hw is less than 0.</p>
+</div>
+<dl>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pba</span><span class="o">.</span><span class="n">pm</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">Interval [-1, 1]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="pba.interval.pm_repr">
+<span class="sig-prename descclassname"><span class="pre">pba.interval.</span></span><span class="sig-name descname"><span class="pre">pm_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.pm_repr" title="Link to this definition">#</a></dt>
+<dd><p id="interval-pm-repr">Modifies the interval class to display the interval in [midpoint ± half-width] format.</p>
+<p><strong>Example</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pba</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pba</span><span class="o">.</span><span class="n">interval</span><span class="o">.</span><span class="n">pm_repr</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">pba</span><span class="o">.</span><span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># defined using left and right. This cannot be overriden.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">pba</span><span class="o">.</span><span class="n">PM</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># defined using midpoint and half-width</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="go">Interval [0.5 ± 0.5]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="go">Interval [0 ± 1]</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><code class="xref py py-func docutils literal notranslate"><span class="pre">lr_interval_repr()</span></code></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pba.interval.lr_repr">
+<span class="sig-prename descclassname"><span class="pre">pba.interval.</span></span><span class="sig-name descname"><span class="pre">lr_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.interval.lr_repr" title="Link to this definition">#</a></dt>
+<dd><p id="interval-lr-repr">Modifies the interval class to display the interval in [left, right] format.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function primarily exists to undo the effects of <code class="docutils literal notranslate"><span class="pre">pm_interval_repr()</span></code>. By default the interval class displays in this format.</p>
+</div>
+<p><strong>Example</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pba</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pba</span><span class="o">.</span><span class="n">interval</span><span class="o">.</span><span class="n">pm_repr</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">pba</span><span class="o">.</span><span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># defined using left and right, this cannot be overriden.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="go">Interval [0.5±0.5]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pba</span><span class="o">.</span><span class="n">interval</span><span class="o">.</span><span class="n">lr_repr</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">pba</span><span class="o">.</span><span class="n">PM</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># defined using midpoint and half-width</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="go">Interval [-1,1]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
 </section>
 
         </article>
@@ -751,9 +835,8 @@ This is interpreted as {math}`x` being between {math}`a` and {math}`b` but with 
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Intervals</a><ul>
-<li><a class="reference internal" href="#arithmetic">Arithmetic</a></li>
 <li><a class="reference internal" href="#pba.interval.Interval"><code class="docutils literal notranslate"><span class="pre">Interval</span></code></a><ul>
-<li><a class="reference internal" href="#pba.interval.Interval.pm"><code class="docutils literal notranslate"><span class="pre">Interval.pm()</span></code></a></li>
+<li><a class="reference internal" href="#pba.interval.Interval.__init__"><code class="docutils literal notranslate"><span class="pre">Interval.__init__()</span></code></a></li>
 <li><a class="reference internal" href="#pba.interval.Interval.add"><code class="docutils literal notranslate"><span class="pre">Interval.add()</span></code></a></li>
 <li><a class="reference internal" href="#pba.interval.Interval.padd"><code class="docutils literal notranslate"><span class="pre">Interval.padd()</span></code></a></li>
 <li><a class="reference internal" href="#pba.interval.Interval.oadd"><code class="docutils literal notranslate"><span class="pre">Interval.oadd()</span></code></a></li>
@@ -771,6 +854,7 @@ This is interpreted as {math}`x` being between {math}`a` and {math}`b` but with 
 <li><a class="reference internal" href="#pba.interval.Interval.lo"><code class="docutils literal notranslate"><span class="pre">Interval.lo()</span></code></a></li>
 <li><a class="reference internal" href="#pba.interval.Interval.hi"><code class="docutils literal notranslate"><span class="pre">Interval.hi()</span></code></a></li>
 <li><a class="reference internal" href="#pba.interval.Interval.width"><code class="docutils literal notranslate"><span class="pre">Interval.width()</span></code></a></li>
+<li><a class="reference internal" href="#pba.interval.Interval.halfwidth"><code class="docutils literal notranslate"><span class="pre">Interval.halfwidth()</span></code></a></li>
 <li><a class="reference internal" href="#pba.interval.Interval.midpoint"><code class="docutils literal notranslate"><span class="pre">Interval.midpoint()</span></code></a></li>
 <li><a class="reference internal" href="#pba.interval.Interval.to_logical"><code class="docutils literal notranslate"><span class="pre">Interval.to_logical()</span></code></a></li>
 <li><a class="reference internal" href="#pba.interval.Interval.env"><code class="docutils literal notranslate"><span class="pre">Interval.env()</span></code></a></li>
@@ -783,7 +867,12 @@ This is interpreted as {math}`x` being between {math}`a` and {math}`b` but with 
 <li><a class="reference internal" href="#pba.interval.Interval.sample"><code class="docutils literal notranslate"><span class="pre">Interval.sample()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#pba.interval.I"><code class="docutils literal notranslate"><span class="pre">I</span></code></a></li>
+<li><a class="reference internal" href="#plus-minus-intervals">Plus-Minus Intervals</a><ul>
+<li><a class="reference internal" href="#pba.interval.PM"><code class="docutils literal notranslate"><span class="pre">PM()</span></code></a></li>
+<li><a class="reference internal" href="#pba.interval.pm_repr"><code class="docutils literal notranslate"><span class="pre">pm_repr()</span></code></a></li>
+<li><a class="reference internal" href="#pba.interval.lr_repr"><code class="docutils literal notranslate"><span class="pre">lr_repr()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

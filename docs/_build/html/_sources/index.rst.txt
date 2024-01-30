@@ -1,8 +1,8 @@
-PBA for Python
-==========================================
+Probability Bounds Analysis for Python
+======================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
 
    interval.rst
