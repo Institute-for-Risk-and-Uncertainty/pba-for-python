@@ -46,6 +46,10 @@ def _interpolate(left, right, steps, method):
 class NotIncreasingError(Exception):
     pass
 
+def _check_div_by_zero(pbox):
+    if 0 <= min(pbox.left) and 0 >= max(pbox.right):
+        raise DivisionByZero("Pbox contains 0")
+
 def _interval_list_to_array(l, left = True):
     if left:
         f = lambda x: x.left if isinstance(x, Interval) else x
@@ -131,9 +135,8 @@ def _check_moments(left, right, steps, mean, var):
 ### Arithmetic Functions ###
 #** This is prefered as means can only test once for +, -, *, /, **#
 def _arithmetic(a, b, method, op, enforce_steps = True, interpolation_method = 'linear'):
-    '''
-    If enforce_steps is True, the number of steps in the returned p-box is the maximum of the number of steps in a and b.
-    '''
+    #* If enforce_steps is True, the number of steps in the returned p-box is the maximum of the number of steps in a and b.
+
     if b.__class__.__name__ == 'Interval': 
         other = Pbox(other, steps = a.steps)
 
@@ -242,7 +245,6 @@ class Pbox:
     
         It is usually better to define p-boxes using distributions or non-parametric methods (see ). This constructor is provided for completeness and for the construction of p-boxes with precise inputs.
     
-    **Attributes:**
     :arg left: Left bound of the p-box. Can be a list, NumPy array, Interval or numeric type.
     :arg right: Right bound of the p-box. Can be a list, NumPy array, Interval or numeric type.
     :arg steps: Number of steps to discretize the p-box into. Default is None.   
@@ -264,10 +266,9 @@ class Pbox:
         
         If check_moments is set to ``True`` and mean and/or var are specified, if the calculated values differ from the specified values, the calculated values are used and a warning is raised.
         
-    ..error::
+    .. error::
     
         If the left and right bounds are not increasing, a `NotIncreasingError` is raised.
-        
         ``ValueError`` is raised if left and right are not the same length.
         
         
@@ -470,20 +471,19 @@ class Pbox:
         Allows for unary operations to be performed on a p-box.
         This is acheived by applying the function to each interval in the p-box.
         
-        **Parameters:**
+        **Arguments:**
             ``func`` (``function``): Function to apply to each interval in the p-box.
             ``args`` (``tuple``): Arguments to pass to the function.
             ``kwargs`` (``dict``): Keyword arguments to pass to the function.
         
-        .. admonition:: Implementation
+        .. important::
         
             The function must accept an Interval object as its first argument and return an Interval object. ``args`` and ``kwargs`` are passed to the function as additional arguments.
             
             >>> func(Interval(l,r),*args, **kwargs)
         
-        .. important::
-
             The function must return an Interval object. Behaviour may be unpredictable if the endpoints of the inputted interval do not correspond to the endpoints of the outputted p-box.
+            
         '''
         ints = [func(Interval(l,r),*args, **kwargs) for l,r in zip(self.left,self.right)]
 
@@ -496,7 +496,7 @@ class Pbox:
         '''
         Function to interpolate a p-box to a new number of steps.
         
-        **Parameters:**
+        **Arguments:**
             ``steps`` (``int``): Number of steps to interpolate to.
             ``method`` (``str``): Interpolation method to use. Must be one of ``linear``, ``cubicspline`` or ``step``.
             ``inplace`` (``bool``): If ``True``, the p-box is interpolated in place. If ``False``, a new p-box is returned.
@@ -516,7 +516,6 @@ class Pbox:
             self.left = new_left
             self.right = new_right
             self.steps = steps
-            self._checkmoments()
             
         else:
             return Pbox(left = new_left, right = new_right, steps = steps,shape = self.shape)
@@ -564,7 +563,10 @@ class Pbox:
         elif method == 'p':
             method = 'o'
 
-        return self.mul(1/other, method)
+        if isinstance(other, (Interval,Pbox)):
+            return self.mul(other.recip(), method)
+        else:
+            return self.mul(1/other, method)
 
     def pow(self, other: Union["Pbox",Interval,float,int], method  = 'f') -> "Pbox":
         '''
@@ -584,6 +586,15 @@ class Pbox:
         return self.unary(function = lambda x: x.sqrt())
     
     def recip(self):
+        '''
+        Calculates the reciprocal of a p-box.
+        
+        .. error::
+        
+            ``DivisionByZero`` is raised if the p-box contains 0.
+            
+        '''
+        _check_div_by_zero(self)
         return Pbox(
             left  = 1 / np.flip(self.right),
             right = 1 / np.flip(self.left),
@@ -613,14 +624,14 @@ class Pbox:
         """
         Returns a new Pbox object that represents the element-wise minimum of two Pboxes.
 
-        **Parameters**:
+        **Arguments**:
             
-            - other: Another Pbox, Interval or a numeric value.
-            - method: Calculation method to determine the minimum. Can be one of 'f', 'p', 'o', 'i'.
+            ``other``: Another Pbox, Interval or a numeric value.
+            ``method``: Calculation method to determine the minimum. Can be one of 'f', 'p', 'o', 'i'.
 
         **Returns**:
             
-            Pbox
+            ``Pbox``
             
         """
         if isinstance(other, (Interval,Pbox)):
@@ -641,14 +652,14 @@ class Pbox:
         """
         Returns a new Pbox object that represents the element-wise minimum of two Pboxes.
 
-        **Parameters**:
+        **Arguments**:
             
-            - other: Another Pbox, Interval or a numeric value.
-            - method: Calculation method to determine the minimum. Can be one of 'f', 'p', 'o', 'i'.
+            ``other``: Another Pbox, Interval or a numeric value.
+            ``method``: Calculation method to determine the minimum. Can be one of 'f', 'p', 'o', 'i'.
 
         **Returns**:
             
-            Pbox
+            ``Pbox``
             
         """
         if isinstance(other, (Interval,Pbox)):
@@ -669,7 +680,7 @@ class Pbox:
         '''
         Truncates a p-box to the interval [a,b], or a if b is not specified and a is an Interval.
         
-        **Parameters:**
+        **Arguments:**
 
             ``a`` (``Interval``, ``float``, ``int``): The lower bound of the truncation interval.
             ``b`` (``float``, ``int``): The upper bound of the truncation interval. If not specified, the upper bound of ``a`` is used.
@@ -722,20 +733,22 @@ class Pbox:
 
     def env(self, other):
         """
-        .. _interval.env:
+        .. _pbox.env:
         
         Computes the envelope of two Pboxes.
 
-        Parameters:
-        - other: Pbox or numeric value
-            The other Pbox or numeric value to compute the envelope with.
+        **Arguments**:
+        
+            ``other``: Another Pbox, Interval or a numeric value.
 
-        Returns:
-        - Pbox
-            The envelope Pbox.
+        **Returns**:
 
-        Raises:
-        - ArithmeticError: If both Pboxes have different number of steps.
+            ``Pbox``
+
+        .. error::
+        
+            ``NotImplementedError`` is raised if ``other`` is not a Pbox. Imputation of other needs to be done manually
+            
         """
 
         if other.__class__.__name__ == 'Pbox':
@@ -753,8 +766,30 @@ class Pbox:
                 steps   = self.steps
             )
 
-    def show(self,figax = None, now = True, title = '', x_axis_label = 'x', **kwargs):
+    def show(self,figax = None, now = True, title = '', xlabel = 'x', ylabel = r'$\Pr(x \leq X)$',left_col = 'red',right_col = 'black', **kwargs):
+        '''
+        Plots the p-box
+        
+        **Arguments:**
+        
+            ``figax`` (``tuple``): Tuple containing a matplotlib figure and axis object. If not specified, a new figure and axis object are created.
+            ``now`` (``bool``): If ``True``, the figure is shown. If ``False``, the figure is returned.
+            ``title`` (``str``): Title of the plot.
+            ``xlabel`` (``str``): Label for the x-axis.
+            ``ylabel`` (``str``): Label for the y-axis.
+            ``left_col`` (``str``): Colour of the left bound of the p-box.
+            ``right_col`` (``str``): Colour of the right bound of the p-box.
+            ``kwargs`` (``dict``): Additional keyword arguments to pass to ``matplotlib.pyplot.plot``.
+        
+        **Example:**
 
+        .. code-block:: python
+        
+            >>> p = pba.N([-1,1],1)
+            >>> fig, ax = plt.subplots()
+            >>> p.show(figax = (fig,ax), now = True, title = 'Example', xlabel = 'x', ylabel = r'$\Pr(x \leq X)$',left_col = 'red',right_col = 'black')
+
+        '''
         if figax is None:
             fig, ax = plt.subplots()
         else:
@@ -773,24 +808,22 @@ class Pbox:
         ii.sort();  jj.sort();  LL.sort();  RR.sort()
 
         if 'color' in kwargs.keys():
-            
             ax.plot(LL,ii,**kwargs)              
             ax.plot(RR,jj,**kwargs)   
         else:
-            ax.plot(LL,ii,'r-',**kwargs)              
-            ax.plot(RR,jj,'k-',**kwargs)   
+            ax.plot(LL,ii,color=left_col,**kwargs)              
+            ax.plot(RR,jj,color=right_col,**kwargs)   
               
-        if title != '' : ax.set_title(title,**kwargs)   
-
-        ax.set_xlabel(x_axis_label)
-        ax.set_ylabel(r'$\Pr(x \leq X)$')
+        if title != '' : 
+            ax.set_title(title,**kwargs)   
+    
+        ax.set_xlabel(xlabel)
+        ax.set_ylabel(ylabel)
         
         if now:
             fig.show()
         else:
             return fig, ax
-
-    plot = show
 
     def get_interval(self, *args) -> Interval:
 
@@ -826,6 +859,10 @@ class Pbox:
         return Interval(x1,x2)
 
     def get_probability(self, val) -> Interval:
+        '''
+        Returns the interval
+        '''
+        
         p  = np.append(np.insert(np.linspace(0,1,self.steps),0,0),1)
 
         i = 0
@@ -846,8 +883,28 @@ class Pbox:
         return Interval(lb,ub)
 
     def summary(self) -> str:
+        '''
+        Returns a summary of the p-box
+        '''
+        s = 'Pbox Summary\n'
+        s += '------------\n'
+        if self.shape != '': s += f'Shape: {self.shape}\n'
+        s += f'Range: {self.support()}\n'
+        s += f'Mean: {self.mean}\n'
+        s += f'Variance: {self.var}\n'
+        s += f'Steps: {self.steps}\n'
+        return s
 
-        return self.__repr__()
+    def support(self) -> Interval:
+        '''
+        Returns the range of the pbox
+        
+        .. admonition:: Implementation
+        
+            >>> Interval(self.lo(),self.hi())
+        
+        '''
+        return Interval(min(self.left),max(self.right))
 
     def mean(self) -> Interval:
         '''
@@ -861,43 +918,21 @@ class Pbox:
         '''
         return Interval(np.median(self.left),np.median(self.right))
 
-    def support(self) -> Interval:
-        return Interval(min(self.left),max(self.right))
-
-    def get_x(self):
-        '''returns the x values for plotting'''
-        left = np.append(np.insert(self.left,0,min(self.left)),max(self.right))
-        right = np.append(np.insert(self.right,0,min(self.left)),max(self.right))
-        return left, right
-
-    def get_y(self):
-        '''returns the y values for plotting'''
-        return np.append(np.insert(np.linspace(0,1,self.steps),0,0),1)
 
     def straddles(self,N, endpoints = True) -> bool:
         """
-        Parameters
-        ----------
-        N : numeric
-            Number to check
-        endpoints : bool
-            Whether to include the endpoints within the check
-
-        Returns
-        -------
-        True
-            If :math:`\\mathrm{left} \\leq N \\leq \mathrm{right}` (Assuming `endpoints=True`)
-        False
-            Otherwise
+        Checks whether a number is within the p-box's support
+        
+        **Arguments:**
+        
+            ``N`` (``float``): Number to check
+            ``endpoints`` (``bool``): If ``True``, the endpoints of the p-box are included in the check.
+            
+        **Returns:**
+        
+            ``bool``
         """
-        if endpoints:
-            if min(self.left) <= N and max(self.right) >= N:
-                return True
-        else:
-            if min(self.left) < N and max(self.right) > N:
-                return True
-
-        return False
+        return self.support().straddles(N,endpoints)
 
     def straddles_zero(self,endpoints = True) -> bool:
         """
@@ -933,27 +968,6 @@ class Pbox:
             right = d
         )
 
-# Functions
-def env_int(*args):
-    left = min([min(i) if hasattr(i,"__iter__") else i for i in args])
-    right = max([max(i) if hasattr(i,"__iter__") else i for i in args])
-    return Interval(left, right)
-
-def left(imp):
-    if isinstance(imp, Interval) or isinstance(imp, Pbox):  # neither "pba.pbox.Pbox" nor "pbox.Pbox" works (with or without quotemarks), even though type(b) is <class 'pba.pbox.Pbox' and isinstance(pba.norm(5,1),pba.pbox.Pbox) is True
-        return imp.left
-    elif hasattr(imp,"__iter__"):
-        return min(imp)
-    else:
-        return imp
-
-def right(imp):
-    if isinstance(imp, Interval) or isinstance(imp, Pbox):
-        return imp.right
-    elif hasattr(imp,"__iter__"):
-        return max(imp)
-    else:
-        return imp
 
 def left_list(implist, verbose=False):
     if not hasattr(implist,"__iter__"):
@@ -966,41 +980,6 @@ def right_list(implist, verbose=False):
         return np.array(implist)
 
     return np.array([right(imp) for imp in implist])
-
-
-def _DivByZeroCheck(bound):
-    if 0 not in bound:
-        return bound
-    
-    elif sum([b==0 for b in bound]) > 1:
-        # cant help 
-        raise DivisionByZero
-    
-    elif bound[0] == 0:
-        if bound[1] > 0:
-            e = 1e-3
-            while abs(e) >= abs(bound[1]):
-                e /= 10
-            bound[0] = e
-        else:
-            e = -1e-3
-            while abs(e) >= abs(bound[1]):
-                e /= 10
-            bound[0] = e
-            
-    elif bound[-1] == 0:
-        if bound[-2] > 0:
-            e = 1e-3
-            while abs(e) >= abs(bound[-2]):
-                e /= 10
-            bound[-1] = e
-        else:
-            e = -1e-3
-            while abs(e) >= abs(bound[-2]):
-                e /= 10
-            bound[-1] = e
-
-    return bound
         
 def truncate(pbox,min,max):
     return pbox.truncate(min,max)
