@@ -50,7 +50,7 @@ class Logical(Interval):
         else:
             return self
 
-def is_same_as(a: Union['Pbox', 'Interval'], b: Union['Pbox', 'Interval'], deep = False, exact_pbox = True):
+def is_same_as(a: Union['Pbox', 'Interval'], b: Union['Pbox', 'Interval'], deep = False, exact_pbox = False):
     """
     Check if two objects of type 'Pbox' or 'Interval' are equal.
 
@@ -62,7 +62,7 @@ def is_same_as(a: Union['Pbox', 'Interval'], b: Union['Pbox', 'Interval'], deep 
         
         ``deep``: If True, performs a deep comparison, considering object identity. If False, performs a shallow comparison based on object attributes. Defaults to False.
         
-        ``exact_pbox``: If True, performs a deep comparison of p-boxes, considering all attributes. If False, performs a shallow comparison of p-boxes, considering only the left and right attributes. Defaults to True.
+        ``exact_pbox``: If True, performs a deep comparison of p-boxes, considering all attributes. If False, performs a shallow comparison of p-boxes, considering only the left and right attributes. Defaults to False.
 
     **Returns** ``True`` **if**:
     
