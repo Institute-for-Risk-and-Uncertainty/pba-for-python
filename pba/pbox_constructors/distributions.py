@@ -133,12 +133,12 @@ __all__ = [
 
 
 if __name__ is not None and "." in __name__:
-    from .interval import Interval
+    from ..interval import Interval
 else:
     from interval import Interval
 
 if __name__ is not None and "." in __name__:
-    from .pbox import Pbox
+    from ..pbox import Pbox
 else:
     from pbox import Pbox
 

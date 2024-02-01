@@ -64,22 +64,21 @@ class Interval:
 
     Alternative arithmetic methods are described in `interval.add`_, `interval.sub`_, `interval.mul`_, `interval.div`_.
 
+    **Attributes**:
+    
+        ``left``: The left boundary of the interval.
+        
+        ``right``: The right boundary of the interval.
+            
+    .. admonition:: Default values
+    
+        If only 1 argument is given then the interval is assumed to be zero width around this value.
+        
+        If no arguments are given then the interval is assumed to be vaccous (i.e. :math:`[-\infty,\infty]`). This is implemented as ``Interval(-np.inf,np.inf)``.
+
     '''
     def __init__(self,left = None, right = None):
-
-        '''        
-        **Attributes**:
-        
-            ``left``: The left boundary of the interval.
-            
-            ``right``: The right boundary of the interval.
-                
-        .. admonition:: Default values
-        
-            If only 1 argument is given then the interval is assumed to be zero width around this value.
-            
-            If no arguments are given then the interval is assumed to be vaccous (i.e. :math:`[-\infty,\infty]`). This is implemented as ``Interval(-np.inf,np.inf)``.
-        '''        
+     
         # disallow p-boxes
         if left.__class__.__name__ == 'Pbox' or right.__class__.__name__ == 'Pbox':
             raise ValueError("left and right must not be P-boxes. Use Pbox methods instead.")
@@ -117,8 +116,9 @@ class Interval:
     def __repr__(self) -> str: # return
         return "Interval [%g, %g]"%(self.left,self.right)
 
-    def __str__(self) -> str: # print
-        return "Interval [%g, %g]"%(self.left,self.right)
+    def __str__(self) -> str: # str(Interval)
+        return "[%g, %g]"%(self.left,self.right)
+
 
     def __format__(self, format_spec: str) -> str:
         try:

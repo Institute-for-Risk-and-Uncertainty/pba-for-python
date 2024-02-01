@@ -18,11 +18,11 @@ __all__ = [
     'from_percentiles'
     ]
 
-from .pbox import Pbox, imposition, NotIncreasingError
-from .interval import Interval
-from .dists import *
-from .core import *
-from .logical import *
+from ..pbox import Pbox, imposition, NotIncreasingError
+from ..interval import Interval
+from .distributions import *
+from ..core import *
+from ..logical import *
 
 import itertools as it
 from typing import *

@@ -197,20 +197,20 @@
           </label>
         </div>
         <article role="main">
-          <section id="module-pba.dists">
-<span id="distributions"></span><h1>Distributions<a class="headerlink" href="#module-pba.dists" title="Link to this heading">#</a></h1>
+          <section id="module-pba.pbox_constructors.distributions">
+<span id="distributions"></span><h1>Distributions<a class="headerlink" href="#module-pba.pbox_constructors.distributions" title="Link to this heading">#</a></h1>
 <section id="distribution-based-p-boxes">
 <h2>Distribution based p-boxes<a class="headerlink" href="#distribution-based-p-boxes" title="Link to this heading">#</a></h2>
 </section>
 <dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.beta">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">beta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.beta" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="pba.pbox_constructors.distributions.beta">
+<span class="sig-prename descclassname"><span class="pre">pba.pbox_constructors.distributions.</span></span><span class="sig-name descname"><span class="pre">beta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox_constructors.distributions.beta" title="Link to this definition">#</a></dt>
 <dd><p>Beta distribution</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.lognorm">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">lognorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.lognorm" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="pba.pbox_constructors.distributions.lognorm">
+<span class="sig-prename descclassname"><span class="pre">pba.pbox_constructors.distributions.</span></span><span class="sig-name descname"><span class="pre">lognorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox_constructors.distributions.lognorm" title="Link to this definition">#</a></dt>
 <dd><p>Creates a p-box for the lognormal distribution</p>
 <p><em>Note: the parameters used are the mean and variance of the lognormal distribution not the mean and variance of the underlying normal</em>
 See:
@@ -232,8 +232,8 @@ See:
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="pba.dists.lognormal">
-<span class="sig-prename descclassname"><span class="pre">pba.dists.</span></span><span class="sig-name descname"><span class="pre">lognormal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.dists.lognormal" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="pba.pbox_constructors.distributions.lognormal">
+<span class="sig-prename descclassname"><span class="pre">pba.pbox_constructors.distributions.</span></span><span class="sig-name descname"><span class="pre">lognormal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox_constructors.distributions.lognormal" title="Link to this definition">#</a></dt>
 <dd><p>Creates a p-box for the lognormal distribution</p>
 <p><em>Note: the parameters used are the mean and variance of the lognormal distribution not the mean and variance of the underlying normal</em>
 See:
@@ -313,9 +313,9 @@ See:
             <ul>
 <li><a class="reference internal" href="#">Distributions</a><ul>
 <li><a class="reference internal" href="#distribution-based-p-boxes">Distribution based p-boxes</a></li>
-<li><a class="reference internal" href="#pba.dists.beta"><code class="docutils literal notranslate"><span class="pre">beta()</span></code></a></li>
-<li><a class="reference internal" href="#pba.dists.lognorm"><code class="docutils literal notranslate"><span class="pre">lognorm()</span></code></a></li>
-<li><a class="reference internal" href="#pba.dists.lognormal"><code class="docutils literal notranslate"><span class="pre">lognormal()</span></code></a></li>
+<li><a class="reference internal" href="#pba.pbox_constructors.distributions.beta"><code class="docutils literal notranslate"><span class="pre">beta()</span></code></a></li>
+<li><a class="reference internal" href="#pba.pbox_constructors.distributions.lognorm"><code class="docutils literal notranslate"><span class="pre">lognorm()</span></code></a></li>
+<li><a class="reference internal" href="#pba.pbox_constructors.distributions.lognormal"><code class="docutils literal notranslate"><span class="pre">lognormal()</span></code></a></li>
 </ul>
 </li>
 </ul>

@@ -214,24 +214,28 @@
 <p class="admonition-title">Attention</p>
 <p>It is usually better to define p-boxes using distributions or non-parametric methods (see ). This constructor is provided for completeness and for the construction of p-boxes with precise inputs.</p>
 </div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>left</strong> – Left bound of the p-box. Can be a list, NumPy array, Interval or numeric type. If left is None, the left bound is set to -inf.</p>
-</dd>
-</dl>
+<p><strong>Attributes:</strong>
+:arg left: Left bound of the p-box. Can be a list, NumPy array, Interval or numeric type.
+:arg right: Right bound of the p-box. Can be a list, NumPy array, Interval or numeric type.
+:arg steps: Number of steps to discretize the p-box into. Default is None.   
+:arg shape: The shap eof the distribution used to construct the p-box. The shape is defined by the p-box constructor. Default is <cite>None</cite>.
+:arg mean_left: Left bound of the mean of the p-box.
+:arg mean_right: Right bound of the mean of the p-box.
+:arg var_left: Left bound of the variance of the p-box.
+:arg var_right: Right bound of the variance of the p-box.
+:arg interpolation: Interpolation method to use. See interpolation for more details. Default is <cite>linear</cite>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The statistic values be specified by constructor function are also calculated automatically. If specified values differ from the calculated values, the calculated values are used and a warning is raised.</p>
+</div>
+<p>..error:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>If the left and right bounds are not increasing, a `NotIncreasingError` is raised.
+</pre></div>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.pbox.Pbox.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean_left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean_right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.pbox.Pbox.__init__" title="Link to this definition">#</a></dt>
-<dd><div class="admonition attention">
-<p class="admonition-title">Attention</p>
-<p>It is usually better to define p-boxes using distributions or non-parametric methods (see ). This constructor is provided for completeness and for the construction of p-boxes with precise inputs.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>left</strong> – Left bound of the p-box. Can be a list, NumPy array, Interval or numeric type. If left is None, the left bound is set to -inf.</p>
-</dd>
-</dl>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.pbox.Pbox.add">

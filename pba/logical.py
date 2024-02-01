@@ -111,6 +111,20 @@ def is_same_as(a: Union['Pbox', 'Interval'], b: Union['Pbox', 'Interval'], deep 
             
             if exact_pbox:
                 if (
+                    np.array_equal(a.left , b.left ) and
+                    np.array_equal(a.right, b.right) and
+                    a.steps == b.steps and
+                    a.shape == b.shape and
+                    a.mean.left == b.mean.left and
+                    a.mean.right == b.mean.right and
+                    a.var.left == b.var.left and
+                    a.var.right == b.var.right
+                    ):
+                    return True
+                else:
+                    return False
+            else:
+                if (
                     np.array_equal(a.left, b.left) and
                     np.array_equal(a.right, b.right)
                     ):
@@ -118,19 +132,6 @@ def is_same_as(a: Union['Pbox', 'Interval'], b: Union['Pbox', 'Interval'], deep 
                 else:
                     return False
                 
-            if (
-                np.array_equal(a.left , b.left ) and
-                np.array_equal(a.right, b.right) and
-                a.steps == b.steps and
-                a.shape == b.shape and
-                a.mean_left == b.mean_left and
-                a.mean_right == b.mean_right and
-                a.var_left == b.var_left and
-                a.var_right == b.var_right
-                ):
-                return True
-            else:
-                return False
             
         elif isinstance(a,Interval):
             if (
