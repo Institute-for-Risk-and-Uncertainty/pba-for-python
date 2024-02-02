@@ -689,7 +689,10 @@ def from_percentiles(percentiles: dict, steps: int = Pbox.STEPS) -> Pbox:
             1: 3}
         ).show()
 
-    ..image:: _docs/images/from_percentiles.png
+    .. image:: ../..//images//from_percentiles.png
+        :scale: 35 %
+        :align: center
+        :alt: Pbox generated from percentiles
     
     '''
     # check if 0 and 1 are in the dictionary
