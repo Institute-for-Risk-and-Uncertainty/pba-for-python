@@ -689,7 +689,7 @@ def from_percentiles(percentiles: dict, steps: int = Pbox.STEPS) -> Pbox:
             1: 3}
         ).show()
 
-    .. image:: ../..//images//from_percentiles.png
+    .. image:: https://github.com/Institute-for-Risk-and-Uncertainty/pba-for-python/blob/master/docs/images/from_percentiles.png?raw=true
         :scale: 35 %
         :align: center
         :alt: Pbox generated from percentiles
