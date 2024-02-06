@@ -35,9 +35,10 @@ def _interpolate(left, right, steps, method):
         nleft = []
         nright = []
         for i in np.linspace(0,1,steps):
-            smallest_key =  min(key for key in percentiles.keys() if key >= i)
-            nleft.append(percentiles[smallest_key].left)
-            nright.append(percentiles[smallest_key].right)
+            left_key = max(key for key in percentiles.keys() if key <= i)
+            right_key =  min(key for key in percentiles.keys() if key >= i)
+            nleft.append(percentiles[left_key].left)
+            nright.append(percentiles[right_key].right)
     else:
         raise ValueError("Invalid interpolation method. Must be one of: linear, cubicspline, step")
     
@@ -505,7 +506,12 @@ class Pbox:
         
             ``method = linear`` uses ``numpy.interp``
             ``method = cubicspline`` uses ``scipy.interpolate.CubicSpline``    
-            
+            ``method = step`` uses a step interpolation method.
+        
+        .. example::
+        
+            .. image:: https://github.com/Institute-for-Risk-and-Uncertainty/pba-for-python/blob/master/docs/images/interpolation.png?raw=true
+        
         '''
         if steps < self.steps:
             raise ValueError("New number of steps must be greater than current number of steps")
@@ -766,7 +772,7 @@ class Pbox:
                 steps   = self.steps
             )
 
-    def show(self,figax = None, now = True, title = '', xlabel = 'x', ylabel = r'$\Pr(x \leq X)$',left_col = 'red',right_col = 'black', **kwargs):
+    def show(self,figax = None, now = True, title = '', xlabel = 'x', ylabel = r'$\Pr(x \leq X)$',left_col = 'red',right_col = 'black', label=None, **kwargs):
         '''
         Plots the p-box
         
@@ -777,6 +783,7 @@ class Pbox:
             ``title`` (``str``): Title of the plot.
             ``xlabel`` (``str``): Label for the x-axis.
             ``ylabel`` (``str``): Label for the y-axis.
+            ``label`` (``str``): Label for the plot (for use in legend).
             ``left_col`` (``str``): Colour of the left bound of the p-box.
             ``right_col`` (``str``): Colour of the right bound of the p-box.
             ``kwargs`` (``dict``): Additional keyword arguments to pass to ``matplotlib.pyplot.plot``.
@@ -808,10 +815,10 @@ class Pbox:
         ii.sort();  jj.sort();  LL.sort();  RR.sort()
 
         if 'color' in kwargs.keys():
-            ax.plot(LL,ii,**kwargs)              
+            ax.plot(LL,ii,label = label, **kwargs)              
             ax.plot(RR,jj,**kwargs)   
         else:
-            ax.plot(LL,ii,color=left_col,**kwargs)              
+            ax.plot(LL,ii,color=left_col,label = label, **kwargs)              
             ax.plot(RR,jj,color=right_col,**kwargs)   
               
         if title != '' : 
@@ -824,6 +831,8 @@ class Pbox:
             fig.show()
         else:
             return fig, ax
+
+    plot = show
 
     def get_interval(self, *args) -> Interval:
 
@@ -973,13 +982,13 @@ def left_list(implist, verbose=False):
     if not hasattr(implist,"__iter__"):
         return np.array(implist)
 
-    return np.array([left(imp) for imp in implist])
+    return np.array([imp.lo() for imp in implist])
 
 def right_list(implist, verbose=False):
     if not hasattr(implist,"__iter__"):
         return np.array(implist)
 
-    return np.array([right(imp) for imp in implist])
+    return np.array([imp.hi() for imp in implist])
         
 def truncate(pbox,min,max):
     return pbox.truncate(min,max)
@@ -1111,3 +1120,71 @@ def mixture(
     s2 = s2 - mu**2
 
     return Pbox(np.array(u),np.array(d), mean = Interval(mu.left, mu.right), var = Interval(s2.left, s2.right), steps = steps, check_moments=False)
+
+def change_default_arithmetic_method(method):
+    '''
+    Changes the default arithmetic method for p-boxes
+    
+    **Arguments:**
+
+        ``method`` (``str``): Method to use. Must be one of ``f``, ``p``, ``o``, ``i``.
+        
+    '''
+
+    if method not in ['f','p','o','i']:
+        raise ValueError("Method must be one of 'f', 'p', 'o', 'i'")
+    
+    def nadd(self, other: Union["Pbox",Interval,float,int], method  = method, enforce_steps = True) -> "Pbox":
+
+        try:
+            return _arithmetic(self, other, method, op = lambda x,y: x+y, enforce_steps = enforce_steps)
+        except NotImplementedError:
+            raise NotImplementedError(f"Addition of {other.__class__.__name__} to Pbox not implemented")
+        except:
+            raise Exception(f"Addition of {other.__class__.__name__} to Pbox failed")
+
+    def nsub(self, other, method = method):
+
+        if method == 'o':
+            method = 'p'
+        elif method == 'p':
+            method = 'o'
+
+        return self.add(-other, method)
+
+    def nmul(self, other, method = method):
+
+        try:
+            return _arithmetic(self, other, method, op = lambda x,y: x*y)
+        except NotImplementedError:
+            raise NotImplementedError(f"Multiplication of {other.__class__.__name__} and Pbox not implemented")
+        except:
+            raise Exception(f"Multiplication of {other.__class__.__name__} to Pbox failed")
+
+    def ndiv(self, other, method = method):
+
+        if method == 'o':
+            method = 'p'
+        elif method == 'p':
+            method = 'o'
+
+        if isinstance(other, (Interval,Pbox)):
+            return self.mul(other.recip(), method)
+        else:
+            return self.mul(1/other, method)
+
+    def npow(self, other: Union["Pbox",Interval,float,int], method  = method) -> "Pbox":
+
+        try:
+            return _arithmetic(self, other, method, op = lambda x,y: x**y)
+        except NotImplementedError:
+            raise NotImplementedError(f"Power of {other.__class__.__name__} to Pbox not implemented")
+        except:
+            raise Exception(f"Power of {other.__class__.__name__} to Pbox failed")
+        
+    Pbox.__add__ = nadd
+    Pbox.__sub__ = nsub
+    Pbox.__mul__ = nmul
+    Pbox.__truediv__ = ndiv
+    Pbox.__pow__ = npow
+    

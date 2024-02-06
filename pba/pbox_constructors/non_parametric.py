@@ -20,7 +20,7 @@ __all__ = [
 
 from ..pbox import Pbox, imposition, NotIncreasingError
 from ..interval import Interval
-from .distributions import *
+from .distributions import beta, norm
 from ..core import *
 from ..logical import *
 
@@ -689,7 +689,7 @@ def from_percentiles(percentiles: dict, steps: int = Pbox.STEPS) -> Pbox:
             1: 3}
         ).show()
 
-    .. image:: ../..//images//from_percentiles.png
+    .. image:: https://github.com/Institute-for-Risk-and-Uncertainty/pba-for-python/blob/master/docs/images/from_percentiles.png?raw=true
         :scale: 35 %
         :align: center
     
@@ -713,9 +713,14 @@ def from_percentiles(percentiles: dict, steps: int = Pbox.STEPS) -> Pbox:
     if any([p<0 or p>1 for p in percentiles.keys()]):
         raise ValueError("Percentiles must be between 0 and 1")
     
+    X = np.linspace(0,1,steps)
+    
+    if any([p not in percentiles.keys() for p in X]):
+        warn("Not all percentiles are possible with given steps. This may result in a p-box that does not cover the entire range.")
+    
     left = []
     right = []
-    for i in np.linspace(0,1,steps):
+    for i in X:
         smallest_key =  min(key for key in percentiles.keys() if key >= i)
         largest_key =  max(key for key in percentiles.keys() if key <= i)
         left.append(percentiles[largest_key].left)
@@ -734,13 +739,12 @@ def from_percentiles(percentiles: dict, steps: int = Pbox.STEPS) -> Pbox:
                 percentiles[j] = Interval(percentiles[i].right,percentiles[j].right)
             if sometimes(percentiles[j] > percentiles[k]):
                 percentiles[j] = Interval(percentiles[j].left,percentiles[k].left)
-                
-        left = []
-        right = []
+
         for i in np.linspace(0,1,steps):
-            smallest_key =  min(key for key in percentiles.keys() if key >= i)
-            left.append(percentiles[smallest_key].left)
-            right.append(percentiles[smallest_key].right)
+            left_key = max(key for key in percentiles.keys() if key <= i)
+            right_key =  min(key for key in percentiles.keys() if key >= i)
+            left.append(percentiles[left_key].left)
+            right.append(percentiles[right_key].right)
         
         return Pbox(left,right,steps=steps, interpolation='outer')
     except:

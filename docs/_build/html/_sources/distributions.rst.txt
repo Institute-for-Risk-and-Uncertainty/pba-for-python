@@ -1,6 +1,5 @@
 Distributions
 ==========================================
-.. automodule:: pba.pbox_constructors.distributions
+.. automodule:: pba.pbox_constructors.parametric
    :members:
-..    :show-inheritance:
-..    :undoc-members:
+   :undoc-members:
