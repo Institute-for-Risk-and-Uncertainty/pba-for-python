@@ -38,7 +38,7 @@ def envelope(*args: Union[Interval, Pbox, float]) -> Union[Interval, Pbox]:
     
     # check if all arguments are intervals or pboxes
     if 'Interval' not in types and 'Pbox' not in types:
-        raise TypeError('At least one argument needs to be an Interval or Pbox')
+        raise ValueError('At least one argument needs to be an Interval or Pbox')
     # check if there is a p-box in the arguments
     elif 'Pbox' in types:
         # find first p-box
