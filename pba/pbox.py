@@ -145,13 +145,25 @@ def _arithmetic(a, b, method, op, enforce_steps = True, interpolation_method = '
 
         a, b = _check_steps(a, b)
 
-        if method == 'f':   nleft, nright = _f_arithmetic(a, b, op)
+        if method == 'f':
+            with catch_warnings():
+                simplefilter('ignore')
+                nleft, nright = _f_arithmetic(a, b, op)
 
-        elif method == 'p': nleft, nright = _p_arithmetic(a, b, op)
+        elif method == 'p':
+            with catch_warnings():
+                simplefilter('ignore')
+                nleft, nright = _p_arithmetic(a, b, op)
 
-        elif method == 'o': nleft, nright = _o_arithmetic(a, b, op)
+        elif method == 'o':
+            with catch_warnings():
+                simplefilter('ignore')
+                nleft, nright = _o_arithmetic(a, b, op)
 
-        elif method == 'i': nleft, nright = _i_arithmetic(a, b, op)
+        elif method == 'i':
+            with catch_warnings():
+                simplefilter('ignore')
+                nleft, nright = _i_arithmetic(a, b, op)
 
         else: raise ArithmeticError("Calculation method unkown")
         

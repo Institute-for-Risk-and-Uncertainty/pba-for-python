@@ -208,25 +208,43 @@
 <dt>Args:</dt><dd><p>Pbox (_type_): _description_</p>
 </dd>
 </dl>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
-<p>It is usually better to define p-boxes using distributions or non-parametric methods (see ). This constructor is provided for completeness and for the construction of p-boxes with precise inputs.</p>
-</div>
-<p><strong>Parameters:</strong></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.cbox.Cbox.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.cbox.Cbox.__init__" title="Link to this definition">#</a></dt>
-<dd><div class="admonition attention">
-<p class="admonition-title">Attention</p>
-<p>It is usually better to define p-boxes using distributions or non-parametric methods (see ). This constructor is provided for completeness and for the construction of p-boxes with precise inputs.</p>
-</div>
-<p><strong>Parameters:</strong></p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pba.cbox.Cbox.add">
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'f'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.cbox.Cbox.add" title="Link to this definition">#</a></dt>
-<dd><p>Adds to Pbox to other using the defined dependency method</p>
+<dd><p>Adds other to Pbox to other using the defined dependency method</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pba.cbox.Cbox.div">
+<span class="sig-name descname"><span class="pre">div</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'f'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.cbox.Cbox.div" title="Link to this definition">#</a></dt>
+<dd><p>Divides Pbox by other using the defined dependency method</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pba.cbox.Cbox.mul">
+<span class="sig-name descname"><span class="pre">mul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'f'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.cbox.Cbox.mul" title="Link to this definition">#</a></dt>
+<dd><p>Multiplies other and Pbox using the defined dependency method</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pba.cbox.Cbox.recip">
+<span class="sig-name descname"><span class="pre">recip</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pba.cbox.Cbox.recip" title="Link to this definition">#</a></dt>
+<dd><p>Calculates the reciprocal of a p-box.</p>
+<div class="admonition error">
+<p class="admonition-title">Error</p>
+<p><code class="docutils literal notranslate"><span class="pre">DivisionByZero</span></code> is raised if the p-box contains 0.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pba.cbox.Cbox.sub">
+<span class="sig-name descname"><span class="pre">sub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'f'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pba.cbox.Cbox.sub" title="Link to this definition">#</a></dt>
+<dd><p>Subtracts other from Pbox using the defined dependency method</p>
 </dd></dl>
 
 </dd></dl>
@@ -292,6 +310,10 @@
 <li><a class="reference internal" href="#pba.cbox.Cbox"><code class="docutils literal notranslate"><span class="pre">Cbox</span></code></a><ul>
 <li><a class="reference internal" href="#pba.cbox.Cbox.__init__"><code class="docutils literal notranslate"><span class="pre">Cbox.__init__()</span></code></a></li>
 <li><a class="reference internal" href="#pba.cbox.Cbox.add"><code class="docutils literal notranslate"><span class="pre">Cbox.add()</span></code></a></li>
+<li><a class="reference internal" href="#pba.cbox.Cbox.div"><code class="docutils literal notranslate"><span class="pre">Cbox.div()</span></code></a></li>
+<li><a class="reference internal" href="#pba.cbox.Cbox.mul"><code class="docutils literal notranslate"><span class="pre">Cbox.mul()</span></code></a></li>
+<li><a class="reference internal" href="#pba.cbox.Cbox.recip"><code class="docutils literal notranslate"><span class="pre">Cbox.recip()</span></code></a></li>
+<li><a class="reference internal" href="#pba.cbox.Cbox.sub"><code class="docutils literal notranslate"><span class="pre">Cbox.sub()</span></code></a></li>
 </ul>
 </li>
 </ul>
