@@ -54,7 +54,7 @@ def test_envelope():
         0.1,
         0.2
     ]
-    with pytest.raises(ValueError):
+    with pytest.raises(TypeError):
         result = envelope(*i)
     
     # Check for value error if less than 2 arguments given

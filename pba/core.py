@@ -48,6 +48,8 @@ def envelope(*args: Union[Interval, Pbox, float]) -> Union[Interval, Pbox]:
         
         e = args[0].env(args[1])
         for arg in args[2:]:
+            if not isinstance(arg,(Pbox,Interval)):
+                arg = Interval(arg,arg)
             e = e.env(arg)
             
     else: #Intervals only

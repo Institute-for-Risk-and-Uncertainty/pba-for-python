@@ -2,10 +2,9 @@
 README.rst
 setup.py
 pba/__init__.py
+pba/cbox.py
 pba/copula.py
 pba/core.py
-pba/dists.py
 pba/interval.py
-pba/non_parametric.py
-pba/parametric.py
+pba/logical.py
 pba/pbox.py
