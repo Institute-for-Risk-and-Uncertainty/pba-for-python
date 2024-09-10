@@ -10,3 +10,4 @@ pyvenv.cfg
 dist/*
 
 pba.egg-info/
+setup.txt
