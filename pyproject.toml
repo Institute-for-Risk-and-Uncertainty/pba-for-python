@@ -20,3 +20,6 @@ license = {file = "LICENSE"}
 [project.urls]
 Documentation = "https://pba-for-python.readthedocs.io/en/latest/"
 Repository = "https://github.com/Institute-for-Risk-and-Uncertainty/pba-for-python"
+
+[tool.setuptools]
+packages = ["pba", "pba.pbox_constructors"]

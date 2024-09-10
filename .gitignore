@@ -8,3 +8,5 @@ pyvenv.cfg
 .vscode
 .pyenv/
 dist/*
+
+pba.egg-info/
