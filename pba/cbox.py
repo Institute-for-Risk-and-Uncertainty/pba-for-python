@@ -4,6 +4,8 @@ else:
     from pbox import Pbox
     
 import numpy as np
+from matplotlib import pyplot as plt
+from typing import List, Tuple, Union
 
 __all__ = ['Cbox']
 
@@ -130,3 +132,38 @@ class Cbox(Pbox):
     def recip(self):
         return Cbox(super().recip())
     
+def singh(cboxes: List[Cbox], theta: Union[float, List[float]], figax: Tuple[plt.Figure, plt.Axes] = None) -> Tuple[plt.Figure, plt.Axes]:
+    """
+    Generates a singh plot. Create s
+
+    Parameters:
+    cboxes (list): A list of Cboxes
+    theta (float or iterable): A threshold value or list of values used to compare against 'left' and 'right' values of the cboxes.
+    figax (tuple, optional): A tuple containing a Matplotlib figure and axes object. If not provided, a new figure and axes are created.
+
+    Returns:
+    tuple: A tuple containing the Matplotlib figure and axes objects used for plotting.
+    
+    """
+    x = np.linspace(0, 1, 1001)
+
+    if hasattr(theta, "__iter__"):
+        l_thetas = [sum(cbox.left > a) / cbox.steps for cbox, a in zip(cboxes, theta)]
+        r_thetas = [sum(cbox.right > a) / cbox.steps for cbox, a in zip(cboxes, theta)]
+    else:
+        l_thetas = [sum(cbox.left > theta) / cbox.steps for cbox in cboxes]
+        r_thetas = [sum(cbox.right > theta) / cbox.steps for cbox in cboxes]
+
+    left = [sum(i <= j for i in l_thetas) / len(cboxes) for j in x]
+    right = [sum(i <= j for i in r_thetas) / len(cboxes) for j in x]
+
+    if figax is None:
+        fig, ax = plt.subplots()
+    else:
+        fig, ax = figax
+
+    ax.plot([0] + list(x) + [1], [0] + left + [1])
+    ax.plot([0] + list(x) + [1], [0] + right + [1])
+    ax.plot([0, 1], [0, 1], 'k--', lw=2)
+
+    return fig, ax

@@ -23,7 +23,120 @@ from scipy import stats
 import sys
 from copy import deepcopy
 
-dist = ["alpha", "anglit", "arcsine", "argus", "beta", "betaprime", "bradford", "burr", "burr12", "cauchy", "chi", "chi2", "cosine", "crystalball", "dgamma", "dweibull", "erlang", "expon", "exponnorm", "exponweib", "exponpow", "f", "fatiguelife", "fisk", "foldcauchy", "foldnorm", "genlogistic", "gennorm", "genpareto", "genexpon", "genextreme", "gausshyper", "gamma", "gengamma", "genhalflogistic", "geninvgauss", "gilbrat", "gompertz", "gumbel_r", "gumbel_l", "halfcauchy", "halflogistic", "halfnorm", "halfgennorm", "hypsecant", "invgamma", "invgauss", "invweibull", "johnsonsb", "johnsonsu", "kappa4", "kappa3", "ksone", "kstwobign", "laplace", "levy", "levy_l", "levy_stable", "logistic", "loggamma", "loglaplace", "lognorm", "loguniform", "lomax", "maxwell", "mielke", "moyal", "nakagami", "ncx2", "ncf", "nct", "norm", "norminvgauss", "pareto", "pearson3", "powerlaw", "powerlognorm", "powernorm", "rdist", "rayleigh", "rice", "recipinvgauss", "semicircular", "skewnorm", "t", "trapz", "triang", "truncexpon", "truncnorm", "tukeylambda", "uniform", "vonmises", "vonmises_line", "wald", "weibull_min", "weibull_max", "wrapcauchy", "bernoulli", "betabinom", "binom", "boltzmann", "dlaplace", "geom", "hypergeom", "logser", "nbinom", "planck", "poisson", "randint", "skellam", "zipf", "yulesimon"]
+dist = [
+    "alpha",
+    "anglit",
+    "arcsine",
+    "argus",
+    # "beta",
+    "betaprime",
+    "bradford",
+    "burr",
+    "burr12",
+    "cauchy",
+    "chi",
+    "chi2",
+    "cosine",
+    "crystalball",
+    "dgamma",
+    "dweibull",
+    "erlang",
+    "expon",
+    "exponnorm",
+    "exponweib",
+    "exponpow",
+    "f",
+    "fatiguelife",
+    "fisk",
+    "foldcauchy",
+    # "foldnorm",
+    "genlogistic",
+    "gennorm",
+    "genpareto",
+    "genexpon",
+    "genextreme",
+    "gausshyper",
+    "gamma",
+    "gengamma",
+    "genhalflogistic",
+    "geninvgauss",
+    "gilbrat",
+    "gompertz",
+    "gumbel_r",
+    "gumbel_l",
+    "halfcauchy",
+    "halflogistic",
+    "halfnorm",
+    "halfgennorm",
+    "hypsecant",
+    "invgamma",
+    "invgauss",
+    "invweibull",
+    "johnsonsb",
+    "johnsonsu",
+    "kappa4",
+    "kappa3",
+    "ksone",
+    "kstwobign",
+    "laplace",
+    "levy",
+    "levy_l",
+    "levy_stable",
+    "logistic",
+    "loggamma",
+    "loglaplace",
+    # "lognorm",
+    "loguniform",
+    "lomax",
+    "maxwell",
+    "mielke",
+    "moyal",
+    "nakagami",
+    "ncx2",
+    "ncf",
+    "nct",
+    # "norm",
+    "norminvgauss",
+    "pareto",
+    "pearson3",
+    "powerlaw",
+    "powerlognorm",
+    "powernorm",
+    "rdist",
+    "rayleigh",
+    "rice",
+    "recipinvgauss",
+    "semicircular",
+    "skewnorm",
+    "t",
+    # "trapz",
+    "triang",
+    "truncexpon",
+    "truncnorm",
+    "tukeylambda",
+    # "uniform",
+    "vonmises",
+    "vonmises_line",
+    "wald",
+    "weibull_min",
+    "weibull_max",
+    "wrapcauchy",
+    "bernoulli",
+    "betabinom",
+    "binom",
+    "boltzmann",
+    "dlaplace",
+    "geom",
+    "hypergeom",
+    "logser",
+    "nbinom",
+    "planck",
+    "poisson",
+    "randint",
+    "skellam",
+    "zipf",
+    "yulesimon"
+ ]
 
 
 class parametric:
@@ -44,29 +157,26 @@ class parametric:
         x = np.linspace(support.left,support.right,steps)
 
         #get bound arguments
-        new_args = product(*args)
+        new_args = list(product(*args))
 
-        bounds = []
+        bounds = np.empty((len(new_args),steps))
         means = []
         variances = []
 
-        for a in new_args:
+        for i,a in enumerate(new_args):
 
-            bounds.append(stats.__dict__[self.function_name].ppf(x,*a,**kwargs))
+            bounds[i,:] = stats.__dict__[self.function_name].ppf(x,*a,**kwargs)
             m, v = stats.__dict__[self.function_name].stats(*a,**kwargs,moments = 'mv')
 
             means.append(m)
             variances.append(v)
             
 
-        Left = [min([b[i] for b in bounds]) for i in range(steps)]
-        Right = [max([b[i] for b in bounds]) for i in range(steps)]
+        Left = np.array([min([b[i] for b in bounds]) for i in range(steps)])
+        Right = np.array([max([b[i] for b in bounds]) for i in range(steps)])
 
         mean  = Interval(min(means),max(means))
         var = Interval(min(variances),max(variances))
-
-        Left = np.array(Left)
-        Right = np.array(Right)
         
         return Pbox(
             left=Left,
