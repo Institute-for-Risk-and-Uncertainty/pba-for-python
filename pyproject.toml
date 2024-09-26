@@ -15,7 +15,7 @@ authors = [
     {name = "Nick Gray", email = "ngg@liv.ac.uk"}
 ]
 description = "Probability Bounds Analysis in Python"
-readme = "README.rst"
+readme = "README.md"
 license = {file = "LICENSE"}
 [project.urls]
 Documentation = "https://pba-for-python.readthedocs.io/en/latest/"
