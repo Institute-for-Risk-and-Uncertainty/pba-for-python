@@ -305,6 +305,7 @@ class Pbox:
     """
 
     STEPS = 200
+    _MN = 1e-4
 
     def __init__(
         self,
@@ -847,7 +848,7 @@ class Pbox:
         label=None,
         **kwargs,
     ):
-        """
+        r"""
         Plots the p-box
 
         **Arguments:**
@@ -919,38 +920,18 @@ class Pbox:
 
     plot = show
 
-    def get_interval(self, *args) -> Interval:
+    def get_interval(self, p: float) -> Interval:
+        """
+        Returns the interval for the given probability
+        """
+        assert 0 < p < 1
 
-        if len(args) == 1:
+        y = np.linspace(Pbox._MN, 1 - Pbox._MN, self.steps)
 
-            if args[0] == 1:
-                # asking for whole pbox bounds
-                return Interval(min(self.left), max(self.right))
+        left_val = self.left[np.abs(y - p).argmin()]
+        right_val = self.right[np.abs(y - p).argmin()]
 
-            p1 = (1 - args[0]) / 2
-            p2 = 1 - p1
-
-        elif len(args) == 2:
-
-            p1 = args[0]
-            p2 = args[1]
-
-        else:
-            raise Exception("Too many inputs")
-
-        y = np.append(np.insert(np.linspace(0, 1, self.steps), 0, 0), 1)
-
-        y1 = 0
-        while y[y1] < p1:
-            y1 += 1
-
-        y2 = len(y) - 1
-        while y[y2] > p2:
-            y2 -= 1
-
-        x1 = self.left[y1]
-        x2 = self.right[y2]
-        return Interval(x1, x2)
+        return Interval(left_val, right_val)
 
     def get_probability(self, val) -> Interval:
         """

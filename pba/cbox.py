@@ -3,6 +3,11 @@ if __name__ is not None and "." in __name__:
 else:
     from pbox import Pbox
 
+if __name__ is not None and "." in __name__:
+    from .interval import Interval
+else:
+    from interval import Interval
+
 import numpy as np
 from matplotlib import pyplot as plt
 from typing import List, Tuple, Union
@@ -132,6 +137,22 @@ class Cbox(Pbox):
 
     def recip(self):
         return Cbox(super().recip())
+
+    def get_confidence_interval(self, alpha1=0.95, alpha2=None) -> Interval:
+
+        if alpha2 is None:
+
+            alpha1 = (1 - alpha1) / 2
+            alpha2 = 1 - alpha1
+
+        else:
+
+            assert alpha1 < alpha2
+
+        left = self.get_interval(alpha1)
+        right = self.get_interval(alpha2)
+
+        return Interval(left.left, right.right)
 
 
 def singh(

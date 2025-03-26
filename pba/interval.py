@@ -1,6 +1,4 @@
-r"""
-
-"""
+r""" """
 
 from typing import Union
 import numpy as np
@@ -779,7 +777,7 @@ class Interval:
         return self.right
 
     def width(self) -> float:
-        """
+        r"""
         **Returns**:
 
             ``float``: The width of the interval, :math:`\mathrm{right} - \mathrm{left}`
@@ -793,7 +791,7 @@ class Interval:
         return self.right - self.left
 
     def halfwidth(self) -> float:
-        """
+        r"""
         **Returns**:
 
             ``float``: The half-width of the interval, :math:`(\mathrm{right} - \mathrm{left})/2`
@@ -811,7 +809,7 @@ class Interval:
         return self.width() / 2
 
     def midpoint(self) -> float:
-        """
+        r"""
         **Returns**:
 
                 ``float``: The midpoint of the interval, :math:`(\mathrm{right} + \mathrm{left})/2`
@@ -894,7 +892,7 @@ class Interval:
     def straddles(
         self, N: Union[int, float, "Interval"], endpoints: bool = True
     ) -> bool:
-        """
+        r"""
         .. _interval.straddles:
 
         **Parameters**:

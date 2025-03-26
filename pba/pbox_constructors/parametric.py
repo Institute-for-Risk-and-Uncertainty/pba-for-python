@@ -140,9 +140,7 @@ class parametric:
     def __init__(self, function_name):
         self.function_name = function_name
 
-    def make_pbox(
-        self, *args, steps=200, support=Interval(1e-4, 1 - 1e-4), **kwargs
-    ) -> Pbox:
+    def make_pbox(self, *args, steps: int = Pbox.STEPS, **kwargs) -> Pbox:
         f"""
         Generate a P-box from a scipy.stats.{self.function_name} distribution.
         """
@@ -152,7 +150,7 @@ class parametric:
                 args[i] = Interval(a)
 
         # define support
-        x = np.linspace(support.left, support.right, steps)
+        x = np.linspace(Pbox._MN, 1 - Pbox._MN, steps)
 
         # get bound arguments
         new_args = list(product(*args))
@@ -176,7 +174,12 @@ class parametric:
         var = Interval(min(variances), max(variances))
 
         return Pbox(
-            left=Left, right=Right, mean=mean, var=var, shape=self.function_name
+            left=Left,
+            right=Right,
+            mean=mean,
+            var=var,
+            shape=self.function_name,
+            check_moments=False,
         )
 
 
