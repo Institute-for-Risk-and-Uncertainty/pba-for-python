@@ -171,44 +171,67 @@ def foldnorm(mu, s, steps=200):
     )
 
 
-# def frechet_r(*args, steps = 200):
-#     args = list(args)
-#     for i in range(0,len(args)):
-#         if args[i].__class__.__name__ != 'Interval':
-#             args[i] = Interval(args[i])
+def t(mean, std, df, steps=200):
+        
+    def t_from_mean_std_df(mean: float, std: float, df: float):
 
-#     Left, Right, mean, var = __get_bounds('frechet_r',steps,*args)
+        scale = std * np.sqrt((df - 2.0) / df)
+        return stats.t(df=df, loc=mean, scale=scale)
 
-#     return Pbox(
-#           Left,
-#           Right,
-#           steps      = steps,
-#           shape      = 'frechet_r',
-#           mean_left  = mean.left,
-#           mean_right = mean.right,
-#           var_left   = var.left,
-#           var_right  = var.right
-#           )
+    if mean.__class__.__name__ != "Interval":
+        mean = Interval(mean)
+    if std.__class__.__name__ != "Interval":
+        std = Interval(std)
 
-# def frechet_l(*args, steps = 200):
-#     args = list(args)
-#     for i in range(0,len(args)):
-#         if args[i].__class__.__name__ != 'Interval':
-#             args[i] = Interval(args[i])
+    if df <= 2:
+        raise ValueError(f"df must be > 2 to have a finite std (got df={df}).")
 
-#     Left, Right, mean, var = __get_bounds('frechet_l',steps,*args)
+    x = np.linspace(0.0001, 0.9999, steps)
 
-#     return Pbox(
-#           Left,
-#           Right,
-#           steps      = steps,
-#           shape      = 'frechet_l',
-#           mean_left  = mean.left,
-#           mean_right = mean.right,
-#           var_left   = var.left,
-#           var_right  = var.right
-#           )
+    new_args = [
+        [mean.lo() / std.lo()],
+        [mean.hi() / std.lo()],
+        [mean.lo() / std.hi()],
+        [mean.hi() / std.hi()],
+    ]
 
+    bounds = []
+
+    mean_hi = -np.inf
+    mean_lo = np.inf
+    var_lo = np.inf
+    var_hi = 0
+
+    for mu,sigma in new_args:
+
+        t_ = t_from_mean_std_df(mu,sigma,df)
+        bounds.append(t_.ppf(x))
+        bmean, bvar = t_.stats(moments="mv")
+
+        if bmean < mean_lo:
+            mean_lo = bmean
+        if bmean > mean_hi:
+            mean_hi = bmean
+        if bvar > var_hi:
+            var_hi = bvar
+        if bvar < var_lo:
+            var_lo = bvar
+
+    mean = Interval(np.float64(mean_lo), np.float64(mean_hi))
+
+    Left = [min([b[i] for b in bounds]) for i in range(steps)]
+    Right = [max([b[i] for b in bounds]) for i in range(steps)]
+
+    return Pbox(
+        Left,
+        Right,
+        steps=steps,
+        shape="foldnorm",
+        mean_left=mean.left,
+        mean_right=mean.right,
+        var_left=var.left,
+        var_right=var.right,
+    )
 
 def trapz(a, b, c, d, steps=200):
     if a.__class__.__name__ != "Interval":

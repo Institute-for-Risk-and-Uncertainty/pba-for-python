@@ -104,7 +104,7 @@ dist = [
     "recipinvgauss",
     "semicircular",
     "skewnorm",
-    "t",
+    # "t",
     # "trapz",
     "triang",
     "truncexpon",

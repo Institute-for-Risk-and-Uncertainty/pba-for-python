@@ -2,7 +2,7 @@ from decimal import DivisionByZero
 import itertools
 from typing import *
 from warnings import *
-
+from math import isclose
 import numpy as np
 from matplotlib import pyplot as plt
 from scipy import interpolate as spi
@@ -86,6 +86,12 @@ def _check_steps(a, b):
 
 def _check_moments(left, right, steps, mean, var):
 
+    def nearly(x: Interval, y: Interval):
+        if isclose(x.left,y.left) and isclose(x.right, y.right):
+            return True
+        else:
+            return False
+
     def _sideVariance(w, mu):
         if not isinstance(w, np.ndarray):
             w = np.array(w)
@@ -94,7 +100,7 @@ def _check_moments(left, right, steps, mean, var):
         return max(0, np.mean((w - mu) ** 2))
 
     cmean = Interval(np.mean(left), np.mean(right))
-    if not mean.equiv(cmean) and not mean.equiv(Interval(-np.inf, np.inf)):
+    if not nearly(mean, cmean) and not mean.equiv(Interval(-np.inf, np.inf)):
         warn("Mean specified does not match calculated mean. Using calculated mean")
         print(f"Specified mean: {mean}, calculated mean: {cmean}")
         mean = cmean
@@ -142,7 +148,7 @@ def _check_moments(left, right, steps, mean, var):
 
     cvar = Interval(vl, vr)
 
-    if not var.equiv(cvar) and not var.equiv(Interval(0, np.inf)):
+    if not nearly(var, cvar) and not var.equiv(Interval(0, np.inf)):
         warn(
             "Variance specified does not match calculated variance. Using calculated variance"
         )
@@ -157,10 +163,10 @@ def _check_moments(left, right, steps, mean, var):
 def _arithmetic(a, b, method, op, enforce_steps=True, interpolation_method="linear"):
     # * If enforce_steps is True, the number of steps in the returned p-box is the maximum of the number of steps in a and b.
 
-    if b.__class__.__name__ == "Interval":
+    if isinstance(b, Interval):
         other = Pbox(other, steps=a.steps)
 
-    if b.__class__.__name__ == "Pbox":
+    if isinstance(b, Pbox) or issubclass(b.__class__,Pbox):
 
         a, b = _check_steps(a, b)
 
