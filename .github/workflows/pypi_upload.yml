@@ -45,25 +45,25 @@ jobs:
         VERSION: ${{ env.VERSION }}
       run: |
         python - <<'PY'
-from pathlib import Path
-import os
-import re
+        from pathlib import Path
+        import os
+        import re
 
-version = os.environ.get("VERSION")
-if not version:
-    raise SystemExit("VERSION environment variable is required")
+        version = os.environ.get("VERSION")
+        if not version:
+            raise SystemExit("VERSION environment variable is required")
 
-def update_file(path: str, pattern: str, replacement: str) -> None:
-    file_path = Path(path)
-    text = file_path.read_text()
-    new_text, count = re.subn(pattern, replacement, text, flags=re.MULTILINE)
-    if count != 1:
-        raise SystemExit(f"Failed to update {path}: pattern not found or not unique")
-    file_path.write_text(new_text)
+        def update_file(path: str, pattern: str, replacement: str) -> None:
+            file_path = Path(path)
+            text = file_path.read_text()
+            new_text, count = re.subn(pattern, replacement, text, flags=re.MULTILINE)
+            if count != 1:
+                raise SystemExit(f"Failed to update {path}: pattern not found or not unique")
+            file_path.write_text(new_text)
 
-update_file("pyproject.toml", r'^version = ".*"$', f'version = "{version}"')
-update_file("setup.py", r"version='[^']*'", f"version='{version}'")
-PY
+        update_file("pyproject.toml", r'^version = ".*"$', f'version = "{version}"')
+        update_file("setup.py", r"version='[^']*'", f"version='{version}'")
+        PY
         git status --short
 
     - name: Commit version update
