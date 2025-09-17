@@ -5,7 +5,7 @@ on:
     types: [published]
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   update-version:
@@ -14,16 +14,19 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.repository.default_branch }}
+        fetch-depth: 0
 
     - name: Set up Python
       uses: actions/setup-python@v3
       with:
         python-version: '3.x'
 
-    - name: Install dependencies
+    - name: Install build tooling
       run: |
         python -m pip install --upgrade pip
-        pip install bump2version build twine
+        pip install build
 
     - name: Extract version from tag
       id: extract_version
@@ -37,15 +40,46 @@ jobs:
         git config --global user.email "actions@github.com"
         git config --global user.name "GitHub Actions"
 
-    - name: Update version in pyproject.toml
+    - name: Update project version files
+      env:
+        VERSION: ${{ env.VERSION }}
       run: |
-        # Use bump2version to update version in pyproject.toml
-        bump2version --new-version $VERSION patch  # or minor/major based on your needs
-        # Check if there are any changes to commit
+        python - <<'PY'
+from pathlib import Path
+import os
+import re
+
+version = os.environ.get("VERSION")
+if not version:
+    raise SystemExit("VERSION environment variable is required")
+
+def update_file(path: str, pattern: str, replacement: str) -> None:
+    file_path = Path(path)
+    text = file_path.read_text()
+    new_text, count = re.subn(pattern, replacement, text, flags=re.MULTILINE)
+    if count != 1:
+        raise SystemExit(f"Failed to update {path}: pattern not found or not unique")
+    file_path.write_text(new_text)
+
+update_file("pyproject.toml", r'^version = ".*"$', f'version = "{version}"')
+update_file("setup.py", r"version='[^']*'", f"version='{version}'")
+PY
+        git status --short
+
+    - name: Commit version update
+      env:
+        VERSION: ${{ env.VERSION }}
+        DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+      run: |
+        BRANCH="$DEFAULT_BRANCH"
+        if [ -z "$BRANCH" ]; then
+          echo "Default branch is not defined" >&2
+          exit 1
+        fi
+        git checkout "$BRANCH"
         if [ -n "$(git status --porcelain)" ]; then
           git commit -am "Update version to $VERSION"
-          git push
-          git push --tags
+          git push origin HEAD:"$BRANCH"
         else
           echo "No changes to commit"
         fi
