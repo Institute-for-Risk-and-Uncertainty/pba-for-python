@@ -35,24 +35,7 @@ class Cbox(Pbox):
             super().__init__(*args, **kwargs)
 
     def __repr__(self):
-        if self.mean_left == self.mean_right:
-            mean_text = f"{round(self.mean_left, 4)}"
-        else:
-            mean_text = f"[{round(self.mean_left, 4)}, {round(self.mean_right, 4)}]"
-
-        if self.var_left == self.var_right:
-            var_text = f"{round(self.var_left, 4)}"
-        else:
-            var_text = f"[{round(self.var_left, 4)}, {round(self.var_right, 4)}]"
-
-        range_text = f"[{round(np.min([self.left, self.right]), 4), round(np.max([self.left, self.right]), 4)}"
-
-        if self.shape is None:
-            shape_text = " "
-        else:
-            shape_text = f" {self.shape}"  # space to start; see below lacking space
-
-        return f"Cbox: ~ {shape_text} (range={range_text}, mean={mean_text}, var={var_text})"
+        return super().__str__().replace("Pbox","Cbox")
 
     __str__ = __repr__
 
